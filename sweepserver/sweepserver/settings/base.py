@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "storages",
     ## Local apps
+    "core.apps.CoreConfig",
     "auth.person.apps.PersonConfig",
     "auth.phoneverification.apps.PhoneVerificationConfig",
     "auth.user.apps.UserConfig",
