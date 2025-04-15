@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "django_extensions",
     "storages",
+    ## Local apps
+    "auth.person.apps.PersonConfig",
+    "auth.phoneverification.apps.PhoneVerificationConfig",
+    "auth.user.apps.UserConfig",
 ]
 
 MIDDLEWARE = [
