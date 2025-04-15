@@ -24,7 +24,6 @@ class CustomUserCreationForm(forms.ModelForm):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
         user.save()
-        UserProfile.objects.create(user=user)
 
         return user
 
