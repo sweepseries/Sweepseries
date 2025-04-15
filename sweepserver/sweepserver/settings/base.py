@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "core.middlewares.BadResponseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "core.middlewares.DisableCookiesMiddleware",
 ]
 
 ROOT_URLCONF = "sweepserver.urls"
@@ -81,10 +83,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "sweepserver.wsgi.application"
 
 # 계정 관련
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"  ## 로그인 시 사용할 인증 방법: username 또는 email
-ACCOUNT_EMAIL_REQUIRED = True       ## 이메일 필수 여부
-ACCOUNT_USERNAME_REQUIRED = True    ## 아이디 필수 여부
-ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_LOGIN_METHODS = {"username", "email"}  ## 로그인 방법
 
 AUTH_USER_MODEL = "user.User"
 PHONENUMBER_DEFAULT_REGION = "KR"
