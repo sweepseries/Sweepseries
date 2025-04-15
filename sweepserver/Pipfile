@@ -5,9 +5,35 @@ name = "pypi"
 
 [packages]
 django = "==5.2"
+django-extensions = "*"
+djangorestframework = "*"
+drf-spectacular = "*"
+python-decouple = "*"
+psycopg2-binary = "*"
+django-storages = "*"
+pillow = "*"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
+dj-rest-auth = "*"
+djangorestframework-simplejwt = "*"
+django-allauth = "*"
+django-cors-headers = "*"
+gunicorn = "*"
+whitenoise = "*"
+requests = "*"
+python-dateutil = "*"
+boto3 = "==1.35.83"
+botocore = "==1.35.83"
 
 [dev-packages]
 black = "*"
+django-stubs = "*"
+mypy = "*"
+djangorestframework-stubs = "*"
+types-python-dateutil = "*"
+coverage = "*"
+pylint = "*"
+pylint-django = "*"
+requests-mock = "*"
 
 [requires]
 python_version = "3.13"
