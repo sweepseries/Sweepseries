@@ -5,3 +5,4 @@ class UserConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "auth.user"
     label = "user"
+    verbose_name = "회원 (유저)"

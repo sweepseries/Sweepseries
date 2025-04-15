@@ -26,7 +26,7 @@ class Person(models.Model):
     class Meta:
         db_table = "person"
         verbose_name = "사람"
-        verbose_name_plural = "사람들"
+        verbose_name_plural = "사람"
         indexes = [
             models.Index(fields=["phone_number"]),
         ]
