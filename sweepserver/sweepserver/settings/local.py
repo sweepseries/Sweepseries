@@ -1,33 +1,32 @@
-from .base import * # pylint: disable=W0401,W0614
+from .base import *  # pylint: disable=W0401,W0614
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-ADMIN_PAGE_URL = 'http://localhost:3000'
+ADMIN_PAGE_URL = "http://localhost:3000"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
 REST_AUTH = {
-    'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'access',
-    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
-    'JWT_AUTH_SECURE': False,
-    'JWT_AUTH_HTTPONLY': False,
-    'JWT_AUTH_RETURN_EXPIRATION': True,
-    'JWT_AUTH_COOKIE_USE_CSRF' : True,
-    'SESSION_LOGIN': False,
-
-    'USER_DETAILS_SERIALIZER': 'auth.user.serializers.UserAuthSerializer',
+    "USE_JWT": True,
+    "JWT_AUTH_COOKIE": "access",
+    "JWT_AUTH_REFRESH_COOKIE": "refresh",
+    "JWT_AUTH_SECURE": False,
+    "JWT_AUTH_HTTPONLY": False,
+    "JWT_AUTH_RETURN_EXPIRATION": True,
+    "JWT_AUTH_COOKIE_USE_CSRF": True,
+    "SESSION_LOGIN": False,
+    "USER_DETAILS_SERIALIZER": "auth.user.serializers.UserAuthSerializer",
 }
 
 # CORS
@@ -43,22 +42,22 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 ## Kakao Login & Naver Login
-KAKAO_APP_KEY = config('KAKAO_APP_KEY')
-NAVER_CONSUMER_KEY = config('NAVER_CONSUMER_KEY')
-NAVER_CONSUMER_SECRET = config('NAVER_CONSUMER_SECRET')
+KAKAO_APP_KEY = config("KAKAO_APP_KEY")
+NAVER_CONSUMER_KEY = config("NAVER_CONSUMER_KEY")
+NAVER_CONSUMER_SECRET = config("NAVER_CONSUMER_SECRET")
 
 ## Storage
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_KEY')
-AWS_STORAGE_BUCKET_NAME = 'sweepdev'
-AWS_S3_ENDPOINT_URL = 'https://kr.object.ncloudstorage.com'
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_KEY")
+AWS_STORAGE_BUCKET_NAME = "sweepdev"
+AWS_S3_ENDPOINT_URL = "https://kr.object.ncloudstorage.com"
 AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
+    "CacheControl": "max-age=86400",
 }
 AWS_QUERYSTRING_AUTH = False
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_URL = 'https://kr.object.ncloudstorage.com/sweepdev/'
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+MEDIA_URL = "https://kr.object.ncloudstorage.com/sweepdev/"
 
 NAVER_CLIENT_ID = config("NAVER_API_KEY_ID")
 NAVER_CLIENT_SECRET = config("NAVER_API_KEY")
