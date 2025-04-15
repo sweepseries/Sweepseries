@@ -90,6 +90,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ## SMS
 SMS_API_KEY = config("SMS_API_KEY")
+SMS_MESSAGING_MODE = "N"
 
 ## Naver Map
 NAVER_CLIENT_ID = config("NAVER_API_KEY_ID")
