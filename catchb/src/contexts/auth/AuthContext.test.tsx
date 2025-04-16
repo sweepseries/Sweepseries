@@ -122,9 +122,7 @@ describe("Axios Interceptor", () => {
 
     // Perform a GET request that should trigger the interceptor
     await waitFor(async () => {
-      try {
-        await axios.get("/test-endpoint");
-      } catch {}
+      await axios.get("/test-endpoint");
     });
   });
 
@@ -141,9 +139,7 @@ describe("Axios Interceptor", () => {
 
     // Perform a GET request that should trigger the interceptor
     await waitFor(async () => {
-      try {
-        await axios.get("/test-endpoint");
-      } catch {}
+      await axios.get("/test-endpoint");
     });
   });
 
@@ -159,9 +155,7 @@ describe("Axios Interceptor", () => {
 
     // Perform a GET request that should trigger the interceptor
     await waitFor(async () => {
-      try {
-        await axios.get("/test-endpoint");
-      } catch {}
+      await axios.get("/test-endpoint");
     });
   });
 });

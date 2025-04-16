@@ -8,18 +8,18 @@ import { getSecure, removeSecure, saveSecure } from "@services/storage";
 // 기능 2: 자동 로그인 실패 시, 로그인 화면으로 이동.
 // 기능 3: Access token 만료 시, refresh token을 사용하여 자동으로 access token을 갱신.
 
+type SocialLoginResult = "SUCCESS" | "FAILURE" | "REDIRECT";
+
 interface AuthContextType {
-  login: (username: string, password: string) => Promise<any>;
-  socialLogin: (id: number | string) => Promise<any>;
-  logout: () => Promise<any>;
+  login: (username: string, password: string) => Promise<boolean>;
+  socialLogin: (id: number | string) => Promise<SocialLoginResult>;
+  logout: () => Promise<boolean>;
   mode: "pro" | "normal" | "guest";
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<"pro" | "normal" | "guest">("guest");
 
   const login = async (username: string, password: string) => {
@@ -46,9 +46,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       await saveSecure("refreshToken", response.data.refresh);
 
-      return response.data;
+      return true;
     } catch {
-      return null;
+      return false;
     }
   };
 
@@ -75,9 +75,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       ] = `Bearer ${response.data.access}`;
       await saveSecure("refreshToken", response.data.refresh);
 
-      return response.data;
+      return "SUCCESS";
     } catch {
-      return null;
+      return "FAILURE";
     }
   };
 
@@ -99,7 +99,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       return true;
     } catch {
-      return null;
+      return false;
     }
   };
 
@@ -180,7 +180,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const value = useMemo(() => ({ mode, login, socialLogin, logout }), [mode]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
+}
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

@@ -27,9 +27,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.sweepseries.catchb",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "bundler": "metro",
@@ -92,8 +90,17 @@
           "cameraPermission": "캐치비가 카메라에 접근할 수 있도록 허용해주세요."
         }
       ],
-      "expo-router",
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/NPSfont_bold.ttf",
+            "./assets/fonts/NPSfont_extrabold.ttf",
+            "./assets/fonts/NPSfont_regular.ttf"
+          ]
+        }
+      ],
+      "expo-router"
     ],
     "extra": {
       "router": {

@@ -1,7 +1,6 @@
 import "expo-dev-client";
 import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useFonts } from "expo-font";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, SplashScreen } from "expo-router";
 import axios from "axios";
@@ -22,33 +21,15 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    Sweep: require("@assets/fonts/NPSfont_bold.ttf"),
-    SweepLight: require("@assets/fonts/NPSfont_regular.ttf"),
-    SweepBold: require("@assets/fonts/NPSfont_bold.ttf"),
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
   useEffect(() => {
     const getImagePickerPermissions = async () => {
       await ImagePicker.requestMediaLibraryPermissionsAsync();
       await ImagePicker.requestCameraPermissionsAsync();
     };
 
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-
     getImagePickerPermissions();
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
+    SplashScreen.hideAsync();
+  }, []);
 
   return <RootLayoutNav />;
 }

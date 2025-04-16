@@ -13,9 +13,7 @@ const ThemeContext = createContext<ThemeContextType>({
   colorScheme: "light",
 });
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const deviceColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useState<"light" | "dark">(
     deviceColorScheme === "dark" ? "dark" : "light"
@@ -32,7 +30,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
-};
+}
 
 export function useTheme() {
   return useContext(ThemeContext);
