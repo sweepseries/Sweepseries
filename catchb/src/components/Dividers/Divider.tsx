@@ -5,10 +5,7 @@ interface Props {
   bold?: boolean;
 }
 
-export function Divider({
-  color = "#D9D9D9",
-  bold = false,
-}: Readonly<Props>) {
+export function Divider({ color = "#D9D9D9", bold = false }: Readonly<Props>) {
   return (
     <View
       style={{
@@ -20,13 +17,13 @@ export function Divider({
 }
 
 interface VerticalProps {
-  width: number;
+  width?: number;
   color?: string;
 }
 
 export function VerticalDivider({
+  width = 1,
   color = "#D9D9D9",
-  width,
 }: Readonly<VerticalProps>) {
   return (
     <View

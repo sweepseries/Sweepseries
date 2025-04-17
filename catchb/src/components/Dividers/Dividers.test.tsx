@@ -19,7 +19,7 @@ describe("<VerticalDivider>", () => {
   it("renders correctly", () => {
     renderWithProviders(
       <>
-        <VerticalDivider width={1} />
+        <VerticalDivider />
         <VerticalDivider width={1} color="red" />
       </>
     );
