@@ -57,11 +57,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 8,
     borderRadius: 4,
     borderWidth: 0.5,
   },
   text: {
     fontWeight: "bold",
+    textAlign: "center",
+    lineHeight: 24,
+    includeFontPadding: false,
   },
 });

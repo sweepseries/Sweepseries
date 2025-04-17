@@ -53,6 +53,8 @@ const ButtonText = styled.Text`
   text-align: center;
   font-size: 16px;
   font-weight: bold;
+  line-height: 20px;
+  include-font-padding: false;
   color: white;
 `;
 
