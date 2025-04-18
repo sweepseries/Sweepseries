@@ -57,7 +57,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_QUERYSTRING_AUTH = False
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-MEDIA_URL = "https://kr.object.ncloudstorage.com/sweepdev/"
+MEDIA_URL = "https://kr.object.ncloudstorage.com/sweep.dev/"
 
 NAVER_CLIENT_ID = config("NAVER_API_KEY_ID")
 NAVER_CLIENT_SECRET = config("NAVER_API_KEY")
