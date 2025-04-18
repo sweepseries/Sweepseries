@@ -2,7 +2,7 @@ import { ReactElement, PropsWithChildren } from "react";
 import { render } from "@testing-library/react-native";
 import { ThemeProvider } from "styled-components/native";
 
-import { AuthProvider } from "@contexts/auth";
+import { AuthProvider, SignupProvider } from "@contexts/auth";
 import { ThemeProvider as MyThemeProvider, lightColors } from "@contexts/theme";
 
 export const renderWithProviders = (ui: ReactElement) => {
@@ -10,7 +10,9 @@ export const renderWithProviders = (ui: ReactElement) => {
     return (
       <ThemeProvider theme={{ colors: lightColors }}>
         <AuthProvider>
-          <MyThemeProvider>{children}</MyThemeProvider>
+          <SignupProvider>
+            <MyThemeProvider>{children}</MyThemeProvider>
+          </SignupProvider>
         </AuthProvider>
       </ThemeProvider>
     );
