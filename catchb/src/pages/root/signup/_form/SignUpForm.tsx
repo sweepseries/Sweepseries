@@ -49,7 +49,7 @@ export function SignUpForm({
 
 const Wrapper = styled.Pressable`
   flex: 1;
-  padding: 16px 8px;
+  padding: 16px 16px 36px 16px;
   background-color: ${({ theme }: { theme: DefaultTheme }) =>
     theme.colors.background};
 `;
@@ -66,7 +66,6 @@ const Background = styled.View`
 
 const Contents = styled.View`
   flex: 1;
-  padding: 0 16px;
   gap: 16px;
 `;
 
