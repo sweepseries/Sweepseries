@@ -42,13 +42,13 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
-    "drf_standardized_errors",
     "dj_rest_auth",
     "drf_spectacular",
     "django_extensions",
     "storages",
     ## Local apps
     "core.apps.CoreConfig",
+    "app.terms.apps.TermsConfig",
     "auth.person.apps.PersonConfig",
     "auth.phoneverification.apps.PhoneVerificationConfig",
     "auth.user.apps.UserConfig",
@@ -154,11 +154,6 @@ REST_FRAMEWORK = {
         "core.authentication.CsrfExemptSessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
-}
-DRF_STANDARDIZED_ERRORS = {
-    "EXCEPTION_FORMATTER_CLASS": "core.exceptions.SweepServerExceptionFormatter",
-    "ENABLE_IN_DEBUG_FOR_UNHANDLED_EXCEPTIONS": False,
 }
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
