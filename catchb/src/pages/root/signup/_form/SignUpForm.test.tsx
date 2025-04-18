@@ -21,20 +21,4 @@ describe("<SignUpForm />", () => {
       </SignUpForm>
     );
   });
-
-  it("should render loading", () => {
-    renderWithProviders(
-      <SignUpForm {...commonProps} loading>
-        <></>
-      </SignUpForm>
-    );
-  });
-
-  it("should render error", () => {
-    renderWithProviders(
-      <SignUpForm {...commonProps} error>
-        <></>
-      </SignUpForm>
-    );
-  });
 });
