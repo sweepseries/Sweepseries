@@ -69,6 +69,9 @@ class User(AbstractBaseUser):
     naver_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
     kakao_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
 
+    notification_agreed = models.BooleanField(default=False)
+    notification_agreed_at = models.DateTimeField(null=True, blank=True)
+
     USERNAME_FIELD = "username"
 
     def has_perm(self, perm, obj=None):  # pylint: disable=unused-argument
