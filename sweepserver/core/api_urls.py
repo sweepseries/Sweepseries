@@ -9,7 +9,7 @@ from app.views import InitializerView
 
 ## Auth Apps
 from auth.phoneverification.views import RequestVerificationCodeView, VerifyCodeView
-from auth.user.views import CheckUsernameEmailView
+from auth.user.views import CheckUsernameEmailView, CheckPasswordView
 
 
 router = DefaultRouter()
@@ -24,6 +24,7 @@ urlpatterns = [
     path(
         "check-username-email/", CheckUsernameEmailView.as_view(), name="check_username"
     ),
+    path("check-password/", CheckPasswordView.as_view(), name="check_password"),
     path(
         "phone/code/",
         RequestVerificationCodeView.as_view(),
