@@ -38,7 +38,7 @@ class TermsAndConditionsAPITestCase(APITestCase):
         ## 1. with version (DNE)
         response = self.client.get("/v1/privacy_policy/?version=2025-01-01")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertEqual(response.data["error"], "약관 버전이 존재하지 않습니다.")
+        self.assertEqual(response.data["error"], "존재하지 않는 약관입니다.")
 
     def test_terms_of_service(self):
         ## 1. normal
@@ -54,14 +54,13 @@ class TermsAndConditionsAPITestCase(APITestCase):
         ## 1. with version (DNE)
         response = self.client.get("/v1/terms_of_service/?version=2025-01-11")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertEqual(response.data["error"], "약관 버전이 존재하지 않습니다.")
+        self.assertEqual(response.data["error"], "존재하지 않는 약관입니다.")
 
         ## 2. bad version format
         response = self.client.get("/v1/terms_of_service/?version=2025-01")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
-            response.data["error"],
-            "version은 YYYY-MM-DD 형식으로 입력해야 합니다.",
+            response.data["error"], "version은 YYYY-MM-DD 형식으로 입력해야 합니다."
         )
 
     def test_dne(self):
@@ -72,7 +71,7 @@ class TermsAndConditionsAPITestCase(APITestCase):
 
         response = self.client.get("/v1/terms_of_service/")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertEqual(response.data["error"], "요청하신 약관이 존재하지 않습니다.")
+        self.assertEqual(response.data["error"], "존재하지 않는 약관입니다.")
 
 
 class TermsAndConditionsModelsTestCase(TestCase):
@@ -88,7 +87,4 @@ class TermsAndConditionsModelsTestCase(TestCase):
 
     def test_terms_history_str(self):
         terms_history = TermsAndConditionsHistory.objects.get(id=1)
-        self.assertEqual(
-            str(terms_history),
-            "만 14세 이상입니다. - 2025-04-17",
-        )
+        self.assertEqual(str(terms_history), "만 14세 이상입니다. - 2025-04-17")
