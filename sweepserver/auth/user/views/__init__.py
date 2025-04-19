@@ -1,5 +1,6 @@
-from .register import CheckUsernameEmailView
+from .register import CheckUsernameEmailView, CheckPasswordView
 
 __all__ = [
     "CheckUsernameEmailView",
+    "CheckPasswordView",
 ]

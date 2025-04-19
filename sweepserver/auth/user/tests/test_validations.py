@@ -69,3 +69,77 @@ class CheckUsernameEmailAPITestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data["error"], "올바른 이메일 형식이 아닙니다.")
+
+
+class CheckPasswordAPITestCase(APITestCase):
+    def setUp(self):
+        self.url = "/v1/check-password/"
+        self.valid_password = "ValidPassword123!"
+        self.invalid_password = "short"
+        self.invalid_password2 = "differentpassword"
+
+    def test_check_password_success(self):
+        response = self.client.post(
+            self.url,
+            {"password": self.valid_password, "password2": self.valid_password},
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_check_password_fail_bad_requests(self):
+        ## 1. no data
+        response = self.client.post(self.url, {})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["error"], "비밀번호를 입력해주세요.")
+
+        ## 2. empty data
+        response = self.client.post(self.url, {"password": "", "password2": ""})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["error"], "비밀번호를 입력해주세요.")
+
+        ## 3. not match
+        response = self.client.post(
+            self.url,
+            {"password": self.valid_password, "password2": self.invalid_password2},
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["error"], "비밀번호가 일치하지 않습니다.")
+
+    def test_check_password_fail_invalid(self):
+        ## 1. too short
+        response = self.client.post(
+            self.url,
+            {"password": self.invalid_password, "password2": self.invalid_password},
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["error"], "비밀번호는 8자리 이상이어야 합니다.")
+
+        ## 2. no alphabet
+        response = self.client.post(
+            self.url,
+            {"password": "12345678", "password2": "12345678"},
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            response.data["error"], "비밀번호는 하나 이상의 영문이 포함되어야 합니다."
+        )
+
+        ## 3. no number
+        response = self.client.post(
+            self.url,
+            {"password": "Password!", "password2": "Password!"},
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            response.data["error"], "비밀번호는 하나 이상의 숫자가 포함되어야 합니다."
+        )
+
+        ## 4. no special character
+        response = self.client.post(
+            self.url,
+            {"password": "Password123", "password2": "Password123"},
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            response.data["error"],
+            "비밀번호는 적어도 하나 이상의 특수문자가 포함되어야 합니다.",
+        )
