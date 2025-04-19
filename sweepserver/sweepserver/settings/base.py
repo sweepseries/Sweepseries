@@ -154,6 +154,7 @@ REST_FRAMEWORK = {
         "core.authentication.CsrfExemptSessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+    "EXCEPTION_HANDLER": "core.exceptions.custom_exception_handler",
 }
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
