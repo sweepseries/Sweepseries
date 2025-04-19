@@ -9,7 +9,7 @@ import { AppIcon } from "@components/Icons";
 import { useAlert } from "@contexts/app";
 import { useSignup } from "@contexts/auth";
 import { useTheme } from "@contexts/theme";
-import { SignUpForm } from "@features/CatchB";
+import { SignUpForm } from "@features/Auth";
 import {
   TermsAndConditionsCheckType,
   TermsAndConditionsType,
@@ -165,12 +165,7 @@ interface Props {
   rightPress?: () => void;
 }
 
-function Checkbox({
-  text,
-  checked,
-  onChange,
-  rightPress,
-}: Readonly<Props>) {
+function Checkbox({ text, checked, onChange, rightPress }: Readonly<Props>) {
   const { theme } = useTheme();
 
   return (
