@@ -7,9 +7,7 @@ from rest_framework.response import Response
 
 
 class InitializerView(GenericAPIView):
-    permission_classes = [
-        AllowAny,
-    ]
+    permission_classes = [AllowAny]
     http_method_names = ["get", "head", "options"]
 
     @extend_schema(summary="초기화", tags=["기본"])
