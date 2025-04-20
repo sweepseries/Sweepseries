@@ -6,6 +6,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from ..serializers import CatchBRegisterSerializer
 from ..validators import EmailValidator, UsernameValidator
 
 
@@ -57,3 +58,36 @@ class CheckPasswordView(GenericAPIView):
         validate_password(password)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class RegisterView(GenericAPIView):
+    """
+    회원가입 API
+        - url: POST /v1/register/
+        - 현재 총 3가지 모드를 지원: CatchB, Naver, Kakao (2025 4월 기준)
+    """
+
+    permission_classes = [AllowAny]
+    http_method_names = ["post"]
+
+    @extend_schema(summary="회원가입", tags=["회원 관리"])
+    def post(self, request):
+        data = request.data
+
+        register_mode = data.pop("mode", None)
+
+        if register_mode == "catchb":
+            serializer = CatchBRegisterSerializer(data=data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        elif register_mode == "naver":
+            pass
+        elif register_mode == "kakao":
+            pass
+        else:
+            return Response(
+                data={"error": "지원하지 않는 모드입니다."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return Response(data={"message": "created"}, status=status.HTTP_201_CREATED)
