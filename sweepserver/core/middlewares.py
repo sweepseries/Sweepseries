@@ -6,16 +6,6 @@ from django.utils.deprecation import MiddlewareMixin
 
 logger = logging.getLogger('gunicorn.error')
 
-class DisableCookiesMiddleware(MiddlewareMixin):
-    def process_response(self, request, response):
-        user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
-
-        if 'sweep' in user_agent:
-            response.delete_cookie('sessionid')
-            response.delete_cookie('csrftoken')
-
-        return response
-
 class BadResponseMiddleware(MiddlewareMixin):
     def process_exception(self, request, exception):
         if settings.DEBUG or 'unittest' in sys.modules:
