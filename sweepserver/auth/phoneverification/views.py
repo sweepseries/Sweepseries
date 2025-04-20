@@ -1,19 +1,17 @@
-import logging
 import random
 import requests
 from django.conf import settings
 from django.utils import timezone
 from drf_spectacular.utils import extend_schema
+from phonenumber_field.validators import validate_international_phonenumber
 from rest_framework import status
 from rest_framework.exceptions import APIException, ValidationError
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from auth.person.models import Person
+from auth.validators import PhoneNumberValidator
 from .models import PhoneVerification
-
-logger = logging.getLogger(__name__)
 
 
 class RequestVerificationCodeView(GenericAPIView):
@@ -24,9 +22,6 @@ class RequestVerificationCodeView(GenericAPIView):
 
     permission_classes = [AllowAny]
     http_method_names = ["post"]
-
-    def generate_verification_code(self):
-        return f"{random.randint(0, 999999):06}"
 
     def send_verification_code_using_aligo(self, phone_number, code):
         try:
@@ -47,7 +42,6 @@ class RequestVerificationCodeView(GenericAPIView):
             )
             res.raise_for_status()
         except requests.RequestException as e:
-            logger.error("SMS API call failed: %s", e)
             raise APIException("인증번호 발송에 실패했습니다.") from e
 
         if int(res.json()["result_code"]) != 1:
@@ -64,13 +58,10 @@ class RequestVerificationCodeView(GenericAPIView):
         """
         phone_number = request.data.get("phone", None)
 
-        if not phone_number:
-            raise ValidationError("전화번호를 입력해주세요.")
+        PhoneNumberValidator()(phone_number)
+        validate_international_phonenumber(phone_number)
 
-        if Person.objects.filter(phone_number=phone_number).exists():
-            raise ValidationError("이미 가입된 전화번호입니다.")
-
-        code = self.generate_verification_code()
+        code = f"{random.randint(0, 999999):06}"
 
         self.send_verification_code_using_aligo(phone_number, code)
 
@@ -90,16 +81,7 @@ class VerifyCodeView(GenericAPIView):
     permission_classes = [AllowAny]
     http_method_names = ["post"]
 
-    @extend_schema(summary="전화번호 인증 확인", tags=["전화번호 인증"])
-    def post(self, request):
-        """
-        휴대폰 인증번호 확인
-            - 전화번호와 인증번호를 입력받아 인증번호를 확인한다.
-            - 입력된 전화번호에 대해서 가장 최근에 발급된 인증번호와 일치하는지, 그리고 발급한지 3분 이내인지 확인한다.
-        """
-        phone_number = request.data.get("phone", None)
-        verification_code = request.data.get("code", None)
-
+    def verify_code(self, phone_number: str, verification_code: str) -> None:
         if not phone_number or not verification_code:
             raise ValidationError("전화번호와 인증번호를 입력해주세요.")
 
@@ -118,5 +100,17 @@ class VerifyCodeView(GenericAPIView):
         ## Check if the code is expired: 3 minutes
         if (timezone.now() - phone_verification.created_at).seconds > 180:
             raise ValidationError("인증번호가 만료되었습니다.")
+
+    @extend_schema(summary="전화번호 인증 확인", tags=["전화번호 인증"])
+    def post(self, request):
+        """
+        휴대폰 인증번호 확인
+            - 전화번호와 인증번호를 입력받아 인증번호를 확인한다.
+            - 입력된 전화번호에 대해서 가장 최근에 발급된 인증번호와 일치하는지, 그리고 발급한지 3분 이내인지 확인한다.
+        """
+        phone_number = request.data.get("phone", None)
+        verification_code = request.data.get("code", None)
+
+        self.verify_code(phone_number, verification_code)
 
         return Response(status=status.HTTP_204_NO_CONTENT)

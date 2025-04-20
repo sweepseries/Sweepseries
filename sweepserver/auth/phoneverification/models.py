@@ -1,8 +1,9 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class PhoneVerification(models.Model):
-    phone_number = models.CharField(max_length=20)
+    phone_number = PhoneNumberField()
     verification_code = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
 
