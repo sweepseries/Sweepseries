@@ -3,18 +3,24 @@ from django.core.exceptions import (
     ValidationError as DjangoValidationError,
 )
 from rest_framework import status
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import APIException, ValidationError
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
+
+def get_drf_api_error_response(e: APIException) -> Response:
+    """
+    DRF APIException을 처리하는 함수
+    """
+
+    return Response(
+        data={"error": e.detail}, status=status.HTTP_400_BAD_REQUEST
+    )
 
 def get_drf_validation_error_response(e: ValidationError) -> Response:
     """
     DRF ValidationError를 처리하는 함수
     """
-    if isinstance(e.detail, dict):
-        return Response(data={"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
-
     if isinstance(e.detail, list):
         return Response(data={"error": e.detail[0]}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -34,7 +40,7 @@ def get_django_validation_error_response(e: DjangoValidationError) -> Response:
     """
     Django ValidationError를 처리하는 함수
     """
-    return Response(data={"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    return Response(data={"error": e.message}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def custom_exception_handler(exc, context):
@@ -43,11 +49,14 @@ def custom_exception_handler(exc, context):
     """
     response = exception_handler(exc, context)
 
-    print("exc", exc.__class__.__name__)
+    # print(exc.__class__.__name__)   ## debugging
 
     if response is not None:
         if isinstance(exc, ValidationError):
             return get_drf_validation_error_response(exc)
+
+        if isinstance(exc, APIException):
+            return get_drf_api_error_response(exc)
 
         return response
 
