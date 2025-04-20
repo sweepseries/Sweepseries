@@ -1,4 +1,8 @@
-import { AuthInputTitle, AuthTextInput } from "./_components";
+import {
+  AuthInputTitle,
+  AuthTextInput,
+  PhoneNumberInputs,
+} from "./_components";
 import { renderWithProviders } from "@utils/test-utils";
 
 describe("<AuthTextInput />", () => {
@@ -10,5 +14,18 @@ describe("<AuthTextInput />", () => {
 describe("<AuthInputTitle />", () => {
   it("renders correctly", () => {
     renderWithProviders(<AuthInputTitle>Test</AuthInputTitle>);
+  });
+});
+
+describe("<PhoneNumberInputs />", () => {
+  it("renders correctly", () => {
+    renderWithProviders(
+      <PhoneNumberInputs
+        middleNumber="1234"
+        lastNumber="5678"
+        setMiddleNumber={jest.fn()}
+        setLastNumber={jest.fn()}
+      />
+    );
   });
 });

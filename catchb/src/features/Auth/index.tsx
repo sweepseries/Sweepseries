@@ -1,4 +1,8 @@
 import { SignUpForm } from "./SignUpForm/SignUpForm";
-import { AuthInputTitle, AuthTextInput } from "./_components";
+import {
+  AuthInputTitle,
+  AuthTextInput,
+  PhoneNumberInputs,
+} from "./_components";
 
-export { AuthInputTitle, AuthTextInput, SignUpForm };
+export { AuthInputTitle, AuthTextInput, PhoneNumberInputs, SignUpForm };
