@@ -153,6 +153,46 @@ jest.mock("@contexts/theme", () => {
   };
 });
 
+jest.mock("@features/Auth", () => {
+  const { TextInput, TouchableOpacity, View } =
+    jest.requireActual("react-native");
+
+  return {
+    AuthInputTitle: () => <View />,
+    AuthTextInput: ({
+      onChangeText,
+      placeholder,
+    }: {
+      onChangeText: (value: string) => void;
+      placeholder: string;
+    }) => <TextInput onChangeText={onChangeText} testID={placeholder} />,
+    PhoneNumberInputs: ({
+      setMiddleNumber,
+      setLastNumber,
+    }: {
+      setMiddleNumber: (value: string) => void;
+      setLastNumber: (value: string) => void;
+    }) => (
+      <View>
+        <TextInput onChangeText={setMiddleNumber} testID="middle-number" />
+        <TextInput onChangeText={setLastNumber} testID="last-number" />
+      </View>
+    ),
+    SignUpForm: ({
+      children,
+      buttonOnPress,
+    }: {
+      children: React.ReactNode;
+      buttonOnPress: () => void;
+    }) => (
+      <View>
+        {children}
+        <TouchableOpacity onPress={buttonOnPress} testID="button" />
+      </View>
+    ),
+  };
+});
+
 jest.mock("@services/storage", () => ({
   getSecure: jest.fn().mockResolvedValue("asdf"),
   removeSecure: jest.fn().mockResolvedValue({}),
