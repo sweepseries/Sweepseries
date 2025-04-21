@@ -16,7 +16,7 @@ export const sampleTermsAndConditions: TermsAndConditionsType[] = [
   {
     id: 3,
     title: "알림 수신 동의",
-    content: "알림 수신 동의의 내용",
+    content: "",
     is_required: false,
   },
 ];

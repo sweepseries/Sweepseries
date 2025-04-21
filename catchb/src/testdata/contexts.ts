@@ -14,22 +14,14 @@ export const defaultSignupContext = {
   setUsernameEmail: jest.fn(),
   setPasswords: jest.fn(),
   setNamePhone: jest.fn(),
-  mode: "catchb",
-  user: {
+  data: {
+    mode: "catchb",
     username: "",
     email: "",
-    password: "",
-    password2: "",
     name: "",
     phone: "",
+    notifications: false,
   },
-  profile: {
-    gender: "",
-    birthdate: "",
-    nickname: "",
-    profileImage: "",
-  },
-  notificationsAgreed: false,
 };
 
 export const defaultThemeContext = {
