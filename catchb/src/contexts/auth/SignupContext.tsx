@@ -1,27 +1,14 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 
+import { RegisterDataType } from "@models/auth";
+
 interface SignupContextType {
   setNotificationsAgreed: (agreed: boolean) => void;
   setUsernameEmail: (username: string, email: string) => void;
   setPasswords: (password: string, password2: string) => void;
   setNamePhone: (name: string, phone: string) => void;
-  mode: string;
-  user: {
-    username: string;
-    email: string;
-    password: string;
-    password2: string;
-    name: string;
-    phone: string;
-  };
-  profile: {
-    gender: string;
-    birthdate: string;
-    nickname: string;
-    profileImage: string;
-  };
-  notificationsAgreed: boolean;
+  data: RegisterDataType;
 }
 
 const SignupContext = createContext<SignupContextType | undefined>(undefined);
@@ -133,33 +120,41 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const user = useMemo(
-    () => ({ username, email, password, password2, name, phone }),
-    [username, email, password, password2, name, phone]
-  );
-
-  const profile = useMemo(
-    () => ({
-      gender,
-      birthdate,
-      nickname,
-      profileImage,
-    }),
-    [gender, birthdate, nickname, profileImage]
-  );
-
   const value = useMemo(
     () => ({
       setNotificationsAgreed,
       setUsernameEmail,
       setPasswords,
       setNamePhone,
-      mode,
-      user: user,
-      profile: profile,
-      notificationsAgreed,
+      data: {
+        mode,
+        username,
+        email,
+        name,
+        phone,
+        notifications: notificationsAgreed,
+        password,
+        password2,
+        birthdate,
+        gender,
+        nickname,
+        profile_image: profileImage,
+      },
     }),
-    [mode, user, profile, notificationsAgreed]
+    [
+      mode,
+      username,
+      email,
+      name,
+      phone,
+      notificationsAgreed,
+      password,
+      password2,
+      birthdate,
+      gender,
+      nickname,
+      profileImage,
+    ]
   );
 
   return (
