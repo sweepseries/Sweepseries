@@ -7,14 +7,23 @@ from ..models import User
 class RegisterAPITestCase(APITestCase):
     def setUp(self):
         self.url = "/v1/register/"
-        self.catchb_data = {
-            "mode": "catchb",
+        self.common_data = {
             "username": "testuser",
             "email": "test@email.com",
-            "password": "testpassword123!",
-            "password2": "testpassword123!",
             "name": "Test User",
             "phone": "010-1234-5678",
+            "gender": "남성",
+            "birth_year": "1990",
+            "birth_month": "01",
+            "birth_day": "01",
+            "nickname": "testnickname",
+            "profile_image": "",
+        }
+        self.catchb_data = {
+            **self.common_data,
+            "mode": "catchb",
+            "password": "testpassword123!",
+            "password2": "testpassword123!",
             "notifications": True,
         }
 
@@ -27,8 +36,16 @@ class RegisterAPITestCase(APITestCase):
         self.assertIsNotNone(user.notification_agreed_at)
 
     def test_catchb_register_success_without_noti(self):
+        ## and gender = "여성"
+        ## and empty birthday data
+        ## and empty nickname
         data = self.catchb_data.copy()
         data["notifications"] = False
+        data["gender"] = "여성"
+        data["birth_year"] = ""
+        data["birth_month"] = ""
+        data["birth_day"] = ""
+        data["nickname"] = None
         response = self.client.post(self.url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         user = User.objects.get(username=data["username"])
@@ -52,3 +69,10 @@ class RegisterAPITestCase(APITestCase):
         response = self.client.post(self.url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data["error"], "비밀번호가 일치하지 않습니다.")
+
+        ## 3. bad birthday data
+        data = self.catchb_data.copy()
+        data["birth_year"] = "asdf"
+        response = self.client.post(self.url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["error"], "생년월일 형식이 올바르지 않습니다.")

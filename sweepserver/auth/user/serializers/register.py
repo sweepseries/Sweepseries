@@ -13,10 +13,28 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=True)
     phone = serializers.CharField(required=True)
     notifications = serializers.BooleanField(required=True)
+    gender = serializers.CharField(allow_blank=True, allow_null=True)
+    birth_year = serializers.CharField(allow_blank=True)
+    birth_month = serializers.CharField(allow_blank=True)
+    birth_day = serializers.CharField(allow_blank=True)
+    nickname = serializers.CharField(allow_blank=True, allow_null=True)
+    profile_image = serializers.CharField(allow_blank=True)
 
     class Meta:
         model = User
-        fields = ["username", "email", "name", "phone", "notifications"]
+        fields = [
+            "username",
+            "email",
+            "name",
+            "phone",
+            "notifications",
+            "gender",
+            "birth_year",
+            "birth_month",
+            "birth_day",
+            "nickname",
+            "profile_image",
+        ]
 
     def validate_username(self, value):
         UsernameValidator()(value)
@@ -30,6 +48,43 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
         EmailValidator()(value)
 
         return value
+
+    def validate_gender(self, value):
+        if value is None:
+            return GenderChoices.UNDEFINED
+        if value == "남성":
+            return GenderChoices.MALE
+        if value == "여성":
+            return GenderChoices.FEMALE
+        if value == "기타":
+            return GenderChoices.OTHER
+
+        raise ValidationError("오류가 발생했습니다.")
+
+    def validate_profile_image(self, value):
+        if not value:
+            return None
+
+        ## otherwise, upload the image to S3
+        return value
+
+    def format_birth_date(
+        self, birth_year: int, birth_month: int, birth_day: int
+    ) -> datetime:
+        """
+        Format the birth date as needed
+        """
+        if not (birth_year and birth_month and birth_day):
+            return None
+
+        date = f"{birth_year}-{birth_month}-{birth_day}"
+
+        try:
+            birth_date = datetime.strptime(date, "%Y-%m-%d")
+        except ValueError:
+            raise ValidationError("생년월일 형식이 올바르지 않습니다.")
+
+        return birth_date
 
     def create_person(self, **kwargs):
         """
@@ -87,21 +142,35 @@ class CatchBRegisterSerializer(BaseRegisterSerializer):
         # .validators에 있는 검사도 자동으로 포함된다
         validate_password(password)
 
+        birthdate = self.format_birth_date(
+            attrs.pop("birth_year", None),
+            attrs.pop("birth_month", None),
+            attrs.pop("birth_day", None),
+        )
+        attrs["birth_date"] = birthdate
+
         return attrs
 
     def create(self, validated_data):
         with atomic():
-            person = self.create_person(**validated_data)
-            user = User.objects.create_user(
-                username=validated_data["username"],
-                email=validated_data["email"],
-                password=validated_data["password"],
-                person=person,
-            )
+            person_data = {
+                "name": validated_data.pop("name"),
+                "phone": validated_data.pop("phone"),
+                "birth_date": validated_data.pop("birth_date"),
+                "gender": validated_data.pop("gender"),
+            }
+            person = self.create_person(**person_data)
 
-            user = self.set_notifications(
-                user, validated_data.get("notifications", False)
+            notifications = validated_data.pop("notifications", False)
+
+            if not validated_data.get("nickname"):
+                validated_data.pop("nickname")
+
+            user = User.objects.create_user(
+                person=person,
+                **validated_data,
             )
+            user = self.set_notifications(user, notifications)
             user.save()
 
         return user

@@ -79,15 +79,15 @@ class RegisterView(GenericAPIView):
         if register_mode == "catchb":
             serializer = CatchBRegisterSerializer(data=data)
             serializer.is_valid(raise_exception=True)
-            serializer.save()
+            user = serializer.save()
         elif register_mode == "naver":
-            pass
+            raise NotImplementedError("Naver 회원가입은 아직 구현되지 않았습니다.")
         elif register_mode == "kakao":
-            pass
+            raise NotImplementedError("Kakao 회원가입은 아직 구현되지 않았습니다.")
         else:
             return Response(
-                data={"error": "지원하지 않는 모드입니다."},
+                data={"error": "잘못된 요청입니다."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        return Response(data={"message": "created"}, status=status.HTTP_201_CREATED)
+        return Response(data={"uuid": user.uuid}, status=status.HTTP_201_CREATED)
