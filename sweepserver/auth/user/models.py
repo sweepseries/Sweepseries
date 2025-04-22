@@ -53,7 +53,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     person = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="user")
 
-    nickname = models.CharField(max_length=150, default=random_nickname_generator)
+    nickname = models.CharField(max_length=150, default=random_nickname_generator, unique=True)
     profile_image = models.URLField(null=True)
     default_color = models.CharField(max_length=7, default=random_color_generator)
     introduction = models.CharField(max_length=300, default="", blank=True)
