@@ -1,3 +1,5 @@
+import { sampleRegisterData } from "./auth";
+
 export const defaultAlertContext = {
   showAlert: jest.fn<void, [{ message: string; onConfirm: () => void }]>(),
   hideAlert: jest.fn(),
@@ -14,14 +16,7 @@ export const defaultSignupContext = {
   setUsernameEmail: jest.fn(),
   setPasswords: jest.fn(),
   setNamePhone: jest.fn(),
-  data: {
-    mode: "catchb",
-    username: "",
-    email: "",
-    name: "",
-    phone: "",
-    notifications: false,
-  },
+  data: sampleRegisterData,
 };
 
 export const defaultThemeContext = {
