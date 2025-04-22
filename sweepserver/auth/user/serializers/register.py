@@ -1,5 +1,10 @@
 from datetime import datetime
+import os
+import requests
+from urllib.parse import urlparse
 from django.contrib.auth.password_validation import validate_password
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -36,11 +41,6 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
             "profile_image",
         ]
 
-    def validate_username(self, value):
-        UsernameValidator()(value)
-
-        return value
-
     def validate_email(self, value):
         # 이메일 형식 검사
         # convert to lowercase
@@ -50,7 +50,7 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
         return value
 
     def validate_gender(self, value):
-        if value is None:
+        if not value:
             return GenderChoices.UNDEFINED
         if value == "남성":
             return GenderChoices.MALE
@@ -61,12 +61,44 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
 
         raise ValidationError("오류가 발생했습니다.")
 
-    def validate_profile_image(self, value):
+    def validate_profile_image(self, value: str) -> ContentFile:
         if not value:
             return None
 
-        ## otherwise, upload the image to S3
-        return value
+        ## otherwise, return the image
+        ## If by any chance the URL is invalid, return None (simply leave profile_image null)
+
+        ## First, validate URL structure
+        parsed = urlparse(value)
+        if parsed.scheme not in ("http", "https") or not parsed.netloc:
+            return None
+
+        try:
+            res = requests.get(value, timeout=5)
+            res.raise_for_status()
+        except requests.RequestException:
+            return None
+
+        content_type = res.headers.get("Content-Type", "")
+        if not content_type.startswith("image/"):
+            return None
+
+        ext = content_type.split("/", 1)[1].split(";", 1)[0]
+        tmp_name = f"tmp.{ext}"
+
+        file_content = ContentFile(res.content, name=tmp_name)
+
+        return file_content
+
+    def validate(self, attrs):
+        birthdate = self.format_birth_date(
+            attrs.pop("birth_year", None),
+            attrs.pop("birth_month", None),
+            attrs.pop("birth_day", None),
+        )
+        attrs["birth_date"] = birthdate
+
+        return attrs
 
     def format_birth_date(
         self, birth_year: int, birth_month: int, birth_day: int
@@ -99,10 +131,64 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
 
         return person
 
+    def upload_profile_image(self, user: User, image: ContentFile) -> User:
+        """
+        프로필 이미지 업로드
+        """
+
+        _, ext = os.path.splitext(image.name)
+        today = datetime.today().strftime("%Y-%m-%d")
+
+        filename = f"users/{user.uuid}/profiles/{today}{ext}"
+
+        s3_client = default_storage.connection.meta.client
+        bucket_name = default_storage.bucket_name
+
+        s3_client.upload_fileobj(
+            image,
+            bucket_name,
+            filename,
+            ExtraArgs={
+                "ACL": "public-read",
+            },
+        )
+
+        return default_storage.url(filename)
+
     def set_notifications(self, user, notifications):
         if notifications:
             user.notification_agreed = True
             user.notification_agreed_at = datetime.now().astimezone()
+
+        return user
+
+    def create(self, validated_data):
+        with atomic():
+            person_data = {
+                "name": validated_data.pop("name"),
+                "phone": validated_data.pop("phone"),
+                "birth_date": validated_data.pop("birth_date"),
+                "gender": validated_data.pop("gender"),
+            }
+            person = self.create_person(**person_data)
+
+            notifications = validated_data.pop("notifications", False)
+            profile_image = validated_data.pop("profile_image", None)
+
+            if not validated_data.get("nickname"):
+                validated_data.pop("nickname")
+
+            user = User.objects.create_user(
+                person=person,
+                **validated_data,
+            )
+            user = self.set_notifications(user, notifications)
+
+            if profile_image:
+                image = self.upload_profile_image(user, profile_image)
+                user.profile_image = image
+
+            user.save()
 
         return user
 
@@ -130,6 +216,11 @@ class CatchBRegisterSerializer(BaseRegisterSerializer):
     class Meta(BaseRegisterSerializer.Meta):
         fields = BaseRegisterSerializer.Meta.fields + ["password", "password2"]
 
+    def validate_username(self, value):
+        UsernameValidator()(value)
+
+        return value
+
     def validate(self, attrs):
         password = attrs.get("password")
         password2 = attrs.pop("password2")
@@ -142,35 +233,32 @@ class CatchBRegisterSerializer(BaseRegisterSerializer):
         # .validators에 있는 검사도 자동으로 포함된다
         validate_password(password)
 
-        birthdate = self.format_birth_date(
-            attrs.pop("birth_year", None),
-            attrs.pop("birth_month", None),
-            attrs.pop("birth_day", None),
-        )
-        attrs["birth_date"] = birthdate
+        return super().validate(attrs)
 
-        return attrs
 
-    def create(self, validated_data):
-        with atomic():
-            person_data = {
-                "name": validated_data.pop("name"),
-                "phone": validated_data.pop("phone"),
-                "birth_date": validated_data.pop("birth_date"),
-                "gender": validated_data.pop("gender"),
-            }
-            person = self.create_person(**person_data)
+class KakaoRegisterSerializer(BaseRegisterSerializer):
+    """
+    카카오 회원가입 Serializer
+    """
 
-            notifications = validated_data.pop("notifications", False)
+    class Meta(BaseRegisterSerializer.Meta):
+        fields = BaseRegisterSerializer.Meta.fields
 
-            if not validated_data.get("nickname"):
-                validated_data.pop("nickname")
+    def validate(self, attrs):
+        attrs["kakao_id"] = attrs.get("username")
 
-            user = User.objects.create_user(
-                person=person,
-                **validated_data,
-            )
-            user = self.set_notifications(user, notifications)
-            user.save()
+        return super().validate(attrs)
 
-        return user
+
+class NaverRegisterSerializer(BaseRegisterSerializer):
+    """
+    네이버 회원가입 Serializer
+    """
+
+    class Meta(BaseRegisterSerializer.Meta):
+        fields = BaseRegisterSerializer.Meta.fields
+
+    def validate(self, attrs):
+        attrs["naver_id"] = attrs.get("username")
+
+        return super().validate(attrs)

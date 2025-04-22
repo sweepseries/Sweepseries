@@ -6,7 +6,11 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from ..serializers import CatchBRegisterSerializer
+from ..serializers import (
+    CatchBRegisterSerializer,
+    KakaoRegisterSerializer,
+    NaverRegisterSerializer,
+)
 from ..validators import EmailValidator, UsernameValidator
 
 
@@ -81,9 +85,13 @@ class RegisterView(GenericAPIView):
             serializer.is_valid(raise_exception=True)
             user = serializer.save()
         elif register_mode == "naver":
-            raise NotImplementedError("Naver 회원가입은 아직 구현되지 않았습니다.")
+            serializer = NaverRegisterSerializer(data=data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.save()
         elif register_mode == "kakao":
-            raise NotImplementedError("Kakao 회원가입은 아직 구현되지 않았습니다.")
+            serializer = KakaoRegisterSerializer(data=data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.save()
         else:
             return Response(
                 data={"error": "잘못된 요청입니다."},
