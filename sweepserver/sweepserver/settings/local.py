@@ -47,17 +47,24 @@ NAVER_CONSUMER_KEY = config("NAVER_CONSUMER_KEY")
 NAVER_CONSUMER_SECRET = config("NAVER_CONSUMER_SECRET")
 
 ## Storage
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {},
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY")
 AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_KEY")
-AWS_STORAGE_BUCKET_NAME = "sweepdev"
+AWS_STORAGE_BUCKET_NAME = "sweep.dev"
 AWS_S3_ENDPOINT_URL = "https://kr.object.ncloudstorage.com"
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
 AWS_QUERYSTRING_AUTH = False
-
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-MEDIA_URL = "https://kr.object.ncloudstorage.com/sweep.dev/"
+AWS_S3_REGION_NAME = "kr-standard"
 
 NAVER_CLIENT_ID = config("NAVER_API_KEY_ID")
 NAVER_CLIENT_SECRET = config("NAVER_API_KEY")
