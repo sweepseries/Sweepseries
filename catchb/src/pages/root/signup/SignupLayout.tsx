@@ -23,7 +23,7 @@ export function SignupLayout() {
         <Stack.Screen name="username" />
         <Stack.Screen name="password" />
         <Stack.Screen name="phone" />
-        <Stack.Screen name="extras" />
+        <Stack.Screen name="profile" />
       </Stack>
     </SignupProvider>
   );
