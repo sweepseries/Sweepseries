@@ -42,7 +42,9 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
   const [phone, setPhone] = useState<string>("");
 
   const [gender, setGender] = useState<string>("");
-  const [birthdate, setBirthdate] = useState<string>("");
+  const [birthYear, setBirthYear] = useState<string>("");
+  const [birthMonth, setBirthMonth] = useState<string>("");
+  const [birthDate, setBirthDate] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [profileImage, setProfileImage] = useState<string>("");
 
@@ -65,13 +67,6 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (params.mode === "naver") {
-      const getBirthdate = () => {
-        if (params.birthday && params.birthyear) {
-          return `${params.birthyear}-${params.birthday}`;
-        }
-        return "";
-      };
-
       const getGender = () => {
         if (params.gender === "F") {
           return "여성";
@@ -85,7 +80,9 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
       setEmail(params.email || "");
       setName(params.name || "");
       setPhone(params.phone || "");
-      setBirthdate(getBirthdate());
+      setBirthYear(params.birthyear || "");
+      setBirthMonth(params.birthday?.slice(0, 2) || "");
+      setBirthDate(params.birthday?.slice(2, 4) || "");
       setGender(getGender());
       setNickname(params.nickname || "");
       setProfileImage(params.profileImage || "");
@@ -98,48 +95,36 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
         return "남성";
       };
 
-      const getBirthdate = () => {
-        if (params.birthday && params.birthyear) {
-          const month = params.birthday.slice(0, 2);
-          const day = params.birthday.slice(2, 4);
-
-          return `${params.birthyear}-${month}-${day}`;
-        }
-        return "";
-      };
-
       setMode("kakao");
       setUsername(params.username || "");
       setEmail(params.email || "");
       setName(params.name || "");
       setPhone(params.phone || "");
-      setBirthdate(getBirthdate());
+      setBirthYear(params.birthyear || "");
+      setBirthMonth(params.birthday?.slice(0, 2) || "");
+      setBirthDate(params.birthday?.slice(2, 4) || "");
       setGender(getGender());
       setNickname(params.nickname || "");
       setProfileImage(params.profileImage || "");
     }
   }, []);
 
-  const value = useMemo(
+  const data = useMemo(
     () => ({
-      setNotificationsAgreed,
-      setUsernameEmail,
-      setPasswords,
-      setNamePhone,
-      data: {
-        mode,
-        username,
-        email,
-        name,
-        phone,
-        notifications: notificationsAgreed,
-        password,
-        password2,
-        birthdate,
-        gender,
-        nickname,
-        profile_image: profileImage,
-      },
+      mode,
+      username,
+      email,
+      name,
+      phone,
+      notifications: notificationsAgreed,
+      password,
+      password2,
+      birth_year: birthYear,
+      birth_month: birthMonth,
+      birth_day: birthDate,
+      gender,
+      nickname,
+      profile_image: profileImage,
     }),
     [
       mode,
@@ -150,11 +135,24 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
       notificationsAgreed,
       password,
       password2,
-      birthdate,
+      birthYear,
+      birthMonth,
+      birthDate,
       gender,
       nickname,
       profileImage,
     ]
+  );
+
+  const value = useMemo(
+    () => ({
+      setNotificationsAgreed,
+      setUsernameEmail,
+      setPasswords,
+      setNamePhone,
+      data,
+    }),
+    [data]
   );
 
   return (
