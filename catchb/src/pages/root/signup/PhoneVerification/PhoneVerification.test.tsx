@@ -82,15 +82,9 @@ describe("<PhoneVerification />", () => {
       fireEvent.press(getByTestId("인증하기")); // API Error with message
     });
 
-    jest.spyOn(RegisterAPI, "register").mockResolvedValueOnce(null);
     await waitFor(() => {
       fireEvent.press(getByTestId("인증하기")); // Success
-      fireEvent.press(getByTestId("button")); // Press Next (Fail)
-    });
-
-    jest.spyOn(RegisterAPI, "register").mockResolvedValue(true);
-    await waitFor(() => {
-      fireEvent.press(getByTestId("button")); // Press Next (Success)
+      fireEvent.press(getByTestId("button")); // Press Next
     });
   });
 });

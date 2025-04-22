@@ -11,7 +11,7 @@ import {
   PhoneNumberInputs,
   SignUpForm,
 } from "@features/Auth";
-import { register, requestCode, verifyCode } from "@services/auth";
+import { requestCode, verifyCode } from "@services/auth";
 
 export function PhoneVerification() {
   const [name, setName] = useState<string>("");
@@ -80,17 +80,8 @@ export function PhoneVerification() {
     }
   }, [data]);
 
-  const handleRegister = async () => {
-    const response = await register(data);
-
-    if (response) {
-      router.push("/signup/extras");
-    } else {
-      showAlert({
-        title: "회원가입 실패",
-        message: "회원가입에 실패했습니다. 다시 시도해주세요.",
-      });
-    }
+  const handleNext = () => {
+    router.push("/signup/profile");
   };
 
   const formatTimer = (seconds: number) => {
@@ -110,8 +101,8 @@ export function PhoneVerification() {
       subtitle={
         "안전하고 편리한 서비스 이용을 위해\n전화번호 인증을 진행해주세요."
       }
-      buttonText="다음으로"
-      buttonOnPress={handleRegister}
+      buttonText="회원가입"
+      buttonOnPress={handleNext}
       buttonDisabled={!verified || !name}
     >
       <Wrapper>
