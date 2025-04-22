@@ -7,8 +7,10 @@ export type RegisterDataType = {
   notifications: boolean;
   password?: string;
   password2?: string;
-  birthdate?: string;
-  gender?: string;
-  nickname?: string;
+  birth_year?: string;
+  birth_month?: string;
+  birth_day?: string;
+  gender?: string | null;
+  nickname?: string | null;
   profile_image?: string;
 };
