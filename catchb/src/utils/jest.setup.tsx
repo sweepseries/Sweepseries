@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 
+import * as AlertContext from "@contexts/app";
+
 jest.mock("expo-router", () => {
   const { TouchableOpacity, View } = jest.requireActual("react-native");
 
@@ -110,9 +112,26 @@ jest.mock("@components/Dividers", () => ({
 jest.mock("@components/Icons", () => ({
   AppIcon: () => null,
 }));
+jest.mock("@components/Selectors", () => ({
+  Selector: () => null,
+}));
 jest.mock("@components/Texts", () => ({
   HeaderTitle: () => <div />,
 }));
+
+jest.spyOn(AlertContext, "useAlert").mockImplementation(() => {
+  const showAlertMock = jest
+    .fn()
+    .mockImplementation(({ onConfirm }: { onConfirm?: () => void }) => {
+      if (onConfirm) {
+        onConfirm();
+      }
+    });
+
+  return {
+    showAlert: showAlertMock,
+  };
+});
 
 jest.mock("@contexts/app", () => {
   const { defaultAlertContext } = jest.requireActual("@testdata/contexts");

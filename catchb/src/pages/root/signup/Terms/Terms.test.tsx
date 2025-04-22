@@ -2,22 +2,9 @@ import { fireEvent, waitFor } from "@testing-library/react-native";
 import * as Router from "expo-router";
 
 import { TermsAndConditions } from "./Terms";
-import * as AlertContext from "@contexts/app";
 import * as TermsAPI from "@services/app/terms";
 import { sampleTermsAndConditions } from "@testdata/app";
 import { renderWithProviders } from "@utils/test-utils";
-
-jest.spyOn(AlertContext, "useAlert").mockImplementation(() => {
-  const showAlertMock = jest
-    .fn()
-    .mockImplementation(({ onConfirm }: { onConfirm: () => void }) => {
-      onConfirm();
-    });
-
-  return {
-    showAlert: showAlertMock,
-  };
-});
 
 describe("<TermsAndConditions />", () => {
   beforeEach(() => {
