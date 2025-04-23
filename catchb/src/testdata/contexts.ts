@@ -6,9 +6,12 @@ export const defaultAlertContext = {
 };
 
 export const defaultAuthContext = {
-  login: jest.fn(),
+  kakaoLogin: jest.fn(),
+  naverLogin: jest.fn(),
+  catchBLogin: jest.fn(),
   logout: jest.fn(),
   mode: "guest",
+  uuid: null
 };
 
 export const defaultSignupContext = {

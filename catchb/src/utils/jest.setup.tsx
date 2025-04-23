@@ -89,6 +89,11 @@ jest.mock("@react-native-async-storage/async-storage", () => {
 
   return mock;
 });
+jest.mock("@react-native-kakao/user", () => ({
+  me: jest.fn(),
+  login: jest.fn(),
+  isLogined: jest.fn(),
+}));
 
 jest.mock("@components/Buttons", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
