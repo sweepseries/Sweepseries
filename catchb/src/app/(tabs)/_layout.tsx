@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 
 import { AppIcon } from "@components/Icons";
-import { useAuth } from "@contexts/auth";
+//import { useAuth } from "@contexts/auth";
 //import { ReviewProvider } from "@contexts/review";
 
 export const unstable_settings = {
@@ -9,7 +9,7 @@ export const unstable_settings = {
 };
 
 export default function TabLayout() {
-  const { mode } = useAuth();
+  //const { mode } = useAuth();
 
   return (
     <Tabs
