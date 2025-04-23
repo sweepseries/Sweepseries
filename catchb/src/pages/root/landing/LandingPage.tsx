@@ -8,7 +8,7 @@ import { useTheme } from "@contexts/theme";
 import { CatchBLogo } from "@features/CatchB";
 
 export function LandingPage() {
-  const { mode } = useAuth();
+  const { mode, kakaoLogin, naverLogin } = useAuth();
   const { theme } = useTheme();
 
   const handleSignup = () => {
@@ -39,8 +39,8 @@ export function LandingPage() {
         </HeaderText>
       </Header>
       <Buttons>
-        <LoginButton type="naver" onPress={() => {}} />
-        <LoginButton type="kakao" onPress={() => {}} />
+        <LoginButton type="naver" onPress={naverLogin} />
+        <LoginButton type="kakao" onPress={kakaoLogin} />
         <LoginButton type="catchb" onPress={handleLogin} />
       </Buttons>
       <DividerWrapper>
