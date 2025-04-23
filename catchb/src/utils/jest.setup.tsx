@@ -190,6 +190,7 @@ jest.mock("@features/Auth", () => {
       onChangeText: (value: string) => void;
       placeholder: string;
     }) => <TextInput onChangeText={onChangeText} testID={placeholder} />,
+    BirthdateInputs: () => <View />,
     PhoneNumberInputs: ({
       setMiddleNumber,
       setLastNumber,
