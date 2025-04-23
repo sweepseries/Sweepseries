@@ -1,3 +1,4 @@
+import { login, logout, refresh } from "./auth";
 import {
   checkUsernameEmail,
   checkPassword,
@@ -5,13 +6,17 @@ import {
   verifyCode,
   register,
 } from "./register";
-//import { kakaoLogin } from "./sociallogin";
+import { kakaoLogin, naverLogin } from "./sociallogin";
 
 export {
+  login as catchBLogin,
+  logout,
+  refresh,
   checkUsernameEmail,
   checkPassword,
   requestCode,
   verifyCode,
   register,
-  //kakaoLogin,
+  kakaoLogin,
+  naverLogin,
 };
