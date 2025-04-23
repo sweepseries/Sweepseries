@@ -1,7 +1,6 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
 export const AuthTextInput = styled.TextInput`
-  width: 100%;
   height: 40px;
   padding: 8px 12px;
   border-radius: 4px;
@@ -15,7 +14,7 @@ export const AuthInputTitle = styled.Text`
   color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.mediumEmphasis};
 `;
 
-interface Props {
+interface PhoneNumberInputProps {
   middleNumber: string;
   lastNumber: string;
   setMiddleNumber: (value: string) => void;
@@ -27,7 +26,7 @@ export function PhoneNumberInputs({
   lastNumber,
   setMiddleNumber,
   setLastNumber,
-}: Readonly<Props>) {
+}: Readonly<PhoneNumberInputProps>) {
   return (
     <Wrapper>
       <DisabledInput
@@ -43,6 +42,7 @@ export function PhoneNumberInputs({
         keyboardType="phone-pad"
         returnKeyType="next"
         style={{ flex: 1 }}
+        maxLength={4}
       />
       <Hyphen>-</Hyphen>
       <AuthTextInput
@@ -51,6 +51,56 @@ export function PhoneNumberInputs({
         keyboardType="phone-pad"
         returnKeyType="done"
         style={{ flex: 1 }}
+        maxLength={4}
+      />
+    </Wrapper>
+  );
+}
+
+interface BirthdateInputProps {
+  year: string;
+  month: string;
+  day: string;
+  setYear: (value: string) => void;
+  setMonth: (value: string) => void;
+  setDay: (value: string) => void;
+}
+
+export function BirthdateInputs({
+  year,
+  month,
+  day,
+  setYear,
+  setMonth,
+  setDay,
+}: Readonly<BirthdateInputProps>) {
+  return (
+    <Wrapper>
+      <BirthDateInput
+        value={year}
+        onChangeText={setYear}
+        keyboardType="phone-pad"
+        returnKeyType="next"
+        placeholder="YYYY"
+        maxLength={4}
+      />
+      <Hyphen>-</Hyphen>
+      <BirthDateInput
+        value={month}
+        onChangeText={setMonth}
+        keyboardType="phone-pad"
+        returnKeyType="next"
+        placeholder="MM"
+        maxLength={2}
+      />
+      <Hyphen>-</Hyphen>
+      <BirthDateInput
+        value={day}
+        onChangeText={setDay}
+        keyboardType="phone-pad"
+        returnKeyType="done"
+        placeholder="DD"
+        maxLength={2}
       />
     </Wrapper>
   );
@@ -63,7 +113,6 @@ const Wrapper = styled.View`
 
 const DisabledInput = styled(AuthTextInput)`
   flex: 1;
-  height: 40px;
   padding: 8px 0;
   text-align: center;
   color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.lowEmphasis};
@@ -72,9 +121,15 @@ const DisabledInput = styled(AuthTextInput)`
 `;
 
 const Hyphen = styled.Text`
-  height: 40px;
   font-size: 16px;
-  line-height: 36px;
+  line-height: 30px;
   font-weight: bold;
   color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.lowEmphasis};
+`;
+
+const BirthDateInput = styled(AuthTextInput)`
+  flex: 1;
+  text-align: center;
+  max-width: 20%;
+  height: 32px;
 `;
