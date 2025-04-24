@@ -58,7 +58,7 @@ export async function kakaoLogin() {
       };
     }
 
-    return response.user;
+    return response;
   } catch {
     return null;
   }
@@ -84,7 +84,7 @@ export async function naverLogin() {
       };
     }
 
-    return response.user;
+    return response;
   } catch {
     return null;
   }

@@ -30,7 +30,7 @@ describe("kakaoLogin", () => {
   it("should successfully login with Kakao (existing user)", async () => {
     const result = await kakaoLogin();
 
-    expect(result).toEqual("USER");
+    expect(result).toEqual({ user: "USER" });
   });
 
   it("should successfully login with Kakao (new user)", async () => {
@@ -47,7 +47,7 @@ describe("kakaoLogin", () => {
 
     const result = await kakaoLogin();
 
-    expect(result).toEqual("USER");
+    expect(result).toEqual({user: "USER"});
   });
 
   it("should redirect with Kakao (new user)", async () => {
@@ -105,7 +105,7 @@ describe("naverLogin", () => {
   it("should successfully login with Naver(existing user)", async () => {
     const result = await naverLogin();
 
-    expect(result).toEqual("USER");
+    expect(result).toEqual({ user: "USER" });
   });
 
   it("should handle naver login fail", async () => {
