@@ -65,11 +65,11 @@ export function UserProfile() {
 
   useEffect(() => {
     if (data.mode !== "catchb") {
-      setNickname(data.nickname || "");
-      setGender(data.gender || "남성");
-      setBirthYear(data.birth_year || "");
-      setBirthMonth(data.birth_month || "");
-      setBirthDate(data.birth_day || "");
+      setNickname(data.nickname ?? "");
+      setGender(data.gender ?? "남성");
+      setBirthYear(data.birth_year ?? "");
+      setBirthMonth(data.birth_month ?? "");
+      setBirthDate(data.birth_day ?? "");
     }
   }, []);
 

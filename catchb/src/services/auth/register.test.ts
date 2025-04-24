@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { waitFor } from "@testing-library/react-native";
 
 import {
@@ -26,12 +26,14 @@ describe("checkUsernameEmail", () => {
   it("should handle username already taken", async () => {
     jest.spyOn(axios, "isAxiosError").mockReturnValueOnce(true);
     jest.spyOn(axios, "post").mockImplementation(() => {
-      throw {
-        response: {
-          status: 400,
-          data: "Username already taken",
-        },
-      };
+      const err = new Error("Username already taken") as AxiosError;
+
+      err.response = {
+        status: 400,
+        data: "Username already taken",
+      } as AxiosResponse;
+
+      throw err;
     });
 
     const response = await waitFor(() =>
@@ -67,12 +69,14 @@ describe("checkPassword", () => {
   it("should handle invalid password", async () => {
     jest.spyOn(axios, "isAxiosError").mockReturnValueOnce(true);
     jest.spyOn(axios, "post").mockImplementation(() => {
-      throw {
-        response: {
-          status: 400,
-          data: "Invalid password",
-        },
-      };
+      const err = new Error("Invalid password") as AxiosError;
+
+      err.response = {
+        status: 400,
+        data: "Invalid password",
+      } as AxiosResponse;
+
+      throw err;
     });
 
     const response = await waitFor(() => checkPassword("password", "password"));
@@ -104,12 +108,14 @@ describe("requestCode", () => {
   it("should handle invalid phone number", async () => {
     jest.spyOn(axios, "isAxiosError").mockReturnValueOnce(true);
     jest.spyOn(axios, "post").mockImplementation(() => {
-      throw {
-        response: {
-          status: 400,
-          data: "Invalid phone number",
-        },
-      };
+      const err = new Error("Invalid phone number") as AxiosError;
+
+      err.response = {
+        status: 400,
+        data: "Invalid phone number",
+      } as AxiosResponse;
+
+      throw err;
     });
 
     const response = await waitFor(() => requestCode("phone"));
@@ -141,12 +147,14 @@ describe("verifyCode", () => {
   it("should handle invalid code", async () => {
     jest.spyOn(axios, "isAxiosError").mockReturnValueOnce(true);
     jest.spyOn(axios, "post").mockImplementation(() => {
-      throw {
-        response: {
-          status: 400,
-          data: "Invalid code",
-        },
-      };
+      const err = new Error("Invalid code") as AxiosError;
+
+      err.response = {
+        status: 400,
+        data: "Invalid code",
+      } as AxiosResponse;
+
+      throw err;
     });
 
     const response = await waitFor(() => verifyCode("phone", "code"));
@@ -171,9 +179,7 @@ describe("register", () => {
       data: "Registered",
     });
 
-    const response = await waitFor(() =>
-      register(sampleRegisterData)
-    );
+    const response = await waitFor(() => register(sampleRegisterData));
 
     expect(response.status).toBe(201);
     expect(response.data).toBe("SUCCESS");
@@ -182,17 +188,17 @@ describe("register", () => {
   it("should handle invalid data", async () => {
     jest.spyOn(axios, "isAxiosError").mockReturnValueOnce(true);
     jest.spyOn(axios, "post").mockImplementation(() => {
-      throw {
-        response: {
-          status: 400,
-          data: "Invalid data",
-        },
-      };
+      const err = new Error("Invalid data") as AxiosError;
+
+      err.response = {
+        status: 400,
+        data: "Invalid data",
+      } as AxiosResponse;
+
+      throw err;
     });
 
-    const response = await waitFor(() =>
-      register(sampleRegisterData)
-    );
+    const response = await waitFor(() => register(sampleRegisterData));
 
     expect(response.status).toBe(400);
     expect(response.data).toBe("Invalid data");
