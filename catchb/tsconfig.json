@@ -12,8 +12,8 @@
       "@contexts/*": [
         "./src/contexts/*"
       ],
-      "@fragments/*": [
-        "./src/fragments/*"
+      "@features/*": [
+        "./src/features/*"
       ],
       "@models/*": [
         "./src/models/*"

@@ -1,83 +1,154 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { router } from "expo-router";
 import axios from "axios";
 
-import { getSecure, removeSecure, saveSecure } from "@services/storage";
+import { useAlert } from "@contexts/app";
+import {
+  kakaoLogin as kakaoLoginRequest,
+  naverLogin as naverLoginRequest,
+  catchBLogin as catchBLoginRequest,
+  logout as logoutRequest,
+  refresh,
+} from "@services/auth";
+import { removeSecure, saveSecure } from "@services/storage";
 
 // 인증과 관련된 모든 로직을 담당하는 Context.
 // 기능 1: 자동 로그인: 앱을 실행할 때, 로컬 스토리지에 저장된 refresh token을 사용하여 자동으로 로그인.
 // 기능 2: 자동 로그인 실패 시, 로그인 화면으로 이동.
 // 기능 3: Access token 만료 시, refresh token을 사용하여 자동으로 access token을 갱신.
 
-type SocialLoginResult = "SUCCESS" | "FAILURE" | "REDIRECT";
+type LoginData = {
+  uuid: string;
+  mode: "pro" | "normal" | "guest";
+  access: string;
+  refresh: string;
+};
 
 interface AuthContextType {
-  login: (username: string, password: string) => Promise<boolean>;
-  socialLogin: (id: number | string) => Promise<SocialLoginResult>;
-  logout: () => Promise<boolean>;
+  catchBLogin: (username: string, password: string) => Promise<boolean>;
+  kakaoLogin: () => Promise<void>;
+  naverLogin: () => Promise<void>;
+  logout: () => Promise<void>;
   mode: "pro" | "normal" | "guest";
+  uuid: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [uuid, setUuid] = useState<string | null>(null);
   const [mode, setMode] = useState<"pro" | "normal" | "guest">("guest");
 
-  const login = async (username: string, password: string) => {
-    // 로그인 API 호출
-    // 로그인에 성공하면, axios의 Authorization 헤더에 access token을 저장하고,
-    // 로컬 스토리지에 refresh token을 저장
-    try {
-      const response = await axios.post(
-        "/v1/login/",
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            "X-Sweep-Platform": "sweep/mobile",
-          },
-        }
-      );
+  const { showAlert } = useAlert();
 
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${response.data.access}`;
+  const saveLoginStatus = (data: LoginData) => {
+    setUuid(data.uuid);
+    setMode(data.mode);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
+    saveSecure("refreshToken", data.refresh);
+  };
 
-      await saveSecure("refreshToken", response.data.refresh);
+  const resetLoginStatus = () => {
+    setUuid(null);
+    setMode("guest");
+    delete axios.defaults.headers.common["Authorization"];
+    removeSecure("refreshToken");
+  };
 
-      return true;
-    } catch {
+  const loginFail = (title: string) => {
+    showAlert({
+      title,
+      message: "로그인에 실패했습니다. 다시 시도해주세요.",
+    });
+    resetLoginStatus();
+  };
+
+  const catchBLogin = async (username: string, password: string) => {
+    const result = await catchBLoginRequest(username, password);
+
+    if (!result) {
+      loginFail("로그인 실패");
       return false;
+    }
+
+    saveLoginStatus(result);
+
+    return true;
+  };
+
+  const kakaoLogin = async () => {
+    const result = await kakaoLoginRequest();
+
+    if (!result) {
+      loginFail("카카오 로그인 실패");
+      return;
+    }
+
+    if (result.result === "REDIRECT") {
+      showAlert({
+        title: "회원가입",
+        message: "회원가입이 필요합니다. 회원가입 페이지로 이동합니다.",
+        onConfirm: () => {
+          router.push({
+            pathname: "/signup/terms",
+            params: {
+              mode: "kakao",
+              username: result.initialProfile.id,
+              email: result.initialProfile.email,
+              name: result.initialProfile.name,
+              phone: "",
+              birthday: result.initialProfile.birthday,
+              birthyear: result.initialProfile.birthyear,
+              gender: result.initialProfile.gender,
+              nickname: result.initialProfile.nickname,
+              profileImage: result.initialProfile.profileImageUrl,
+            },
+          });
+        },
+      });
+    } else {
+      // 로그인 성공 시, 홈 화면으로 이동
+      saveLoginStatus(result);
+      router.dismissAll();
+      router.replace("/home");
     }
   };
 
-  const socialLogin = async (id: number | string) => {
-    try {
-      const response = await axios.post(
-        "/v1/login/social/",
-        {
-          username: id,
+  const naverLogin = async () => {
+    const result = await naverLoginRequest();
+
+    if (!result) {
+      loginFail("네이버 로그인 실패");
+      return;
+    }
+
+    if (result.result === "REDIRECT") {
+      showAlert({
+        title: "회원가입",
+        message: "회원가입이 필요합니다. 회원가입 페이지로 이동합니다.",
+        onConfirm: () => {
+          router.push({
+            pathname: "/signup/terms",
+            params: {
+              mode: "naver",
+              username: result.initialProfile.id,
+              email: result.initialProfile.email,
+              name: result.initialProfile.name,
+              phone: "",
+              birthday: result.initialProfile.birthday ?? "",
+              birthyear: result.initialProfile.birthyear ?? "",
+              gender: result.initialProfile.gender ?? "",
+              nickname: result.initialProfile.nickname ?? "",
+              profileImage: result.initialProfile.profile_image ?? "",
+            },
+          });
         },
-        {
-          headers: {
-            "X-Sweep-Platform": "sweep/mobile",
-          },
-        }
-      );
-
-      if (response.data.result === "not_registered") {
-        return "REDIRECT";
-      }
-
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${response.data.access}`;
-      await saveSecure("refreshToken", response.data.refresh);
-
-      return "SUCCESS";
-    } catch {
-      return "FAILURE";
+      });
+    } else {
+      // 로그인 성공 시, 홈 화면으로 이동
+      saveLoginStatus(result);
+      router.dismissAll();
+      router.replace("/home");
     }
   };
 
@@ -85,55 +156,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // 로그아웃을 위한 API 호출 (refresh token을 사용하여 로그아웃)
     // 로그아웃에 성공하면, 로컬 스토리지에서 refresh token을 삭제하고, axios의 Authorization 헤더를 삭제
     // 또한, 로컬 스토리지에 저장된 앱 관련 모든 데이터 삭제
-    try {
-      const refreshToken = await getSecure("refreshToken");
+    const logoutResult = await logoutRequest();
 
-      await axios.post("/v1/logout/", {
-        refresh: refreshToken,
-      }); // 로그아웃 API 호출해서 서버에 토큰 삭제
-
-      delete axios.defaults.headers.common["Authorization"]; // axios의 Authorization 헤더 삭제
-      await removeSecure("refreshToken"); // 로컬 스토리지에서 refresh token 삭제
-
-      setMode("guest");
-
-      return true;
-    } catch {
-      return false;
+    if (logoutResult) {
+      resetLoginStatus();
+      router.replace("/login");
+    } else {
+      showAlert({
+        title: "로그아웃 실패",
+        message: "로그아웃에 실패했습니다. 다시 시도해주세요.",
+      });
     }
   };
 
   useEffect(() => {
-    const requestTokenRefresh = async () => {
-      // 로컬 스토리지에서 refresh token을 가져와서, 서버에 refresh token을 사용하여 access token을 요청
-      // 서버에서 access token을 받으면, axios의 Authorization 헤더에 access token을 저장하고,
-      // 로컬 스토리지에 refresh token을 저장
+    const refreshToken = async () => {
+      const response = await refresh();
 
-      try {
-        const refreshToken = await getSecure("refreshToken");
-        const response = await axios.post(
-          "/v1/tokens/refresh/",
-          {
-            refresh: refreshToken,
-          },
-          {
-            headers: {
-              "X-Sweep-Platform": "sweep/mobile",
-            },
-          }
-        );
-
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${response.data.access}`;
-        await saveSecure("refreshToken", response.data.refresh);
-
-        return response.data;
-      } catch {
-        delete axios.defaults.headers.common["Authorization"]; // axios의 Authorization 헤더 삭제
-        await removeSecure("refreshToken"); // 로컬 스토리지에서 refresh token 삭제
-
-        setMode("guest");
+      if (response) {
+        return response;
+      } else {
+        resetLoginStatus();
 
         return null;
       }
@@ -152,7 +195,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         ) {
           originalRequest._retry = true;
 
-          const response = await requestTokenRefresh();
+          const response = await refreshToken();
           if (response) {
             const newAccessToken = response.access;
 
@@ -161,7 +204,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             ] = `Bearer ${newAccessToken}`;
             return axios(originalRequest);
           } else {
-            logout();
+            resetLoginStatus();
+            showAlert({
+              title: "로그인 세선 만료",
+              message: "세션이 만료되었습니다. 다시 로그인해주세요.",
+              onConfirm: () => {
+                router.replace("/login");
+              },
+            });
           }
         }
         return Promise.reject(error);
@@ -169,7 +219,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 
     // AuthProvider가 mount될 때, 로컬 스토리지에 저장된 refresh token을 사용하여 자동으로 로그인
-    requestTokenRefresh();
+    const autoLogin = async () => {
+      const result = await refreshToken();
+
+      if (result) {
+        setUuid(result.uuid);
+        setMode(result.mode);
+        if (router.canDismiss()) {
+          router.dismissAll();
+        }
+        router.replace("/home");
+      }
+    };
+
+    autoLogin();
 
     // Remove the interceptor when AuthProvider unmounts
     return () => {
@@ -177,12 +240,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  const value = useMemo(() => ({ mode, login, socialLogin, logout }), [mode]);
+  const value = useMemo(
+    () => ({ mode, uuid, catchBLogin, logout, kakaoLogin, naverLogin }),
+    [mode, uuid]
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
 
   if (!context) {

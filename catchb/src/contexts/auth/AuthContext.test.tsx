@@ -2,92 +2,155 @@ import { TouchableOpacity } from "react-native";
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import * as Router from "expo-router";
 
 import { AuthProvider, useAuth } from "./AuthContext";
-import * as SecureStore from "@services/storage";
+import * as CatchBAuthAPIs from "@services/auth/auth";
+import * as SocialAuthAPIs from "@services/auth/sociallogin";
 
 jest.unmock("@contexts/auth");
 
-const testResponse = {
-  access: "1234",
-  refresh: "5678",
-};
-
 const TestComponent = () => {
-  const { login, socialLogin, logout } = useAuth();
-
-  const handleLogin = () => {
-    login("normal", "1234");
-  };
-
-  const handleSocialLogin = () => {
-    socialLogin("social");
-  };
+  const { catchBLogin, kakaoLogin, naverLogin, logout } = useAuth();
 
   return (
     <>
-      <TouchableOpacity onPress={handleLogin} testID="login" />
-      <TouchableOpacity onPress={handleSocialLogin} testID="social-login" />
+      <TouchableOpacity
+        onPress={() => catchBLogin("user", "1234")}
+        testID="catchb-login"
+      />
+      <TouchableOpacity onPress={kakaoLogin} testID="kakao-login" />
+      <TouchableOpacity onPress={naverLogin} testID="naver-login" />
       <TouchableOpacity onPress={logout} testID="logout" />
     </>
   );
 };
 
 describe("AuthProvider", () => {
+  const testResponse = {
+    uuid: "1234",
+    mode: "pro",
+    access: "access_token",
+    refresh: "refresh_token",
+  };
+  const sampleProfile = {
+    id: "1234",
+    name: "",
+    email: "",
+    birthday: "",
+    birthyear: "",
+    gender: "",
+    nickname: "",
+    profileImageUrl: "",
+    profile_image: "",
+  };
+
   beforeEach(() => {
-    jest.spyOn(axios, "post").mockResolvedValue({ data: testResponse });
+    jest.spyOn(CatchBAuthAPIs, "refresh").mockResolvedValue(null); // default auto login
   });
 
-  it("provides auth context correctly and handles login (pro), logout", () => {
+  it("handles catchb login (pro)", async () => {
     const { getByTestId } = render(
       <AuthProvider>
         <TestComponent />
       </AuthProvider>
     );
 
-    fireEvent.press(getByTestId("login"));
-    fireEvent.press(getByTestId("logout"));
-  });
-
-  it("handles social login success", () => {
-    const { getByTestId } = render(
-      <AuthProvider>
-        <TestComponent />
-      </AuthProvider>
-    );
-
-    fireEvent.press(getByTestId("social-login"));
-  });
-
-  it("handles social login redirect", () => {
-    jest
-      .spyOn(axios, "post")
-      .mockResolvedValue({ data: { result: "not_registered" } });
-
-    const { getByTestId } = render(
-      <AuthProvider>
-        <TestComponent />
-      </AuthProvider>
-    );
-
-    fireEvent.press(getByTestId("social-login"));
-  });
-
-  it("handles login fail", async () => {
-    jest.spyOn(axios, "post").mockResolvedValue({ status: 400 });
-    jest.spyOn(SecureStore, "getSecure").mockRejectedValue(null);
-
-    const { getByTestId } = render(
-      <AuthProvider>
-        <TestComponent />
-      </AuthProvider>
-    );
-
+    jest.spyOn(CatchBAuthAPIs, "login").mockResolvedValueOnce(null);
     await waitFor(() => {
-      fireEvent.press(getByTestId("login"));
-      fireEvent.press(getByTestId("social-login"));
+      fireEvent.press(getByTestId("catchb-login"));
+    });
+
+    jest
+      .spyOn(CatchBAuthAPIs, "login")
+      .mockResolvedValue({ data: testResponse });
+    jest.spyOn(CatchBAuthAPIs, "logout").mockResolvedValueOnce(false);
+    await waitFor(() => {
+      fireEvent.press(getByTestId("catchb-login"));
       fireEvent.press(getByTestId("logout"));
     });
+
+    jest.spyOn(CatchBAuthAPIs, "logout").mockResolvedValue(true);
+    await waitFor(() => {
+      fireEvent.press(getByTestId("logout"));
+    });
+  });
+
+  it("handles kakao login", () => {
+    const { getByTestId } = render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>
+    );
+
+    jest.spyOn(SocialAuthAPIs, "kakaoLogin").mockResolvedValueOnce(null);
+    waitFor(() => {
+      fireEvent.press(getByTestId("kakao-login"));
+    });
+
+    jest.spyOn(SocialAuthAPIs, "kakaoLogin").mockResolvedValueOnce({
+      result: "REDIRECT",
+      initialProfile: sampleProfile,
+    });
+    waitFor(() => {
+      fireEvent.press(getByTestId("kakao-login"));
+    });
+
+    jest
+      .spyOn(SocialAuthAPIs, "kakaoLogin")
+      .mockResolvedValueOnce(testResponse);
+    waitFor(() => {
+      fireEvent.press(getByTestId("kakao-login"));
+    });
+  });
+
+  it("handles naver login", () => {
+    const { getByTestId } = render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>
+    );
+
+    jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue(null);
+    waitFor(() => {
+      fireEvent.press(getByTestId("naver-login"));
+    });
+
+    jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue({
+      result: "REDIRECT",
+      initialProfile: { ...sampleProfile },
+    });
+    waitFor(() => {
+      fireEvent.press(getByTestId("naver-login"));
+    });
+
+    jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue({
+      data: testResponse,
+    });
+    waitFor(() => {
+      fireEvent.press(getByTestId("naver-login"));
+    });
+  });
+
+  it("handles auto login success (dismiss all = true)", () => {
+    jest.spyOn(CatchBAuthAPIs, "refresh").mockResolvedValue(testResponse);
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>
+    );
+  });
+
+  it("handles auto login success (dismiss all = false)", () => {
+    jest.spyOn(CatchBAuthAPIs, "refresh").mockResolvedValue(testResponse);
+    jest.spyOn(Router.router, "canDismiss").mockReturnValue(false);
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>
+    );
   });
 
   it("handles error correctly", async () => {
@@ -98,18 +161,26 @@ describe("AuthProvider", () => {
 });
 
 describe("Axios Interceptor", () => {
+  const testResponse = {
+    uuid: "1234",
+    mode: "pro",
+    access: "access_token",
+    refresh: "refresh_token",
+  };
+
   const mock = new MockAdapter(axios);
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(SecureStore, "getSecure").mockResolvedValue("1234");
     mock.reset();
   });
 
   it("should retry the request after refreshing the token", async () => {
     // Mock a request that initially fails with 403 and "token_not_valid" error
     mock.onGet("/test-endpoint").replyOnce(403, { code: "token_not_valid" });
-    jest.spyOn(axios, "post").mockResolvedValue({ data: testResponse });
+    jest
+      .spyOn(CatchBAuthAPIs, "refresh")
+      .mockResolvedValue({ data: testResponse });
 
     // After refreshing the token, the request should succeed
     mock.onGet("/test-endpoint").reply(200, { data: "success" });
@@ -129,7 +200,7 @@ describe("Axios Interceptor", () => {
   it("token refresh fail", async () => {
     // Mock a request that initially fails with 403 and "token_not_valid" error
     mock.onGet("/test-endpoint").replyOnce(403, { code: "token_not_valid" });
-    jest.spyOn(axios, "post").mockResolvedValue({ status: 400 });
+    jest.spyOn(CatchBAuthAPIs, "refresh").mockResolvedValue(null);
 
     render(
       <AuthProvider>
@@ -139,7 +210,11 @@ describe("Axios Interceptor", () => {
 
     // Perform a GET request that should trigger the interceptor
     await waitFor(async () => {
-      await axios.get("/test-endpoint");
+      try {
+        await axios.get("/test-endpoint");
+      } catch {
+        // This catch block is to not raise error in the test
+      }
     });
   });
 
@@ -155,7 +230,11 @@ describe("Axios Interceptor", () => {
 
     // Perform a GET request that should trigger the interceptor
     await waitFor(async () => {
-      await axios.get("/test-endpoint");
+      try {
+        await axios.get("/test-endpoint");
+      } catch {
+        // This catch block is to not raise error in the test
+      }
     });
   });
 });

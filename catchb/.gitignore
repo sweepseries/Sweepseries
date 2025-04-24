@@ -46,3 +46,6 @@ expo-env.d.ts
 .expo
 dist/
 web-build/
+
+# Custom
+coverage/

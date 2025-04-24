@@ -42,13 +42,13 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
-    "drf_standardized_errors",
     "dj_rest_auth",
     "drf_spectacular",
     "django_extensions",
     "storages",
     ## Local apps
     "core.apps.CoreConfig",
+    "app.terms.apps.TermsConfig",
     "auth.person.apps.PersonConfig",
     "auth.phoneverification.apps.PhoneVerificationConfig",
     "auth.user.apps.UserConfig",
@@ -66,7 +66,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    "core.middlewares.DisableCookiesMiddleware",
 ]
 
 ROOT_URLCONF = "sweepserver.urls"
@@ -151,14 +150,9 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "core.authentication.CsrfExemptSessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
-}
-DRF_STANDARDIZED_ERRORS = {
-    "EXCEPTION_FORMATTER_CLASS": "core.exceptions.SweepServerExceptionFormatter",
-    "ENABLE_IN_DEBUG_FOR_UNHANDLED_EXCEPTIONS": False,
+    "EXCEPTION_HANDLER": "core.exceptions.custom_exception_handler",
 }
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760

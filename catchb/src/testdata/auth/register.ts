@@ -1,0 +1,16 @@
+export const sampleRegisterData = {
+  mode: "catchb",
+  username: "",
+  email: "",
+  name: "",
+  phone: "",
+  notifications: false,
+  password: "",
+  password2: "",
+  birth_year: "",
+  birth_month: "",
+  birth_day: "",
+  gender: null,
+  nickname: null,
+  profile_image: "",
+};
