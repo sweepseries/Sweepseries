@@ -2,18 +2,18 @@ from typing import cast
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.utils import timezone
-from dj_rest_auth.views import LoginView
-from rest_framework import status
-from rest_framework.exceptions import ValidationError
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.jwt_auth import (
     CookieTokenRefreshSerializer,
     set_jwt_access_cookie,
     set_jwt_refresh_cookie,
 )
+from dj_rest_auth.views import LoginView
+from rest_framework import status
+from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.settings import api_settings as jwt_settings
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView as SimpleTokenRefreshView
 
 from core.utils import is_admin_page

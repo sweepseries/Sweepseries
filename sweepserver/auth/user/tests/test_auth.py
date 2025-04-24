@@ -98,7 +98,6 @@ class TokenRefreshAPITestCase(APITestCase):
 
     def test_token_refresh_fail(self):
         ## 1. normal
-        tokens = get_tokens_for_user(self.user)
         response = self.client.post(
             self.url,
             {"refresh": "12341234"},
