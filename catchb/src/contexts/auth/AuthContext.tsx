@@ -18,8 +18,10 @@ import { removeSecure, saveSecure } from "@services/storage";
 // 기능 3: Access token 만료 시, refresh token을 사용하여 자동으로 access token을 갱신.
 
 type LoginData = {
-  uuid: string;
-  mode: "pro" | "normal" | "guest";
+  user: {
+    uuid: string;
+    mode: "pro" | "normal" | "guest";
+  };
   access: string;
   refresh: string;
 };
@@ -44,8 +46,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { showAlert } = useAlert();
 
   const saveLoginStatus = (data: LoginData) => {
-    setUuid(data.uuid);
-    setMode(data.mode);
+    setUuid(data.user.uuid);
+    setMode(data.user.mode);
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
     saveSecure("refreshToken", data.refresh);
   };

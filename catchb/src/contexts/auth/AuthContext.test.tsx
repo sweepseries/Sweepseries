@@ -28,8 +28,10 @@ const TestComponent = () => {
 
 describe("AuthProvider", () => {
   const testResponse = {
-    uuid: "1234",
-    mode: "pro",
+    user: {
+      uuid: "1234",
+      mode: "pro",
+    },
     access: "access_token",
     refresh: "refresh_token",
   };
@@ -61,9 +63,7 @@ describe("AuthProvider", () => {
       fireEvent.press(getByTestId("catchb-login"));
     });
 
-    jest
-      .spyOn(CatchBAuthAPIs, "login")
-      .mockResolvedValue({ data: testResponse });
+    jest.spyOn(CatchBAuthAPIs, "login").mockResolvedValue(testResponse);
     jest.spyOn(CatchBAuthAPIs, "logout").mockResolvedValueOnce(false);
     await waitFor(() => {
       fireEvent.press(getByTestId("catchb-login"));
@@ -138,9 +138,7 @@ describe("AuthProvider", () => {
       fireEvent.press(getByTestId("naver-login"));
     });
 
-    jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue({
-      data: testResponse,
-    });
+    jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue(testResponse);
     waitFor(() => {
       fireEvent.press(getByTestId("naver-login"));
     });
@@ -175,8 +173,10 @@ describe("AuthProvider", () => {
 
 describe("Axios Interceptor", () => {
   const testResponse = {
-    uuid: "1234",
-    mode: "pro",
+    user: {
+      uuid: "1234",
+      mode: "pro",
+    },
     access: "access_token",
     refresh: "refresh_token",
   };
@@ -191,9 +191,7 @@ describe("Axios Interceptor", () => {
   it("should retry the request after refreshing the token", async () => {
     // Mock a request that initially fails with 403 and "token_not_valid" error
     mock.onGet("/test-endpoint").replyOnce(403, { code: "token_not_valid" });
-    jest
-      .spyOn(CatchBAuthAPIs, "refresh")
-      .mockResolvedValue({ data: testResponse });
+    jest.spyOn(CatchBAuthAPIs, "refresh").mockResolvedValue(testResponse);
 
     // After refreshing the token, the request should succeed
     mock.onGet("/test-endpoint").reply(200, { data: "success" });
