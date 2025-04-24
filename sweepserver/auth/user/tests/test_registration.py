@@ -116,7 +116,7 @@ class RegisterAPITestCase(APITestCase):
         fake_bucket.name = "test-bucket"
         mock_storage.bucket = fake_bucket
 
-        expected_path = f"users/1/profiles/test1.jpg"
+        expected_path = "users/1/profiles/test1.jpg"
         fake_url = f"https://test.com/{expected_path}"
         mock_storage.url.return_value = fake_url
 

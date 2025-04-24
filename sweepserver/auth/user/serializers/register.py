@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
-import requests
 from urllib.parse import urlparse
+import requests
 from django.contrib.auth.password_validation import validate_password
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -113,8 +113,8 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
 
         try:
             birth_date = datetime.strptime(date, "%Y-%m-%d")
-        except ValueError:
-            raise ValidationError("생년월일 형식이 올바르지 않습니다.")
+        except ValueError as e:
+            raise ValidationError("생년월일 형식이 올바르지 않습니다.") from e
 
         return birth_date
 

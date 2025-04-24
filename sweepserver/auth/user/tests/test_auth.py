@@ -44,16 +44,22 @@ class LoginAPITestCase(APITestCase):
 
     def test_social_login(self):
         ## 1. naver
-        response = self.client.post("/v1/login/social/", {"username": "naver_id", "mode": "naver"})
+        response = self.client.post(
+            "/v1/login/social/", {"username": "naver_id", "mode": "naver"}
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         ## 2. kakao
-        response = self.client.post("/v1/login/social/", {"username": "kakao_id", "mode": "kakao"})
+        response = self.client.post(
+            "/v1/login/social/", {"username": "kakao_id", "mode": "kakao"}
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_social_login_fail(self):
         ## 1. invalid mode
-        response = self.client.post("/v1/login/social/", {"username": "kakao_id", "mode": "invalid"})
+        response = self.client.post(
+            "/v1/login/social/", {"username": "kakao_id", "mode": "invalid"}
+        )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         ## 2. no data
@@ -67,6 +73,8 @@ class LoginAPITestCase(APITestCase):
         self.assertEqual(response.data["error"], "잘못된 요청입니다.")
 
         ## 4. no username in database
-        response = self.client.post("/v1/login/social/", {"username": "username", "mode": "naver"})
+        response = self.client.post(
+            "/v1/login/social/", {"username": "username", "mode": "naver"}
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["result"], "NOT_REGISTERED")

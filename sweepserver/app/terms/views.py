@@ -69,7 +69,7 @@ def get_terms_from_query_and_version(query: str, version: str) -> Response:
         ## version은 YYYY-MM-DD 형식으로 들어와야 한다.
         ## 먼저 형식을 확인한다.
         date = datetime.strptime(version, "%Y-%m-%d").date()
-    except ValueError as e:
+    except ValueError:
         return Response(
             {"error": "version은 YYYY-MM-DD 형식으로 입력해야 합니다."},
             status=status.HTTP_400_BAD_REQUEST,
