@@ -1,6 +1,5 @@
 from django.urls import path
 from dj_rest_auth.views import LogoutView
-from dj_rest_auth.jwt_auth import get_refresh_view
 from rest_framework.routers import DefaultRouter
 
 ## Apps
@@ -15,6 +14,7 @@ from auth.user.views import (
     RegisterView,
     UserLoginView,
     SocialLoginView,
+    TokenRefreshView,
 )
 
 
@@ -40,7 +40,7 @@ urlpatterns = [
         name="verification_code",
     ),
     path("phone/code/verify/", VerifyCodeView.as_view(), name="verify_code"),
-    path("tokens/refresh/", get_refresh_view().as_view(), name="token_refresh"),
+    path("tokens/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 urlpatterns += router.urls
