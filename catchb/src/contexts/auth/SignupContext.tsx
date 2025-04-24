@@ -15,18 +15,18 @@ const SignupContext = createContext<SignupContextType | undefined>(undefined);
 
 type SignupParams = {
   mode: string;
-  username?: string;
-  email?: string;
-  name?: string;
-  phone?: string;
-  birthday?: string;
-  birthyear?: string;
-  gender?: string;
-  nickname?: string;
-  profileImage?: string;
+  username: string;
+  email: string;
+  name: string;
+  phone: string;
+  birthday: string;
+  birthyear: string;
+  gender: string;
+  nickname: string;
+  profileImage: string;
 };
 
-export function SignupProvider({ children }: { children: React.ReactNode }) {
+export function SignupProvider({ children }: Readonly<{ children: React.ReactNode }>) {
   const [mode, setMode] = useState<"catchb" | "naver" | "kakao">("catchb");
 
   const [notificationsAgreed, setNotificationsAgreed] =
@@ -76,16 +76,16 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
       };
 
       setMode("naver");
-      setUsername(params.username || "");
-      setEmail(params.email || "");
-      setName(params.name || "");
-      setPhone(params.phone || "");
-      setBirthYear(params.birthyear || "");
-      setBirthMonth(params.birthday?.slice(0, 2) || "");
-      setBirthDate(params.birthday?.slice(3, 5) || "");
+      setUsername(params.username);
+      setEmail(params.email);
+      setName(params.name);
+      setPhone(params.phone);
+      setBirthYear(params.birthyear);
+      setBirthMonth(params.birthday?.slice(0, 2) ?? "");
+      setBirthDate(params.birthday?.slice(3, 5) ?? "");
       setGender(getGender());
-      setNickname(params.nickname || "");
-      setProfileImage(params.profileImage || "");
+      setNickname(params.nickname);
+      setProfileImage(params.profileImage);
     } else if (params.mode === "kakao") {
       const getGender = () => {
         if (params.gender === "female") {

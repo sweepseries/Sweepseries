@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -22,7 +23,7 @@ interface AlertProviderProps {
   children: ReactNode;
 }
 
-export function AlertProvider({ children }: AlertProviderProps) {
+export function AlertProvider({ children }: Readonly<AlertProviderProps>) {
   const [options, setOptions] = useState<AlertProps | null>(null);
 
   const showAlert = useCallback((opts: AlertProps) => {
@@ -33,8 +34,10 @@ export function AlertProvider({ children }: AlertProviderProps) {
     setOptions(null);
   }, []);
 
+  const contextValue = useMemo(() => ({ showAlert }), [showAlert]);
+
   return (
-    <AlertContext.Provider value={{ showAlert }}>
+    <AlertContext.Provider value={contextValue}>
       {children}
       {options && (
         <CatchBAlert
@@ -71,7 +74,7 @@ function CatchBAlert({
   message,
   onConfirm,
   confirmText = "확인",
-}: AlertProps) {
+}: Readonly<AlertProps>) {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
