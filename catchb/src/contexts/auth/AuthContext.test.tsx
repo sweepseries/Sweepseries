@@ -84,6 +84,7 @@ describe("AuthProvider", () => {
     );
 
     jest.spyOn(SocialAuthAPIs, "kakaoLogin").mockResolvedValueOnce(null);
+    jest.spyOn(Router.router, "canDismiss").mockReturnValue(true);
     waitFor(() => {
       fireEvent.press(getByTestId("kakao-login"));
     });
@@ -112,6 +113,7 @@ describe("AuthProvider", () => {
     );
 
     jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue(null);
+    jest.spyOn(Router.router, "canDismiss").mockReturnValue(false);
     waitFor(() => {
       fireEvent.press(getByTestId("naver-login"));
     });
@@ -119,6 +121,18 @@ describe("AuthProvider", () => {
     jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue({
       result: "REDIRECT",
       initialProfile: { ...sampleProfile },
+    });
+    waitFor(() => {
+      fireEvent.press(getByTestId("naver-login"));
+    });
+
+    jest.spyOn(SocialAuthAPIs, "naverLogin").mockResolvedValue({
+      result: "REDIRECT",
+      initialProfile: {
+        id: "1234",
+        name: "",
+        email: "",
+      },
     });
     waitFor(() => {
       fireEvent.press(getByTestId("naver-login"));
@@ -144,7 +158,6 @@ describe("AuthProvider", () => {
 
   it("handles auto login success (dismiss all = false)", () => {
     jest.spyOn(CatchBAuthAPIs, "refresh").mockResolvedValue(testResponse);
-    jest.spyOn(Router.router, "canDismiss").mockReturnValue(false);
 
     render(
       <AuthProvider>

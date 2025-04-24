@@ -31,6 +31,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   mode: "pro" | "normal" | "guest";
   uuid: string | null;
+  isAuthContextReady: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -38,6 +39,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [uuid, setUuid] = useState<string | null>(null);
   const [mode, setMode] = useState<"pro" | "normal" | "guest">("guest");
+  const [isReady, setIsReady] = useState<boolean>(false);
 
   const { showAlert } = useAlert();
 
@@ -53,6 +55,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setMode("guest");
     delete axios.defaults.headers.common["Authorization"];
     removeSecure("refreshToken");
+  };
+
+  const redirect = (route: "/login" | "/home") => {
+    if (router.canDismiss()) {
+      router.dismissAll();
+    }
+    router.replace(route);
   };
 
   const loginFail = (title: string) => {
@@ -109,8 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } else {
       // 로그인 성공 시, 홈 화면으로 이동
       saveLoginStatus(result);
-      router.dismissAll();
-      router.replace("/home");
+      redirect("/home");
     }
   };
 
@@ -147,8 +155,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } else {
       // 로그인 성공 시, 홈 화면으로 이동
       saveLoginStatus(result);
-      router.dismissAll();
-      router.replace("/home");
+      redirect("/home");
     }
   };
 
@@ -160,7 +167,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (logoutResult) {
       resetLoginStatus();
-      router.replace("/login");
+      redirect("/login");
     } else {
       showAlert({
         title: "로그아웃 실패",
@@ -174,6 +181,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await refresh();
 
       if (response) {
+        saveLoginStatus(response);
+
         return response;
       } else {
         resetLoginStatus();
@@ -222,13 +231,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const autoLogin = async () => {
       const result = await refreshToken();
 
+      setIsReady(true);
+
       if (result) {
-        setUuid(result.uuid);
-        setMode(result.mode);
-        if (router.canDismiss()) {
-          router.dismissAll();
-        }
-        router.replace("/home");
+        redirect("/home");
       }
     };
 
@@ -241,8 +247,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ mode, uuid, catchBLogin, logout, kakaoLogin, naverLogin }),
-    [mode, uuid]
+    () => ({
+      mode,
+      uuid,
+      isAuthContextReady: isReady,
+      catchBLogin,
+      logout,
+      kakaoLogin,
+      naverLogin,
+    }),
+    [mode, uuid, isReady]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
