@@ -1,6 +1,5 @@
 import { Image } from "expo-image";
-import styled from "styled-components/native";
-import { DefaultTheme } from "styled-components/native";
+import styled, { DefaultTheme } from "styled-components/native";
 
 interface Props {
   type: "naver" | "kakao" | "catchb";

@@ -6,7 +6,7 @@ interface Props {
   size?: number;
 }
 
-export function AppIcon({ icon, color = "black", size = 28 }: Props) {
+export function AppIcon({ icon, color = "black", size = 28 }: Readonly<Props>) {
   return (
     <SvgCssUri
       width={size}
