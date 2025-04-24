@@ -9,7 +9,7 @@ import NaverLogin from "@react-native-seoul/naver-login";
 import { ThemeProvider as StyledThemeProvider } from "styled-components/native";
 
 import { AlertProvider, useAlert } from "@contexts/app";
-import { AuthProvider } from "@contexts/auth";
+import { AuthProvider, useAuth } from "@contexts/auth";
 import { ThemeProvider, lightColors } from "@contexts/theme";
 import { initialize } from "@services/app";
 
@@ -55,6 +55,7 @@ function AppRouter() {
   const [ready, setReady] = useState<boolean>(false);
 
   const { showAlert } = useAlert();
+  const { isAuthContextReady } = useAuth();
 
   useEffect(() => {
     const initializeSocialLogin = async () => {
@@ -83,7 +84,7 @@ function AppRouter() {
     initializeSocialLogin();
   }, []);
 
-  if (!ready) {
+  if (!ready || !isAuthContextReady) {
     return null;
   }
 
