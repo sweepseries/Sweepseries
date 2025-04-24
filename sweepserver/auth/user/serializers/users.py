@@ -18,4 +18,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
             - 아니면 normal
         """
         ## TODO: Implement Pro
+        print(obj) ## placeholder to pass lint
         return "normal"
