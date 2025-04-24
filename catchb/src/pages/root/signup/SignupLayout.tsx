@@ -4,13 +4,21 @@ import { BackButton } from "@components/Buttons";
 import { HeaderTitle } from "@components/Texts";
 import { SignupProvider } from "@contexts/auth";
 
+function HeaderLeftBackButton() {
+  return <BackButton onPress={() => router.back()} />;
+}
+
+function SignupLayoutHeaderTitle() {
+  return <HeaderTitle>회원가입</HeaderTitle>;
+}
+
 export function SignupLayout() {
   return (
     <SignupProvider>
       <Stack
         screenOptions={{
-          headerLeft: () => <BackButton onPress={() => router.back()} />,
-          headerTitle: () => <HeaderTitle>회원가입</HeaderTitle>,
+          headerLeft: HeaderLeftBackButton,
+          headerTitle: SignupLayoutHeaderTitle,
           headerShadowVisible: false,
         }}
         initialRouteName="terms/index"
