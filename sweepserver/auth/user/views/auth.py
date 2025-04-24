@@ -8,6 +8,13 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+from dj_rest_auth.jwt_auth import (
+    CookieTokenRefreshSerializer,
+    set_jwt_access_cookie,
+    set_jwt_refresh_cookie,
+)
+from rest_framework_simplejwt.settings import api_settings as jwt_settings
+from rest_framework_simplejwt.views import TokenRefreshView as SimpleTokenRefreshView
 
 from core.utils import is_admin_page
 from ..models import User
@@ -90,3 +97,32 @@ class SocialLoginView(APIView):
 
         data["user"] = user_serializer.data
         return Response(data, status=status.HTTP_200_OK)
+
+
+class TokenRefreshView(SimpleTokenRefreshView):
+    serializer_class = CookieTokenRefreshSerializer
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        if response.status_code == status.HTTP_200_OK:
+            ## 유저 정보 응답에 추가
+            refresh_token_str = response.data["refresh"]
+            token = RefreshToken(refresh_token_str)
+            user = User.objects.get(uuid=token.payload.get("user_id"))
+
+            user.last_login = timezone.now()
+            user.save()
+
+            user_serializer = UserProfileSerializer(user)
+            response.data["user"] = user_serializer.data
+
+            ## 토큰 만료 시간 추가
+            set_jwt_access_cookie(response, response.data["access"])
+            response.data["access_expiration"] = (
+                timezone.now() + jwt_settings.ACCESS_TOKEN_LIFETIME
+            )
+            set_jwt_refresh_cookie(response, response.data["refresh"])
+            response.data["refresh_expiration"] = (
+                timezone.now() + jwt_settings.REFRESH_TOKEN_LIFETIME
+            )
+
+        return super().finalize_response(request, response, *args, **kwargs)
