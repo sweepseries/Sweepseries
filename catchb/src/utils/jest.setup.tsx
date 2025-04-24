@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 
 import * as AlertContext from "@contexts/app";
 
@@ -52,6 +53,35 @@ jest.mock("expo-router", () => {
       preventAutoHideAsync: jest.fn(),
       hideAsync: jest.fn(),
     },
+    Tabs: Object.assign(
+      ({
+        children,
+        screenOptions,
+      }: {
+        children: React.ReactNode;
+        screenOptions: BottomTabNavigationOptions;
+      }) => (
+        <View>
+          {screenOptions.headerLeft && screenOptions.headerLeft({})}
+          {/* if screen.options.headerTitle is a function, call it with an empty object */}
+          {screenOptions.headerTitle &&
+          typeof screenOptions.headerTitle === "function"
+            ? screenOptions.headerTitle({ children: "" })
+            : screenOptions.headerTitle}
+          {children}
+        </View>
+      ),
+      {
+        Screen: ({ options }: { options?: BottomTabNavigationOptions }) => (
+          <View>
+            {options?.headerLeft && options.headerLeft({})}
+            {options?.headerTitle && options.headerTitle}
+            {options?.tabBarIcon &&
+              options.tabBarIcon({ focused: true, color: "", size: 0 })}
+          </View>
+        ),
+      }
+    ),
     Redirect: jest.fn(),
     router: {
       canGoBack: jest.fn().mockReturnValue(true),

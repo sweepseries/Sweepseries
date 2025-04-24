@@ -11,7 +11,8 @@ export const defaultAuthContext = {
   catchBLogin: jest.fn(),
   logout: jest.fn(),
   mode: "guest",
-  uuid: null
+  uuid: null,
+  isAuthContextReady: true,
 };
 
 export const defaultSignupContext = {
