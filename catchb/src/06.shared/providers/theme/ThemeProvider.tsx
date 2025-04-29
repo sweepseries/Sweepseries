@@ -1,19 +1,17 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useColorScheme } from "react-native";
 
-import { lightColors, darkColors, ThemeColorType } from "./colors";
+import { lightColors, darkColors, ThemeColorType } from "@shared/colors";
 
 interface ThemeContextType {
-  theme: ThemeColorType;
-  colorScheme: "light" | "dark";
+  colors: ThemeColorType;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: lightColors,
-  colorScheme: "light",
+  colors: lightColors,
 });
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ColorsProvider({ children }: { children: React.ReactNode }) {
   const deviceColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useState<"light" | "dark">(
     deviceColorScheme === "dark" ? "dark" : "light"
@@ -23,15 +21,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setColorScheme(deviceColorScheme === "dark" ? "dark" : "light");
   }, [deviceColorScheme]);
 
-  const theme = colorScheme === "dark" ? darkColors : lightColors;
-
-  const value = useMemo(() => ({ theme, colorScheme }), [theme, colorScheme]);
+  const value = useMemo(
+    () => ({
+      colors: colorScheme === "dark" ? darkColors : lightColors,
+    }),
+    [colorScheme]
+  );
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
 
-export function useTheme() {
+export function useColors() {
   return useContext(ThemeContext);
 }
