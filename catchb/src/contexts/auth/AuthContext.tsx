@@ -36,28 +36,12 @@ interface AuthContextType {
   isAuthContextReady: boolean;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [uuid, setUuid] = useState<string | null>(null);
   const [mode, setMode] = useState<"pro" | "normal" | "guest">("guest");
   const [isReady, setIsReady] = useState<boolean>(false);
 
   const { showAlert } = useAlert();
-
-  const saveLoginStatus = (data: LoginData) => {
-    setUuid(data.user.uuid);
-    setMode(data.user.mode);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
-    saveSecure("refreshToken", data.refresh);
-  };
-
-  const resetLoginStatus = () => {
-    setUuid(null);
-    setMode("guest");
-    delete axios.defaults.headers.common["Authorization"];
-    removeSecure("refreshToken");
-  };
 
   const redirect = (route: "/login" | "/home") => {
     if (router.canDismiss()) {
@@ -178,76 +162,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  useEffect(() => {
-    const refreshToken = async () => {
-      const response = await refresh();
-
-      if (response) {
-        saveLoginStatus(response);
-
-        return response;
-      } else {
-        resetLoginStatus();
-
-        return null;
-      }
-    };
-
-    const autoTokenRenewalInterceptor = axios.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        const originalRequest = error.config;
-
-        if (
-          error.response &&
-          error.response.status === 403 &&
-          error.response.data.code === "token_not_valid" &&
-          !originalRequest._retry
-        ) {
-          originalRequest._retry = true;
-
-          const response = await refreshToken();
-          if (response) {
-            const newAccessToken = response.access;
-
-            originalRequest.headers[
-              "Authorization"
-            ] = `Bearer ${newAccessToken}`;
-            return axios(originalRequest);
-          } else {
-            resetLoginStatus();
-            showAlert({
-              title: "로그인 세선 만료",
-              message: "세션이 만료되었습니다. 다시 로그인해주세요.",
-              onConfirm: () => {
-                router.replace("/login");
-              },
-            });
-          }
-        }
-        return Promise.reject(error);
-      }
-    );
-
-    // AuthProvider가 mount될 때, 로컬 스토리지에 저장된 refresh token을 사용하여 자동으로 로그인
-    const autoLogin = async () => {
-      const result = await refreshToken();
-
-      setIsReady(true);
-
-      if (result) {
-        redirect("/home");
-      }
-    };
-
-    autoLogin();
-
-    // Remove the interceptor when AuthProvider unmounts
-    return () => {
-      axios.interceptors.response.eject(autoTokenRenewalInterceptor);
-    };
-  }, []);
-
   const value = useMemo(
     () => ({
       mode,
@@ -263,12 +177,3 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
-
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
