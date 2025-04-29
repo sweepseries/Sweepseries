@@ -1,5 +1,7 @@
-import { Image } from "expo-image";
 import styled, { DefaultTheme } from "styled-components/native";
+
+import KakaoIcon from "./kakao.svg";
+import NaverIcon from "./naver.svg";
 
 interface Props {
   type: "naver" | "kakao" | "catchb";
@@ -10,22 +12,14 @@ export function LoginButton({ type, onPress }: Readonly<Props>) {
   if (type === "naver") {
     return (
       <NaverContainer onPress={onPress}>
-        <Image
-          style={{ width: 40, height: 35 }}
-          source="https://kr.object.ncloudstorage.com/sweep.resources/naver-icon.png"
-          contentFit="contain"
-        />
+        <NaverIcon width={40} height={40} />
         <NaverText>네이버로 로그인</NaverText>
       </NaverContainer>
     );
   } else if (type === "kakao") {
     return (
       <KakaoContainer onPress={onPress}>
-        <Image
-          style={{ width: 40, height: 30 }}
-          source="https://kr.object.ncloudstorage.com/sweep.resources/kakao-icon.png"
-          contentFit="contain"
-        />
+        <KakaoIcon width={40} height={40} />
         <KakaoText>카카오로 로그인</KakaoText>
       </KakaoContainer>
     );
