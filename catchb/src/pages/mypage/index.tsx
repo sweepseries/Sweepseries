@@ -1,3 +1,3 @@
-import { MyPageLayout } from "./MyPageLayout";
+import { MyPageLayout } from "./_layout/MyPageLayout";
 
 export { MyPageLayout };
