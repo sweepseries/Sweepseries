@@ -36,24 +36,3 @@ export async function logout() {
     return false;
   }
 }
-
-export async function refresh() {
-  try {
-    const refreshToken = await getSecure("refreshToken");
-    const response = await axios.post(
-      "/v1/tokens/refresh/",
-      {
-        refresh: refreshToken,
-      },
-      {
-        headers: {
-          "X-Sweep-Platform": "sweep/mobile",
-        },
-      }
-    );
-
-    return response.data;
-  } catch {
-    return null;
-  }
-}
