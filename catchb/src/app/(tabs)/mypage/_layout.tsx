@@ -1,3 +1,3 @@
-import { MyPageLayout } from "@pages/mypage";
+import { MyPageLayout } from "@pages/layouts";
 
 export default MyPageLayout;

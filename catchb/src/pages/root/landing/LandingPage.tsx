@@ -32,12 +32,6 @@ export function LandingPage() {
 
   return (
     <Container>
-      <Header>
-        <CatchBLogo />
-        <HeaderText>
-          {"지금 로그인하고\nCatch B에서 야구를 즐겨보세요!"}
-        </HeaderText>
-      </Header>
       <Buttons>
         <LoginButton type="naver" onPress={naverLogin} />
         <LoginButton type="kakao" onPress={kakaoLogin} />
@@ -89,18 +83,6 @@ const HeaderText = styled.Text`
   font-size: 20px;
   line-height: 28px;
   include-font-padding: false;
-`;
-
-const Buttons = styled.View`
-  justify-content: center;
-  width: 100%;
-  padding: 0 24px;
-  gap: 8px;
-`;
-
-const DividerWrapper = styled.View`
-  width: 100%;
-  padding: 0 24px;
 `;
 
 const GuideText = styled.Text`

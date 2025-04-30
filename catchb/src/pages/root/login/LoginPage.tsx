@@ -36,12 +36,6 @@ export function LoginPage() {
 
   return (
     <Container>
-      <Header>
-        <CatchBLogo />
-        <HeaderText style={{ includeFontPadding: false }}>
-          {"지금 로그인하고\nCatch B에서 야구를 즐겨보세요!"}
-        </HeaderText>
-      </Header>
       <Inputs>
         <AuthTextInput
           placeholder="아이디"
@@ -88,19 +82,6 @@ const Container = styled.View`
   gap: 8px;
   background-color: ${({ theme }: { theme: DefaultTheme }) =>
     theme.colors.background};
-`;
-
-const Header = styled.View`
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-`;
-
-const HeaderText = styled.Text`
-  text-align: center;
-  font-size: 20px;
-  line-height: 28px;
-  include-font-padding: false;
 `;
 
 const Inputs = styled.View`
