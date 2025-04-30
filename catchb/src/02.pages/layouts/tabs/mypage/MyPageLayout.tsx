@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { HeaderLeftBackButton } from "@features/layouts";
+import { HeaderLeftBackButton, HeaderLeftLogo } from "@features/layouts";
 
 export function MyPageLayout() {
   return (
@@ -11,7 +11,12 @@ export function MyPageLayout() {
         headerTitle: "",
       }}
     >
-      <Stack.Screen name="index" />
+      <Stack.Screen
+        name="index"
+        options={{
+          headerLeft: HeaderLeftLogo,
+        }}
+      />
     </Stack>
   );
 }
