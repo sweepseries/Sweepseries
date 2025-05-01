@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { HeaderLeftBackButton, HeaderTitle } from "@features/layouts";
+import { HeaderLeftBackButton, HeaderTitle } from "@widgets/layouts";
 import { SignupProvider } from "@features/signup";
 
 function SignupLayoutHeaderTitle() {

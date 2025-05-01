@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { HeaderLeftBackButton, HeaderLeftLogo } from "@features/layouts";
+import { HeaderLeftBackButton, HeaderLeftLogo } from "@widgets/layouts";
 
 export function MyPageLayout() {
   return (

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { HeaderLeftLogo } from "@features/layouts";
+import { HeaderLeftLogo } from "@widgets/layouts";
 
 export function HomeLayout() {
   return (

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { HeaderLeftBackButton } from "@features/layouts";
+import { HeaderLeftBackButton } from "@widgets/layouts";
 
 export function CalendarLayout() {
   return (
