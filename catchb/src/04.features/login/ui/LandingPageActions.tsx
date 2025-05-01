@@ -1,4 +1,4 @@
-import { router, Redirect } from "expo-router";
+import { router } from "expo-router";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { useColors } from "@shared/lib/colors";
@@ -22,7 +22,7 @@ const EmphasisText = styled.Text`
   color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary};
 `;
 
-export function NavButtons() {
+export function LandingPageActions() {
   const { colors } = useColors();
 
   const handleSignup = () => {

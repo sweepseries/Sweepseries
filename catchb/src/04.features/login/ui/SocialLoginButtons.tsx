@@ -36,7 +36,7 @@ const Buttons = styled.View`
   gap: 8px;
 `;
 
-export function LoginButtons() {
+export function SocialLoginButtons() {
   const handleLogin = () => {
     router.push("/login");
   };
