@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import { useTheme } from "@contexts/theme";
+import { useColors } from "@shared/lib/colors";
 
 interface Props {
   text: string;
@@ -19,10 +19,10 @@ export function TextButton({
   color = "#FFFFFF",
   active = true,
 }: Readonly<Props>) {
-  const { theme } = useTheme();
+  const { colors } = useColors();
 
-  backgroundColor = active ? backgroundColor : theme.border;
-  color = active ? color : theme.lowEmphasis;
+  backgroundColor = active ? backgroundColor : colors.border;
+  color = active ? color : colors.lowEmphasis;
   const borderColor = active ? color : "transparent";
 
   return (
