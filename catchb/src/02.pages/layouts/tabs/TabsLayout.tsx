@@ -1,7 +1,8 @@
 import { Tabs } from "expo-router";
 
-import { AppIcon } from "@shared/ui/Icons";
 import { useAuth } from "@shared/lib/auth";
+import { AppIcon } from "@shared/ui/Icons";
+import { useColors } from "@shared/lib/colors";
 
 export const unstable_settings = {
   initialRouteName: "home",
@@ -9,11 +10,13 @@ export const unstable_settings = {
 
 export function TabsLayout() {
   const { mode } = useAuth();
+  const { colors } = useColors();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#14863E",
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.lowEmphasis,
         headerShown: false,
       }}
     >
