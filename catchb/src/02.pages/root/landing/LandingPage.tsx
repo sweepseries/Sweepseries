@@ -1,7 +1,7 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { AuthHeader } from "@widgets/authheader";
-import { LoginButtons, NavButtons } from "@features/login";
+import { SocialLoginButtons, LandingPageActions } from "@features/login";
 import { Divider } from "@shared/ui/Dividers";
 
 const Container = styled.View`
@@ -22,11 +22,11 @@ export function LandingPage() {
   return (
     <Container>
       <AuthHeader />
-      <LoginButtons />
+      <SocialLoginButtons />
       <DividerWrapper>
         <Divider />
       </DividerWrapper>
-      <NavButtons />
+      <LandingPageActions />
     </Container>
   );
 }
