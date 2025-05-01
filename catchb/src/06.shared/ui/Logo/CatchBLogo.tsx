@@ -1,5 +1,9 @@
 import MainLogo from "./mainlogo.svg";
 
-export function CatchBMainLogo() {
-  return <MainLogo width={160} height={160} color="#083F25" />;
+interface Props {
+  opacity?: number;
+}
+
+export function CatchBMainLogo({ opacity = 1 }: Readonly<Props>) {
+  return <MainLogo width={160} height={160} fill="#083F25" opacity={opacity} />;
 }
