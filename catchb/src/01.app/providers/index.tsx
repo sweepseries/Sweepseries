@@ -1,5 +1,6 @@
 export { AutoLoginProvider } from "./autologin/AutoLoginProvider";
 export { PermissionsProvider } from "./PermissionsProvider";
+export { QueryProvider } from "./QueryProvider";
 export { ServerConnectProvider } from "./server/ServerConnectProvider";
 export { ThemeProvider } from "./ThemeProvider";
 

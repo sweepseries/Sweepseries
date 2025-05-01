@@ -7,6 +7,7 @@ import {
   AuthProvider,
   AutoLoginProvider,
   PermissionsProvider,
+  QueryProvider,
   ServerConnectProvider,
   ThemeProvider,
 } from "./providers";
@@ -23,17 +24,19 @@ axios.defaults.baseURL = process.env.EXPO_PUBLIC_API_URL;
 export function App() {
   return (
     <PermissionsProvider>
-      <ThemeProvider>
-        <AlertProvider>
-          <AuthProvider>
-            <ServerConnectProvider>
-              <AutoLoginProvider>
-                <RootLayout />
-              </AutoLoginProvider>
-            </ServerConnectProvider>
-          </AuthProvider>
-        </AlertProvider>
-      </ThemeProvider>
+      <QueryProvider>
+        <ThemeProvider>
+          <AlertProvider>
+            <AuthProvider>
+              <ServerConnectProvider>
+                <AutoLoginProvider>
+                  <RootLayout />
+                </AutoLoginProvider>
+              </ServerConnectProvider>
+            </AuthProvider>
+          </AlertProvider>
+        </ThemeProvider>
+      </QueryProvider>
     </PermissionsProvider>
   );
 }
