@@ -1,9 +1,9 @@
 import { Keyboard } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
 
-import { CatchBLogo } from "@features/CatchB";
-import { TextButton } from "@components/Buttons";
-import { useTheme } from "@contexts/theme";
+import { useColors } from "@shared/lib/colors";
+import { TextButton } from "@shared/ui/Buttons";
+import { CatchBMainLogo } from "@shared/ui/Logo";
 
 interface Props {
   title: string;
@@ -22,12 +22,12 @@ export function SignUpForm({
   buttonOnPress,
   buttonDisabled,
 }: Readonly<Props>) {
-  const { theme } = useTheme();
+  const { colors } = useColors();
 
   return (
     <Wrapper onPress={Keyboard.dismiss}>
       <Background>
-        <CatchBLogo opacity={0.2} />
+        <CatchBMainLogo opacity={0.2} />
       </Background>
       <Contents>
         <Header>
@@ -38,7 +38,7 @@ export function SignUpForm({
       </Contents>
       <TextButton
         text={buttonText}
-        backgroundColor={theme.primary}
+        backgroundColor={colors.primary}
         onPress={buttonOnPress}
         fontSize={18}
         active={!buttonDisabled}
