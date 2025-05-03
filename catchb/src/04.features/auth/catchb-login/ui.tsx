@@ -3,26 +3,19 @@ import { router } from "expo-router";
 import styled from "styled-components/native";
 
 import { catchBLogin } from "@entities/auth";
+import { useAlert } from "@shared/lib/alert";
 import { useColors } from "@shared/lib/colors";
 import { TextButton } from "@shared/ui/Buttons";
 import { AuthTextInput } from "@shared/ui/TextInput";
-import { useAlert } from "@shared/lib/alert";
 
-const Container = styled.View`
-  width: 100%;
-  margin: 8px 0 0 0;
-  padding: 0 24px;
-  gap: 8px;
-`;
-
-export function LoginForm() {
+export function CatchBLoginForm() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const { showAlert } = useAlert();
   const { colors } = useColors();
 
-  const handleLoginPress = async () => {
+  const handleLoginButtonPress = async () => {
     if (username.length === 0 || password.length === 0) {
       showAlert({
         title: "로그인 실패",
@@ -57,7 +50,14 @@ export function LoginForm() {
         placeholderTextColor={colors.lowEmphasis}
         testID="비밀번호"
       />
-      <TextButton text="로그인" onPress={handleLoginPress} />
+      <TextButton text="로그인" onPress={handleLoginButtonPress} />
     </Container>
   );
 }
+
+const Container = styled.View`
+  width: 100%;
+  margin: 8px 0 0 0;
+  padding: 0 24px;
+  gap: 8px;
+`;
