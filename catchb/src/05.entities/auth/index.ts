@@ -1,3 +1,3 @@
 export { login as catchBLogin } from "./api/catchblogin";
-export { kakaoLogin } from "./api/kakaologin";
-export { naverLogin } from "./api/naverlogin";
+export { socialLogin } from "./api/sociallogin";
+export { LoginButton, LoginButtonText } from "./ui/LoginButtons";

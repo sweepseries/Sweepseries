@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const LoginButtonContainer = styled.TouchableOpacity`
+export const LoginButton = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: center;
