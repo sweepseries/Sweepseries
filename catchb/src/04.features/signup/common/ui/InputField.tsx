@@ -1,15 +1,16 @@
-import styled, { DefaultTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
+import { AuthInputTitle } from "./InputTitle";
 import { AuthTextInput } from "@shared/ui/TextInput";
 
 interface Props {
-  title: string;
   value: string;
   onChangeText: (text: string) => void;
   placeholder: string;
+  title?: string;
   secureTextEntry?: boolean;
   errorMessage?: string;
-  type?: "default" | "email-address" | "phone-pad";
+  type?: "default" | "email-address" | "phone-pad" | "number-pad";
   returnKeyType?: "next" | "done";
 }
 
@@ -25,7 +26,7 @@ export function InputField({
 }: Props) {
   return (
     <Wrapper>
-      <AuthInputTitle>{title}</AuthInputTitle>
+      {title && <AuthInputTitle>{title}</AuthInputTitle>}
       <AuthTextInput
         value={value}
         onChangeText={onChangeText}
@@ -42,12 +43,6 @@ export function InputField({
 const Wrapper = styled.View`
   margin: 8px 0;
   gap: 12px;
-`;
-
-const AuthInputTitle = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-  color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.mediumEmphasis};
 `;
 
 const ErrorText = styled.Text`
