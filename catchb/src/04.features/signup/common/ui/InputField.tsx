@@ -7,6 +7,7 @@ interface Props {
   value: string;
   onChangeText: (text: string) => void;
   placeholder: string;
+  secureTextEntry?: boolean;
   errorMessage?: string;
   type?: "default" | "email-address" | "phone-pad";
   returnKeyType?: "next" | "done";
@@ -17,6 +18,7 @@ export function InputField({
   value,
   onChangeText,
   placeholder,
+  secureTextEntry = false,
   errorMessage,
   type = "default",
   returnKeyType = "done",
@@ -28,6 +30,7 @@ export function InputField({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
         type={type}
         returnKeyType={returnKeyType}
       />
