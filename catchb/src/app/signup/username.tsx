@@ -1,3 +1,3 @@
-import { UsernameEmail } from "@pages/root";
+import { UsernameEmailVerificationPage } from "@pages/root/signup";
 
-export default UsernameEmail;
+export default UsernameEmailVerificationPage;

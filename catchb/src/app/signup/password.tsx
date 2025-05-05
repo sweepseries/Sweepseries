@@ -1,3 +1,3 @@
-import { Passwords } from "@pages/root";
+import { PasswordVerificationPage } from "@pages/root/signup";
 
-export default Passwords;
+export default PasswordVerificationPage;

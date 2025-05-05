@@ -1,3 +1,3 @@
-import { TermContents } from "@pages/root";
+import { TermsContentPage } from "@pages/root/signup";
 
-export default TermContents;
+export default TermsContentPage;
