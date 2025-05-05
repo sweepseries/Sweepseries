@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 
@@ -8,7 +9,6 @@ import { useAlert } from "@shared/lib/alert";
 import { useColors } from "@shared/lib/colors";
 import { TextButton } from "@shared/ui/Buttons";
 import { Divider } from "@shared/ui/Dividers";
-import { useEffect } from "react";
 
 export function TermsContentPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
