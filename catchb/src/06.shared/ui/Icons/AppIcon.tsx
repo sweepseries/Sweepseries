@@ -8,6 +8,7 @@ import ChevronRight from "./files/chevron-right.svg";
 import ChevronUp from "./files/chevron-up.svg";
 import Desk from "./files/desk.svg";
 import Home from "./files/home.svg";
+import Logout from "./files/logout.svg";
 import People from "./files/people.svg";
 import PersonCircle from "./files/person-circle.svg";
 
@@ -26,6 +27,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   "chevron-up": ChevronUp,
   desk: Desk,
   home: Home,
+  logout: Logout,
   people: People,
   "person-circle": PersonCircle,
 };
