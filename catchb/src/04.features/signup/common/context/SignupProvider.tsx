@@ -1,30 +1,8 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 
-import { RegisterDataType } from "../models";
-
-interface SignupContextType {
-  setNotificationsAgreed: (agreed: boolean) => void;
-  setUsernameEmail: (username: string, email: string) => void;
-  setPasswords: (password: string, password2: string) => void;
-  setNamePhone: (name: string, phone: string) => void;
-  data: RegisterDataType;
-}
-
-const SignupContext = createContext<SignupContextType | undefined>(undefined);
-
-type SignupParams = {
-  mode: string;
-  username: string;
-  email: string;
-  name: string;
-  phone: string;
-  birthday: string;
-  birthyear: string;
-  gender: string;
-  nickname: string;
-  profileImage: string;
-};
+import { SignupContext, SignupContextType } from "./contexts";
+import { SocialSignupParams } from "../models/register";
 
 export function SignupProvider({
   children,
@@ -50,7 +28,7 @@ export function SignupProvider({
   const [nickname, setNickname] = useState<string>("");
   const [profileImage, setProfileImage] = useState<string>("");
 
-  const params = useLocalSearchParams<SignupParams>();
+  const params = useLocalSearchParams<SocialSignupParams>();
 
   const setUsernameEmail = (username: string, email: string) => {
     setUsername(username);
