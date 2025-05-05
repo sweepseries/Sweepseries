@@ -1,12 +1,8 @@
 import { useContext, useMemo, useState } from "react";
 import axios from "axios";
 
-import {
-  AuthContext,
-  CatchBAppModeType,
-  LoginData,
-  UserProfileType,
-} from "./types";
+import { AuthContext } from "../models/context";
+import { CatchBAppModeType, LoginData, UserProfileType } from "../models/types";
 import { removeSecure, saveSecure } from "@shared/lib/storage";
 
 interface Props {
@@ -19,6 +15,7 @@ export function AuthProvider({ children }: Readonly<Props>) {
 
   const saveLoginStatus = (data: LoginData) => {
     setUser(data.user);
+    setMode(data.user.mode);
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
     saveSecure("refreshToken", data.refresh);
   };
