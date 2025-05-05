@@ -1,2 +1,2 @@
-export { ColorsProvider, useColors } from "./provider";
-export type { ThemeColorType } from "./types";
+export { ColorsProvider, useColors } from "./provider/ColorProvider";
+export type { ThemeColorType } from "./models/types";
