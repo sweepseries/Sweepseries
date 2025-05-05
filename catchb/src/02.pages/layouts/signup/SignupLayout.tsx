@@ -20,7 +20,11 @@ export function SignupLayout() {
       >
         <Stack.Screen
           name="terms/[id]"
-          options={{ presentation: "modal", headerShown: false }}
+          options={{
+            presentation: "modal",
+            headerShown: false,
+            gestureEnabled: false,
+          }}
         />
         <Stack.Screen name="terms/index" />
         <Stack.Screen name="username" />

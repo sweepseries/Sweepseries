@@ -1,4 +1,6 @@
 export { RootLayout } from "./root/RootLayout";
+export { SignupLayout } from "./signup/SignupLayout";
+
 export { TabsLayout } from "./tabs/TabsLayout";
 export { CalendarLayout } from "./tabs/calendar/CalendarLayout";
 export { CommunityLayout } from "./tabs/community/CommunityLayout";
