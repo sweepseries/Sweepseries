@@ -45,9 +45,12 @@ export function KakaoLogin() {
           },
         });
       } else {
-        saveLoginStatus(response.data);
+        saveLoginStatus(response);
 
-        router.push("/home");
+        if (router.canDismiss()) {
+          router.dismissAll();
+        }
+        router.replace("/home");
       }
     } else {
       showAlert({

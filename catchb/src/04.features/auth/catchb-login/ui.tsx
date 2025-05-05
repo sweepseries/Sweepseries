@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 import { catchBLogin } from "@entities/auth";
 import { useAlert } from "@shared/lib/alert";
+import { useAuth } from "@shared/lib/auth";
 import { useColors } from "@shared/lib/colors";
 import { TextButton } from "@shared/ui/Buttons";
 import { AuthTextInput } from "@shared/ui/TextInput";
@@ -13,6 +14,7 @@ export function CatchBLoginForm() {
   const [password, setPassword] = useState<string>("");
 
   const { showAlert } = useAlert();
+  const { saveLoginStatus } = useAuth();
   const { colors } = useColors();
 
   const handleLoginButtonPress = async () => {
@@ -28,7 +30,11 @@ export function CatchBLoginForm() {
     const result = await catchBLogin(username, password);
 
     if (result) {
-      router.dismissAll();
+      saveLoginStatus(result);
+
+      if (router.canDismiss()) {
+        router.dismissAll();
+      }
       router.replace("/home");
     }
   };

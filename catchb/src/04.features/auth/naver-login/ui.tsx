@@ -36,7 +36,10 @@ export function NaverLogin() {
       } else {
         saveLoginStatus(response);
 
-        router.push("/home");
+        if (router.canDismiss()) {
+          router.dismissAll();
+        }
+        router.replace("/home");
       }
     }
   };
