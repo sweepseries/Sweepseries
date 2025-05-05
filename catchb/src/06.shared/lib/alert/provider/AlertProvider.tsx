@@ -1,7 +1,7 @@
 import { useCallback, useContext, useMemo, useState } from "react";
 
-import { AlertContext } from "./context";
-import { AlertProps } from "../types";
+import { AlertContext } from "../models/context";
+import { AlertProps } from "../models/types";
 import { CatchBAlert } from "../ui/CatchBAlert";
 
 interface AlertProviderProps {

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import { AlertProps } from "../types";
+import { AlertProps } from "./types";
 
 interface AlertContextValue {
   showAlert: (options: AlertProps) => void;

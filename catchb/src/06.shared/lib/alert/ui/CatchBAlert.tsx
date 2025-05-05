@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import { alertStyles } from "./styles";
-import { AlertProps } from "../types";
+import { AlertProps } from "../models/types";
 import { useColors } from "@shared/lib/colors";
 import { Divider } from "@shared/ui/Dividers";
 
