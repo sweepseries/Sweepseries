@@ -1,8 +1,8 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useColorScheme } from "react-native";
 
-import { lightColors, darkColors } from "./colors";
-import { ColorContext } from "./types";
+import { lightColors, darkColors } from "../models/colors";
+import { ColorContext } from "../models/context";
 
 export function ColorsProvider({ children }: { children: React.ReactNode }) {
   const deviceColorScheme = useColorScheme();

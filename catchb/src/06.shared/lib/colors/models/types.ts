@@ -1,7 +1,3 @@
-import { createContext } from "react";
-
-import { lightColors } from "./colors";
-
 export type ThemeColorType = {
   primary: string;
   primaryContainer: string;
@@ -13,11 +9,3 @@ export type ThemeColorType = {
   mediumEmphasis: string;
   lowEmphasis: string;
 };
-
-interface ColorContextType {
-  colors: ThemeColorType;
-}
-
-export const ColorContext = createContext<ColorContextType>({
-  colors: lightColors,
-});
