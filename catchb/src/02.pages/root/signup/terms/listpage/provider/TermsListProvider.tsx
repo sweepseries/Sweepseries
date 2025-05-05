@@ -1,22 +1,10 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 
-import { TermsAndConditionsCheckType } from "./models";
+import { TermsListContext, TermsAndConditionsCheckType } from "./contexts";
 import { useSignup } from "@features/signup";
-import { TermsAndConditionsType, useTerms } from "@entities/terms";
+import { useTerms } from "@entities/terms";
 import { useAlert } from "@shared/lib/alert";
-
-interface TermsContextType {
-  terms: TermsAndConditionsType[] | undefined;
-  isLoading: boolean;
-  isAllChecked: boolean;
-  buttonActive: boolean;
-  isTermChecked: (id: number) => boolean;
-  toggleAll: () => void;
-  toggleCheckTerm: (id: number) => void;
-}
-
-const TermsListContext = createContext<TermsContextType | undefined>(undefined);
 
 export function TermsListProvider({
   children,

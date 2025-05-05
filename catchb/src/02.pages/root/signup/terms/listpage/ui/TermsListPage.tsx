@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 
 import { LoadingTermsList } from "./loading";
-import { TermsListProvider, useTermsList } from "../contexts";
+import { TermsListProvider, useTermsList } from "../provider/TermsListProvider";
 import { SignUpForm } from "@widgets/signupform";
 import { TermSimple } from "@entities/terms";
 import { Divider } from "@shared/ui/Dividers";
