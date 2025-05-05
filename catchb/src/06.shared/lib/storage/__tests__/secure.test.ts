@@ -1,6 +1,6 @@
 import * as SecureStore from "expo-secure-store";
 
-import { saveSecure, getSecure, removeSecure } from "./secure";
+import { saveSecure, getSecure, removeSecure } from "../secure";
 
 describe("secure", () => {
   it("saves data", async () => {

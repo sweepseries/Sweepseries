@@ -1,6 +1,14 @@
 import AsyncStorageMock from "@react-native-async-storage/async-storage/jest/async-storage-mock";
 
-import { saveStorage, getStorage, removeStorage } from "./asyncstorage";
+import { saveStorage, getStorage, removeStorage } from "../asyncstorage";
+
+jest.mock("@react-native-async-storage/async-storage", () => {
+  const mock = jest.requireActual(
+    "@react-native-async-storage/async-storage/jest/async-storage-mock"
+  );
+
+  return mock;
+});
 
 describe("AsyncStorage", () => {
   it("should save, get and remove storage successfully", async () => {
