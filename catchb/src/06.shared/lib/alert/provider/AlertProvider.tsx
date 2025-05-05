@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 
 import { AlertContext } from "./context";
-import { AlertProps } from "./types";
-import { CatchBAlert } from "./ui";
+import { AlertProps } from "../types";
+import { CatchBAlert } from "../ui/CatchBAlert";
 
 interface AlertProviderProps {
   children: React.ReactNode;
@@ -35,4 +35,12 @@ export function AlertProvider({ children }: Readonly<AlertProviderProps>) {
       )}
     </AlertContext.Provider>
   );
+}
+
+export function useAlert() {
+  const ctx = useContext(AlertContext);
+  if (!ctx) {
+    throw new Error("useAlert must be used within an AlertProvider");
+  }
+  return ctx;
 }

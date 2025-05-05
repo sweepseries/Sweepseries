@@ -1,2 +1,1 @@
-export { AlertProvider } from "./provider";
-export { useAlert } from "./hooks";
+export { AlertProvider, useAlert } from "./provider/AlertProvider";
