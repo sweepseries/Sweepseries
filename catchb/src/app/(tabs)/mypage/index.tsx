@@ -1,3 +1,3 @@
-export default function HomePage() {
-  return null;
-}
+import { MyPage } from "@pages/tabs/mypage";
+
+export default MyPage;
