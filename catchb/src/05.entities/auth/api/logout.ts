@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getSecure } from "@services/storage";
+import { getSecure } from "@shared/lib/storage";
 
 export async function logout() {
   try {
