@@ -34,7 +34,7 @@ export function NaverLogin() {
           },
         });
       } else {
-        saveLoginStatus(response.data);
+        saveLoginStatus(response);
 
         router.push("/home");
       }
