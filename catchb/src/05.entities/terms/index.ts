@@ -1,3 +1,6 @@
-export { useTerms } from "./hooks";
-export { LoadingTerms } from "./ui/LoadingTerms";
+export { useTermsDetail } from "./api/termDetails";
+export { useTerms } from "./api/termsList";
+
 export { TermSimple } from "./ui/TermSimple";
+
+export type { TermsAndConditionsType } from "./models/terms";
