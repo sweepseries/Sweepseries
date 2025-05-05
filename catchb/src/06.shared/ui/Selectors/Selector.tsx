@@ -1,6 +1,6 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
-import { useTheme } from "@contexts/theme";
+import { useColors } from "@shared/lib/colors";
 
 interface Props {
   options: string[];
@@ -9,8 +9,8 @@ interface Props {
 }
 
 export function Selector({ options, selected, onSelect }: Readonly<Props>) {
-  const { theme } = useTheme();
-  
+  const { colors } = useColors();
+
   return (
     <Options>
       {options.map((option) => (
@@ -19,7 +19,7 @@ export function Selector({ options, selected, onSelect }: Readonly<Props>) {
           onPress={() => onSelect(option)}
           style={
             selected === option && {
-              backgroundColor: theme.primary,
+              backgroundColor: colors.primary,
               borderColor: "transparent",
             }
           }
@@ -28,7 +28,7 @@ export function Selector({ options, selected, onSelect }: Readonly<Props>) {
           <OptionText
             style={
               selected === option && {
-                color: theme.background,
+                color: colors.background,
               }
             }
           >
