@@ -1,7 +1,8 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
+import { isAxiosError } from "axios";
 
-import { ProfileFormContext, ProfileFormContextType } from "./contexts";
+import { ProfileFormContext, ProfileFormContextType } from "./context";
 import { useSignup, useRegister } from "@features/signup/common";
 import { useAlert } from "@shared/lib/alert";
 
@@ -48,7 +49,7 @@ export function ProfileFormProvider({
           goToLoginPage();
         },
         onError: (error) => {
-          if (error.response?.data?.error) {
+          if (isAxiosError(error) && error.response?.data?.error) {
             const errorMessage = error.response.data.error;
             showAlert({
               title: "오류",
@@ -67,13 +68,13 @@ export function ProfileFormProvider({
 
   useEffect(() => {
     if (data.mode !== "catchb") {
-      setNickname(data.nickname ?? "");
-      setGender(data.gender ?? "남성");
-      setBirthYear(data.birth_year ?? "");
-      setBirthMonth(data.birth_month ?? "");
-      setBirthDate(data.birth_day ?? "");
+      setNickname(data.nickname || "");
+      setGender(data.gender);
+      setBirthYear(data.birth_year || "");
+      setBirthMonth(data.birth_month || "");
+      setBirthDate(data.birth_day || "");
     }
-  }, []);
+  }, [data.mode]);
 
   const value = useMemo<ProfileFormContextType>(
     () => ({
