@@ -138,7 +138,6 @@ describe("프로필 입력 페이지", () => {
       mode: "kakao",
       username: "testuser",
       email: "email@email.com",
-      name: "홍길동",
     });
 
     const { getByTestId } = renderPage();

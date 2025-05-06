@@ -75,8 +75,8 @@ export function SignupProvider({
       };
 
       setMode("kakao");
-      setUsername(params.username || "");
-      setEmail(params.email || "");
+      setUsername(params.username);
+      setEmail(params.email);
       setName(params.name || "");
       setBirthYear(params.birthyear || "");
       setBirthMonth(params.birthday?.slice(0, 2) || "");
