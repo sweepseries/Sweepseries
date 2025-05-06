@@ -13,7 +13,7 @@
   "jest": {
     "preset": "jest-expo",
     "setupFiles": [
-      "./src/utils/jest.setup.tsx"
+      "./src/test-utils/jest.setup.tsx"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
@@ -24,12 +24,10 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/app/**/*.{js,jsx,ts,tsx}",
-      "!src/models/**/*.{js,jsx,ts,tsx}",
-      "!src/testdata/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*/index.tsx",
+      "!src/**/*/types.ts",
       "!src/**/*/index.ts",
       "!src/**/*.d.ts",
-      "!src/utils/test-utils.tsx"
+      "!src/test-utils/renderer.tsx"
     ]
   },
   "dependencies": {

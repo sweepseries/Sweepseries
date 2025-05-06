@@ -3,9 +3,6 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@app/*": [
-        "./src/01.app/*"
-      ],
       "@pages/*": [
         "./src/02.pages/*"
       ],
@@ -20,6 +17,9 @@
       ],
       "@shared/*": [
         "./src/06.shared/*"
+      ],
+      "@test-utils/*": [
+        "./src/test-utils/*"
       ],
     }
   },
