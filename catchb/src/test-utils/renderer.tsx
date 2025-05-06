@@ -3,16 +3,25 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "styled-components/native";
 import { render } from "@testing-library/react-native";
 
+import { AlertProvider } from "@shared/lib/alert";
 import { ColorsProvider, sampleColors } from "@shared/lib/colors";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 export const renderWithProviders = (ui: ReactElement) => {
   function Wrapper({ children }: PropsWithChildren): JSX.Element {
     return (
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={{ colors: sampleColors }}>
-          <ColorsProvider>{children}</ColorsProvider>
+          <ColorsProvider>
+            <AlertProvider>{children}</AlertProvider>
+          </ColorsProvider>
         </ThemeProvider>
       </QueryClientProvider>
     );

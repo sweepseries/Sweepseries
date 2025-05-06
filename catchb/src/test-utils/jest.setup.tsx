@@ -2,15 +2,90 @@
 //import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 //import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 
-jest.mock("@shared/ui/Dividers", () => ({
-  Divider: () => null,
+jest.mock("expo-router", () => ({
+  router: {
+    back: jest.fn(),
+    push: jest.fn(),
+  },
+  useLocalSearchParams: jest.fn().mockReturnValue({ id: "1" }),
 }));
+jest.mock("react-native-skeleton-placeholder", () => {
+  const { Text } = jest.requireActual("react-native");
+  const Item = () => <Text>Loading Item</Text>;
+  const SkeletonPlaceholder = ({ children }: { children: React.ReactNode }) =>
+    children;
 
+  SkeletonPlaceholder.Item = Item;
+
+  return SkeletonPlaceholder;
+});
+
+jest.mock("@shared/lib/alert", () => ({
+  AlertProvider: ({ children }: { children: React.ReactNode }) => children,
+  useAlert: jest.fn(() => ({
+    showAlert: jest.fn(),
+  })),
+}));
+jest.mock("@shared/lib/auth", () => ({
+  AuthProvider: ({ children }: { children: React.ReactNode }) => children,
+  useAuth: jest.fn(() => ({
+    saveLoginStatus: jest.fn(),
+    resetLoginStatus: jest.fn(),
+    user: null,
+    mode: "GUEST",
+    isAuthenticated: false,
+  })),
+}));
+jest.mock("@shared/lib/colors", () => {
+  const { sampleColors } = jest.requireActual("@shared/lib/colors");
+
+  return {
+    ColorsProvider: ({ children }: { children: React.ReactNode }) => children,
+    useColors: () => ({
+      colors: sampleColors,
+    }),
+    sampleColors,
+  };
+});
 jest.mock("@shared/lib/storage", () => ({
   getSecure: jest.fn().mockResolvedValue("asdf"),
   removeSecure: jest.fn().mockResolvedValue({}),
   saveSecure: jest.fn().mockResolvedValue({}),
 }));
+
+jest.mock("@shared/ui/Buttons", () => {
+  const { TouchableOpacity } = jest.requireActual("react-native");
+
+  return {
+    TextButton: ({
+      text,
+      onPress,
+      active = true,
+    }: {
+      text: string;
+      onPress: () => void;
+      active?: boolean;
+    }) => (
+      <TouchableOpacity onPress={onPress} testID={text} disabled={!active} />
+    ),
+  };
+});
+jest.mock("@shared/ui/Dividers", () => ({
+  Divider: () => null,
+  VerticalDivider: () => null,
+}));
+jest.mock("@shared/ui/Icons", () => ({
+  AppIcon: () => null,
+}));
+jest.mock("@shared/ui/Logo", () => ({
+  CatchBMainLogo: jest.fn(() => null),
+}));
+jest.mock("@shared/ui/Selectors", () => ({
+  Selector: () => null,
+}));
+jest.mock("@shared/ui/TextInput", () => ({
+  AuthTextInput: () => null,
+})); /*}
 
 /*
 jest.mock("expo-router", () => {
@@ -40,7 +115,7 @@ jest.mock("expo-router", () => {
       }) => (
         <View>
           {screenOptions.headerLeft && screenOptions.headerLeft({})}
-          {/* if screen.options.headerTitle is a function, call it with an empty object *//*}
+          {/* if screen.options.headerTitle is a function, call it with an empty object */ /*}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
             ? screenOptions.headerTitle({ children: "" })
@@ -72,7 +147,7 @@ jest.mock("expo-router", () => {
       }) => (
         <View>
           {screenOptions.headerLeft && screenOptions.headerLeft({})}
-          {/* if screen.options.headerTitle is a function, call it with an empty object *//*}
+          {/* if screen.options.headerTitle is a function, call it with an empty object */ /*}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
             ? screenOptions.headerTitle({ children: "" })
@@ -126,134 +201,5 @@ jest.mock("@react-native-kakao/user", () => ({
   me: jest.fn(),
   login: jest.fn(),
   isLogined: jest.fn(),
-}));
-
-jest.mock("@components/Buttons", () => {
-  const { TouchableOpacity } = jest.requireActual("react-native");
-
-  return {
-    BackButton: ({ onPress }: { onPress: () => void }) => (
-      <TouchableOpacity onPress={onPress} testID="back-button" />
-    ),
-    LoginButton: ({ type, onPress }: { type: string; onPress: () => void }) => (
-      <TouchableOpacity onPress={onPress} testID={`${type}-button`} />
-    ),
-    TextButton: ({ text, onPress }: { text: string; onPress: () => void }) => (
-      <TouchableOpacity onPress={onPress} testID={text} />
-    ),
-  };
-});
-jest.mock("@components/Dividers", () => ({
-  Divider: () => null,
-  VerticalDivider: () => null,
-}));
-jest.mock("@components/Icons", () => ({
-  AppIcon: () => null,
-}));
-jest.mock("@components/Selectors", () => ({
-  Selector: () => null,
-}));
-jest.mock("@components/Texts", () => ({
-  HeaderTitle: () => <div />,
-}));
-
-jest.spyOn(AlertContext, "useAlert").mockImplementation(() => {
-  const showAlertMock = jest
-    .fn()
-    .mockImplementation(({ onConfirm }: { onConfirm?: () => void }) => {
-      if (onConfirm) {
-        onConfirm();
-      }
-    });
-
-  return {
-    showAlert: showAlertMock,
-  };
-});
-
-jest.mock("@contexts/app", () => {
-  const { defaultAlertContext } = jest.requireActual("@testdata/contexts");
-
-  return {
-    AlertProvider: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    useAlert: jest.fn().mockReturnValue(defaultAlertContext),
-  };
-});
-jest.mock("@contexts/auth", () => {
-  const { defaultAuthContext, defaultSignupContext } =
-    jest.requireActual("@testdata/contexts");
-
-  return {
-    AuthProvider: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    useAuth: jest.fn().mockReturnValue(defaultAuthContext),
-    SignupProvider: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    useSignup: jest.fn().mockReturnValue(defaultSignupContext),
-  };
-});
-jest.mock("@contexts/theme", () => {
-  const { ThemeColorType, lightColors } = jest.requireActual("@contexts/theme");
-  const { defaultThemeContext } = jest.requireActual("@testdata/contexts");
-
-  return {
-    ThemeProvider: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    ThemeColorType,
-    useTheme: jest.fn().mockReturnValue(defaultThemeContext),
-    lightColors,
-  };
-});
-
-jest.mock("@features/Auth", () => {
-  const { TextInput, TouchableOpacity, View } =
-    jest.requireActual("react-native");
-
-  return {
-    AuthInputTitle: () => <View />,
-    AuthTextInput: ({
-      onChangeText,
-      placeholder,
-    }: {
-      onChangeText: (value: string) => void;
-      placeholder: string;
-    }) => <TextInput onChangeText={onChangeText} testID={placeholder} />,
-    BirthdateInputs: () => <View />,
-    PhoneNumberInputs: ({
-      setMiddleNumber,
-      setLastNumber,
-    }: {
-      setMiddleNumber: (value: string) => void;
-      setLastNumber: (value: string) => void;
-    }) => (
-      <View>
-        <TextInput onChangeText={setMiddleNumber} testID="middle-number" />
-        <TextInput onChangeText={setLastNumber} testID="last-number" />
-      </View>
-    ),
-    SignUpForm: ({
-      children,
-      buttonOnPress,
-    }: {
-      children: React.ReactNode;
-      buttonOnPress: () => void;
-    }) => (
-      <View>
-        {children}
-        <TouchableOpacity onPress={buttonOnPress} testID="button" />
-      </View>
-    ),
-  };
-});
-
-jest.mock("@services/storage", () => ({
-  getSecure: jest.fn().mockResolvedValue("asdf"),
-  removeSecure: jest.fn().mockResolvedValue({}),
-  saveSecure: jest.fn().mockResolvedValue({}),
 }));
 */
