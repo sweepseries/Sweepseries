@@ -1,9 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
+//import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+//import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 
-import * as AlertContext from "@contexts/app";
+jest.mock("@shared/ui/Dividers", () => ({
+  Divider: () => null,
+}));
 
+jest.mock("@shared/lib/storage", () => ({
+  getSecure: jest.fn().mockResolvedValue("asdf"),
+  removeSecure: jest.fn().mockResolvedValue({}),
+  saveSecure: jest.fn().mockResolvedValue({}),
+}));
+
+/*
 jest.mock("expo-router", () => {
   const { TouchableOpacity, View } = jest.requireActual("react-native");
 
@@ -31,7 +40,7 @@ jest.mock("expo-router", () => {
       }) => (
         <View>
           {screenOptions.headerLeft && screenOptions.headerLeft({})}
-          {/* if screen.options.headerTitle is a function, call it with an empty object */}
+          {/* if screen.options.headerTitle is a function, call it with an empty object *//*}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
             ? screenOptions.headerTitle({ children: "" })
@@ -63,7 +72,7 @@ jest.mock("expo-router", () => {
       }) => (
         <View>
           {screenOptions.headerLeft && screenOptions.headerLeft({})}
-          {/* if screen.options.headerTitle is a function, call it with an empty object */}
+          {/* if screen.options.headerTitle is a function, call it with an empty object *//*}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
             ? screenOptions.headerTitle({ children: "" })
@@ -112,13 +121,7 @@ jest.mock("react-native-gesture-handler", () => {
 jest.mock("react-native-svg/css", () => ({
   SvgCssUri: "SvgCssUri",
 }));
-jest.mock("@react-native-async-storage/async-storage", () => {
-  const mock = jest.requireActual(
-    "@react-native-async-storage/async-storage/jest/async-storage-mock"
-  );
 
-  return mock;
-});
 jest.mock("@react-native-kakao/user", () => ({
   me: jest.fn(),
   login: jest.fn(),
@@ -253,3 +256,4 @@ jest.mock("@services/storage", () => ({
   removeSecure: jest.fn().mockResolvedValue({}),
   saveSecure: jest.fn().mockResolvedValue({}),
 }));
+*/
