@@ -28,7 +28,6 @@ export function KakaoLogin() {
             username: profile.id,
             email: profile.email,
             name: profile.name || "",
-            phone: "",
             birthday: profile.birthday || "",
             birthyear: profile.birthyear || "",
             gender: profile.gender || "",

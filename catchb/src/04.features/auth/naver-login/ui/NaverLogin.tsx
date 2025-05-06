@@ -25,7 +25,6 @@ export function NaverLogin() {
             username: profile.response.id,
             email: profile.response.email,
             name: profile.response.name,
-            phone: "",
             birthday: profile.response.birthday ?? "",
             birthyear: profile.response.birthyear ?? "",
             gender: profile.response.gender ?? "",
