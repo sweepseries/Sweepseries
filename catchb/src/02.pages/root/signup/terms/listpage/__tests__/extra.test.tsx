@@ -1,3 +1,4 @@
+import { Text } from "react-native";
 import { render, waitFor } from "@testing-library/react-native";
 import axios from "axios";
 
@@ -5,7 +6,6 @@ import { TermsListProvider, useTermsList } from "../provider/TermsListProvider";
 import { SignupProvider } from "@features/signup/common";
 import { sampleTerms } from "@entities/terms";
 import { renderWithProviders } from "@test-utils/renderer";
-import { Text } from "react-native";
 
 const TestComponent = () => {
   const { isLoading } = useTermsList();
