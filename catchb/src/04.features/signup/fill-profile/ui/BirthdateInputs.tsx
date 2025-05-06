@@ -28,6 +28,7 @@ export function BirthdateInputs({
         returnKeyType="next"
         placeholder="YYYY"
         maxLength={4}
+        testID="year"
       />
       <Hyphen>-</Hyphen>
       <BirthDateInput
@@ -37,6 +38,7 @@ export function BirthdateInputs({
         returnKeyType="next"
         placeholder="MM"
         maxLength={2}
+        testID="month"
       />
       <Hyphen>-</Hyphen>
       <BirthDateInput
@@ -46,6 +48,7 @@ export function BirthdateInputs({
         returnKeyType="done"
         placeholder="DD"
         maxLength={2}
+        testID="day"
       />
     </Wrapper>
   );
