@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import { ThemeColorType } from "@shared/lib/colors";
-
 export const phoneVerificationPageStyles = StyleSheet.create({
   wrapper: {
     marginVertical: 8,

@@ -40,7 +40,8 @@ function Components() {
   const isSendButtonActive =
     phoneNumberMiddle.length === 4 &&
     phoneNumberLast.length === 4 &&
-    timer === 0;
+    !verified &&
+    (timer === 0 || !sent);
 
   const handleNext = () => {
     router.push("/signup/profile");
@@ -91,26 +92,28 @@ function Components() {
           />
         </View>
       </View>
-      <View style={styles.wrapper}>
-        <AuthInputTitle>인증번호</AuthInputTitle>
-        <View style={styles.horizontal}>
-          <View style={styles.inputs}>
-            <InputField
-              value={codeInput}
-              onChangeText={setCodeInput}
-              placeholder="인증번호를 입력해주세요."
-              type="number-pad"
-              returnKeyType="done"
+      {sent && (
+        <View style={styles.wrapper}>
+          <AuthInputTitle>인증번호</AuthInputTitle>
+          <View style={styles.horizontal}>
+            <View style={styles.inputs}>
+              <InputField
+                value={codeInput}
+                onChangeText={setCodeInput}
+                placeholder="인증번호를 입력해주세요."
+                type="number-pad"
+                returnKeyType="done"
+              />
+            </View>
+            <TextButton
+              text="인증하기"
+              onPress={checkCode}
+              fontSize={16}
+              active={codeInput.length === 6 && !verified && timer > 0}
             />
           </View>
-          <TextButton
-            text="인증하기"
-            onPress={checkCode}
-            fontSize={16}
-            active={codeInput.length === 6 && !verified}
-          />
         </View>
-      </View>
+      )}
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </SignUpForm>
   );
