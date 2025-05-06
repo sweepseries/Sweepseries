@@ -36,6 +36,7 @@ export function TextButton({
       ]}
       onPress={onPress}
       disabled={!active}
+      testID="text-button"
     >
       <Text
         style={[
