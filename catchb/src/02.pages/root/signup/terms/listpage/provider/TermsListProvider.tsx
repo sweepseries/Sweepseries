@@ -61,7 +61,8 @@ export function TermsListProvider({
     if (isError) {
       showAlert({
         title: "오류 발생",
-        message: "약관을 로드하는 중 오류가 발생했습니다. 다시 시도해주세요.",
+        message:
+          "약관 목록을 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.",
         onConfirm: () => {
           router.back();
         },
