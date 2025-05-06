@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components/native";
 import { render } from "@testing-library/react-native";
 
 import { AlertProvider } from "@shared/lib/alert";
+import { AuthProvider } from "@shared/lib/auth";
 import { ColorsProvider, sampleColors } from "@shared/lib/colors";
 
 export const queryClient = new QueryClient({
@@ -19,9 +20,11 @@ export const renderWithProviders = (ui: ReactElement) => {
     return (
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={{ colors: sampleColors }}>
-          <ColorsProvider>
-            <AlertProvider>{children}</AlertProvider>
-          </ColorsProvider>
+          <AuthProvider>
+            <ColorsProvider>
+              <AlertProvider>{children}</AlertProvider>
+            </ColorsProvider>
+          </AuthProvider>
         </ThemeProvider>
       </QueryClientProvider>
     );
