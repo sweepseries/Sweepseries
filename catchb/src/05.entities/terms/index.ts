@@ -3,4 +3,5 @@ export { useTerms } from "./api/termsList";
 
 export { TermSimple } from "./ui/TermSimple";
 
-export type { TermsAndConditionsType } from "./models/terms";
+export { sampleTerms } from "./models/testdata";
+export type { TermsAndConditionsType } from "./models/types";
