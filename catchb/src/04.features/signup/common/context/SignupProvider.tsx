@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 
-import { SignupContext, SignupContextType } from "./contexts";
+import { SignupContext, SignupContextType } from "./context";
 import { SocialSignupParams } from "../models/register";
 
 export function SignupProvider({
@@ -59,7 +59,6 @@ export function SignupProvider({
       setUsername(params.username);
       setEmail(params.email);
       setName(params.name);
-      setPhone(params.phone);
       setBirthYear(params.birthyear);
       setBirthMonth(params.birthday?.slice(0, 2) ?? "");
       setBirthDate(params.birthday?.slice(3, 5) ?? "");
@@ -79,7 +78,6 @@ export function SignupProvider({
       setUsername(params.username || "");
       setEmail(params.email || "");
       setName(params.name || "");
-      setPhone(params.phone || "");
       setBirthYear(params.birthyear || "");
       setBirthMonth(params.birthday?.slice(0, 2) || "");
       setBirthDate(params.birthday?.slice(2, 4) || "");
