@@ -1,3 +1,3 @@
 export { AuthProvider, useAuth } from "./provider/AuthProvider";
 
-export { sampleLoginData } from "./models/testdata";
+export { sampleLoginData, sampleUserProfile } from "./models/testdata";
