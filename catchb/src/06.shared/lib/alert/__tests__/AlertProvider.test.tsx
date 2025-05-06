@@ -4,6 +4,8 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { AlertProvider, useAlert } from "@shared/lib/alert";
 import { renderWithProviders } from "@test-utils/renderer";
 
+jest.unmock("@shared/lib/alert");
+
 const MockComponent = () => {
   const { showAlert } = useAlert();
 

@@ -4,6 +4,8 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { sampleLoginData } from "../models/testdata";
 import { AuthProvider, useAuth } from "@shared/lib/auth";
 
+jest.unmock("@shared/lib/auth");
+
 const MockComponent = () => {
   const { user, mode, isAuthenticated, saveLoginStatus, resetLoginStatus } =
     useAuth();
