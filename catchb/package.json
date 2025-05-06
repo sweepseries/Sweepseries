@@ -24,8 +24,10 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/app/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*/types.ts",
+      "!src/**/*/context.ts",
       "!src/**/*/index.ts",
+      "!src/**/*/styles.ts",
+      "!src/**/*/types.ts",
       "!src/**/*.d.ts",
       "!src/test-utils/renderer.tsx"
     ]
