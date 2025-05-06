@@ -7,7 +7,7 @@ interface PhoneNumberInputProps {
   lastNumber: string;
   setMiddleNumber: (value: string) => void;
   setLastNumber: (value: string) => void;
-  disabled?: boolean;
+  disabled: boolean;
 }
 
 export function PhoneNumberInputs({
@@ -15,7 +15,7 @@ export function PhoneNumberInputs({
   lastNumber,
   setMiddleNumber,
   setLastNumber,
-  disabled = false,
+  disabled,
 }: Readonly<PhoneNumberInputProps>) {
   return (
     <Wrapper>
