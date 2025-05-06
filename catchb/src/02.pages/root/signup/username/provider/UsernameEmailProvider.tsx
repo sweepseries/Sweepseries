@@ -2,7 +2,7 @@ import { useContext, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { isAxiosError } from "axios";
 
-import { UsernameEmailContext, UsernameEmailContextType } from "./contexts";
+import { UsernameEmailContext, UsernameEmailContextType } from "./context";
 import { useSignup } from "@features/signup/common";
 import { useUsernameEmailCheck } from "@features/signup/verify-username-email";
 
