@@ -4,7 +4,7 @@ import { isAxiosError } from "axios";
 import {
   PhoneVerificationContext,
   PhoneVerificationContextType,
-} from "./contexts";
+} from "./context";
 import { useSignup } from "@features/signup/common";
 import {
   useRequestCode,
