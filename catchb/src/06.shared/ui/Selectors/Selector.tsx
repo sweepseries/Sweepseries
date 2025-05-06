@@ -12,7 +12,7 @@ export function Selector({ options, selected, onSelect }: Readonly<Props>) {
   const { colors } = useColors();
 
   return (
-    <Options>
+    <Options testID={`selected: ${selected}`}>
       {options.map((option) => (
         <OptionChip
           key={option}
