@@ -41,6 +41,11 @@ export function NaverLogin() {
         }
         router.replace("/home");
       }
+    } else {
+      showAlert({
+        title: "오류 발생",
+        message: "서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.",
+      });
     }
   };
 
@@ -49,7 +54,11 @@ export function NaverLogin() {
       const result = await NaverLoginModule.login();
 
       if (!result.successResponse) {
-        return null;
+        showAlert({
+          title: "네이버 로그인 오류",
+          message: "네이버 로그인 중 오류가 발생했습니다. 다시 시도해주세요.",
+        });
+        return;
       }
 
       const token = result.successResponse.accessToken;

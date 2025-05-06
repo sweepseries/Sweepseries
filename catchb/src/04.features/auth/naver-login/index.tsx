@@ -1,1 +1,0 @@
-export { NaverLogin } from "./ui";

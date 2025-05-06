@@ -12,14 +12,6 @@ import { LoginButton, LoginButtonText, socialLogin } from "@entities/auth";
 import { useAlert } from "@shared/lib/alert";
 import { useAuth } from "@shared/lib/auth";
 
-// 카카오 로그인
-// 1. 카카오 로그인 여부 확인
-// 2-1. 로그인 되어있지 않으면, 카카오 로그인 요청
-// 2-2. 로그인 되어있으면, 카카오 프로필 정보 요청하고, 해당 정보로 캐치비 서버에 로그인
-// 2-2-1. 로그인 성공하면, 캐치비 서버에서 받은 토큰을 저장하고, 홈 화면으로 이동
-// 2-2-2. 로그인 실패하면, alert 띄우기
-// 2-2-3. 로그인 결과가 "not_registered"이면, 회원가입 화면으로 이동
-
 export function KakaoLogin() {
   const { showAlert } = useAlert();
   const { saveLoginStatus } = useAuth();
@@ -35,13 +27,13 @@ export function KakaoLogin() {
             mode: "kakao",
             username: profile.id,
             email: profile.email,
-            name: profile.name,
+            name: profile.name || "",
             phone: "",
-            birthday: profile.birthday,
-            birthyear: profile.birthyear,
-            gender: profile.gender,
-            nickname: profile.nickname,
-            profileImage: profile.profileImageUrl,
+            birthday: profile.birthday || "",
+            birthyear: profile.birthyear || "",
+            gender: profile.gender || "",
+            nickname: profile.nickname || "",
+            profileImage: profile.profileImageUrl || "",
           },
         });
       } else {
