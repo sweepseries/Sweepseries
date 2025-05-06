@@ -1,4 +1,4 @@
-import { TermSimple } from "@entities/terms";
+import { TermSimple, sampleTerms } from "@entities/terms";
 import { renderWithProviders } from "@test-utils/renderer";
 
 describe("TermSimple", () => {
@@ -6,16 +6,14 @@ describe("TermSimple", () => {
     renderWithProviders(
       <>
         <TermSimple
-          title="Checked Term"
-          checked={true}
-          toggleChecked={jest.fn()}
-          pressRead={jest.fn()}
+          term={sampleTerms[0]}
+          isChecked={true}
+          toggleCheck={jest.fn()}
         />
         <TermSimple
-          title="Unchecked Term"
-          checked={false}
-          toggleChecked={jest.fn()}
-          pressRead={jest.fn()}
+          term={sampleTerms[1]}
+          isChecked={false}
+          toggleCheck={jest.fn()}
         />
       </>
     );

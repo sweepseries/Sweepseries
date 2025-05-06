@@ -1,36 +1,61 @@
 import { Text, TouchableOpacity } from "react-native";
+import { router } from "expo-router";
 import styled from "styled-components/native";
 
+import { TermsAndConditionsType } from "../models/types";
 import { useColors } from "@shared/lib/colors";
 import { AppIcon } from "@shared/ui/Icons";
 
-interface Props {
-  title: string;
+interface CheckAllTermsProps {
   checked: boolean;
-  toggleChecked: () => void;
-  pressRead?: () => void;
+  toggle: () => void;
 }
 
-export function TermSimple({
-  title,
+export function CheckAllTerms({
   checked,
-  toggleChecked,
-  pressRead,
-}: Readonly<Props>) {
+  toggle,
+}: Readonly<CheckAllTermsProps>) {
   const { colors } = useColors();
 
   return (
     <Container>
-      <CheckboxContent onPress={toggleChecked}>
+      <CheckboxContent onPress={toggle} testID="toggle-all">
         <AppIcon
           icon="check-circle"
           color={checked ? colors.primary : colors.lowEmphasis}
           size={24}
         />
-        <Text>{title}</Text>
+        <Text>모두 동의 합니다.</Text>
       </CheckboxContent>
-      {pressRead && (
-        <TouchableOpacity onPress={pressRead} testID={`right-${title}`}>
+    </Container>
+  );
+}
+
+interface Props {
+  term: TermsAndConditionsType;
+  isChecked: boolean;
+  toggleCheck: () => void;
+}
+
+export function TermSimple({ term, isChecked, toggleCheck }: Readonly<Props>) {
+  const { colors } = useColors();
+
+  const goToDetailPage = () => {
+    router.push(`/signup/terms/${term.id}`);
+  };
+
+  return (
+    <Container testID={isChecked && `term-${term.id}-checked`}>
+      <CheckboxContent onPress={toggleCheck} testID={`term-${term.id}`}>
+        <AppIcon
+          icon="check-circle"
+          color={isChecked ? colors.primary : colors.lowEmphasis}
+          size={24}
+        />
+        <Text>{`(${term.is_required ? "필수" : "선택"}) ${term.title}`}</Text>
+      </CheckboxContent>
+      {term.content && (
+        <TouchableOpacity onPress={goToDetailPage} testID={`right-${term.id}`}>
           <AppIcon icon="chevron-right" color={colors.lowEmphasis} size={16} />
         </TouchableOpacity>
       )}
