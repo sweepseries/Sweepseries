@@ -19,21 +19,14 @@ export function PhoneNumberInputs({
 }: Readonly<PhoneNumberInputProps>) {
   return (
     <Wrapper>
-      <DisabledInput
-        value="010"
-        keyboardType="phone-pad"
-        returnKeyType="next"
-        editable={false}
-      />
+      <DisabledInput value="010" editable={false} />
       <Hyphen>-</Hyphen>
       {disabled ? (
         <DisabledInput
           value={middleNumber}
-          onChangeText={setMiddleNumber}
-          keyboardType="phone-pad"
-          returnKeyType="next"
+          editable={false}
           style={{ flex: 1 }}
-          maxLength={4}
+          testID="middle-number"
         />
       ) : (
         <AuthTextInput
@@ -43,17 +36,16 @@ export function PhoneNumberInputs({
           returnKeyType="next"
           style={{ flex: 1 }}
           maxLength={4}
+          testID="middle-number"
         />
       )}
       <Hyphen>-</Hyphen>
       {disabled ? (
         <DisabledInput
           value={lastNumber}
-          onChangeText={setLastNumber}
-          keyboardType="phone-pad"
-          returnKeyType="done"
+          editable={false}
           style={{ flex: 1 }}
-          maxLength={4}
+          testID="last-number"
         />
       ) : (
         <AuthTextInput
@@ -63,6 +55,7 @@ export function PhoneNumberInputs({
           returnKeyType="done"
           style={{ flex: 1 }}
           maxLength={4}
+          testID="last-number"
         />
       )}
     </Wrapper>
