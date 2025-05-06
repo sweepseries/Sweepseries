@@ -2,8 +2,9 @@ import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 import * as Router from "expo-router";
 import axios from "axios";
 
-import { PhoneNumberVerificationPage } from "@pages/root/signup/";
+import { PhoneNumberVerificationPage } from "@pages/root/signup";
 import { SignupProvider } from "@features/signup/common";
+import * as AlertAPI from "@shared/lib/alert";
 import { renderWithProviders } from "@test-utils/renderer";
 
 const renderPage = () => {
@@ -20,8 +21,12 @@ describe("이름 입력 & 전화번호 인증 페이지", () => {
   });
 
   it("캐치비 모드 & 인증 성공", async () => {
+    const showAlertMock = jest.fn();
     jest.spyOn(Router, "useLocalSearchParams").mockReturnValueOnce({
       mode: "catchb",
+    });
+    jest.spyOn(AlertAPI, "useAlert").mockReturnValue({
+      showAlert: showAlertMock,
     });
 
     const { getByPlaceholderText, getByTestId, getByText } = renderPage();
@@ -77,6 +82,12 @@ describe("이름 입력 & 전화번호 인증 페이지", () => {
     fireEvent.press(getByTestId("인증하기"));
 
     await waitFor(() => {
+      expect(showAlertMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: "인증 성공",
+          message: "전화번호 인증이 완료되었습니다.",
+        })
+      );
       expect(getByTestId("회원가입")).toBeEnabled();
     });
     fireEvent.press(getByTestId("회원가입"));
