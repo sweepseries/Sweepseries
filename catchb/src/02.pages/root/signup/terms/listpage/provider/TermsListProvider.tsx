@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 
-import { TermsListContext, TermsAndConditionsCheckType } from "./contexts";
+import { TermsListContext, TermsAndConditionsCheckType } from "./context";
 import { useSignup } from "@features/signup/common";
 import { useTerms } from "@entities/terms";
 import { useAlert } from "@shared/lib/alert";
