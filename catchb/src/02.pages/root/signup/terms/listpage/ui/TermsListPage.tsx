@@ -4,7 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { LoadingTermsList } from "./loading";
 import { TermsListProvider, useTermsList } from "../provider/TermsListProvider";
 import { SignUpForm } from "@widgets/signupform";
-import { TermSimple } from "@entities/terms";
+import { CheckAllTerms, TermSimple } from "@entities/terms";
 import { Divider } from "@shared/ui/Dividers";
 
 export function TermsListPage() {
@@ -35,10 +35,6 @@ function ListComponents() {
     }
   };
 
-  const goToTermsDetailPage = (id: number) => {
-    router.push(`/signup/terms/${id}`);
-  };
-
   if (isLoading || !terms) return <LoadingTermsList />;
 
   return (
@@ -50,21 +46,14 @@ function ListComponents() {
       buttonDisabled={!buttonActive}
     >
       <Divider />
-      <TermSimple
-        title="모두 동의 합니다."
-        checked={isAllChecked}
-        toggleChecked={toggleAll}
-      />
+      <CheckAllTerms checked={isAllChecked} toggle={toggleAll} />
       <Divider />
       {terms.map((term) => (
         <TermSimple
           key={term.id}
-          title={`(${term.is_required ? "필수" : "선택"}) ${term.title}`}
-          checked={isTermChecked(term.id)}
-          toggleChecked={() => toggleCheckTerm(term.id)}
-          pressRead={
-            term.content ? () => goToTermsDetailPage(term.id) : undefined
-          }
+          term={term}
+          isChecked={isTermChecked(term.id)}
+          toggleCheck={() => toggleCheckTerm(term.id)}
         />
       ))}
       <View />
