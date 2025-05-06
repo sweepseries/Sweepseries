@@ -29,7 +29,12 @@
       "!src/**/*/styles.ts",
       "!src/**/*/types.ts",
       "!src/**/*.d.ts",
-      "!src/test-utils/renderer.tsx"
+      "!src/test-utils/renderer.tsx",
+      "!src/**/*/__mocks__.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "__mocks__\\.ts$"
     ]
   },
   "dependencies": {
