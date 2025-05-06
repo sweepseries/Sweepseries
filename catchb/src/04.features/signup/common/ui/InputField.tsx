@@ -34,6 +34,7 @@ export function InputField({
         secureTextEntry={secureTextEntry}
         type={type}
         returnKeyType={returnKeyType}
+        testID={title}
       />
       {errorMessage ? <ErrorText>{errorMessage}</ErrorText> : null}
     </Wrapper>
