@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 
 import { SignupContext, SignupContextType } from "./context";
-import { SocialSignupParams } from "../models/register";
+import { SocialSignupParams } from "../models/types";
 
 export function SignupProvider({
   children,
