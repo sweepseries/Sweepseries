@@ -27,3 +27,7 @@ export type RegisterDataType = {
   nickname?: string | null;
   profile_image?: string;
 };
+
+export type InitialRegisterDataType = Exclude<RegisterDataType, "gender"> & {
+  gender: string;
+};
