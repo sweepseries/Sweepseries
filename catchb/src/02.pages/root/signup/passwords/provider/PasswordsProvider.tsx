@@ -5,7 +5,7 @@ import { isAxiosError } from "axios";
 import {
   PasswordVerificationContext,
   PasswordVerificationContextType,
-} from "./contexts";
+} from "./context";
 import { useSignup } from "@features/signup/common";
 import { usePasswordCheck } from "@features/signup/verify-password";
 
