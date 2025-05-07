@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 
 jest.mock("expo-router", () => {
