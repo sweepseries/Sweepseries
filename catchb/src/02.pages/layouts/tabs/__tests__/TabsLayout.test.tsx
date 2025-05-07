@@ -9,28 +9,10 @@ jest.mock("expo-router", () => {
 
   return {
     Tabs: Object.assign(
-      ({
-        children,
-        screenOptions,
-      }: {
-        children: React.ReactNode;
-        screenOptions: BottomTabNavigationOptions;
-      }) => (
-        <View>
-          {screenOptions.headerLeft && screenOptions.headerLeft({})}
-          {/* if screen.options.headerTitle is a function, call it with an empty object */}
-          {screenOptions.headerTitle &&
-          typeof screenOptions.headerTitle === "function"
-            ? screenOptions.headerTitle({ children: "" })
-            : screenOptions.headerTitle}
-          {children}
-        </View>
-      ),
+      ({ children }: { children: React.ReactNode }) => children,
       {
         Screen: ({ options }: { options?: BottomTabNavigationOptions }) => (
           <View>
-            {options?.headerLeft && options.headerLeft({})}
-            {options?.headerTitle && options.headerTitle}
             {options?.tabBarIcon &&
               options.tabBarIcon({ focused: true, color: "", size: 0 })}
           </View>

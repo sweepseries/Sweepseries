@@ -77,7 +77,7 @@ export function AutoLoginProvider({ children }: Readonly<Props>) {
             });
           }
         }
-        return Promise.reject(error);
+        return Promise.reject(new Error(error));
       }
     );
 

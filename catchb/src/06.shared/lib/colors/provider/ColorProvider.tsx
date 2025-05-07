@@ -4,7 +4,9 @@ import { useColorScheme } from "react-native";
 import { lightColors, darkColors } from "../models/colors";
 import { ColorContext } from "../models/context";
 
-export function ColorsProvider({ children }: { children: React.ReactNode }) {
+export function ColorsProvider({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   const deviceColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useState<"light" | "dark">(
     deviceColorScheme === "dark" ? "dark" : "light"

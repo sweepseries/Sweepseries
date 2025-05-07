@@ -16,7 +16,7 @@ export const queryClient = new QueryClient({
 });
 
 export const renderWithProviders = (ui: ReactElement) => {
-  function Wrapper({ children }: PropsWithChildren): JSX.Element {
+  function Wrapper({ children }: Readonly<PropsWithChildren>): JSX.Element {
     return (
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={{ colors: sampleColors }}>

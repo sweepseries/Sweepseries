@@ -23,7 +23,7 @@ export function InputField({
   errorMessage,
   type = "default",
   returnKeyType = "done",
-}: Props) {
+}: Readonly<Props>) {
   return (
     <Wrapper>
       {title && <AuthInputTitle>{title}</AuthInputTitle>}
