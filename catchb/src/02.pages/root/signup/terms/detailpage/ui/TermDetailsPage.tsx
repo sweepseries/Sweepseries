@@ -13,8 +13,6 @@ import { Divider } from "@shared/ui/Dividers";
 export function TermsContentPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { showAlert } = useAlert();
-  const { colors } = useColors();
-  const styles = termsDetailPageStyles(colors);
 
   if (!id) {
     showAlert({
@@ -28,7 +26,18 @@ export function TermsContentPage() {
     return null;
   }
 
+  return <TermsContent id={id} />;
+}
+
+interface Props {
+  id: string;
+}
+
+function TermsContent({ id }: Readonly<Props>) {
   const { data: term, isLoading, isError } = useTermsDetail(id);
+  const { showAlert } = useAlert();
+  const { colors } = useColors();
+  const styles = termsDetailPageStyles(colors);
 
   useEffect(() => {
     if (isError) {
