@@ -1,3 +1,3 @@
-import { TermsAndConditions } from "@pages/root";
+import { TermsListPage } from "@pages/root/signup";
 
-export default TermsAndConditions;
+export default TermsListPage;

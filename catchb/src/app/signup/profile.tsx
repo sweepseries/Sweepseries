@@ -1,3 +1,3 @@
-import { UserProfile } from "@pages/root";
+import { ProfileFormPage } from "@pages/root/signup";
 
-export default UserProfile;
+export default ProfileFormPage;

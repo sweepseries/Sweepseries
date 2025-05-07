@@ -1,3 +1,3 @@
-import { PhoneVerification } from "@pages/root";
+import { PhoneNumberVerificationPage } from "@pages/root/signup";
 
-export default PhoneVerification;
+export default PhoneNumberVerificationPage;

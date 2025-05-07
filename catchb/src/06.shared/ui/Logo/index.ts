@@ -1,0 +1,1 @@
+export { CatchBMainLogo } from "./CatchBLogo";

@@ -1,3 +1,3 @@
-import { FrontLayout } from "@pages/front";
+import { FrontLayout } from "@pages/layouts";
 
 export default FrontLayout;

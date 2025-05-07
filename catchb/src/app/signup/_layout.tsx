@@ -1,3 +1,3 @@
-import { SignupLayout } from "@pages/root";
+import { SignupLayout } from "@pages/layouts";
 
 export default SignupLayout;

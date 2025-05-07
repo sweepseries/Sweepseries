@@ -34,7 +34,7 @@ class UserLoginView(LoginView):
 
         response = super().post(request, *args, **kwargs)
 
-        user = User.objects.get(username=request.data["username"])
+        user = User.objects.get(username__iexact=request.data["username"])
         user.last_login = timezone.now()
         user.save()
 

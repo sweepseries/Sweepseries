@@ -3,33 +3,24 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@assets/*": [
-        "./assets/*"
+      "@pages/*": [
+        "./src/02.pages/*"
       ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@contexts/*": [
-        "./src/contexts/*"
+      "@widgets/*": [
+        "./src/03.widgets/*"
       ],
       "@features/*": [
-        "./src/features/*"
+        "./src/04.features/*"
       ],
-      "@models/*": [
-        "./src/models/*"
+      "@entities/*": [
+        "./src/05.entities/*"
       ],
-      "@pages/*": [
-        "./src/pages/*"
+      "@shared/*": [
+        "./src/06.shared/*"
       ],
-      "@services/*": [
-        "./src/services/*"
+      "@test-utils/*": [
+        "./src/test-utils/*"
       ],
-      "@testdata/*": [
-        "./src/testdata/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ]
     }
   },
   "include": [

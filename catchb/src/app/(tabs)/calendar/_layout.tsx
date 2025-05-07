@@ -1,3 +1,3 @@
-import { CalendarLayout } from "@pages/calendar";
+import { CalendarLayout } from "@pages/layouts";
 
 export default CalendarLayout;

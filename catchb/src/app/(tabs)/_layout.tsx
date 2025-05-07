@@ -1,3 +1,3 @@
-import { TabsLayout } from "@pages/root";
+import { TabsLayout } from "@pages/layouts";
 
 export default TabsLayout;

@@ -1,3 +1,3 @@
-import { RootLayout } from "@pages/root";
+import { App } from "../01.app/App";
 
-export default RootLayout;
+export default App;

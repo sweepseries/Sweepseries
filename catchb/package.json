@@ -13,7 +13,7 @@
   "jest": {
     "preset": "jest-expo",
     "setupFiles": [
-      "./src/utils/jest.setup.tsx"
+      "./src/test-utils/jest.setup.tsx"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
@@ -24,12 +24,17 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/app/**/*.{js,jsx,ts,tsx}",
-      "!src/models/**/*.{js,jsx,ts,tsx}",
-      "!src/testdata/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*/index.tsx",
+      "!src/**/*/context.ts",
       "!src/**/*/index.ts",
+      "!src/**/*/styles.ts",
+      "!src/**/*/types.ts",
       "!src/**/*.d.ts",
-      "!src/utils/test-utils.tsx"
+      "!src/test-utils/renderer.tsx",
+      "!src/**/*/__mocks__.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "__mocks__\\.ts$"
     ]
   },
   "dependencies": {
@@ -50,9 +55,11 @@
     "expo-image": "~2.0.7",
     "expo-image-picker": "~16.0.6",
     "expo-linking": "~7.0.5",
+    "expo-network": "~7.0.5",
     "expo-router": "~4.0.20",
     "expo-secure-store": "~14.0.1",
     "expo-status-bar": "~2.0.1",
+    "expo-system-ui": "~4.0.9",
     "react": "18.3.1",
     "react-native": "0.76.9",
     "react-native-gesture-handler": "~2.20.2",
@@ -79,7 +86,8 @@
     "globals": "^16.0.0",
     "jest": "~29.7.0",
     "jest-expo": "~52.0.6",
-    "typescript": "^5.3.3",
+    "react-native-svg-transformer": "^1.5.0",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.30.1"
   },
   "private": true
