@@ -18,6 +18,12 @@ import { renderWithProviders } from "@test-utils/renderer";
 describe("시작 페이지: 네이버 로그인", () => {
   const showAlertMock = jest.fn();
 
+  const renderAndPress = () => {
+    const { getByText } = renderWithProviders(<LandingPage />);
+
+    fireEvent.press(getByText("네이버로 로그인"));
+  };
+
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.spyOn(AlertAPI, "useAlert").mockReturnValue({
@@ -36,9 +42,7 @@ describe("시작 페이지: 네이버 로그인", () => {
   });
 
   it("네이버 로그인 성공하여, 홈 화면으로 이동 (can dismiss)", async () => {
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.replace).toHaveBeenCalledWith("/home");
@@ -48,9 +52,7 @@ describe("시작 페이지: 네이버 로그인", () => {
   it("네이버 로그인 성공하여, 홈 화면으로 이동 (cannot dismiss)", async () => {
     jest.spyOn(Router.router, "canDismiss").mockReturnValue(false);
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.replace).toHaveBeenCalledWith("/home");
@@ -62,9 +64,7 @@ describe("시작 페이지: 네이버 로그인", () => {
       .spyOn(axios, "post")
       .mockResolvedValue({ data: { result: "NOT_REGISTERED" } });
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.push).toHaveBeenCalledWith({
@@ -92,9 +92,7 @@ describe("시작 페이지: 네이버 로그인", () => {
       .spyOn(axios, "post")
       .mockResolvedValue({ data: { result: "NOT_REGISTERED" } });
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.push).toHaveBeenCalledWith({
@@ -117,9 +115,7 @@ describe("시작 페이지: 네이버 로그인", () => {
   it("네이버 서버 프로필 조회 실패: alert를 띄운다", async () => {
     jest.spyOn(NaverLogin, "getProfile").mockRejectedValue({});
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(showAlertMock).toHaveBeenCalledWith(
@@ -134,9 +130,7 @@ describe("시작 페이지: 네이버 로그인", () => {
   it("네이버 서버 로그인 실패: alert를 띄운다", async () => {
     jest.spyOn(NaverLogin, "login").mockResolvedValue(sampleLoginResponseF);
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(showAlertMock).toHaveBeenCalledWith(
@@ -153,9 +147,7 @@ describe("시작 페이지: 네이버 로그인", () => {
       .spyOn(axios, "post")
       .mockRejectedValue(new AxiosError("Network Error", "ERR_NETWORK"));
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(showAlertMock).toHaveBeenCalledWith(
@@ -171,9 +163,8 @@ describe("시작 페이지: 네이버 로그인", () => {
     jest.spyOn(NaverLogin, "login").mockResolvedValue({
       isSuccess: false,
     });
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("네이버로 로그인"));
+    
+    renderAndPress();
 
     await waitFor(() => {
       expect(showAlertMock).toHaveBeenCalledWith(

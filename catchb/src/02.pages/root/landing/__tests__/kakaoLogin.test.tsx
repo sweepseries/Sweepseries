@@ -16,6 +16,25 @@ import { renderWithProviders } from "@test-utils/renderer";
 describe("시작 페이지: 카카오 로그인", () => {
   const showAlertMock = jest.fn();
 
+  const renderAndPress = () => {
+    const { getByText } = renderWithProviders(<LandingPage />);
+
+    fireEvent.press(getByText("카카오로 로그인"));
+  };
+
+  const renderAndCheckAlert = async (title: string, message: string) => {
+    renderAndPress();
+
+    await waitFor(() => {
+      expect(showAlertMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title,
+          message,
+        })
+      );
+    });
+  };
+
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.spyOn(AlertAPI, "useAlert").mockReturnValue({
@@ -33,9 +52,7 @@ describe("시작 페이지: 카카오 로그인", () => {
   });
 
   it("카카오 초기 로그인 성공하여, 홈 화면으로 이동 (can dismiss)", async () => {
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("카카오로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.replace).toHaveBeenCalledWith("/home");
@@ -46,9 +63,7 @@ describe("시작 페이지: 카카오 로그인", () => {
     jest.spyOn(KakaoLogin, "isLogined").mockResolvedValue(true);
     jest.spyOn(Router.router, "canDismiss").mockReturnValue(false);
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("카카오로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.replace).toHaveBeenCalledWith("/home");
@@ -60,9 +75,7 @@ describe("시작 페이지: 카카오 로그인", () => {
       .spyOn(axios, "post")
       .mockResolvedValue({ data: { result: "NOT_REGISTERED" } });
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("카카오로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.push).toHaveBeenCalledWith({
@@ -98,9 +111,7 @@ describe("시작 페이지: 카카오 로그인", () => {
       .spyOn(axios, "post")
       .mockResolvedValue({ data: { result: "NOT_REGISTERED" } });
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("카카오로 로그인"));
+    renderAndPress();
 
     await waitFor(() => {
       expect(Router.router.push).toHaveBeenCalledWith({
@@ -125,51 +136,27 @@ describe("시작 페이지: 카카오 로그인", () => {
       .spyOn(axios, "post")
       .mockRejectedValue(new AxiosError("카카오 로그인 실패", "500"));
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("카카오로 로그인"));
-
-    await waitFor(() => {
-      expect(showAlertMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: "서버 오류",
-          message: "로그인 중 서버에 오류가 발생했습니다. 다시 시도해주세요.",
-        })
-      );
-    });
+    await renderAndCheckAlert(
+      "서버 오류",
+      "로그인 중 서버에 오류가 발생했습니다. 다시 시도해주세요."
+    );
   });
 
   it("카카오 프로필 조회 실패: alert 띄우기", async () => {
     jest.spyOn(KakaoLogin, "me").mockRejectedValue({});
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("카카오로 로그인"));
-
-    await waitFor(() => {
-      expect(showAlertMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: "카카오 로그인 오류",
-          message: "카카오 로그인 중 오류가 발생했습니다. 다시 시도해주세요.",
-        })
-      );
-    });
+    await renderAndCheckAlert(
+      "카카오 로그인 오류",
+      "카카오 로그인 중 오류가 발생했습니다. 다시 시도해주세요."
+    );
   });
 
   it("카카오 로그인 조회 실패: alert 띄우기", async () => {
     jest.spyOn(KakaoLogin, "login").mockRejectedValue({});
 
-    const { getByText } = renderWithProviders(<LandingPage />);
-
-    fireEvent.press(getByText("카카오로 로그인"));
-
-    await waitFor(() => {
-      expect(showAlertMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: "카카오 로그인 오류",
-          message: "카카오 로그인 중 오류가 발생했습니다. 다시 시도해주세요.",
-        })
-      );
-    });
+    await renderAndCheckAlert(
+      "카카오 로그인 오류",
+      "카카오 로그인 중 오류가 발생했습니다. 다시 시도해주세요."
+    );
   });
 });
