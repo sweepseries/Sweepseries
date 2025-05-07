@@ -54,7 +54,7 @@ export function TermSimple({ term, isChecked, toggleCheck }: Readonly<Props>) {
         />
         <Text>{`(${term.is_required ? "필수" : "선택"}) ${term.title}`}</Text>
       </CheckboxContent>
-      {term.content && (
+      {Boolean(term.content) && (
         <TouchableOpacity onPress={goToDetailPage} testID={`right-${term.id}`}>
           <AppIcon icon="chevron-right" color={colors.lowEmphasis} size={16} />
         </TouchableOpacity>
