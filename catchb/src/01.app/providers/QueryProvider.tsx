@@ -12,10 +12,12 @@ interface QueryProviderProps {
   children: React.ReactNode;
 }
 
+const STALE_TIME_MS = 5 * 60 * 1000; // 5 minutes
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      staleTime: STALE_TIME_MS,
       refetchOnWindowFocus: false,
       retry: 1,
     },
@@ -23,13 +25,6 @@ const queryClient = new QueryClient({
       retry: false,
     },
   },
-});
-
-onlineManager.setEventListener((setOnline) => {
-  const eventSubscription = Network.addNetworkStateListener((state) => {
-    setOnline(!!state.isConnected);
-  });
-  return eventSubscription.remove;
 });
 
 function onAppStateChange(status: AppStateStatus) {
@@ -41,6 +36,13 @@ function onAppStateChange(status: AppStateStatus) {
 export function QueryProvider({ children }: Readonly<QueryProviderProps>) {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", onAppStateChange);
+
+    onlineManager.setEventListener((setOnline) => {
+      const eventSubscription = Network.addNetworkStateListener((state) => {
+        setOnline(!!state.isConnected);
+      });
+      return eventSubscription.remove;
+    });
 
     return () => subscription.remove();
   }, []);

@@ -42,6 +42,7 @@ export function AutoLoginProvider({ children }: Readonly<Props>) {
         router.replace("/home");
       }
     };
+
     autoLogin();
 
     const autoTokenRenewalInterceptor = axios.interceptors.response.use(
