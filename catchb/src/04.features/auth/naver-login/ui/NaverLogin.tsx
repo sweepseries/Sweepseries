@@ -5,16 +5,17 @@ import { router } from "expo-router";
 import styled from "styled-components/native";
 
 import NaverIcon from "./naver.svg";
-import { LoginButton, LoginButtonText, socialLogin } from "@entities/auth";
+import { naverLogin } from "../api/naver-login";
 import { useAlert } from "@shared/lib/alert";
 import { useAuth } from "@shared/lib/auth";
+import { LoginButton, LoginButtonText } from "@shared/ui/Buttons";
 
 export function NaverLogin() {
   const { showAlert } = useAlert();
   const { saveLoginStatus } = useAuth();
 
   const requestCatchBSocialLogin = async (profile: GetProfileResponse) => {
-    const response = await socialLogin(profile.response.id, "naver");
+    const response = await naverLogin(profile.response.id);
 
     if (response) {
       if (response.result === "NOT_REGISTERED") {

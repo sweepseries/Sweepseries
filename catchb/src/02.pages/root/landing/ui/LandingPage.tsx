@@ -5,9 +5,8 @@ import { landingPageStyles } from "./styles";
 import { AuthHeader } from "@widgets/authheader";
 import { KakaoLogin } from "@features/auth/kakao-login";
 import { NaverLogin } from "@features/auth/naver-login";
-import { LoginButton, LoginButtonText } from "@entities/auth";
 import { useColors } from "@shared/lib/colors";
-import { TextButton } from "@shared/ui/Buttons";
+import { LoginButton, LoginButtonText, TextButton } from "@shared/ui/Buttons";
 import { Divider } from "@shared/ui/Dividers";
 
 export function LandingPage() {

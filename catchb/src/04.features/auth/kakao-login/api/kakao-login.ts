@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export async function socialLogin(profileId: string, mode: "naver" | "kakao") {
+export async function kakaoLogin(profileId: number) {
   try {
     const response = await axios.post(
       "/v1/login/social/",
       {
         username: profileId,
-        mode,
+        mode: "kakao",
       },
       {
         headers: {

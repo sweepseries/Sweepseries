@@ -1,4 +1,4 @@
-import { TroubleShootButton, TroubleShootText } from "@entities/auth";
+import { TroubleShootButton, TroubleShootText } from "@shared/ui/Buttons";
 
 export function FindPassword() {
   return (

@@ -8,16 +8,17 @@ import { router } from "expo-router";
 import styled from "styled-components/native";
 
 import KakaoIcon from "./kakao.svg";
-import { LoginButton, LoginButtonText, socialLogin } from "@entities/auth";
+import { kakaoLogin } from "../api/kakao-login";
 import { useAlert } from "@shared/lib/alert";
 import { useAuth } from "@shared/lib/auth";
+import { LoginButton, LoginButtonText } from "@shared/ui/Buttons";
 
 export function KakaoLogin() {
   const { showAlert } = useAlert();
   const { saveLoginStatus } = useAuth();
 
   const requestCatchBSocialLogin = async (profile: KakaoUser) => {
-    const response = await socialLogin(String(profile.id), "kakao");
+    const response = await kakaoLogin(profile.id);
 
     if (response) {
       if (response.result === "NOT_REGISTERED") {
