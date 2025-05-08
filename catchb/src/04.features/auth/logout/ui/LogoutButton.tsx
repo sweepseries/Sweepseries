@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import styled from "styled-components/native";
 
-import { logout } from "@entities/auth";
+import { logout } from "../api/logout";
 import { useAlert } from "@shared/lib/alert";
 import { useAuth } from "@shared/lib/auth";
 import { useColors } from "@shared/lib/colors";
