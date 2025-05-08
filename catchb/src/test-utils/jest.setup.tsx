@@ -91,9 +91,13 @@ jest.mock("@shared/lib/storage", () => ({
 }));
 
 jest.mock("@shared/ui/Buttons", () => {
-  const { TouchableOpacity } = jest.requireActual("react-native");
+  const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
   return {
+    LoginButton: TouchableOpacity,
+    LoginButtonText: Text,
+    TroubleShootButton: () => null,
+    TroubleShootText: () => null,
     TextButton: ({
       text,
       onPress,
