@@ -17,6 +17,7 @@ export function CatchBAlert({
   message,
   onConfirm,
   confirmText = "확인",
+  onCancel,
 }: Readonly<AlertProps>) {
   const opacity = useRef(new Animated.Value(0)).current;
   const { colors } = useColors();
@@ -40,13 +41,26 @@ export function CatchBAlert({
         <View style={styles.dividerWrapper}>
           <Divider />
         </View>
-        <TouchableOpacity
-          onPress={onConfirm}
-          style={styles.button}
-          testID="confirm"
-        >
-          <Text style={styles.buttonText}>{confirmText}</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonsWrapper}>
+          <TouchableOpacity
+            onPress={onConfirm}
+            style={styles.button}
+            testID="confirm"
+          >
+            <Text style={styles.buttonText}>{confirmText}</Text>
+          </TouchableOpacity>
+          {Boolean(onCancel) && (
+            <TouchableOpacity
+              onPress={onCancel}
+              style={styles.button}
+              testID="cancel"
+            >
+              <Text style={[styles.buttonText, { color: colors.lowEmphasis }]}>
+                취소
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </Animated.View>
   );

@@ -1,7 +1,7 @@
 import { useCallback, useContext, useMemo, useState } from "react";
 
 import { AlertContext } from "../models/context";
-import { AlertProps } from "../models/types";
+import { AlertContextType } from "../models/types";
 import { CatchBAlert } from "../ui/CatchBAlert";
 
 interface AlertProviderProps {
@@ -9,15 +9,20 @@ interface AlertProviderProps {
 }
 
 export function AlertProvider({ children }: Readonly<AlertProviderProps>) {
-  const [options, setOptions] = useState<AlertProps | null>(null);
+  const [options, setOptions] = useState<AlertContextType | null>(null);
 
-  const showAlert = useCallback((opts: AlertProps) => {
+  const showAlert = useCallback((opts: AlertContextType) => {
     setOptions(opts);
   }, []);
 
   const hideAlert = useCallback(() => {
     setOptions(null);
   }, []);
+
+  const onConfirm = useCallback(() => {
+    options?.onConfirm?.();
+    hideAlert();
+  }, [options, hideAlert]);
 
   const contextValue = useMemo(() => ({ showAlert }), [showAlert]);
 
@@ -27,10 +32,8 @@ export function AlertProvider({ children }: Readonly<AlertProviderProps>) {
       {options && (
         <CatchBAlert
           {...options}
-          onConfirm={() => {
-            options.onConfirm?.();
-            hideAlert();
-          }}
+          onConfirm={onConfirm}
+          onCancel={options.enableCancel ? hideAlert : undefined}
         />
       )}
     </AlertContext.Provider>

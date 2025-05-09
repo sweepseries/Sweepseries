@@ -17,7 +17,24 @@ const MockComponent = () => {
     });
   };
 
-  return <TouchableOpacity onPress={sampleAlert} testID="show-alert" />;
+  const sampleAlertWithCancel = () => {
+    showAlert({
+      title: "Test Alert With Cancel",
+      message: "This is a test alert with cancel",
+      onConfirm: jest.fn(),
+      enableCancel: true,
+    });
+  };
+
+  return (
+    <>
+      <TouchableOpacity onPress={sampleAlert} testID="show-alert" />
+      <TouchableOpacity
+        onPress={sampleAlertWithCancel}
+        testID="show-alert-with-cancel"
+      />
+    </>
+  );
 };
 
 describe("AlertProvider", () => {
@@ -36,6 +53,15 @@ describe("AlertProvider", () => {
     expect(getByText("This is a test alert")).toBeTruthy();
 
     fireEvent.press(getByTestId("confirm"));
+
+    // Simulate button press
+    fireEvent.press(getByTestId("show-alert-with-cancel"));
+
+    // Check if alert is shown
+    expect(getByText("Test Alert With Cancel")).toBeTruthy();
+    expect(getByText("This is a test alert with cancel")).toBeTruthy();
+
+    fireEvent.press(getByTestId("cancel"));
   });
 
   it("should throw an error if used outside of provider", () => {
