@@ -41,6 +41,10 @@ jest.mock("expo-router", () => {
     useLocalSearchParams: jest.fn().mockReturnValue({ id: "1" }),
   };
 });
+jest.mock("expo-application", () => ({
+  ...jest.requireActual("expo-application"),
+  nativeApplicationVersion: "1.0.0",
+}));
 jest.mock("react-native-skeleton-placeholder", () => {
   const { Text } = jest.requireActual("react-native");
   const Item = () => <Text>Loading Item</Text>;
@@ -96,8 +100,19 @@ jest.mock("@shared/ui/Buttons", () => {
   return {
     LoginButton: TouchableOpacity,
     LoginButtonText: Text,
-    TroubleShootButton: () => null,
-    TroubleShootText: () => null,
+    NavigateButton: ({
+      onPress,
+      text,
+    }: {
+      onPress: () => void;
+      text: string;
+    }) => (
+      <TouchableOpacity onPress={onPress} testID={text}>
+        <Text>{text}</Text>
+      </TouchableOpacity>
+    ),
+    TroubleShootButton: TouchableOpacity,
+    TroubleShootText: Text,
     TextButton: ({
       text,
       onPress,
