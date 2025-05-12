@@ -16,6 +16,7 @@ from auth.user.views import (
     SocialLoginView,
     TokenRefreshView,
 )
+from auth.withdrawal.views import WithdrawalView
 
 
 router = DefaultRouter()
@@ -28,6 +29,7 @@ urlpatterns = [
     path("login/social/", SocialLoginView.as_view(), name="kakao-login"),
     path("login/", UserLoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
+    path("withdraw/", WithdrawalView.as_view(), name="withdrawal"),
     path("terms_of_service/", TermsOfServiceView.as_view(), name="terms_of_service"),
     path("privacy_policy/", PrivacyPolicyView.as_view(), name="privacy_policy"),
     path(
