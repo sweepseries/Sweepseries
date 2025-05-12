@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 
 import { HeaderLeftBackButton, HeaderTitle } from "@widgets/layouts";
-import { SignupProvider } from "@features/signup/common";
+import { SignupProvider } from "@shared/lib/signup";
 
 function SignupLayoutHeaderTitle() {
   return <HeaderTitle title="회원가입" />;
