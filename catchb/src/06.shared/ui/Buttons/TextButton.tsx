@@ -7,6 +7,7 @@ interface Props {
   onPress: () => void;
   backgroundColor?: string;
   color?: string;
+  borderColor?: string;
   fontSize?: number;
   active?: boolean;
 }
@@ -17,13 +18,13 @@ export function TextButton({
   fontSize = 16,
   backgroundColor = "#14863E",
   color = "#FFFFFF",
+  borderColor = "transparent",
   active = true,
 }: Readonly<Props>) {
   const { colors } = useColors();
 
   backgroundColor = active ? backgroundColor : colors.border;
   color = active ? color : colors.lowEmphasis;
-  const borderColor = active ? color : "transparent";
 
   return (
     <TouchableOpacity

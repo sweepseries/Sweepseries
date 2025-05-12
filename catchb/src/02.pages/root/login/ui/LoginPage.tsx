@@ -33,6 +33,7 @@ export function LoginPage() {
           onPress={goBackToLandingPage}
           backgroundColor={colors.background}
           color={colors.lowEmphasis}
+          borderColor={colors.lowEmphasis}
         />
       </View>
     </View>

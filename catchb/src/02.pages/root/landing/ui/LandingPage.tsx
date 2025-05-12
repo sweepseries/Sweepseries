@@ -54,12 +54,14 @@ export function LandingPage() {
           onPress={goToSignupPage}
           backgroundColor={colors.background}
           color={colors.lowEmphasis}
+          borderColor={colors.lowEmphasis}
         />
         <TextButton
           text="비회원으로 둘러보기"
           onPress={navigateAsGuest}
           backgroundColor={colors.background}
           color={colors.lowEmphasis}
+          borderColor={colors.lowEmphasis}
         />
       </View>
     </View>
