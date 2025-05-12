@@ -20,6 +20,7 @@ class RegisterAPITestCase(APITestCase):
             "birth_day": "01",
             "nickname": "testnickname",
             "profile_image": "",
+            "route": "catchb",
         }
         self.catchb_data = {
             **self.common_data,
@@ -93,6 +94,7 @@ class RegisterAPITestCase(APITestCase):
         data["gender"] = "여성"
         data["nickname"] = None
         data["profile_image"] = "test_image.jpg"
+        data["route"] = "kakao"
         response = self.client.post(self.url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         user = User.objects.get(username=self.kakao_data["username"])
@@ -124,6 +126,7 @@ class RegisterAPITestCase(APITestCase):
         data["notifications"] = False
         data["gender"] = "기타"
         data["profile_image"] = "https://sweepserver.com/media/test_image.jpg"
+        data["route"] = "naver"
         response = self.client.post(self.url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         user = User.objects.get(username=self.naver_data["username"])
