@@ -2,12 +2,12 @@ import { useContext, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { isAxiosError } from "axios";
 
+import { usePasswordCheck } from "../api/verify";
 import {
   PasswordVerificationContext,
   PasswordVerificationContextType,
 } from "./context";
-import { useSignup } from "@features/signup/common";
-import { usePasswordCheck } from "@features/signup/verify-password";
+import { useSignup } from "@shared/lib/signup";
 
 export function PasswordsProvider({
   children,
@@ -16,8 +16,6 @@ export function PasswordsProvider({
   const [password2Input, setPassword2Input] = useState<string>("");
 
   const [passwordError, setPasswordError] = useState<string>("");
-
-  const isButtonActive = !!passwordInput && !!password2Input;
 
   const { setPasswords } = useSignup();
   const { mutate: checkPassword } = usePasswordCheck();
@@ -55,7 +53,6 @@ export function PasswordsProvider({
       setPassword: setPasswordInput,
       setPassword2: setPassword2Input,
       goToNextPage,
-      isButtonActive,
     }),
     [passwordInput, password2Input, passwordError]
   );

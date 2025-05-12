@@ -4,7 +4,6 @@ export interface PasswordVerificationContextType {
   password: string;
   password2: string;
   passwordError: string;
-  isButtonActive: boolean;
   setPassword: (value: string) => void;
   setPassword2: (value: string) => void;
   goToNextPage: () => void;

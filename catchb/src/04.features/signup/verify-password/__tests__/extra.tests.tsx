@@ -4,9 +4,9 @@ import { render } from "@testing-library/react-native";
 import { usePasswordVerification } from "../provider/PasswordsProvider";
 
 const TestComponent = () => {
-  const { isButtonActive } = usePasswordVerification();
+  const { password } = usePasswordVerification();
 
-  return <Text>{isButtonActive ? "Active" : "Inactive"}</Text>;
+  return <Text>{password ? "Active" : "Inactive"}</Text>;
 };
 
 describe("PasswordVerificationProvider", () => {
