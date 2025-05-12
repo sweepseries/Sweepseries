@@ -1,16 +1,14 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { isAxiosError } from "axios";
 
+import { useRequestCode } from "../api/requestCode";
+import { useVerifyCode } from "../api/verify";
 import {
   PhoneVerificationContext,
   PhoneVerificationContextType,
 } from "./context";
-import { useSignup } from "@features/signup/common";
-import {
-  useRequestCode,
-  useVerifyCode,
-} from "@features/signup/verify-phonenumber";
 import { useAlert } from "@shared/lib/alert";
+import { useSignup } from "@shared/lib/signup";
 
 export function PhoneVerificationProvider({
   children,
