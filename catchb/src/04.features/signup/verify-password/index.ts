@@ -1,5 +1,3 @@
-export { usePasswordCheck } from "./api/verify";
-
 export {
   PasswordsProvider,
   usePasswordVerification,
