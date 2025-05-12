@@ -3,7 +3,10 @@ import * as Application from "expo-application";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { myPageStyles } from "./styles";
-import { DeleteAccountButton } from "@features/auth/delete-account";
+import {
+  DeleteAccountButton,
+  WithdrawSheetProvider,
+} from "@features/auth/delete-account";
 import { LogoutButton } from "@features/auth/logout";
 import { PrivacyPolicyLink } from "@features/terms/read-privacy-policy";
 import { TermsOfServiceLink } from "@features/terms/read-terms-of-service";
@@ -17,7 +20,7 @@ export function MyPageMain() {
   const styles = myPageStyles(colors);
 
   return (
-    <>
+    <WithdrawSheetProvider>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Subtitle>내 활동</Subtitle>
         <DividerWrapper>
@@ -43,7 +46,7 @@ export function MyPageMain() {
         <TermsOfServiceLink />
         <Version>현재 버전 {Application.nativeApplicationVersion}</Version>
       </View>
-    </>
+    </WithdrawSheetProvider>
   );
 }
 
