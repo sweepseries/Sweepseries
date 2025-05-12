@@ -1,8 +1,8 @@
+import { SignUpForm } from "@widgets/signupform";
 import {
   UsernameEmailProvider,
   useUsernameEmail,
-} from "../provider/UsernameEmailProvider";
-import { SignUpForm } from "@widgets/signupform";
+} from "@features/signup/verify-username-email";
 import { InputField } from "@shared/lib/signup";
 
 export function UsernameEmailVerificationPage() {

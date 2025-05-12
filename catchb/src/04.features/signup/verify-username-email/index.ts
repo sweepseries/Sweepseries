@@ -1,1 +1,4 @@
-export { useUsernameEmailCheck } from "./api/verify";
+export {
+  UsernameEmailProvider,
+  useUsernameEmail,
+} from "./provider/UsernameEmailProvider";

@@ -3,7 +3,7 @@ import * as Router from "expo-router";
 import axios from "axios";
 
 import { UsernameEmailVerificationPage } from "@pages/root/signup";
-import { SignupProvider } from "@features/signup/common";
+import { SignupProvider } from "@shared/lib/signup";
 import { renderWithProviders } from "@test-utils/renderer";
 
 const renderPage = () => {
