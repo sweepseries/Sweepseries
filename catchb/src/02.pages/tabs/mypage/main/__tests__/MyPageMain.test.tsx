@@ -41,10 +41,10 @@ describe("마이페이지 메인", () => {
       isAuthenticated: false,
     });
 
-    const { queryByText } = renderWithProviders(<MyPageMain />);
+    const { queryByTestId } = renderWithProviders(<MyPageMain />);
 
-    expect(queryByText("로그아웃")).toBeFalsy();
-    expect(queryByText("회원탈퇴")).toBeFalsy();
+    expect(queryByTestId("로그아웃-button")).toBeFalsy();
+    expect(queryByTestId("회원탈퇴-button")).toBeFalsy();
   });
 
   it("로그아웃", async () => {
@@ -68,6 +68,27 @@ describe("마이페이지 메인", () => {
     await waitFor(() => {
       fireEvent.press(getByText("로그아웃"));
     });
+  });
+
+  it("회원가입", async () => {
+    const { getByTestId, getByText } = renderWithProviders(<MyPageMain />);
+
+    expect(getByTestId("회원탈퇴-button")).toBeTruthy();
+
+    fireEvent.press(getByTestId("회원탈퇴-button"));
+    expect(
+      getByText(
+        " \u2022 회원 탈퇴 시, 즉시 탈퇴 처리가 되며 향후 재가입은 가능합니다."
+      )
+    ).toBeTruthy();
+
+    // 1회 취소
+    fireEvent.press(getByTestId("돌아가기"));
+
+    fireEvent.press(getByTestId("회원탈퇴-button"));
+    fireEvent.press(getByTestId("탈퇴하기"));
+
+    expect(Router.router.push).toHaveBeenCalledWith("/mypage/withdraw");
   });
 
   it("개인정보 처리 방침 & 이용약관", () => {

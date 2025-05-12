@@ -110,6 +110,7 @@ export function WithdrawPage() {
             style={styles.input}
             multiline
             numberOfLines={4}
+            testID="custom-reason-input"
           />
         )}
       </View>
