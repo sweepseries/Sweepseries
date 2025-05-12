@@ -1,11 +1,10 @@
 import { router } from "expo-router";
-import styled from "styled-components/native";
 
-import { logout } from "@entities/auth";
+import { logout } from "../api/logout";
 import { useAlert } from "@shared/lib/alert";
 import { useAuth } from "@shared/lib/auth";
 import { useColors } from "@shared/lib/colors";
-import { AppIcon } from "@shared/ui/Icons";
+import { NavigateButton } from "@shared/ui/Buttons";
 
 export function LogoutButton() {
   const { showAlert } = useAlert();
@@ -29,17 +28,21 @@ export function LogoutButton() {
     }
   };
 
+  const onLogoutPress = () => {
+    showAlert({
+      title: "로그아웃",
+      message: "정말 로그아웃 하시겠습니까?",
+      onConfirm: requestLogout,
+      enableCancel: true,
+    });
+  };
+
   return (
-    <Container onPress={requestLogout}>
-      <AppIcon icon="logout" size={24} color={colors.lowEmphasis} />
-    </Container>
+    <NavigateButton
+      icon="logout"
+      text="로그아웃"
+      onPress={onLogoutPress}
+      color={colors.lowEmphasis}
+    />
   );
 }
-
-const Container = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  padding: 8px;
-  gap: 8px;
-  border-radius: 4px;
-`;

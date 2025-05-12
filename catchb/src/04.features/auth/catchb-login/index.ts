@@ -1,1 +1,1 @@
-export { CatchBLoginForm } from "./ui";
+export { CatchBLoginForm } from "./ui/CatchBLoginForm";

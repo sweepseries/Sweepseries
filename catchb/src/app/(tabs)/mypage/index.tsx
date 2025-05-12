@@ -1,3 +1,3 @@
-import { MyPage } from "@pages/tabs/mypage";
+import { MyPageMain } from "@pages/tabs/mypage";
 
-export default MyPage;
+export default MyPageMain;

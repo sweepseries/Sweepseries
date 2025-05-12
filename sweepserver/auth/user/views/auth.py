@@ -34,7 +34,10 @@ class UserLoginView(LoginView):
 
         response = super().post(request, *args, **kwargs)
 
-        user = User.objects.get(username__iexact=request.data["username"])
+        q = Q(is_active=True, is_blocked=False, is_withdrawn=False)
+        q &= Q(username__iexact=request.data["username"])
+
+        user = User.objects.get(q)
         user.last_login = timezone.now()
         user.save()
 
@@ -72,10 +75,12 @@ class SocialLoginView(APIView):
         if not username or not mode:
             raise ValidationError("잘못된 요청입니다.")
 
+        q = Q(is_active=True, is_blocked=False, is_withdrawn=False)
+
         if mode == "kakao":
-            q = Q(kakao_id=username, is_active=True, is_blocked=False)
+            q &= Q(kakao_id=username)
         elif mode == "naver":
-            q = Q(naver_id=username, is_active=True, is_blocked=False)
+            q &= Q(naver_id=username)
         else:
             raise ValidationError("잘못된 요청입니다.")
 

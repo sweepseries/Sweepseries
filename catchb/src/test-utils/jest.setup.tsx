@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 
 jest.mock("expo-router", () => {
   const { View } = jest.requireActual("react-native");
@@ -26,7 +29,9 @@ jest.mock("expo-router", () => {
         Screen: ({ options }: { options?: NativeStackNavigationOptions }) => (
           <View>
             {options?.headerLeft && options.headerLeft({})}
-            {options?.headerTitle && options.headerTitle}
+            {options?.headerTitle && typeof options.headerTitle === "function"
+              ? options.headerTitle({ children: "" })
+              : options?.headerTitle}
           </View>
         ),
       }
@@ -41,6 +46,10 @@ jest.mock("expo-router", () => {
     useLocalSearchParams: jest.fn().mockReturnValue({ id: "1" }),
   };
 });
+jest.mock("expo-application", () => ({
+  ...jest.requireActual("expo-application"),
+  nativeApplicationVersion: "1.0.0",
+}));
 jest.mock("react-native-skeleton-placeholder", () => {
   const { Text } = jest.requireActual("react-native");
   const Item = () => <Text>Loading Item</Text>;
@@ -50,6 +59,53 @@ jest.mock("react-native-skeleton-placeholder", () => {
   SkeletonPlaceholder.Item = Item;
 
   return SkeletonPlaceholder;
+});
+jest.mock("@gorhom/bottom-sheet", () => {
+  const { forwardRef } = jest.requireActual("react");
+
+  return {
+    __esModule: true,
+    default: forwardRef(
+      (
+        {
+          backdropComponent,
+          children,
+        }: {
+          backdropComponent: React.FC<BottomSheetBackdropProps>;
+          children: React.ReactNode;
+        },
+        ref: React.Ref<any>
+      ) => (
+        <>
+          {backdropComponent &&
+            backdropComponent({
+              animatedIndex: {
+                value: 0,
+                get: jest.fn(),
+                set: jest.fn(),
+                modify: jest.fn(),
+                addListener: jest.fn(),
+                removeListener: jest.fn(),
+              },
+              animatedPosition: {
+                value: 0,
+                get: jest.fn(),
+                set: jest.fn(),
+                modify: jest.fn(),
+                addListener: jest.fn(),
+                removeListener: jest.fn(),
+              },
+            })}
+          {children}
+        </>
+      )
+    ),
+    BottomSheetBackdrop: () => "BottomSheetBackdrop",
+    BottomSheetBackdropProps: {},
+    BottomSheetScrollView: ({ children }: { children: React.ReactNode }) =>
+      children,
+    BottomSheetView: ({ children }: { children: React.ReactNode }) => children,
+  };
 });
 
 jest.mock("@shared/lib/alert", () => ({
@@ -91,9 +147,24 @@ jest.mock("@shared/lib/storage", () => ({
 }));
 
 jest.mock("@shared/ui/Buttons", () => {
-  const { TouchableOpacity } = jest.requireActual("react-native");
+  const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
   return {
+    LoginButton: TouchableOpacity,
+    LoginButtonText: Text,
+    NavigateButton: ({
+      onPress,
+      text,
+    }: {
+      onPress: () => void;
+      text: string;
+    }) => (
+      <TouchableOpacity onPress={onPress} testID={`${text}-button`}>
+        <Text>{text}</Text>
+      </TouchableOpacity>
+    ),
+    TroubleShootButton: TouchableOpacity,
+    TroubleShootText: Text,
     TextButton: ({
       text,
       onPress,

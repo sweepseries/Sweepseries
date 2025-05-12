@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 
 from auth.person.models import Person
+from .enums import RegisterRouteChoices
 
 
 def random_color_generator():
@@ -53,7 +54,9 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     person = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="user")
 
-    nickname = models.CharField(max_length=150, default=random_nickname_generator, unique=True)
+    nickname = models.CharField(
+        max_length=150, default=random_nickname_generator, unique=True
+    )
     profile_image = models.URLField(null=True)
     default_color = models.CharField(max_length=7, default=random_color_generator)
     introduction = models.CharField(max_length=300, default="", blank=True)
@@ -65,9 +68,14 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_withdrawn = models.BooleanField(default=False)
 
     naver_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
     kakao_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
+
+    route = models.IntegerField(
+        choices=RegisterRouteChoices.choices, default=RegisterRouteChoices.CATCHB
+    )
 
     notification_agreed = models.BooleanField(default=False)
     notification_agreed_at = models.DateTimeField(null=True, blank=True)

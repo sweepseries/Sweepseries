@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "auth.person.apps.PersonConfig",
     "auth.phoneverification.apps.PhoneVerificationConfig",
     "auth.user.apps.UserConfig",
+    "auth.withdrawal.apps.WithdrawalConfig",
 ]
 
 MIDDLEWARE = [

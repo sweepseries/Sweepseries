@@ -5,9 +5,8 @@ import { landingPageStyles } from "./styles";
 import { AuthHeader } from "@widgets/authheader";
 import { KakaoLogin } from "@features/auth/kakao-login";
 import { NaverLogin } from "@features/auth/naver-login";
-import { LoginButton, LoginButtonText } from "@entities/auth";
 import { useColors } from "@shared/lib/colors";
-import { TextButton } from "@shared/ui/Buttons";
+import { LoginButton, LoginButtonText, TextButton } from "@shared/ui/Buttons";
 import { Divider } from "@shared/ui/Dividers";
 
 export function LandingPage() {
@@ -55,12 +54,14 @@ export function LandingPage() {
           onPress={goToSignupPage}
           backgroundColor={colors.background}
           color={colors.lowEmphasis}
+          borderColor={colors.lowEmphasis}
         />
         <TextButton
           text="비회원으로 둘러보기"
           onPress={navigateAsGuest}
           backgroundColor={colors.background}
           color={colors.lowEmphasis}
+          borderColor={colors.lowEmphasis}
         />
       </View>
     </View>

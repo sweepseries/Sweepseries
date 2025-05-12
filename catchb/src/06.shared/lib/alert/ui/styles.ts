@@ -35,7 +35,11 @@ export const alertStyles = (colors: ThemeColorType) =>
     dividerWrapper: {
       width: "60%",
     },
+    buttonsWrapper: {
+      flexDirection: "row",
+    },
     button: {
+      flex: 1,
       alignItems: "center",
       justifyContent: "center",
       width: "100%",

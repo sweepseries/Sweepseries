@@ -43,6 +43,7 @@ export function ProfileFormProvider({
         birth_month: birthMonth,
         birth_day: birthDate,
         gender: mode === "submit" ? gender : null,
+        route: mode,
       },
       {
         onSuccess: () => {

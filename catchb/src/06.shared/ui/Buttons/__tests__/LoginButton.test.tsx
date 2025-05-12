@@ -3,8 +3,10 @@ import {
   LoginButtonText,
   TroubleShootButton,
   TroubleShootText,
-} from "@entities/auth";
+} from "@shared/ui/Buttons";
 import { renderWithProviders } from "@test-utils/renderer";
+
+jest.unmock("@shared/ui/Buttons");
 
 const TestComponent = () => (
   <>

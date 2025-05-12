@@ -2,7 +2,7 @@ import { useState } from "react";
 import { router } from "expo-router";
 import styled from "styled-components/native";
 
-import { catchBLogin } from "@entities/auth";
+import { login as catchBLogin } from "../api/catchblogin";
 import { useAlert } from "@shared/lib/alert";
 import { useAuth } from "@shared/lib/auth";
 import { useColors } from "@shared/lib/colors";
