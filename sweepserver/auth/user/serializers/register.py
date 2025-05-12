@@ -10,6 +10,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from auth.person.models import Person, GenderChoices
+from ..enums import RegisterRouteChoices
 from ..models import User
 from ..validators import UsernameValidator, EmailValidator
 
@@ -24,6 +25,7 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
     birth_day = serializers.CharField(allow_blank=True)
     nickname = serializers.CharField(allow_blank=True, allow_null=True)
     profile_image = serializers.CharField(allow_blank=True)
+    route = serializers.CharField()
 
     class Meta:
         model = User
@@ -39,6 +41,7 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
             "birth_day",
             "nickname",
             "profile_image",
+            "route",
         ]
 
     def validate_email(self, value):
@@ -89,6 +92,17 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
         file_content = ContentFile(res.content, name=tmp_name)
 
         return file_content
+
+    def validate_route(self, value: str):
+        """
+        Validate the route
+        """
+        if value == "naver":
+            return RegisterRouteChoices.NAVER
+        if value == "kakao":
+            return RegisterRouteChoices.KAKAO
+
+        return RegisterRouteChoices.CATCHB
 
     def validate(self, attrs):
         birthdate = self.format_birth_date(
