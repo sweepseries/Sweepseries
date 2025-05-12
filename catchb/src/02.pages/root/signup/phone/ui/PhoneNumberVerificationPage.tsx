@@ -7,8 +7,8 @@ import {
   usePhoneVerification,
 } from "../provider/PhoneVerificationProvider";
 import { SignUpForm } from "@widgets/signupform";
-import { AuthInputTitle, InputField } from "@features/signup/common";
 import { PhoneNumberInputs } from "@features/signup/verify-phonenumber";
+import { AuthInputTitle, InputField } from "@shared/lib/signup";
 import { TextButton } from "@shared/ui/Buttons";
 
 export function PhoneNumberVerificationPage() {

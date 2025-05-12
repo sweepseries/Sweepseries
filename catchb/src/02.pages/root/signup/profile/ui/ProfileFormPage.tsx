@@ -5,9 +5,9 @@ import {
   ProfileFormProvider,
   useProfileForm,
 } from "../provider/ProfileFormProvider";
-import { AuthInputTitle, InputField } from "@features/signup/common";
 import { BirthdateInputs } from "@features/signup/fill-profile";
 import { useColors } from "@shared/lib/colors";
+import { AuthInputTitle, InputField } from "@shared/lib/signup";
 import { TextButton } from "@shared/ui/Buttons";
 import { Selector } from "@shared/ui/Selectors";
 
