@@ -1,6 +1,11 @@
 import { Stack } from "expo-router";
 
-import { HeaderLeftBackButton, HeaderLeftLogo } from "@widgets/layouts";
+import {
+  HeaderLeftBackButton,
+  HeaderLeftCloseButton,
+  HeaderLeftLogo,
+  HeaderTitle,
+} from "@widgets/layouts";
 
 export function MyPageLayout() {
   return (
@@ -17,6 +22,18 @@ export function MyPageLayout() {
           headerLeft: HeaderLeftLogo,
         }}
       />
+      <Stack.Screen
+        name="withdraw"
+        options={{
+          headerLeft: HeaderLeftCloseButton,
+          headerTitle: WithdrawPageHeaderTitle,
+          presentation: "containedModal",
+        }}
+      />
     </Stack>
   );
+}
+
+function WithdrawPageHeaderTitle() {
+  return <HeaderTitle title="탈퇴하기" />;
 }
