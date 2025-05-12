@@ -16,7 +16,7 @@ export function NavigateButton({
   color = "black",
 }: Readonly<Props>) {
   return (
-    <Container onPress={onPress} testID="icon-text-button">
+    <Container onPress={onPress} testID={`${text}-button`}>
       <AppIcon icon={icon} size={18} color={color} />
       <Text style={{ color }}>{text}</Text>
     </Container>

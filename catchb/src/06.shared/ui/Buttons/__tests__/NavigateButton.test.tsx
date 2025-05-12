@@ -10,6 +10,6 @@ describe("NavigateButton", () => {
       <NavigateButton icon="test-icon" text="Test Button" onPress={jest.fn()} />
     );
 
-    fireEvent.press(getByTestId("icon-text-button"));
+    fireEvent.press(getByTestId("Test Button-button"));
   });
 });
