@@ -3,8 +3,8 @@ import { router } from "expo-router";
 import { isAxiosError } from "axios";
 
 import { ProfileFormContext, ProfileFormContextType } from "./context";
-import { useSignup, useRegister } from "@features/signup/common";
 import { useAlert } from "@shared/lib/alert";
+import { useRegister, useSignup } from "@shared/lib/signup";
 
 export function ProfileFormProvider({
   children,
