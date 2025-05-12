@@ -22,7 +22,7 @@ export function AnnouncementSimple({
         testID={`announcement-${announcement.id}`}
       >
         <Title>{announcement.title}</Title>
-        <Date>{announcement.created_at}</Date>
+        <DateText>{announcement.created_at}</DateText>
       </Wrapper>
       <Divider />
     </Container>
@@ -45,7 +45,7 @@ const Title = styled.Text`
   flex: 1;
 `;
 
-const Date = styled.Text`
+const DateText = styled.Text`
   color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.lowEmphasis};
   font-size: 12px;
 `;
