@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -7,10 +8,12 @@ from ..views.auth import get_tokens_for_user
 
 
 class LoginAPITestCase(APITestCase):
+    fixtures = ["data/test/auth.json"]
+
     def setUp(self):
         self.url = "/v1/login/"
         user_person = Person.objects.create(
-            name="Test User", phone_number="010-1234-1234"
+            name="Test User", phone_number="010-1234-5678"
         )
         self.user = User.objects.create_user(
             username="user",
@@ -42,6 +45,24 @@ class LoginAPITestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data.get("refresh"), "")
+
+    def test_login_as_admin(self):
+        ## 1. success
+        response = self.client.post(
+            self.url,
+            {"username": "admin", "password": "admin123!"},
+            HTTP_ORIGIN=settings.ADMIN_PAGE_URL,
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get("refresh"), "")
+
+        ## 2. failure
+        response = self.client.post(
+            self.url,
+            {"username": "Test User", "password": "user123!"},
+            HTTP_ORIGIN=settings.ADMIN_PAGE_URL,
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_social_login(self):
         ## 1. naver
@@ -79,6 +100,7 @@ class LoginAPITestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["result"], "NOT_REGISTERED")
+
 
 class TokenRefreshAPITestCase(APITestCase):
     fixtures = ["data/test/auth.json"]
