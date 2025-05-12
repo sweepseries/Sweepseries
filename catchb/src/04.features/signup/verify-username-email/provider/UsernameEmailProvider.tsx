@@ -15,8 +15,6 @@ export function UsernameEmailProvider({
   const [usernameError, setUsernameError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
 
-  const isButtonActive = !!usernameInput && !!emailInput;
-
   const { setUsernameEmail } = useSignup();
   const { mutate: checkUsernameEmail } = useUsernameEmailCheck();
 
@@ -58,12 +56,11 @@ export function UsernameEmailProvider({
       email: emailInput,
       usernameError,
       emailError,
-      isButtonActive,
       setUsername: setUsernameInput,
       setEmail: setEmailInput,
       goToNextPage,
     }),
-    [usernameInput, emailInput, isButtonActive, goToNextPage]
+    [usernameInput, emailInput, goToNextPage]
   );
 
   return (

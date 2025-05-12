@@ -1,9 +1,10 @@
 import { SignUpForm } from "@widgets/signupform";
 import {
+  EmailForm,
   UsernameEmailProvider,
+  UsernameForm,
   useUsernameEmail,
 } from "@features/signup/verify-username-email";
-import { InputField } from "@shared/lib/signup";
 
 export function UsernameEmailVerificationPage() {
   return (
@@ -14,16 +15,9 @@ export function UsernameEmailVerificationPage() {
 }
 
 function Components() {
-  const {
-    username,
-    email,
-    usernameError,
-    emailError,
-    isButtonActive,
-    setUsername,
-    setEmail,
-    goToNextPage,
-  } = useUsernameEmail();
+  const { username, email, goToNextPage } = useUsernameEmail();
+
+  const isButtonActive = !!username && !!email;
 
   return (
     <SignUpForm
@@ -32,22 +26,8 @@ function Components() {
       buttonOnPress={goToNextPage}
       buttonDisabled={!isButtonActive}
     >
-      <InputField
-        title="아이디"
-        value={username}
-        onChangeText={setUsername}
-        placeholder="로그인 시 사용할 아이디를 입력해주세요."
-        returnKeyType="next"
-        errorMessage={usernameError}
-      />
-      <InputField
-        title="이메일"
-        value={email}
-        onChangeText={setEmail}
-        placeholder="이메일을 입력해주세요."
-        type="email-address"
-        errorMessage={emailError}
-      />
+      <UsernameForm />
+      <EmailForm />
     </SignUpForm>
   );
 }

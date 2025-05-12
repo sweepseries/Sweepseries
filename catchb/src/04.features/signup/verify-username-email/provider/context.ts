@@ -5,7 +5,6 @@ export interface UsernameEmailContextType {
   email: string;
   usernameError: string;
   emailError: string;
-  isButtonActive: boolean;
   setUsername: (value: string) => void;
   setEmail: (value: string) => void;
   goToNextPage: () => void;
