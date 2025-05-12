@@ -19,10 +19,10 @@ python-dateutil = "*"
 boto3 = "==1.35.83"
 botocore = "==1.35.83"
 dj-rest-auth = "==7.0.1"
-django-allauth = "==65.7.0"
 django-extensions = "==4.1"
 djangorestframework = "==3.16.0"
 drf-spectacular = "==0.28.0"
+django-allauth = {extras = ["socialaccount"], version = "*"}
 
 [dev-packages]
 black = "*"
