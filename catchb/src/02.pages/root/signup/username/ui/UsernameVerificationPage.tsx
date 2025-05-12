@@ -3,7 +3,7 @@ import {
   useUsernameEmail,
 } from "../provider/UsernameEmailProvider";
 import { SignUpForm } from "@widgets/signupform";
-import { InputField } from "@features/signup/common";
+import { InputField } from "@shared/lib/signup";
 
 export function UsernameEmailVerificationPage() {
   return (
