@@ -30,6 +30,12 @@ export function MyPageLayout() {
           presentation: "containedModal",
         }}
       />
+      <Stack.Screen
+        name="announcements"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

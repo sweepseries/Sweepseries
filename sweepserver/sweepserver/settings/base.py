@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "phonenumber_field",
     "rest_framework",
     "rest_framework.authtoken",
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "storages",
     ## Local apps
     "core.apps.CoreConfig",
+    "app.announcement.apps.AnnouncementConfig",
     "app.terms.apps.TermsConfig",
     "auth.person.apps.PersonConfig",
     "auth.phoneverification.apps.PhoneVerificationConfig",

@@ -2,6 +2,7 @@ import { ScrollView, View } from "react-native";
 import * as Application from "expo-application";
 import styled, { DefaultTheme } from "styled-components/native";
 
+import { AnnouncementsButton } from "./buttons/AnnouncementsButton";
 import { myPageStyles } from "./styles";
 import {
   DeleteAccountButton,
@@ -31,6 +32,7 @@ export function MyPageMain() {
           <Divider />
         </DividerWrapper>
         <Subtitle>고객센터 및 설정</Subtitle>
+        <AnnouncementsButton />
         {isAuthenticated && (
           <>
             <DividerWrapper>

@@ -70,7 +70,7 @@ describe("마이페이지 메인", () => {
     });
   });
 
-  it("회원가입", async () => {
+  it("회원탈퇴", async () => {
     const { getByTestId, getByText } = renderWithProviders(<MyPageMain />);
 
     expect(getByTestId("회원탈퇴-button")).toBeTruthy();
@@ -106,5 +106,14 @@ describe("마이페이지 메인", () => {
     expect(Linking.openURL).toHaveBeenCalledWith(
       "https://www.sweepseries.com/terms-of-service"
     );
+  });
+
+  it("고객센터 및 설정", () => {
+    const { getByText } = renderWithProviders(<MyPageMain />);
+
+    expect(getByText("공지사항")).toBeTruthy();
+
+    fireEvent.press(getByText("공지사항"));
+    expect(Router.router.push).toHaveBeenCalledWith("/mypage/announcements");
   });
 });
