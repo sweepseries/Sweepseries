@@ -20,7 +20,6 @@ export function AnnouncementsPage() {
           router.back();
         },
       });
-      return;
     }
   }, [isError]);
 

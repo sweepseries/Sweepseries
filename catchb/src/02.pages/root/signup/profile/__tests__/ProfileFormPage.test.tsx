@@ -3,8 +3,8 @@ import * as Router from "expo-router";
 import axios from "axios";
 
 import { ProfileFormPage } from "@pages/root/signup";
-import { SignupProvider } from "@features/signup/common";
 import * as AlertAPI from "@shared/lib/alert";
+import { SignupProvider } from "@shared/lib/signup";
 import { renderWithProviders } from "@test-utils/renderer";
 
 jest.unmock("@shared/ui/Selectors");

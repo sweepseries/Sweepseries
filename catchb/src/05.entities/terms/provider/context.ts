@@ -12,7 +12,9 @@ interface TermsContextType {
   toggleCheckTerm: (id: number) => void;
 }
 
-export const TermsListContext = createContext<TermsContextType | undefined>(undefined);
+export const TermsListContext = createContext<TermsContextType | undefined>(
+  undefined
+);
 
 export type TermsAndConditionsCheckType = {
   id: number;

@@ -1,9 +1,10 @@
 import {
+  PasswordCheckForm,
+  PasswordForm,
   PasswordsProvider,
   usePasswordVerification,
-} from "../provider/PasswordsProvider";
+} from "@features/signup/verify-password";
 import { SignUpForm } from "@widgets/signupform";
-import { InputField } from "@features/signup/common";
 
 export function PasswordVerificationPage() {
   return (
@@ -14,15 +15,9 @@ export function PasswordVerificationPage() {
 }
 
 function Components() {
-  const {
-    password,
-    password2,
-    passwordError,
-    isButtonActive,
-    setPassword,
-    setPassword2,
-    goToNextPage,
-  } = usePasswordVerification();
+  const { password, password2, goToNextPage } = usePasswordVerification();
+
+  const isButtonActive = !!password && !!password2;
 
   return (
     <SignUpForm
@@ -32,23 +27,8 @@ function Components() {
       buttonOnPress={goToNextPage}
       buttonDisabled={!isButtonActive}
     >
-      <InputField
-        title="비밀번호"
-        value={password}
-        onChangeText={setPassword}
-        placeholder="영문+숫자+특수문자 조합으로 8자리 이상"
-        secureTextEntry
-        returnKeyType="next"
-      />
-      <InputField
-        title="비밀번호 확인"
-        value={password2}
-        onChangeText={setPassword2}
-        placeholder="비밀번호를 다시 입력해주세요."
-        secureTextEntry
-        returnKeyType="done"
-        errorMessage={passwordError}
-      />
+      <PasswordForm />
+      <PasswordCheckForm />
     </SignUpForm>
   );
 }

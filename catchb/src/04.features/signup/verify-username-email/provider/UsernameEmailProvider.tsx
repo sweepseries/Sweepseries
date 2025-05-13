@@ -2,9 +2,9 @@ import { useContext, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { isAxiosError } from "axios";
 
+import { useUsernameEmailCheck } from "../api/verify";
 import { UsernameEmailContext, UsernameEmailContextType } from "./context";
-import { useSignup } from "@features/signup/common";
-import { useUsernameEmailCheck } from "@features/signup/verify-username-email";
+import { useSignup } from "@shared/lib/signup";
 
 export function UsernameEmailProvider({
   children,
@@ -14,8 +14,6 @@ export function UsernameEmailProvider({
 
   const [usernameError, setUsernameError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
-
-  const isButtonActive = !!usernameInput && !!emailInput;
 
   const { setUsernameEmail } = useSignup();
   const { mutate: checkUsernameEmail } = useUsernameEmailCheck();
@@ -58,12 +56,11 @@ export function UsernameEmailProvider({
       email: emailInput,
       usernameError,
       emailError,
-      isButtonActive,
       setUsername: setUsernameInput,
       setEmail: setEmailInput,
       goToNextPage,
     }),
-    [usernameInput, emailInput, isButtonActive, goToNextPage]
+    [usernameInput, emailInput, goToNextPage]
   );
 
   return (

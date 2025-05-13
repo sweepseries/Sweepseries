@@ -14,11 +14,6 @@ export const profileFormStyles = (colors: ThemeColorType) =>
     contents: {
       flex: 1,
     },
-    subtitle: {
-      paddingVertical: 4,
-      fontSize: 18,
-      color: colors.highEmphasis,
-    },
     title: {
       fontSize: 20,
       fontWeight: "bold",
@@ -27,18 +22,9 @@ export const profileFormStyles = (colors: ThemeColorType) =>
     greenTitle: {
       color: colors.primary,
     },
-    wrapper: {
-      marginVertical: 12,
-      gap: 12,
-    },
-    buttons: {
-      flexDirection: "row",
-      gap: 8,
-    },
-    submitButtonWrapper: {
-      flex: 3,
-    },
-    skipButtonWrapper: {
-      flex: 1,
+    subtitle: {
+      paddingVertical: 4,
+      fontSize: 18,
+      color: colors.highEmphasis,
     },
   });

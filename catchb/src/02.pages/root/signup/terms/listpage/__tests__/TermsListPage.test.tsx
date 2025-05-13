@@ -3,9 +3,9 @@ import * as Router from "expo-router";
 import axios from "axios";
 
 import { TermsListPage } from "@pages/root/signup";
-import { SignupProvider } from "@features/signup/common";
 import { sampleTerms } from "@entities/terms";
 import * as AlertAPI from "@shared/lib/alert";
+import { SignupProvider } from "@shared/lib/signup";
 import { queryClient, renderWithProviders } from "@test-utils/renderer";
 
 const renderPage = () => {
