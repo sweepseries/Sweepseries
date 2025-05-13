@@ -2,9 +2,13 @@ import { View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 
 import { LoadingTermsList } from "./loading";
-import { TermsListProvider, useTermsList } from "../provider/TermsListProvider";
 import { SignUpForm } from "@widgets/signupform";
-import { CheckAllTerms, TermSimple } from "@entities/terms";
+import {
+  CheckAllTerms,
+  TermSimple,
+  TermsListProvider,
+  useTermsList,
+} from "@entities/terms";
 import { Divider } from "@shared/ui/Dividers";
 
 export function TermsListPage() {

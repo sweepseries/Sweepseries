@@ -1,7 +1,8 @@
 import { Text, View } from "react-native";
 import axios from "axios";
 
-import { sampleTerms, useTerms } from "@entities/terms";
+import { useTerms } from "../api/termsList";
+import { sampleTerms } from "@entities/terms";
 import { renderWithProviders } from "@test-utils/renderer";
 
 const MockListComponent = () => {

@@ -1,5 +1,6 @@
 export { useTermsDetail } from "./api/termDetails";
-export { useTerms } from "./api/termsList";
+
+export { TermsListProvider, useTermsList } from "./provider/TermsListProvider";
 
 export { CheckAllTerms, TermSimple } from "./ui/TermSimple";
 export { TermsLink } from "./ui/TermsLink";
