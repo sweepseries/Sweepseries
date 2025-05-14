@@ -9,3 +9,4 @@ export { HomeLayout } from "./tabs/home/HomeLayout";
 export { MyPageLayout } from "./tabs/mypage/MyPageLayout";
 
 export { AnnouncementsLayout } from "./tabs/mypage/AnnouncementsLayout";
+export { InquiriesLayout } from "./tabs/mypage/InquiriesLayout";

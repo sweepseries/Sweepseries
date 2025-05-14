@@ -36,6 +36,12 @@ export function MyPageLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="inquiries"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
