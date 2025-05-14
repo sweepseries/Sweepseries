@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 ## Apps
 from app.announcement.views import AnnouncementViewSet
+from app.inquiry.views import InquiryViewSet
 from app.terms.views import PrivacyPolicyView, TermsOfServiceView, ReadTermsView
 from app.views import InitializerView
 
@@ -23,6 +24,7 @@ from auth.withdrawal.views import WithdrawalView
 router = DefaultRouter()
 
 router.register(r"announcements", AnnouncementViewSet, basename="announcements")
+router.register(r"inquiries", InquiryViewSet, basename="inquiries")
 router.register(r"terms", ReadTermsView, basename="terms")
 
 urlpatterns = [
