@@ -26,7 +26,7 @@ export function NavigateButton({
 const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  padding: 8px 0;
+  padding: 6px 0;
   gap: 8px;
   border-radius: 4px;
 `;
