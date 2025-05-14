@@ -112,8 +112,12 @@ describe("마이페이지 메인", () => {
     const { getByText } = renderWithProviders(<MyPageMain />);
 
     expect(getByText("공지사항")).toBeTruthy();
+    expect(getByText("1:1 문의")).toBeTruthy();
 
     fireEvent.press(getByText("공지사항"));
     expect(Router.router.push).toHaveBeenCalledWith("/mypage/announcements");
+
+    fireEvent.press(getByText("1:1 문의"));
+    expect(Router.router.push).toHaveBeenCalledWith("/mypage/inquiries");
   });
 });
