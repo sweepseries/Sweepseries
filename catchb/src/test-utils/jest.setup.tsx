@@ -189,7 +189,8 @@ jest.mock("@shared/ui/Logo", () => ({
   CatchBMainLogo: jest.fn(() => null),
 }));
 jest.mock("@shared/ui/Selectors", () => ({
-  Selector: () => null,
+  ChipSelector: () => null,
+  MenuSelector: () => null,
 }));
 jest.mock("@shared/ui/TextInput", () => {
   const { TextInput } = jest.requireActual("react-native");
