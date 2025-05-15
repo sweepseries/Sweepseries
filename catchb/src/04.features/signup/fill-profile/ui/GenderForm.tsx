@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 import { useProfileForm } from "../provider/ProfileFormProvider";
 import { AuthInputTitle } from "@shared/lib/signup";
-import { Selector } from "@shared/ui/Selectors";
+import { ChipSelector } from "@shared/ui/Selectors";
 
 export function GenderForm() {
   const { gender, setGender } = useProfileForm();
@@ -10,7 +10,7 @@ export function GenderForm() {
   return (
     <Wrapper>
       <AuthInputTitle>성별</AuthInputTitle>
-      <Selector
+      <ChipSelector
         options={["남성", "여성", "기타"]}
         selected={gender}
         onSelect={setGender}

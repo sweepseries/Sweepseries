@@ -1,15 +1,15 @@
 import { fireEvent } from "@testing-library/react-native";
 
-import { Selector } from "@shared/ui/Selectors";
+import { ChipSelector } from "@shared/ui/Selectors";
 import { renderWithProviders } from "@test-utils/renderer";
 
 jest.unmock("@shared/ui/Selectors");
 
-describe("Selector", () => {
+describe("ChipSelector", () => {
   it("should render and handle button press correctly", () => {
     const mockOnSelect = jest.fn();
     const { getByTestId } = renderWithProviders(
-      <Selector
+      <ChipSelector
         options={["Option 1", "Option 2"]}
         selected="Option 1"
         onSelect={mockOnSelect}

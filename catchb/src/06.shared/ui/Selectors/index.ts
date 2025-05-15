@@ -1,1 +1,1 @@
-export { Selector } from "./Selector";
+export { ChipSelector } from "./ChipSelector";
