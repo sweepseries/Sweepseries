@@ -6,3 +6,8 @@ export type InquiryThreadType = {
   created_at: string;
   is_updated: boolean;
 };
+
+export type InquiryCategoryType = {
+  id: number;
+  name: string;
+};
