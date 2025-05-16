@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { router } from "expo-router";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { InquiryThreadType } from "../models/types";
@@ -9,9 +10,13 @@ interface Props {
 }
 
 export function InquirySimple({ inquiry }: Readonly<Props>) {
+  const goToDetailPage = () => {
+    router.push(`/mypage/inquiries/${inquiry.id}`);
+  };
+
   return (
     <View>
-      <Wrapper>
+      <Wrapper onPress={goToDetailPage} testID={`inquiry-${inquiry.id}`}>
         <Title>
           [{inquiry.category}] {inquiry.title}
         </Title>
@@ -22,7 +27,7 @@ export function InquirySimple({ inquiry }: Readonly<Props>) {
   );
 }
 
-const Wrapper = styled.View`
+const Wrapper = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
