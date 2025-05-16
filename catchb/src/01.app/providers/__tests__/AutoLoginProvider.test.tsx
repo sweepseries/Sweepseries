@@ -72,7 +72,9 @@ describe("AutoLoginProvider", () => {
   it("handles auto token renew interceptor: success", async () => {
     const { getByTestId } = renderTokenRefreshTester();
 
-    mockAxios.onGet("/test").replyOnce(403, { code: "token_not_valid" }); // 1차 실패
+    mockAxios
+      .onGet("/test")
+      .replyOnce(401, { error: "Access Token이 만료되었습니다." }); // 1차 실패
     mockAxios.onGet("/test").reply(200, {}); // 토큰 갱신 후 성공
     await waitFor(() => {
       fireEvent.press(getByTestId("test-request"));
@@ -82,7 +84,9 @@ describe("AutoLoginProvider", () => {
   it("handles auto token renew interceptor: fail", async () => {
     const { getByTestId } = renderTokenRefreshTester();
 
-    mockAxios.onGet("/test").reply(403, { code: "token_not_valid" });
+    mockAxios
+      .onGet("/test")
+      .replyOnce(401, { error: "Access Token이 만료되었습니다." });
     mockAxios.onPost("/v1/tokens/refresh/").reply(400, {});
     await waitFor(() => {
       fireEvent.press(getByTestId("test-request"));
