@@ -6,10 +6,12 @@ from ..models import User
 class UserProfileSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     mode = serializers.SerializerMethodField()
+    name = serializers.CharField(source="person.name", read_only=True)
 
     class Meta:
         model = User
-        fields = ["uuid", "mode"]
+        fields = ["uuid", "mode", "name", "email", "profile_image"]
+        read_only_fields = ["uuid", "mode", "name", "email", "profile_image"]
 
     def get_mode(self, obj):
         """
@@ -18,5 +20,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             - 아니면 normal
         """
         ## TODO: Implement Pro
-        print(obj) ## placeholder to pass lint
+        ## 아래는 임시로 작성한 코드입니다.
+        if obj.is_superuser:
+            return "pro"
+
         return "normal"
