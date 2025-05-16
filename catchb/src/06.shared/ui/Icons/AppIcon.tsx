@@ -3,6 +3,7 @@ import { SvgProps } from "react-native-svg";
 import CalendarNumber from "./files/calendar-number.svg";
 import Chat from "./files/chat.svg";
 import CheckCircle from "./files/check-circle.svg";
+import Check from "./files/check.svg";
 import ChevronDown from "./files/chevron-down.svg";
 import ChevronLeft from "./files/chevron-left.svg";
 import ChevronRight from "./files/chevron-right.svg";
@@ -29,6 +30,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   "calendar-number": CalendarNumber,
   chat: Chat,
   "check-circle": CheckCircle,
+  check: Check,
   "chevron-down": ChevronDown,
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
