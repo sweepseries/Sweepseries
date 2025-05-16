@@ -52,8 +52,8 @@ export function AutoLoginProvider({ children }: Readonly<Props>) {
 
         if (
           error.response &&
-          error.response.status === 403 &&
-          error.response.data.code === "token_not_valid" &&
+          error.response.status === 401 &&
+          error.response.data.error === "Access Token이 만료되었습니다." &&
           !originalRequest._retry
         ) {
           originalRequest._retry = true;
