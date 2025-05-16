@@ -18,6 +18,7 @@ def is_access_token_expired(e: APIException) -> bool:
     except KeyError:
         return False
 
+
 def get_drf_api_error_response(e: APIException) -> Response:
     """
     DRF APIException을 처리하는 함수
