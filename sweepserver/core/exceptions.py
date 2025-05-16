@@ -8,7 +8,14 @@ from rest_framework.views import exception_handler
 def get_drf_api_error_response(e: APIException) -> Response:
     """
     DRF APIException을 처리하는 함수
+        - Access Token이 만료된 경우, 기본 응답을 반환
     """
+
+    if e.status_code == status.HTTP_401_UNAUTHORIZED:
+        return Response(
+            data={"error": "Access Token이 만료되었습니다."},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
 
     return Response(data={"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
 
