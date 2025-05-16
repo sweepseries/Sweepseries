@@ -37,10 +37,10 @@ export function InquiryGuide() {
           <EmailText>support@sweepseries.com</EmailText>
         </TouchableOpacity>
         <TouchableOpacity onPress={copyEmailAddress} testID="copy">
-          <AppIcon icon="copy" size={28} color={colors.primary} />
+          <AppIcon icon="copy" size={24} color={colors.lowEmphasis} />
         </TouchableOpacity>
       </EmailContainer>
-      <GuideText>{guideText}</GuideText>
+      <GuideText testID="guide-text">{guideText}</GuideText>
       <TextButton text="1:1 문의하기" onPress={openForm} />
     </Container>
   );
@@ -68,6 +68,6 @@ const EmailText = styled.Text`
 const GuideText = styled.Text`
   font-size: 14px;
   font-weight: 400;
-  line-height: 16px;
+  line-height: 18px;
   color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.mediumEmphasis};
 `;
