@@ -115,7 +115,8 @@ jest.mock("@shared/lib/alert", () => ({
   })),
 }));
 jest.mock("@shared/lib/auth", () => {
-  const { sampleLoginData } = jest.requireActual("@shared/lib/auth");
+  const { UserProfileType, sampleLoginData, sampleUserProfile } =
+    jest.requireActual("@shared/lib/auth");
 
   return {
     AuthProvider: ({ children }: { children: React.ReactNode }) => children,
@@ -126,7 +127,9 @@ jest.mock("@shared/lib/auth", () => {
       mode: "GUEST",
       isAuthenticated: false,
     })),
+    UserProfileType,
     sampleLoginData,
+    sampleUserProfile,
   };
 });
 jest.mock("@shared/lib/colors", () => {
