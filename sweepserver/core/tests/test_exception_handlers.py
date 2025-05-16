@@ -17,3 +17,5 @@ class CustomExceptionHandlerTestCase(APITestCase):
         exc.status_code = status.HTTP_401_UNAUTHORIZED
 
         response = get_drf_api_error_response(exc)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.data, {"error": "Access Token이 만료되었습니다."})
