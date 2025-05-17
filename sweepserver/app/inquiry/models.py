@@ -63,7 +63,8 @@ class InquiryMessage(TimeStampedModel):
     objects = models.Manager()
 
     def __str__(self) -> str:
-        return f"{self.get_sender_display()} @ {self.created_at}: {self.content[:20]}…"
+        thread_id = self.thread.pk
+        return f"[{thread_id}] {self.get_sender_display()}: {self.content[:20]}..."
 
     class Meta:
         db_table = "inquiry_message"
