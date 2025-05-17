@@ -20,7 +20,7 @@ class ReadInquiriesAPITestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data), 2)
 
         ## 2. 로그인 되지 않은 유저
         self.client.force_authenticate(user=None)
