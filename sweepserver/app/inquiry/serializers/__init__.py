@@ -1,5 +1,9 @@
-from .user_inquiry_serializers import UserInquirySerializer
+from .user_inquiry_serializers import (
+    UserInquiryReadSerializer,
+    UserInquiryWriteSerializer,
+)
 
 __all__ = [
-    "UserInquirySerializer",
+    "UserInquiryReadSerializer",
+    "UserInquiryWriteSerializer",
 ]
