@@ -1,5 +1,4 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 
 from auth.user.models import User
 from core.models import TimeStampedModel
@@ -26,7 +25,6 @@ class InquiryThread(TimeStampedModel):
     # 비로그인 대비
     name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(blank=True)
-    phone_number = PhoneNumberField(blank=True)
 
     category = models.IntegerField(
         choices=InquiryCategoryChoices.choices, default=InquiryCategoryChoices.OTHER
@@ -34,7 +32,7 @@ class InquiryThread(TimeStampedModel):
     title = models.CharField(max_length=255)
 
     status = models.IntegerField(
-        choices=InquiryStatusChoices.choices, default=InquiryStatusChoices.PENDING
+        choices=InquiryStatusChoices.choices, default=InquiryStatusChoices.NEW
     )
 
     def __str__(self) -> str:

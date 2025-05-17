@@ -7,7 +7,7 @@ class InquiryCategoryChoices(models.IntegerChoices):
 
 
 class InquiryStatusChoices(models.IntegerChoices):
-    PENDING = 1, "대기"
+    NEW = 1, "신규"
     IN_PROGRESS = 2, "진행중"
     COMPLETED = 3, "완료"
 
