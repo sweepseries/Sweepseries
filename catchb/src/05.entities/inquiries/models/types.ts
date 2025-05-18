@@ -11,3 +11,18 @@ export type InquiryCategoryType = {
   id: number;
   name: string;
 };
+
+export type MemberInquiryCreatePostType = {
+  user: string; // UUID
+  category: number;
+  title: string;
+  content: string;
+};
+
+export type GuestInquiryCreatePostType = {
+  name: string;
+  email: string;
+  category: number;
+  title: string;
+  content: string;
+};

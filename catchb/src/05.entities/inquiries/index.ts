@@ -1,3 +1,4 @@
+export { useCreateInquiry } from "./api/createInquiry";
 export { useInquiries } from "./api/inquiriesList";
 
 export { inquiryCategories } from "./models/enums";
