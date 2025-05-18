@@ -191,10 +191,20 @@ jest.mock("@shared/ui/Icons", () => ({
 jest.mock("@shared/ui/Logo", () => ({
   CatchBMainLogo: jest.fn(() => null),
 }));
-jest.mock("@shared/ui/Selectors", () => ({
-  ChipSelector: () => null,
-  MenuSelector: () => null,
-}));
+jest.mock("@shared/ui/Selectors", () => {
+  const { Text } = jest.requireActual("react-native");
+
+  return {
+    ChipSelector: () => null,
+    MenuSelector: ({
+      selected,
+      renderLabel,
+    }: {
+      selected: any;
+      renderLabel: (option: any) => string;
+    }) => <Text>{renderLabel(selected)}</Text>,
+  };
+});
 jest.mock("@shared/ui/TextInput", () => {
   const { TextInput } = jest.requireActual("react-native");
 
