@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 import {
@@ -15,19 +15,11 @@ async function createInquiry(
 }
 
 export function useCreateInquiry() {
-  const queryClient = useQueryClient();
-
   return useMutation<
     AxiosResponse<InquiryThreadType>,
     AxiosError<ErrorResponse>,
     MemberInquiryCreatePostType | GuestInquiryCreatePostType
   >({
     mutationFn: (data) => createInquiry(data),
-    onSuccess: (res) => {
-      queryClient.setQueryData<InquiryThreadType[]>(
-        ["inquiries"],
-        (old = []) => [res.data, ...old]
-      );
-    },
   });
 }
