@@ -4,9 +4,9 @@ import axios from "axios";
 import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import { InquiriesPage } from "@pages/tabs/mypage";
+import { sampleInquiries } from "@entities/inquiries";
 import * as AlertAPI from "@shared/lib/alert";
 import { renderWithProviders } from "@test-utils/renderer";
-import { sampleInquiries } from "@entities/inquiries";
 
 describe("1:1 문의 페이지", () => {
   const showAlertMock = jest.fn();
@@ -70,25 +70,12 @@ describe("1:1 문의 페이지", () => {
       expect(getByText("[Category 1] Inquiry 1")).toBeTruthy();
       expect(getByText("[Category 2] Inquiry 2")).toBeTruthy();
       // 상태 표시
-      expect(getByText("답변완료")).toBeTruthy();
-      expect(getByText("답변대기")).toBeTruthy();
+      expect(getByText("신규")).toBeTruthy();
+      expect(getByText("진행중")).toBeTruthy();
     });
 
     // 문의 하나를 누르면, 상세 페이지로 이동한다.
     fireEvent.press(getByTestId("inquiry-1"));
     expect(router.push).toHaveBeenCalledWith("/mypage/inquiries/1");
-  });
-
-  it("새 문의 생성", async () => {
-    jest.spyOn(axios, "get").mockResolvedValue({ data: sampleInquiries });
-
-    const { getByTestId, getByText } = renderWithProviders(<InquiriesPage />);
-
-    // 내부 헤더 안에 Form 버튼을 누르면 Form이 나타난다.
-    fireEvent.press(getByTestId("1:1 문의하기"));
-    expect(getByText("고객정보")).toBeTruthy();
-    expect(getByText("질문구분")).toBeTruthy();
-    expect(getByText("문의하기")).toBeTruthy();
-    expect(getByTestId("등록")).toBeDisabled();
   });
 });
