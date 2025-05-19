@@ -4,11 +4,10 @@ import { router, useLocalSearchParams } from "expo-router";
 import { LoadingTermsList } from "./loading";
 import { SignUpForm } from "@widgets/signupform";
 import {
-  CheckAllTerms,
-  TermSimple,
   TermsListProvider,
   useTermsList,
-} from "@entities/terms";
+} from "@features/signup/agree-to-terms";
+import { CheckAllTerms, TermSimple } from "@entities/terms";
 import { Divider } from "@shared/ui/Dividers";
 
 export function TermsListPage() {

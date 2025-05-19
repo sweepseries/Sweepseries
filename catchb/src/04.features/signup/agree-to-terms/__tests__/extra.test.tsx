@@ -2,7 +2,11 @@ import { Text } from "react-native";
 import { render, waitFor } from "@testing-library/react-native";
 import axios from "axios";
 
-import { TermsListProvider, sampleTerms, useTermsList } from "@entities/terms";
+import {
+  TermsListProvider,
+  useTermsList,
+} from "@features/signup/agree-to-terms";
+import { sampleTerms } from "@entities/terms";
 import { SignupProvider } from "@shared/lib/signup";
 import { renderWithProviders } from "@test-utils/renderer";
 
