@@ -39,8 +39,6 @@ const Container = styled.ScrollView`
 
 const ListWrapper = styled.View`
   min-height: 70%;
-  padding: 16px 24px;
-  gap: 16px;
   background-color: ${({ theme }: { theme: DefaultTheme }) =>
     theme.colors.background};
 `;
