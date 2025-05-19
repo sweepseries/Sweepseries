@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.exceptions import APIException, ValidationError
@@ -41,8 +42,10 @@ def get_drf_validation_error_response(e: ValidationError) -> Response:
     if isinstance(e.detail, list):
         return Response(data={"error": e.detail[0]}, status=status.HTTP_400_BAD_REQUEST)
     if isinstance(e.detail, dict):
+        first_error = list(e.detail.values())[0]
+        error_msg = str(first_error[0])
         return Response(
-            data={"error": list(e.detail.values())[0][0]},
+            data={"error": error_msg},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
@@ -63,6 +66,10 @@ def custom_exception_handler(exc, context):
     커스텀 예외 처리 함수
     """
     response = exception_handler(exc, context)
+
+    ## 개발서버이면 예외를 콘솔에 출력
+    if settings.DEBUG:
+        print(exc)
 
     if response is not None:
         if isinstance(exc, ValidationError):
