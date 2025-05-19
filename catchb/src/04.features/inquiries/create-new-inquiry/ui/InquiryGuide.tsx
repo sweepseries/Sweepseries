@@ -11,7 +11,7 @@ import { AppIcon } from "@shared/ui/Icons";
 export function InquiryGuide() {
   const { showAlert } = useAlert();
   const { colors } = useColors();
-  const { openForm } = useInquiryForm();
+  const { openForm, isOpen } = useInquiryForm();
 
   const sendEmail = async () => {
     Linking.openURL("mailto:support@sweepseries.com");
@@ -41,7 +41,7 @@ export function InquiryGuide() {
         </TouchableOpacity>
       </EmailContainer>
       <GuideText testID="guide-text">{guideText}</GuideText>
-      <TextButton text="1:1 문의하기" onPress={openForm} />
+      {!isOpen ? <TextButton text="1:1 문의하기" onPress={openForm} /> : null}
     </Container>
   );
 }

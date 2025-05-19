@@ -28,6 +28,10 @@ export const formStyles = (colors: ThemeColorType) =>
       borderWidth: 1,
       borderColor: colors.border,
     },
+    disabled: {
+      color: colors.mediumEmphasis,
+      backgroundColor: colors.backgroundGray,
+    },
     footer: {
       gap: 16,
     },
