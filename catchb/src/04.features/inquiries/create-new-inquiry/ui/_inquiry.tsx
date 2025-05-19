@@ -16,8 +16,6 @@ export function InquirySegment() {
     return category.name;
   };
 
-  if (category === null) return;
-
   return (
     <>
       <View style={styles.segment}>
@@ -37,6 +35,7 @@ export function InquirySegment() {
           placeholderTextColor={colors.lowEmphasis}
           value={title}
           onChangeText={setTitle}
+          testID="title-input"
         />
         <TextInput
           style={[styles.input, { minHeight: 100 }]}
@@ -45,6 +44,7 @@ export function InquirySegment() {
           value={content}
           onChangeText={setContent}
           multiline
+          testID="content-input"
         />
       </View>
     </>
