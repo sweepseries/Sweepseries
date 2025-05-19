@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     ## Local apps
     "core.apps.CoreConfig",
     "app.announcement.apps.AnnouncementConfig",
+    "app.faq.apps.FaqConfig",
     "app.inquiry.apps.InquiryConfig",
     "app.terms.apps.TermsConfig",
     "auth.person.apps.PersonConfig",
