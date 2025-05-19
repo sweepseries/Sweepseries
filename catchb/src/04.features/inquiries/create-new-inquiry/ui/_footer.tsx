@@ -11,7 +11,7 @@ import { AppIcon } from "@shared/ui/Icons";
 export function FormFooter() {
   const [termAccepted, setTermAccepted] = useState<boolean>(false);
 
-  const { closeForm } = useInquiryForm();
+  const { closeForm, submitForm } = useInquiryForm();
   const { colors } = useColors();
   const styles = formStyles(colors);
 
@@ -42,7 +42,11 @@ export function FormFooter() {
           </Text>
         </View>
         <Divider />
-        <TouchableOpacity style={styles.checkbox} onPress={toggleTermAccepted}>
+        <TouchableOpacity
+          style={styles.checkbox}
+          onPress={toggleTermAccepted}
+          testID="term-accept-checkbox"
+        >
           <AppIcon
             icon="check-circle"
             size={20}
@@ -55,7 +59,7 @@ export function FormFooter() {
       </View>
       <View style={styles.buttons}>
         <View style={styles.mainButtonWrapper}>
-          <TextButton text="등록" onPress={() => {}} active={termAccepted} />
+          <TextButton text="등록" onPress={submitForm} active={termAccepted} />
         </View>
         <View style={styles.cancelButtonWrapper}>
           <TextButton
