@@ -15,9 +15,9 @@ import { useAuth, UserProfileType } from "@shared/lib/auth";
 
 export function InquiryFormProvider({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [category, setCategory] = useState<InquiryCategoryType>(
