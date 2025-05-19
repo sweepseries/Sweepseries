@@ -5,7 +5,7 @@ import axios from "axios";
 import { AnnouncementsPage } from "@pages/tabs/mypage";
 import { sampleAnnouncements } from "@entities/announcements";
 import * as AlertAPI from "@shared/lib/alert";
-import { queryClient, renderWithProviders } from "@test-utils/renderer";
+import { renderWithProviders } from "@test-utils/renderer";
 
 describe("공지사항 목록 페이지", () => {
   const showAlertMock = jest.fn().mockImplementation((options) => {
@@ -18,8 +18,6 @@ describe("공지사항 목록 페이지", () => {
       showAlert: showAlertMock,
     });
     jest.spyOn(axios, "get").mockResolvedValue({ data: sampleAnnouncements });
-
-    queryClient.clear();
   });
 
   afterEach(() => {

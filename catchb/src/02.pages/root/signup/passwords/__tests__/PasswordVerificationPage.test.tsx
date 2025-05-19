@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { PasswordVerificationPage } from "@pages/root/signup";
 import { SignupProvider } from "@shared/lib/signup";
-import { queryClient, renderWithProviders } from "@test-utils/renderer";
+import { renderWithProviders } from "@test-utils/renderer";
 
 const renderPage = () => {
   return renderWithProviders(
@@ -18,8 +18,6 @@ describe("비밀번호 확인 페이지", () => {
   beforeEach(() => {
     jest.useFakeTimers();
     jest.spyOn(axios, "post").mockResolvedValue({});
-
-    queryClient.clear();
   });
 
   afterEach(() => {
