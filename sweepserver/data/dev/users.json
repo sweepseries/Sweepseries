@@ -1,0 +1,76 @@
+[
+  {
+    "model": "person.person",
+    "pk": 1,
+    "fields": {
+      "name": "Admin",
+      "phone_number": "+821012341234",
+      "birth_date": null,
+      "gender": "U"
+    }
+  },
+  {
+    "model": "person.person",
+    "pk": 2,
+    "fields": {
+      "name": "홍길동",
+      "phone_number": "+821000000001",
+      "birth_date": "2000-01-01",
+      "gender": "M"
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "3bf71f3c-0f63-4b21-99db-c362b0c02be3",
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$q4jm66RrU3MkqVZuQI0fDA$H0IAyiUIiLrqaAeR5Pv0An3ZPOjTUphALhvroKKKUhI=",
+      "last_login": null,
+      "username": "sweepseries",
+      "email": "",
+      "person": 1,
+      "nickname": "새침한 티아나",
+      "profile_image": null,
+      "default_color": "#63A9DF",
+      "introduction": "",
+      "joined_at": "2025-05-14T05:24:56.350Z",
+      "updated_at": "2025-05-14T05:24:56.351Z",
+      "is_superuser": true,
+      "is_staff": true,
+      "is_blocked": false,
+      "is_active": true,
+      "is_withdrawn": false,
+      "naver_id": null,
+      "kakao_id": null,
+      "route": 0,
+      "notification_agreed": false,
+      "notification_agreed_at": null
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "5cbe2242-5543-4cc2-a4b5-ea1478600bf1",
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$525kbRsQmmVLXA1hsH9Jd8$jlI02X/lA5wNj0rLQMdMmdI/ZiFmXfsbQkZLbY7IunI=",
+      "last_login": "2025-05-14T05:25:48.669Z",
+      "username": "Testuser",
+      "email": "test@user.com",
+      "person": 2,
+      "nickname": "야구하는 홍길동",
+      "profile_image": null,
+      "default_color": "#55D8E4",
+      "introduction": "",
+      "joined_at": "2025-05-14T05:25:40.267Z",
+      "updated_at": "2025-05-14T05:25:48.669Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_blocked": false,
+      "is_active": true,
+      "is_withdrawn": false,
+      "naver_id": null,
+      "kakao_id": null,
+      "route": 0,
+      "notification_agreed": false,
+      "notification_agreed_at": null
+    }
+  }
+]

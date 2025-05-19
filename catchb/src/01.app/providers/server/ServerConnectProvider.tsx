@@ -25,7 +25,7 @@ export function ServerConnectProvider({ children }: Readonly<Props>) {
         setStatus("SERVER-DOWN");
         showAlert({
           title: "서버 연결 오류",
-          message: "서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.",
+          message: "서버에 연결할 수 없습니다.\n잠시 후 다시 시도해주세요.",
         });
       }
     };
@@ -36,8 +36,9 @@ export function ServerConnectProvider({ children }: Readonly<Props>) {
       if (!net.isConnected || !net.isInternetReachable) {
         setStatus("OFFLINE");
         showAlert({
-          title: "네트워크 연결 없음",
-          message: "네트워크 연결을 확인해주세요.",
+          title: "접속상태 이상",
+          message:
+            "현재 기기 접속 상태가 원활하지 않습니다.\n네트워크 연결 상태를 확인해주세요.",
         });
         return;
       }

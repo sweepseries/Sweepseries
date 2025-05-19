@@ -1,13 +1,18 @@
 import { SvgProps } from "react-native-svg";
 
 import CalendarNumber from "./files/calendar-number.svg";
+import Chat from "./files/chat.svg";
 import CheckCircle from "./files/check-circle.svg";
+import Check from "./files/check.svg";
 import ChevronDown from "./files/chevron-down.svg";
 import ChevronLeft from "./files/chevron-left.svg";
 import ChevronRight from "./files/chevron-right.svg";
 import ChevronUp from "./files/chevron-up.svg";
 import Close from "./files/close.svg";
+import Copy from "./files/copy.svg";
 import Desk from "./files/desk.svg";
+import Envelope from "./files/envelope.svg";
+import Error from "./files/error.svg";
 import Home from "./files/home.svg";
 import LightBulb from "./files/lightbulb.svg";
 import Logout from "./files/logout.svg";
@@ -23,15 +28,20 @@ interface Props {
 
 const iconMap: Record<string, React.FC<SvgProps>> = {
   "calendar-number": CalendarNumber,
+  chat: Chat,
   "check-circle": CheckCircle,
+  check: Check,
   "chevron-down": ChevronDown,
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
   "chevron-up": ChevronUp,
   close: Close,
+  copy: Copy,
   desk: Desk,
+  envelope: Envelope,
+  error: Error,
   home: Home,
-  "lightbulb": LightBulb,
+  lightbulb: LightBulb,
   logout: Logout,
   people: People,
   "person-circle": PersonCircle,

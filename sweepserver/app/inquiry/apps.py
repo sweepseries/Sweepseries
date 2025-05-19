@@ -1,0 +1,8 @@
+from django.apps import AppConfig
+
+
+class InquiryConfig(AppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "app.inquiry"
+    label = "inquiry"
+    verbose_name = "1:1 문의"

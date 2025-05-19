@@ -2,7 +2,7 @@ import { ScrollView, View } from "react-native";
 import * as Application from "expo-application";
 import styled, { DefaultTheme } from "styled-components/native";
 
-import { AnnouncementsButton } from "./buttons/AnnouncementsButton";
+import { CustomerServiceButtons } from "./_customerservices";
 import { myPageStyles } from "./styles";
 import {
   DeleteAccountButton,
@@ -32,7 +32,7 @@ export function MyPageMain() {
           <Divider />
         </DividerWrapper>
         <Subtitle>고객센터 및 설정</Subtitle>
-        <AnnouncementsButton />
+        <CustomerServiceButtons />
         {isAuthenticated && (
           <>
             <DividerWrapper>
@@ -53,7 +53,7 @@ export function MyPageMain() {
 }
 
 const Subtitle = styled.Text`
-  margin: 8px 0;
+  margin: 8px 0 12px 0;
   font-size: 20px;
   font-weight: bold;
 `;

@@ -1,1 +1,35 @@
-[{"model": "announcement.announcement", "pk": 1, "fields": {"created_at": "2025-05-12T07:08:17.709Z", "updated_at": "2025-05-12T07:08:17.709Z", "title": "Catch B 출시 이벤트!", "content": "샘플 출시 이벤트", "is_deleted": false}}, {"model": "announcement.announcement", "pk": 2, "fields": {"created_at": "2025-05-12T07:08:34.229Z", "updated_at": "2025-05-12T07:08:34.229Z", "title": "캐치비 X 토스, 5천 포인트 지급", "content": "샘플", "is_deleted": true}}, {"model": "announcement.announcement", "pk": 3, "fields": {"created_at": "2025-05-12T07:08:49.820Z", "updated_at": "2025-05-12T07:08:49.820Z", "title": "캐치비 에디터가 추천하는 2024 하반기 아이템", "content": "하반기 아이템", "is_deleted": false}}]
+[
+  {
+    "model": "announcement.announcement",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-05-12T07:08:17.709Z",
+      "updated_at": "2025-05-12T07:08:17.709Z",
+      "title": "Catch B 출시 이벤트!",
+      "content": "샘플 출시 이벤트",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "announcement.announcement",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-05-12T07:08:34.229Z",
+      "updated_at": "2025-05-12T07:08:34.229Z",
+      "title": "캐치비 X 토스, 5천 포인트 지급",
+      "content": "샘플",
+      "is_deleted": true
+    }
+  },
+  {
+    "model": "announcement.announcement",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-05-12T07:08:49.820Z",
+      "updated_at": "2025-05-12T07:08:49.820Z",
+      "title": "캐치비 에디터가 추천하는 2024 하반기 아이템",
+      "content": "하반기 아이템",
+      "is_deleted": false
+    }
+  }
+]

@@ -6,7 +6,7 @@ import { TermsListPage } from "@pages/root/signup";
 import { sampleTerms } from "@entities/terms";
 import * as AlertAPI from "@shared/lib/alert";
 import { SignupProvider } from "@shared/lib/signup";
-import { queryClient, renderWithProviders } from "@test-utils/renderer";
+import { renderWithProviders } from "@test-utils/renderer";
 
 const renderPage = () => {
   return renderWithProviders(
@@ -30,8 +30,6 @@ describe("약관 목록 페이지", () => {
     jest.spyOn(Router, "useLocalSearchParams").mockReturnValue({
       mode: "catchb",
     });
-
-    queryClient.clear();
   });
 
   afterEach(() => {

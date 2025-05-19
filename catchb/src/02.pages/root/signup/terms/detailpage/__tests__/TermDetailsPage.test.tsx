@@ -5,7 +5,7 @@ import axios from "axios";
 import { TermsContentPage } from "@pages/root/signup/";
 import { sampleTerms } from "@entities/terms";
 import * as AlertAPI from "@shared/lib/alert";
-import { queryClient, renderWithProviders } from "@test-utils/renderer";
+import { renderWithProviders } from "@test-utils/renderer";
 
 describe("약관 상세 페이지", () => {
   const showAlertMock = jest.fn().mockImplementation((options) => {
@@ -20,7 +20,6 @@ describe("약관 상세 페이지", () => {
     jest.spyOn(AlertAPI, "useAlert").mockReturnValue({
       showAlert: showAlertMock,
     });
-    queryClient.clear();
   });
 
   afterEach(() => {

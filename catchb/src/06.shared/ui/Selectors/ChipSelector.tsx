@@ -8,7 +8,7 @@ interface Props {
   onSelect: (option: string) => void;
 }
 
-export function Selector({ options, selected, onSelect }: Readonly<Props>) {
+export function ChipSelector({ options, selected, onSelect }: Readonly<Props>) {
   const { colors } = useColors();
 
   return (

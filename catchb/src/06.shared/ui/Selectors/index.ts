@@ -1,1 +1,2 @@
-export { Selector } from "./Selector";
+export { ChipSelector } from "./ChipSelector";
+export { MenuSelector } from "./MenuSelector";
