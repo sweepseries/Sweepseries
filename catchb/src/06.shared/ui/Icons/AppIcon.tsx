@@ -16,10 +16,12 @@ import Error from "./files/error.svg";
 import Home from "./files/home.svg";
 import LightBulb from "./files/lightbulb.svg";
 import Logout from "./files/logout.svg";
+import Pencil from "./files/pencil.svg";
 import People from "./files/people.svg";
 import PersonCircle from "./files/person-circle.svg";
 import PersonMinus from "./files/person-minus.svg";
 import QuestionmarkCircle from "./files/questionmark-circle.svg";
+import WarningCircle from "./files/warning-circle.svg";
 
 interface Props {
   icon: string;
@@ -44,10 +46,12 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   home: Home,
   lightbulb: LightBulb,
   logout: Logout,
+  pencil: Pencil,
   people: People,
   "person-circle": PersonCircle,
   "person-minus": PersonMinus,
   "questionmark-circle": QuestionmarkCircle,
+  "warning-circle": WarningCircle,
 };
 
 export const AppIcon = ({ icon, size = 24, color = "#000" }: Props) => {
