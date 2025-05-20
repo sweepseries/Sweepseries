@@ -5,6 +5,7 @@ export const sampleUserProfile: UserProfileType = {
   name: "John Doe",
   email: "john@doe.com",
   profile_image: "https://example.com/profile.jpg",
+  color: "#FF5733",
 };
 
 export const sampleLoginData: LoginData = {

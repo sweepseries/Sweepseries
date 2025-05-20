@@ -4,7 +4,8 @@ export type UserProfileType = {
   uuid: string;
   name: string;
   email: string;
-  profile_image: string;
+  profile_image: string | null;
+  color: string;
 };
 
 type LoginUserDataType = {
