@@ -41,10 +41,22 @@ describe("마이페이지 메인", () => {
       isAuthenticated: false,
     });
 
-    const { queryByTestId } = renderWithProviders(<MyPageMain />);
+    const { getByTestId, queryByTestId } = renderWithProviders(<MyPageMain />);
 
     expect(queryByTestId("로그아웃-button")).toBeFalsy();
     expect(queryByTestId("회원탈퇴-button")).toBeFalsy();
+    expect(getByTestId("로그인 하러가기")).toBeTruthy();
+
+    // router.canDismiss()가 false일 때
+    jest.spyOn(Router.router, "canDismiss").mockReturnValue(false);
+    fireEvent.press(getByTestId("로그인 하러가기"));
+    expect(Router.router.replace).toHaveBeenCalledWith("/");
+
+    // router.canDismiss()가 true일 때
+    jest.spyOn(Router.router, "canDismiss").mockReturnValue(true);
+    fireEvent.press(getByTestId("로그인 하러가기"));
+    expect(Router.router.dismissAll).toHaveBeenCalled();
+    expect(Router.router.replace).toHaveBeenCalledWith("/");
   });
 
   it("로그아웃", async () => {
@@ -106,6 +118,15 @@ describe("마이페이지 메인", () => {
     expect(Linking.openURL).toHaveBeenCalledWith(
       "https://www.sweepseries.com/terms-of-service"
     );
+  });
+
+  it("프로필 수정", () => {
+    const { getByTestId } = renderWithProviders(<MyPageMain />);
+
+    expect(getByTestId("edit-profile")).toBeTruthy();
+
+    fireEvent.press(getByTestId("edit-profile"));
+    expect(Router.router.push).toHaveBeenCalledWith("/mypage/profile");
   });
 
   it("고객센터 및 설정", () => {

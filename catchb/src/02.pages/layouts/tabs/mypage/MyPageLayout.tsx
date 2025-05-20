@@ -23,6 +23,12 @@ export function MyPageLayout() {
         }}
       />
       <Stack.Screen
+        name="profile"
+        options={{
+          headerTitle: ProfileEditPageHeaderTitle,
+        }}
+      />
+      <Stack.Screen
         name="withdraw"
         options={{
           headerLeft: HeaderLeftCloseButton,
@@ -50,6 +56,10 @@ export function MyPageLayout() {
       />
     </Stack>
   );
+}
+
+function ProfileEditPageHeaderTitle() {
+  return <HeaderTitle title="프로필 수정" />;
 }
 
 function WithdrawPageHeaderTitle() {
