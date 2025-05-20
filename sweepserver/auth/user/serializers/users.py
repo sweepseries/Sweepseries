@@ -7,11 +7,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     mode = serializers.SerializerMethodField()
     name = serializers.CharField(source="person.name", read_only=True)
+    color = serializers.CharField(source="default_color", read_only=True)
 
     class Meta:
         model = User
-        fields = ["uuid", "mode", "name", "email", "profile_image"]
-        read_only_fields = ["uuid", "mode", "name", "email", "profile_image"]
+        fields = ["uuid", "mode", "name", "email", "profile_image", "color"]
+        read_only_fields = ["uuid", "mode", "name", "email", "profile_image", "color"]
 
     def get_mode(self, obj):
         """
