@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
-import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 
 import DefaultProfile from "./files/default_profile.svg";
@@ -10,15 +9,12 @@ import { AppIcon } from "@shared/ui/Icons";
 
 interface Props {
   profile: UserProfileType;
+  editPress: () => void;
 }
 
-export function UserProfileCard({ profile }: Readonly<Props>) {
+export function UserProfileCard({ profile, editPress }: Readonly<Props>) {
   const { colors } = useColors();
   const styles = createStyles(colors);
-
-  const goToProfileEditPage = () => {
-    router.push("/mypage/profile");
-  };
 
   return (
     <View>
@@ -43,7 +39,7 @@ export function UserProfileCard({ profile }: Readonly<Props>) {
       </LinearGradient>
       <TouchableOpacity
         style={styles.edit}
-        onPress={goToProfileEditPage}
+        onPress={editPress}
         activeOpacity={0.75}
         testID="edit-profile"
       >
