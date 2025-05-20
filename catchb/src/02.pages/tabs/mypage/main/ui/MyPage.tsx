@@ -3,6 +3,7 @@ import * as Application from "expo-application";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { CustomerServiceButtons } from "./_customerservices";
+import { MyActivities } from "./_myactivities";
 import { myPageStyles } from "./styles";
 import {
   DeleteAccountButton,
@@ -23,6 +24,7 @@ export function MyPageMain() {
   return (
     <WithdrawSheetProvider>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <MyActivities />
         <Subtitle>내 활동</Subtitle>
         <DividerWrapper>
           <Divider />
