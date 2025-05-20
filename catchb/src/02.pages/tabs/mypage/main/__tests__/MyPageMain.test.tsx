@@ -113,11 +113,15 @@ describe("마이페이지 메인", () => {
 
     expect(getByText("공지사항")).toBeTruthy();
     expect(getByText("1:1 문의")).toBeTruthy();
+    expect(getByText("자주 묻는 질문")).toBeTruthy();
 
     fireEvent.press(getByText("공지사항"));
     expect(Router.router.push).toHaveBeenCalledWith("/mypage/announcements");
 
     fireEvent.press(getByText("1:1 문의"));
     expect(Router.router.push).toHaveBeenCalledWith("/mypage/inquiries");
+
+    fireEvent.press(getByText("자주 묻는 질문"));
+    expect(Router.router.push).toHaveBeenCalledWith("/mypage/faqs");
   });
 });

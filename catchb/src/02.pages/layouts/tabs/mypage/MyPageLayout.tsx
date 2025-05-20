@@ -42,10 +42,20 @@ export function MyPageLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="faqs"
+        options={{
+          headerTitle: FAQPageHeaderTitle,
+        }}
+      />
     </Stack>
   );
 }
 
 function WithdrawPageHeaderTitle() {
   return <HeaderTitle title="탈퇴하기" />;
+}
+
+function FAQPageHeaderTitle() {
+  return <HeaderTitle title="자주 묻는 질문" />;
 }

@@ -19,6 +19,7 @@ import Logout from "./files/logout.svg";
 import People from "./files/people.svg";
 import PersonCircle from "./files/person-circle.svg";
 import PersonMinus from "./files/person-minus.svg";
+import QuestionmarkCircle from "./files/questionmark-circle.svg";
 
 interface Props {
   icon: string;
@@ -46,6 +47,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   people: People,
   "person-circle": PersonCircle,
   "person-minus": PersonMinus,
+  "questionmark-circle": QuestionmarkCircle,
 };
 
 export const AppIcon = ({ icon, size = 24, color = "#000" }: Props) => {
