@@ -6,6 +6,7 @@ vi.mock("react-router", async () => {
 
   return {
     ...actual,
+    Outlet: () => <div>Mocked Outlet</div>,
     useNavigate: () => vi.fn(),
     useLocation: vi.fn(),
     useParams: vi.fn(),
@@ -48,12 +49,24 @@ vi.mock("@shared/lib/navigation", async () => {
   return {
     tabs: tabs,
     TabType: TabType,
-    SidebarTab: () => <div>Mocked SidebarTab</div>,
+    SidebarTab: ({
+      title,
+      onClick,
+    }: {
+      title: string;
+      onClick: () => void;
+    }) => <button onClick={onClick}>{title}</button>,
   };
 });
 
 vi.mock("@shared/ui/Buttons", () => ({
-  SidebarButton: () => <div>Mocked SidebarButton</div>,
+  SidebarButton: ({
+    onClick,
+    children,
+  }: {
+    onClick: () => void;
+    children: React.ReactNode;
+  }) => <button onClick={onClick}>{children}</button>,
 }));
 vi.mock("@shared/ui/Icons", () => ({
   Logo: () => <div>Mocked Logo</div>,
