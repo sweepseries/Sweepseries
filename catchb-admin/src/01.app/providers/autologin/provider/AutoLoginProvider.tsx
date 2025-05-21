@@ -1,23 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 import { refresh } from "../api/refresh";
-import { AuthContext } from "@shared/lib/auth";
+import { useAuth } from "@shared/lib/auth";
 
-export function AuthProvider({
+export function AutoLoginProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-  const login = (accessToken: string) => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-    setIsAuthenticated(true);
-  };
-
-  const logout = () => {
-    delete axios.defaults.headers.common["Authorization"];
-    setIsAuthenticated(false);
-  };
+  const { login, logout } = useAuth();
 
   useEffect(() => {
     const refreshToken = async () => {
@@ -41,8 +31,8 @@ export function AuthProvider({
 
         if (
           error.response &&
-          error.response.status === 403 &&
-          error.response.data.code === "token_not_valid" &&
+          error.response.status === 401 &&
+          error.response.data.error === "Access Token이 만료되었습니다." &&
           !originalRequest._retry
         ) {
           originalRequest._retry = true;
@@ -64,12 +54,7 @@ export function AuthProvider({
     return () => {
       axios.interceptors.response.eject(interceptor);
     };
-  }, []);
+  }, [login, logout]);
 
-  const value = useMemo(
-    () => ({ login, logout, isAuthenticated }),
-    [isAuthenticated]
-  );
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return children;
 }
