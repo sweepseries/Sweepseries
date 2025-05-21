@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 
-import { ColorsProvider } from "../colors/ColorsProvider";
+import { ColorsProvider } from "../providers/ColorsProvider";
 import { useColors } from "@shared/lib/colors";
 
 vi.unmock("@shared/lib/colors");

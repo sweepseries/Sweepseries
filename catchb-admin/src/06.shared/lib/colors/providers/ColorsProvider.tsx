@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { ThemeProvider } from "styled-components";
 
-import { ColorContext, light, dark } from "@shared/lib/colors";
+import { dark, light } from "../models/colors";
+import { ColorContext } from "../models/context";
 
 export function ColorsProvider({
   children,
