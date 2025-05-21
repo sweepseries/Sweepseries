@@ -1,4 +1,5 @@
 import type { JSX, ReactElement, PropsWithChildren } from "react";
+import { BrowserRouter } from "react-router";
 import { ThemeProvider } from "styled-components";
 import { render } from "@testing-library/react";
 
@@ -10,7 +11,9 @@ export function renderWithProviders(ui: ReactElement) {
     return (
       <ThemeProvider theme={{ colors: light }}>
         <AuthProvider>
-          <ColorsProvider>{children}</ColorsProvider>
+          <ColorsProvider>
+            <BrowserRouter>{children}</BrowserRouter>
+          </ColorsProvider>
         </AuthProvider>
       </ThemeProvider>
     );
