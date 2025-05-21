@@ -22,7 +22,14 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/test-utils/vitest.setup.tsx",
     coverage: {
-      exclude: ["**/index.ts", "**/styles.ts", "**/types.ts"],
+      exclude: [
+        "**/index.ts",
+        "**/styles.ts",
+        "**/types.ts",
+        "**/*.config.*",
+        "**/*.d.ts",
+        "**/main.tsx",
+      ],
     },
   },
 });
