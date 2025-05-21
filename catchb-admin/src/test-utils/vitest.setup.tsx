@@ -1,6 +1,17 @@
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 
+vi.mock("react-router", async () => {
+  const actual = await vi.importActual("react-router");
+
+  return {
+    ...actual,
+    useNavigate: () => vi.fn(),
+    useLocation: vi.fn(),
+    useParams: vi.fn(),
+  };
+});
+
 vi.mock("@shared/lib/auth", async () => {
   const { AuthContext } = await vi.importActual("@shared/lib/auth");
 
@@ -25,6 +36,7 @@ vi.mock("@shared/lib/colors", async () => {
       toggleTheme: vi.fn(),
     })),
     ColorContext: ColorContext,
+    ColorsProvider: ({ children }: { children: React.ReactNode }) => children,
     ThemeColorType: ThemeColorType,
     light: light,
     dark: light,
