@@ -1,4 +1,5 @@
 import { AuthProvider, ColorsProvider } from "./providers";
+import { AppRouter } from "./routers";
 import { GlobalStyles } from "./styles";
 
 export default function App() {
@@ -7,7 +8,7 @@ export default function App() {
       <GlobalStyles />
       <ColorsProvider>
         <AuthProvider>
-          <div />
+          <AppRouter />
         </AuthProvider>
       </ColorsProvider>
     </>
