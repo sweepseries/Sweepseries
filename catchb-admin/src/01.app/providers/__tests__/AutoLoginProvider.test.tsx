@@ -1,12 +1,10 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 
 import { AutoLoginProvider } from "../autologin/provider/AutoLoginProvider";
 import { renderWithProviders } from "@test-utils/renderer";
-
-vi.unmock("@shared/lib/auth");
 
 const MockComponent = () => {
   const testRequest = async () => {
