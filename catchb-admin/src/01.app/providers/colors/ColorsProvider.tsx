@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { ThemeProvider } from "styled-components";
 
 import { ColorContext, light, dark } from "@shared/lib/colors";
 
@@ -18,6 +19,8 @@ export function ColorsProvider({
   const value = useMemo(() => ({ colors, toggleTheme }), [colors]);
 
   return (
-    <ColorContext.Provider value={value}>{children}</ColorContext.Provider>
+    <ThemeProvider theme={{ colors }}>
+      <ColorContext.Provider value={value}>{children}</ColorContext.Provider>
+    </ThemeProvider>
   );
 }
