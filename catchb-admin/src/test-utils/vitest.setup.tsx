@@ -5,6 +5,7 @@ vi.mock("@shared/lib/auth", async () => {
   const { AuthContext } = await vi.importActual("@shared/lib/auth");
 
   return {
+    AuthProvider: ({ children }: { children: React.ReactNode }) => children,
     useAuth: vi.fn(() => ({
       login: vi.fn(),
       logout: vi.fn(),
