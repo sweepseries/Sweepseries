@@ -23,6 +23,9 @@
       "@shared/*": [
         "./src/06.shared/*"
       ],
+      "@test-utils/*": [
+        "./src/test-utils/*"
+      ],
     },
 
     /* Bundler mode */

@@ -14,11 +14,15 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "src/04.features"),
       "@entities": path.resolve(__dirname, "src/05.entities"),
       "@shared": path.resolve(__dirname, "src/06.shared"),
+      "@test-utils": path.resolve(__dirname, "src/test-utils"),
     },
   },
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./src/test-utils/vitest.setup.tsx"
+    setupFiles: "./src/test-utils/vitest.setup.tsx",
+    coverage: {
+      exclude: ["**/index.ts", "**/styles.ts", "**/types.ts"],
+    },
   },
 });
