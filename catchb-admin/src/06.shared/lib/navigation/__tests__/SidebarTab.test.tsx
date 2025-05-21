@@ -3,6 +3,8 @@ import { describe, it, vi } from "vitest";
 import { SidebarTab } from "@shared/lib/navigation";
 import { renderWithProviders } from "@test-utils/renderer";
 
+vi.unmock("@shared/lib/navigation");
+
 describe("<SidebarTab />", () => {
   it("should render without crashing", () => {
     renderWithProviders(

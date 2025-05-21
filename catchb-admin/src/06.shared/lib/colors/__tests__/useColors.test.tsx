@@ -3,6 +3,8 @@ import { render } from "@testing-library/react";
 
 import { ColorContext, light, useColors } from "@shared/lib/colors";
 
+vi.unmock("@shared/lib/colors");
+
 const MockComponent = () => {
   const { colors } = useColors();
 

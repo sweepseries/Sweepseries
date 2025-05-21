@@ -3,6 +3,8 @@ import { render } from "@testing-library/react";
 
 import { AuthContext, useAuth } from "@shared/lib/auth";
 
+vi.unmock("@shared/lib/auth");
+
 const MockComponent = () => {
   const { isAuthenticated } = useAuth();
 
