@@ -20,6 +20,20 @@ export function AuthProvider({
   };
 
   useEffect(() => {
+    const refreshToken = async () => {
+      const response = await refresh();
+
+      if (response) {
+        login(response.access);
+
+        return response.access;
+      } else {
+        logout();
+
+        return null;
+      }
+    };
+
     const interceptor = axios.interceptors.response.use(
       (response) => response,
       async (error) => {
@@ -33,27 +47,18 @@ export function AuthProvider({
         ) {
           originalRequest._retry = true;
 
-          try {
-            const response = await refresh();
-            if (response) {
-              const newAccessToken = response.access;
-              login(newAccessToken);
+          const token = await refreshToken();
+          if (token) {
+            originalRequest.headers["Authorization"] = `Bearer ${token}`;
 
-              originalRequest.headers[
-                "Authorization"
-              ] = `Bearer ${newAccessToken}`;
-              return axios(originalRequest);
-            } else {
-              logout();
-            }
-          } catch (refreshError) {
-            logout();
-            return Promise.reject(refreshError);
+            return axios(originalRequest);
           }
         }
         return Promise.reject(error);
       }
     );
+
+    refreshToken();
 
     // Remove the interceptor when AuthProvider unmounts
     return () => {
