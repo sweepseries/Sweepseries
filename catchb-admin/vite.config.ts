@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
@@ -14,5 +15,10 @@ export default defineConfig({
       "@entities": path.resolve(__dirname, "src/05.entities"),
       "@shared": path.resolve(__dirname, "src/06.shared"),
     },
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/test-utils/vitest.setup.tsx"
   },
 });
