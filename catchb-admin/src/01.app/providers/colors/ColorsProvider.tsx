@@ -6,7 +6,7 @@ import { ColorContext, light, dark } from "@shared/lib/colors";
 export function ColorsProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
