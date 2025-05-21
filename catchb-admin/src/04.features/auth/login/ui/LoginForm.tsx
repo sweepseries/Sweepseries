@@ -31,12 +31,14 @@ export function LoginForm() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="아이디"
+          data-testid="username-input"
         />
         <TextInput
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="비밀번호"
           type="password"
+          data-testid="password-input"
         />
       </InputWrapper>
       <Button onClick={() => onLogin(username, password)}>로그인</Button>
