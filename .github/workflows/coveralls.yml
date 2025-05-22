@@ -6,8 +6,21 @@ on:
       - main
 
 jobs:
-  build:
+  prep:
     runs-on: ubuntu-latest
+    outputs:
+      lcov-path: ${{ steps.install-lcov.outputs.lcov-path }}
+    steps:
+      - name: Install lcov
+        id: install-lcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
+          echo "::set-output name=lcov-path::$(which lcov)"
+
+  server-test:
+    runs-on: ubuntu-latest
+    needs: prep
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       NAVER_API_KEY_ID: "NAVER_API_KEY_ID"
@@ -21,12 +34,10 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.13.2"]
-        node-version: [22]
-
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -34,42 +45,81 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pipenv'
 
-      - name: Set up Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
-          cache-dependency-path: catchb/yarn.lock
-
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          sudo apt-get update
-          sudo apt-get install -y lcov
           pip install pipenv
           cd sweepserver
           pipenv install --dev
-          cd ../catchb
-          yarn install --dev
-          cd ..
 
-      - name: Backend Coverage
+      - name: Server Coverage
         run: |
           cd sweepserver
           pipenv run coverage run manage.py test
           pipenv run coverage lcov
           pipenv run coverage xml
           sed -i "s|<source></source>|<source>sweepserver</source>|g" coverage.xml
-          cd ..
 
-      - name: Catch B Mobile App Coverage
+      - name: Upload Server coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: server-coverage
+          path: sweepserver/coverage.lcov
+
+  node-tests:
+    runs-on: ubuntu-latest
+    needs: prep
+    strategy:
+      matrix:
+        project-dir: [catchb, catchb-admin]
+        node-version: [22]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Set up Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+          cache-dependency-path: ${{ matrix.project-dir }}/yarn.lock
+
+      - name: Install dependencies
         run: |
-          cd catchb
-          yarn global add lcov-result-merger
-          yarn test --coverage --watchAll=false
+          cd ${{ matrix.project-dir }}
+          yarn install --dev
+
+      - name: Run tests
+        run: |
+          cd ${{ matrix.project-dir }}
+          yarn test --watchAll=false --coverage
           cp coverage/lcov.info coverage.lcov
-          cd ..
-          lcov-result-merger '*/coverage.lcov' coverage.lcov --prepend-source-files --prepend-path-fix "."
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.project-dir }}-coverage
+          path: ${{ matrix.project-dir }}/coverage.lcov
+
+  quality:
+    runs-on: ubuntu-latest
+    needs: [server-test, node-tests]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      
+      - name: Download All Coverages
+        uses: actions/download-artifact@v3
+        with:
+          path: .
+
+      - name: Merge Coverages
+        run: |
+          lcov-result-merger -o coverage.lcov \
+            ./sweepserver/coverage.lcov \
+            ./catchb/coverage.lcov \
+            ./catchb-admin/coverage.lcov
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
