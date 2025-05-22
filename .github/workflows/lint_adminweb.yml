@@ -8,6 +8,9 @@ on:
     paths:
       - 'catchb-admin/**'
 
+permissions:
+  contents: read
+
 jobs:
   eslint:
     name: Run eslint scanning
