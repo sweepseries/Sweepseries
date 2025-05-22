@@ -110,7 +110,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with: { fetch-depth: 0 }
-      
+
+      - name: Setup Node for Merging
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Download All Coverages
         uses: actions/download-artifact@v4
         with:
@@ -118,7 +123,7 @@ jobs:
 
       - name: Merge Coverages
         run: |
-          lcov-result-merger -o coverage.lcov \
+          npx lcov-result-merger -o coverage.lcov \
             ./sweepserver/coverage.lcov \
             ./catchb/coverage.lcov \
             ./catchb-admin/coverage.lcov
