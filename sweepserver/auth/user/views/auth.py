@@ -60,9 +60,12 @@ def get_tokens_for_user(user):
 def process_response(request, response):
     user_agent = request.headers.get("X-Sweep-Platform", "")
 
-    if user_agent not in ["sweep/mobile"]:
-        ## remove refresh token
-        response.data["refresh"] = ""
+    if user_agent == "sweep/mobile":
+        refresh = response.cookies.get("refresh").value
+        response.delete_cookie("access")
+        response.delete_cookie("refresh")
+
+        response.data["refresh"] = refresh
 
     return response
 
