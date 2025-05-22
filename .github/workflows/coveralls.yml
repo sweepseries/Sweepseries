@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   prep:
     runs-on: ubuntu-latest
@@ -16,7 +19,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y lcov
-          echo "::set-output name=lcov-path::$(which lcov)"
 
   server-test:
     runs-on: ubuntu-latest
@@ -60,7 +62,7 @@ jobs:
           sed -i "s|<source></source>|<source>sweepserver</source>|g" coverage.xml
 
       - name: Upload Server coverage artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: server-coverage
           path: sweepserver/coverage.lcov
@@ -96,7 +98,7 @@ jobs:
           cp coverage/lcov.info coverage.lcov
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.project-dir }}-coverage
           path: ${{ matrix.project-dir }}/coverage.lcov
@@ -110,7 +112,7 @@ jobs:
         with: { fetch-depth: 0 }
       
       - name: Download All Coverages
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: .
 
