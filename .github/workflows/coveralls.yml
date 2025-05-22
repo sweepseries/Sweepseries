@@ -94,7 +94,7 @@ jobs:
       - name: Run tests
         run: |
           cd ${{ matrix.project-dir }}
-          yarn test --watchAll=false --coverage
+          yarn coverage
           cp coverage/lcov.info coverage.lcov
 
       - name: Upload coverage artifact
