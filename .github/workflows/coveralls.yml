@@ -61,11 +61,17 @@ jobs:
           pipenv run coverage xml
           sed -i "s|<source></source>|<source>sweepserver</source>|g" coverage.xml
 
-      - name: Upload Server coverage artifact
+      - name: Upload Server coverage lcov artifact
         uses: actions/upload-artifact@v4
         with:
-          name: server-coverage
+          name: server-coverage-lcov
           path: sweepserver/coverage.lcov
+
+      - name: Upload Server coverage xml artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-coverage-xml
+          path: sweepserver/coverage.xml
 
   node-tests:
     runs-on: ubuntu-latest
@@ -116,10 +122,29 @@ jobs:
         with:
           node-version: 22
 
-      - name: Download All Coverages
+      - name: Download Server lcov artifact
         uses: actions/download-artifact@v4
         with:
-          path: .
+          name: server-coverage-lcov
+          path: ./sweepserver
+
+      - name: Download Server xml artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-coverage-xml
+          path: ./sweepserver
+
+      - name: Download Mobile app artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: catchb-coverage
+          path: ./catchb
+
+      - name: Download Admin app artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: catchb-admin-coverage
+          path: ./catchb-admin
 
       - name: Merge Coverages
         run: |
