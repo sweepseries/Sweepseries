@@ -1,4 +1,15 @@
+import sys
+import warnings
+
 from .base import *  # pylint: disable=W0401,W0614
+
+if "test" in sys.argv:
+    warnings.filterwarnings(
+        "ignore",
+        message=r".*AUTHENTICATION_METHOD is deprecated.*",
+        category=UserWarning,
+        module=r"dj_rest_auth\.serializers",
+    )
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

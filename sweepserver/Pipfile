@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==5.2"
 python-decouple = "*"
 psycopg2-binary = "*"
 django-storages = "*"
@@ -23,6 +22,7 @@ django-extensions = "==4.1"
 djangorestframework = "==3.16.0"
 drf-spectacular = "==0.28.0"
 django-allauth = {extras = ["socialaccount"], version = "*"}
+django = "==5.2.1"
 
 [dev-packages]
 black = "*"
