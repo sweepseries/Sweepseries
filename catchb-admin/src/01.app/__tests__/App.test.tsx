@@ -8,6 +8,7 @@ vi.mock("../providers", () => ({
   AuthProvider: ({ children }: { children: React.ReactNode }) => children,
   AutoLoginProvider: ({ children }: { children: React.ReactNode }) => children,
   ColorsProvider: ({ children }: { children: React.ReactNode }) => children,
+  QueryProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
 vi.mock("@pages/login", () => ({
   LoginPage: () => <div>Login Page</div>,
