@@ -69,5 +69,6 @@ vi.mock("@shared/ui/Buttons", () => ({
   }) => <button onClick={onClick}>{children}</button>,
 }));
 vi.mock("@shared/ui/Icons", () => ({
+  AppIcon: () => null,
   Logo: () => <div>Mocked Logo</div>,
 }));
