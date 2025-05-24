@@ -1,6 +1,7 @@
 import Announcement from "./files/announcement.svg?react";
 import Dashboard from "./files/dashboard.svg?react";
 import Document from "./files/document.svg?react";
+import Logout from "./files/logout.svg?react";
 import People from "./files/people.svg?react";
 import Question from "./files/question.svg?react";
 import SidebarClose from "./files/sidebar-close.svg?react";
@@ -19,6 +20,7 @@ const iconMap: Record<
   announcement: Announcement,
   dashboard: Dashboard,
   document: Document,
+  logout: Logout,
   people: People,
   question: Question,
   "sidebar-close": SidebarClose,
