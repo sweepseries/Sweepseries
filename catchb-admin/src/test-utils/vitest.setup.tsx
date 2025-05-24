@@ -1,6 +1,8 @@
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 
+import { type TabType } from "@shared/lib/navigation";
+
 vi.mock("react-router", async () => {
   const actual = await vi.importActual("react-router");
 
@@ -44,18 +46,13 @@ vi.mock("@shared/lib/colors", async () => {
   };
 });
 vi.mock("@shared/lib/navigation", async () => {
-  const { TabType, tabs } = await vi.importActual("@shared/lib/navigation");
+  const { tabs } = await vi.importActual("@shared/lib/navigation");
 
   return {
     tabs: tabs,
-    TabType: TabType,
-    SidebarTab: ({
-      title,
-      onClick,
-    }: {
-      title: string;
-      onClick: () => void;
-    }) => <button onClick={onClick}>{title}</button>,
+    SidebarTab: ({ tab, onClick }: { tab: TabType; onClick: () => void }) => (
+      <button onClick={onClick}>{tab.title}</button>
+    ),
   };
 });
 
