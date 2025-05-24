@@ -13,6 +13,9 @@ vi.mock("../providers", () => ({
 vi.mock("@pages/login", () => ({
   LoginPage: () => <div>Login Page</div>,
 }));
+vi.mock("@pages/terms", () => ({
+  TermsContainer: () => <div>Terms Container</div>,
+}));
 vi.mock("@widgets/fallback/notfound", () => ({
   NotFoundPage: () => <div>Not Found Page</div>,
 }));

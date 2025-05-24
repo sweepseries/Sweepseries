@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 
 import { LoginPage } from "@pages/login";
+import { TermsContainer } from "@pages/terms";
 import { NotFoundPage } from "@widgets/fallback/notfound";
 import { RootLayout } from "@widgets/layouts/root";
 import { useAuth } from "@shared/lib/auth";
@@ -17,6 +18,7 @@ export function AppRouter() {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route element={<RootLayout />}>
+          <Route path="/terms/*" element={<TermsContainer />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
