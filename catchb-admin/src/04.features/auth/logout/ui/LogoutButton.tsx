@@ -3,10 +3,17 @@ import styled from "styled-components";
 
 import { logout as logoutRequest } from "../api/logout";
 import { useAuth } from "@shared/lib/auth";
+import { useColors } from "@shared/lib/colors";
 import { SidebarButton } from "@shared/ui/Buttons";
+import { AppIcon } from "@shared/ui/Icons";
 
-export function LogoutButton() {
+interface Props {
+  isSidebarOpen: boolean;
+}
+
+export function LogoutButton({ isSidebarOpen }: Readonly<Props>) {
   const { logout } = useAuth();
+  const { colors } = useColors();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -22,10 +29,16 @@ export function LogoutButton() {
     }
   };
 
-  return <Button onClick={handleLogout}>로그아웃</Button>;
+  return (
+    <Button onClick={handleLogout}>
+      <AppIcon icon="logout" size={20} color={colors.background500} />
+      {isSidebarOpen && <span>로그아웃</span>}
+    </Button>
+  );
 }
 
 const Button = styled(SidebarButton)`
+  gap: 8px;
   &:hover {
     background-color: #ff4d4d;
   }
