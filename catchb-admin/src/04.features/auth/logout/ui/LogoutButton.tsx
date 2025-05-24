@@ -31,7 +31,7 @@ export function LogoutButton({ isSidebarOpen }: Readonly<Props>) {
 
   return (
     <Button onClick={handleLogout}>
-      <AppIcon icon="logout" size={20} color={colors.background500} />
+      <AppIcon icon="logout" size={16} color={colors.background500} />
       {isSidebarOpen && <span>로그아웃</span>}
     </Button>
   );
