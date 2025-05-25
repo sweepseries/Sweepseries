@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import TermsAndConditions, TermsAndConditionsHistory
+from ..models import TermsAndConditions, TermsAndConditionsHistory
 
 
 class TermsAndConditionsAPITestCase(APITestCase):
