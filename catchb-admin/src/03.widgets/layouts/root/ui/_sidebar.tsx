@@ -16,24 +16,33 @@ export function Sidebar() {
   };
 
   return (
-    <Container style={{ width: sidebarOpen ? "240px" : "80px" }}>
-      <Header>
-        <Logo size={36} />
-        <button onClick={toggleSidebar} data-testid="sidebar-toggle">
-          <AppIcon
-            icon={sidebarOpen ? "sidebar-close" : "sidebar-open"}
-            color={colors.foreground300}
-            size={20}
-          />
-        </button>
-      </Header>
-      <Tabs isSidebarOpen={sidebarOpen} />
-      <Footer>
-        <LogoutButton isSidebarOpen={sidebarOpen} />
-      </Footer>
-    </Container>
+    <SidebarWrapper style={{ width: sidebarOpen ? "240px" : "80px" }}>
+      <Container style={{ width: sidebarOpen ? "240px" : "80px" }}>
+        <Header>
+          <Logo size={36} />
+          <button onClick={toggleSidebar} data-testid="sidebar-toggle">
+            <AppIcon
+              icon={sidebarOpen ? "sidebar-close" : "sidebar-open"}
+              color={colors.foreground300}
+              size={20}
+            />
+          </button>
+        </Header>
+        <Tabs isSidebarOpen={sidebarOpen} />
+        <Footer>
+          <LogoutButton isSidebarOpen={sidebarOpen} />
+        </Footer>
+      </Container>
+    </SidebarWrapper>
   );
 }
+
+const SidebarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease-in-out;
+  overflow-x: hidden;
+`;
 
 const Container = styled.div`
   display: flex;
