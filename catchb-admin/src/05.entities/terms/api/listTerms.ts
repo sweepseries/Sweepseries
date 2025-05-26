@@ -6,7 +6,7 @@ import type { APIErrorResponse } from "@shared/api";
 
 async function fetchAllTerms(): Promise<AdminTermsAndConditionsType[]> {
   const response = await axios.get<AdminTermsAndConditionsType[]>(
-    "/admin/v1/terms/"
+    "/api/admin/v1/terms/"
   );
   return response.data;
 }
