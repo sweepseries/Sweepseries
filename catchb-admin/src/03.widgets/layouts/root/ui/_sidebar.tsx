@@ -1,86 +1,82 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useState } from "react";
 import styled from "styled-components";
 
+import { Tabs } from "./_tabs";
 import { LogoutButton } from "@features/auth/logout";
-import { SidebarTab, type TabType, tabs } from "@shared/lib/navigation";
-import { Logo } from "@shared/ui/Icons";
+import { useColors } from "@shared/lib/colors";
+import { AppIcon, Logo } from "@shared/ui/Icons";
 
 export function Sidebar() {
-  const [selectedPathName, setSelectedPathName] = useState<string>("");
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { colors } = useColors();
 
-  useEffect(() => {
-    // first level
-    const path = location.pathname.split("/")[1];
-
-    setSelectedPathName(path);
-  }, [location]);
-
-  const handleTabClick = (path: string) => {
-    navigate(path);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
   };
 
   return (
-    <Container>
-      <Header>
-        <Logo size={160} />
-      </Header>
-      <TabsWrapper>
-        {tabs.map((tab: TabType) => (
-          <SidebarTab
-            key={tab.path}
-            title={tab.title}
-            isSelected={selectedPathName === tab.pathName}
-            onClick={() => handleTabClick(tab.path)}
-          />
-        ))}
-      </TabsWrapper>
-      <Footer>
-        <LogoutButton />
-      </Footer>
-    </Container>
+    <SidebarWrapper style={{ width: sidebarOpen ? "240px" : "80px" }}>
+      <Container style={{ width: sidebarOpen ? "240px" : "80px" }}>
+        <Header>
+          <Logo size={36} />
+          <button onClick={toggleSidebar} data-testid="sidebar-toggle">
+            <AppIcon
+              icon={sidebarOpen ? "sidebar-close" : "sidebar-open"}
+              color={colors.foreground300}
+              size={20}
+            />
+          </button>
+        </Header>
+        <Tabs isSidebarOpen={sidebarOpen} />
+        <Footer>
+          <LogoutButton isSidebarOpen={sidebarOpen} />
+        </Footer>
+      </Container>
+    </SidebarWrapper>
   );
 }
+
+const SidebarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease-in-out;
+  overflow-x: hidden;
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 240px;
-  background-color: #262626;
-  color: white;
-  padding: 24px;
   height: 100dvh;
   position: fixed;
-  z-index: 100;
   top: 0;
   left: 0;
-  border-radius: 0 20px 20px 0;
-  overflow-y: auto;
+  color: white;
+  border-radius: 0 16px 16px 0;
+  background-color: #262626;
   overflow-x: hidden;
+  z-index: 10;
+  transition: width 0.3s ease-in-out;
 `;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 160px;
+  padding: 16px 0;
   gap: 4px;
-`;
 
-const TabsWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 8px 0;
-  gap: 8px;
+  > button {
+    position: absolute;
+    top: 36px;
+    right: 16px;
+  }
 `;
 
 const Footer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px 0;
+  padding: 8px 24px;
 
   border-top: 1px solid ${({ theme }) => theme.colors.borderLight};
 `;

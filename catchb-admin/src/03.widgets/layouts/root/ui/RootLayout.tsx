@@ -13,9 +13,7 @@ export function RootLayout() {
 
   return (
     <Container>
-      <SidebarWrapper>
-        <Sidebar />
-      </SidebarWrapper>
+      <Sidebar />
       <Content>
         <Outlet />
       </Content>
@@ -31,14 +29,6 @@ const Container = styled.div`
   height: 100dvh;
   overflow-x: auto;
   user-select: none;
-`;
-
-const SidebarWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-  transition: width 0.3s ease-in-out;
-  overflow-x: hidden;
 `;
 
 const Content = styled.div`

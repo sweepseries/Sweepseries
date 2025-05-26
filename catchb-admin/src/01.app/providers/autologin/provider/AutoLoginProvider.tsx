@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { refresh } from "../api/refresh";
+import { LoadingSpinner } from "@widgets/fallback/loading";
 import { useAuth } from "@shared/lib/auth";
 
 export function AutoLoginProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const [isReady, setIsReady] = useState<boolean>(false);
+
   const { login, logout } = useAuth();
 
   useEffect(() => {
@@ -48,13 +51,23 @@ export function AutoLoginProvider({
       }
     );
 
-    refreshToken();
+    const initialize = async () => {
+      await refreshToken();
+
+      setIsReady(true);
+    };
+
+    initialize();
 
     // Remove the interceptor when AuthProvider unmounts
     return () => {
       axios.interceptors.response.eject(interceptor);
     };
   }, [login, logout]);
+
+  if (!isReady) {
+    return <LoadingSpinner />; // Show a loading spinner while checking the token
+  }
 
   return children;
 }

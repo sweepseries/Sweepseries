@@ -1,39 +1,48 @@
 import styled from "styled-components";
 
 import { useColors } from "@shared/lib/colors";
+import { type TabType } from "@shared/lib/navigation";
 import { SidebarButton } from "@shared/ui/Buttons";
+import { AppIcon } from "@shared/ui/Icons";
 
 interface Props {
-  title: string;
+  tab: TabType;
   isSelected: boolean;
+  isSidebarOpen: boolean;
   onClick: () => void;
 }
 
-export function SidebarTab({ title, isSelected, onClick }: Readonly<Props>) {
+export function SidebarTab({
+  tab,
+  isSelected,
+  isSidebarOpen,
+  onClick,
+}: Readonly<Props>) {
   const { colors } = useColors();
 
   return (
     <Tab
       onClick={onClick}
-      style={
-        isSelected
-          ? { padding: "12px 16px", backgroundColor: colors.foreground500 }
-          : { padding: "12px 4px", backgroundColor: "transparent" }
-      }
+      style={{
+        justifyContent: isSidebarOpen ? "flex-start" : "center",
+        padding: isSelected && isSidebarOpen ? "12px 16px" : "12px 4px",
+        backgroundColor: isSelected ? colors.foreground500 : "transparent",
+      }}
     >
-      {title}
+      <AppIcon icon={tab.icon} color={colors.background500} size={20} />
+      {isSidebarOpen && <span>{tab.title}</span>}
     </Tab>
   );
 }
 
 const Tab = styled(SidebarButton)`
-  justify-content: flex-start;
+  gap: 8px;
   color: ${({ theme }) => theme.colors.background500};
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
     padding: 12px 16px;
     background-color: ${({ theme }) => theme.colors.foreground500};
-    transition: padding 0.2s ease-in-out;
+    transition: padding 0.3s ease-in-out;
   }
 `;

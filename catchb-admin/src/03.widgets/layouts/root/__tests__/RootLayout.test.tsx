@@ -40,11 +40,14 @@ describe("RootLayout", () => {
       logout: vi.fn(),
     });
 
-    const { getByText } = renderWithProviders(<RootLayout />);
+    const { getByTestId, getByText } = renderWithProviders(<RootLayout />);
 
     expect(getByText("Mocked Outlet")).toBeInTheDocument();
 
-    fireEvent.click(getByText("코치 관리"));
+    // sidebar open 토글
+    fireEvent.click(getByTestId("sidebar-toggle"));
+
+    fireEvent.click(getByText("회원 관리"));
   });
 
   it("handles logout success", () => {

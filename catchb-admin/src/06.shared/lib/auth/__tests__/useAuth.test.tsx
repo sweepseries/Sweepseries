@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { render } from "@testing-library/react";
 
@@ -12,17 +13,16 @@ const MockComponent = () => {
 };
 
 const MockProvider = ({ children }: { children: React.ReactNode }) => {
-  const authContextValue = {
-    isAuthenticated: false,
-    login: vi.fn(),
-    logout: vi.fn(),
-  };
-
-  return (
-    <AuthContext.Provider value={authContextValue}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      isAuthenticated: false,
+      login: vi.fn(),
+      logout: vi.fn(),
+    }),
+    []
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 describe("useAuth", () => {
