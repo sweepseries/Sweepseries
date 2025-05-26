@@ -25,7 +25,7 @@ class UserLoginView(LoginView):
     def post(self, request, *args, **kwargs):
         if is_admin_page(request):
             q = Q()
-            q &= Q(username=request.data["username"], is_superuser=True)
+            q &= Q(username__iexact=request.data["username"], is_superuser=True)
             if not User.objects.filter(q).exists():
                 return Response(
                     {"error": "관리자만 접근 가능합니다."},
