@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import TermsAndConditions, TermsAndConditionsHistory
+from ..models import TermsAndConditions
 
 
 class TermsAndConditionsListSerializerForAdmin(serializers.ModelSerializer):
