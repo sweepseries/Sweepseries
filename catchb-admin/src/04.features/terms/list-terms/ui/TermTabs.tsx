@@ -51,7 +51,7 @@ const Container = styled.div`
   padding: 0.25rem 0.5rem;
   gap: 0.75rem;
   border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.background500};
+  background-color: ${({ theme }) => theme.colors.background700};
 `;
 
 const Button = styled.button<{ $isActive?: boolean }>`
@@ -59,16 +59,18 @@ const Button = styled.button<{ $isActive?: boolean }>`
   font-size: 1rem;
   font-weight: ${({ $isActive }) => ($isActive ? "bold" : "normal")};
   color: ${({ theme, $isActive }) =>
-    $isActive ? theme.colors.primary : theme.colors.foreground900};
+    $isActive ? theme.colors.primary : theme.colors.secondary};
   border-radius: 0.33rem;
   background-color: ${({ theme, $isActive }) =>
-    $isActive ? theme.colors.background900 : "transparent"};
+    $isActive ? theme.colors.background500 : "transparent"};
   transition: background-color 0.5s ease-in-out;
   cursor: pointer;
 `;
 
 const AddButton = styled.button`
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 1rem;
+  color: ${({ theme }) => theme.colors.primary};
+  font-weight: bold;
   border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.background500};
+  background-color: ${({ theme }) => theme.colors.background700};
 `;

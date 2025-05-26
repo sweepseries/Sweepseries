@@ -37,7 +37,7 @@ const TermRow = styled.div`
   align-items: center;
 
   font-size: 1rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.borderLight};
+  border-top: 1px solid ${({ theme }) => theme.colors.gray700};
 
   > div:last-child {
     border-right: none;
@@ -60,8 +60,10 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   padding: 8px 12px;
+  height: 36px;
 
-  border-right: 1px solid ${({ theme }) => theme.colors.borderLight};
+  color: ${({ theme }) => theme.colors.text700};
+  border-right: 1px solid ${({ theme }) => theme.colors.gray700};
 
   white-space: nowrap;
   overflow: hidden;

@@ -26,23 +26,23 @@ const Container = styled.div`
   text-align: center;
   font-size: 36px;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text500};
 
   z-index: 1000;
 `;
 
 const BackButton = styled.button`
   padding: 8px 16px;
-  color: ${({ theme }) => theme.colors.background100};
+  color: ${({ theme }) => theme.colors.text700};
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
 
   border: none;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.background700};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.background900};
+    background-color: ${({ theme }) => theme.colors.gray500};
   }
 `;

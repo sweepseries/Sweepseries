@@ -62,21 +62,22 @@ const InputWrapper = styled.div`
 `;
 
 const TextInput = styled.input`
-  border: ${({ theme }) => `1.5px solid ${theme.colors.borderDark}`};
-  outline: none;
-  border-radius: 4px;
   padding: 12px 8px 8px 16px;
   width: 25vw;
-
+  border-radius: 4px;
+  border: ${({ theme }) => `1.5px solid ${theme.colors.gray500}`};
+  outline: none;
   font-size: 18px;
+
+  background-color: ${({ theme }) => theme.colors.background300};
 `;
 
 const Button = styled.button`
   width: 25vw;
   height: 40px;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.foreground900};
-  color: ${({ theme }) => theme.colors.background100};
+  background-color: ${({ theme }) => theme.colors.background300};
+  color: ${({ theme }) => theme.colors.text900};
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
