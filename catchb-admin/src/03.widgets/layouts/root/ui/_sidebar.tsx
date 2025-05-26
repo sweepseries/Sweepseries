@@ -52,9 +52,10 @@ const Container = styled.div`
   top: 0;
   left: 0;
   color: white;
+  border-radius: 0 16px 16px 0;
   background-color: #262626;
   overflow-x: hidden;
-  z-index: 100;
+  z-index: 10;
   transition: width 0.3s ease-in-out;
 `;
 
