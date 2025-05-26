@@ -19,4 +19,13 @@ export const sampleTerms: AdminTermsAndConditionsType[] = [
     created_at: "2023-01-01T00:00:00Z",
     updated_at: "2023-01-01T00:00:00Z",
   },
+  {
+    id: 3,
+    order: 3,
+    title: "Term 3",
+    is_active: false,
+    is_required: false,
+    created_at: "2023-01-01T00:00:00Z",
+    updated_at: "2023-01-01T00:00:00Z",
+  },
 ];
