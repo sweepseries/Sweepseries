@@ -26,10 +26,10 @@ export function SidebarTab({
       style={{
         justifyContent: isSidebarOpen ? "flex-start" : "center",
         padding: isSelected && isSidebarOpen ? "12px 16px" : "12px 4px",
-        backgroundColor: isSelected ? colors.foreground500 : "transparent",
+        backgroundColor: isSelected ? colors.gray900 : "transparent",
       }}
     >
-      <AppIcon icon={tab.icon} color={colors.background500} size={20} />
+      <AppIcon icon={tab.icon} color={colors.gray100} size={20} />
       {isSidebarOpen && <span>{tab.title}</span>}
     </Tab>
   );
@@ -37,12 +37,12 @@ export function SidebarTab({
 
 const Tab = styled(SidebarButton)`
   gap: 8px;
-  color: ${({ theme }) => theme.colors.background500};
+  color: ${({ theme }) => theme.colors.gray100};
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
     padding: 12px 16px;
-    background-color: ${({ theme }) => theme.colors.foreground500};
+    background-color: ${({ theme }) => theme.colors.gray700};
     transition: padding 0.3s ease-in-out;
   }
 `;

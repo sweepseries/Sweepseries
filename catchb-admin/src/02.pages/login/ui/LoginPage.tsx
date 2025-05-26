@@ -29,5 +29,5 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100dvh;
-  background-color: ${({ theme }) => theme.colors.background300};
+  background-color: ${({ theme }) => theme.colors.text700};
 `;

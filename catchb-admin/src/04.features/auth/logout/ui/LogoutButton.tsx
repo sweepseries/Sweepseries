@@ -31,7 +31,7 @@ export function LogoutButton({ isSidebarOpen }: Readonly<Props>) {
 
   return (
     <Button onClick={handleLogout}>
-      <AppIcon icon="logout" size={16} color={colors.background500} />
+      <AppIcon icon="logout" size={16} color={colors.gray100} />
       {isSidebarOpen && <span>로그아웃</span>}
     </Button>
   );
@@ -39,6 +39,7 @@ export function LogoutButton({ isSidebarOpen }: Readonly<Props>) {
 
 const Button = styled(SidebarButton)`
   gap: 8px;
+  color: ${({ theme }) => theme.colors.gray100};
   &:hover {
     background-color: #ff4d4d;
   }

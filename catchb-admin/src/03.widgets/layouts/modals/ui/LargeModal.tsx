@@ -91,7 +91,7 @@ const Container = styled.div<{ $isClosing?: boolean }>`
   width: calc(100vw - 360px);
   max-width: 920px;
   border-radius: 16px 0 0 16px;
-  background-color: ${({ theme }) => theme.colors.background300};
+  background-color: ${({ theme }) => theme.colors.background500};
   transform: translateX(100%);
   animation: ${({ $isClosing }) =>
     $isClosing

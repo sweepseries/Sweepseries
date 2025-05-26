@@ -24,7 +24,7 @@ export function RootLayout() {
 const Container = styled.div`
   display: flex;
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.background700};
+  background-color: ${({ theme }) => theme.colors.background300};
   width: 100%;
   height: 100dvh;
   overflow-x: auto;

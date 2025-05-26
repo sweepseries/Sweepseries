@@ -1,47 +1,61 @@
-export const light = {
-  primary: "#0F0F70", // 파랑
-  secondary: "#252525", // 검정
-  tertiary: "#DA1F1F", // 빨강
+import type { ThemeColorType } from "./types";
 
-  // background: 흰색 계열
+export const light: ThemeColorType = {
+  primary: "#0F0F70",
+  secondary: "#252525",
+  success: "#14863E",
+  warning: "#FFC107",
+  error: "#D73A49",
+
+  gray100: "#F5F5F5",
+  gray300: "#D9D9D9",
+  gray500: "#BFBFBF",
+  gray700: "#8C8C8C",
+  gray900: "#4D4D4D",
+
   background100: "#FAF9F6",
-  background300: "#E8E6F2",
-  background500: "#D9D9D9",
-  background700: "#D1D6DA",
-  background900: "#B1BDCD",
+  background300: "#E1E4E8",
+  background500: "#D1D5DB",
+  background700: "#A6ADB9",
+  background900: "#7B8697",
 
-  // foreground: 검정 계열
-  foreground900: "#0B1623",
-  foreground700: "#212529",
-  foreground500: "#495057",
-  foreground300: "#6C757D",
-  foreground100: "#AE7910",
-
-  // 테두리
-  borderLight: "#B5B6B6",
-  borderDark: "#A1A1A1",
+  text100: "#959DA5",
+  text300: "#6E7781",
+  text500: "#484F58",
+  text700: "#24292F",
+  text900: "#1A1E23",
+  onPrimary: "#FFFFFF",
+  onSecondary: "#FFFFFF",
+  onBackground: "#24292F",
+  onSurface: "#6E7781",
 };
 
-export const dark = {
-  primary: "#E8E6F2", // 흰색
-  secondary: "#252525", // 검정
-  tertiary: "#DA1F1F", // 빨강
+export const dark: ThemeColorType = {
+  primary: "#2EA44F",
+  secondary: "#539BF5",
+  success: "#3FB950",
+  warning: "#D29922",
+  error: "#F97583",
 
-  // background: 검정 계열
-  background100: "#03070B",
-  background300: "#0B1623",
-  background500: "#212529",
-  background700: "#495057",
-  background900: "#6C757D",
+  gray100: "#C9D1D9",
+  gray300: "#8B949E",
+  gray500: "#6E7681",
+  gray700: "#484F58",
+  gray900: "#21262D",
 
-  // foreground: 흰색 계열
-  foreground100: "#FAF9F6",
-  foreground300: "#E8E6F2",
-  foreground500: "#D1D6DA",
-  foreground700: "#B1BDCD",
-  foreground900: "#C5A86F",
+  background100: "#0D1117",
+  background300: "#161B22",
+  background500: "#21262D",
+  background700: "#30363D",
+  background900: "#484F58",
 
-  // 테두리
-  borderLight: "#C4C4C4",
-  borderDark: "#B5B6B6",
+  text100: "#959DA5",
+  text300: "#6E7781",
+  text500: "#484F58",
+  text700: "#24292F",
+  text900: "#1A1E23",
+  onPrimary: "#0D1117",
+  onSecondary: "#0D1117",
+  onBackground: "#C9D1D9",
+  onSurface: "#C9D1D9",
 };

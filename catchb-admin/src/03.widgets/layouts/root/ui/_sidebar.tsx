@@ -23,7 +23,7 @@ export function Sidebar() {
           <button onClick={toggleSidebar} data-testid="sidebar-toggle">
             <AppIcon
               icon={sidebarOpen ? "sidebar-close" : "sidebar-open"}
-              color={colors.foreground300}
+              color={colors.gray100}
               size={20}
             />
           </button>
@@ -53,7 +53,7 @@ const Container = styled.div`
   left: 0;
   color: white;
   border-radius: 0 16px 16px 0;
-  background-color: #262626;
+  background-color: ${({ theme }) => theme.colors.text700};
   overflow-x: hidden;
   z-index: 10;
   transition: width 0.3s ease-in-out;
@@ -78,5 +78,5 @@ const Footer = styled.div`
   flex-direction: column;
   padding: 8px 24px;
 
-  border-top: 1px solid ${({ theme }) => theme.colors.borderLight};
+  border-top: 1px solid ${({ theme }) => theme.colors.background700};
 `;
