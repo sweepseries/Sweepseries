@@ -16,8 +16,8 @@ export const light: ThemeColorType = {
   background100: "#FAF9F6",
   background300: "#E1E4E8",
   background500: "#D1D5DB",
-  background700: "#A6ADB9",
-  background900: "#7B8697",
+  background700: "#BBC1CA",
+  background900: "#A6ADB9",
 
   text100: "#959DA5",
   text300: "#6E7781",
