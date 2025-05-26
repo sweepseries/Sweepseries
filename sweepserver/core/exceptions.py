@@ -16,7 +16,7 @@ def is_access_token_expired(e: APIException) -> bool:
             and e.detail["code"] == "token_not_valid"
             and e.detail["messages"][0]["token_type"] == "access"
         )
-    except KeyError:
+    except (KeyError, TypeError):
         return False
 
 
