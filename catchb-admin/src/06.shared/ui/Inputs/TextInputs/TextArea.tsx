@@ -16,7 +16,7 @@ export function TextArea({
   placeholder,
 }: Readonly<Props>) {
   return (
-    <Container>
+    <Wrapper>
       <Label>{label}</Label>
       <Input
         value={value}
@@ -24,9 +24,13 @@ export function TextArea({
         placeholder={placeholder}
         data-testid={`textarea-${label}`}
       />
-    </Container>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled(Container)`
+  flex: 1;
+`;
 
 const Input = styled.textarea`
   width: 100%;

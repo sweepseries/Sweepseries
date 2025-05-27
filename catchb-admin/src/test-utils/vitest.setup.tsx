@@ -70,6 +70,20 @@ vi.mock("@shared/ui/Dividers", () => ({
   VerticalDivider: () => null,
 }));
 vi.mock("@shared/ui/Inputs", () => ({
+  Checkbox: ({
+    label,
+    checked,
+    onToggle,
+  }: {
+    label: string;
+    checked: boolean;
+    onToggle: () => void;
+  }) => (
+    <label data-testid={`checkbox-${label}`}>
+      <input type="checkbox" checked={checked} onChange={onToggle} />
+      {label}
+    </label>
+  ),
   TextInput: ({
     label,
     value,
