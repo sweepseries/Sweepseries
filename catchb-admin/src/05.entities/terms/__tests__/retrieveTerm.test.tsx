@@ -9,13 +9,7 @@ const MockDetailComponent = () => {
 
   return (
     <div>
-      {isSuccess && data ? (
-        <>
-          <h1>{data.title}</h1>
-        </>
-      ) : (
-        <div>Loading...</div>
-      )}
+      {isSuccess && data ? <h1>{data.title}</h1> : <div>Loading...</div>}
     </div>
   );
 };
