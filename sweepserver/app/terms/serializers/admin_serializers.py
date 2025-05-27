@@ -10,6 +10,7 @@ class TermsAndConditionsSimpleSerializerForAdmin(serializers.ModelSerializer):
     """
 
     order = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(error_messages={"blank": "제목을 입력해주세요."})
     is_active = serializers.BooleanField(read_only=True)
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
