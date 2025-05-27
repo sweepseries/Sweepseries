@@ -74,6 +74,10 @@ vi.mock("@shared/ui/Dividers", () => ({
   Divider: () => null,
   VerticalDivider: () => null,
 }));
+vi.mock("@shared/ui/Icons", () => ({
+  AppIcon: () => null,
+  Logo: () => <div>Mocked Logo</div>,
+}));
 vi.mock("@shared/ui/Inputs", () => ({
   Checkbox: ({
     label,
@@ -123,7 +127,8 @@ vi.mock("@shared/ui/Inputs", () => ({
     />
   ),
 }));
-vi.mock("@shared/ui/Icons", () => ({
-  AppIcon: () => null,
-  Logo: () => <div>Mocked Logo</div>,
+vi.mock("@shared/ui/Texts", () => ({
+  ModalSubtitle: ({ children }: { children: React.ReactNode }) => (
+    <span>{children}</span>
+  ),
 }));
