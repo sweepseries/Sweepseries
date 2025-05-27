@@ -23,7 +23,9 @@ class TermsAndConditions(TimeStampedModel):
 
 
 class TermsAndConditionsHistory(TimeStampedModel):
-    terms = models.ForeignKey(TermsAndConditions, on_delete=models.CASCADE)
+    terms = models.ForeignKey(
+        TermsAndConditions, on_delete=models.CASCADE, related_name="history"
+    )
     content = models.TextField(blank=True)
     update_summary = models.TextField()
 
