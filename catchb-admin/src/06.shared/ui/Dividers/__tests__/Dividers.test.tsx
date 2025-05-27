@@ -1,7 +1,9 @@
-import { describe, it } from "vitest";
+import { describe, it, vi } from "vitest";
 
 import { Divider, VerticalDivider } from "@shared/ui/Dividers";
 import { renderWithProviders } from "@test-utils/renderer";
+
+vi.unmock("@shared/ui/Dividers");
 
 describe("Dividers", () => {
   it("renders Divider with default props", () => {

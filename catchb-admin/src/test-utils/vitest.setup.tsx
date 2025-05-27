@@ -65,6 +65,48 @@ vi.mock("@shared/ui/Buttons", () => ({
     children: React.ReactNode;
   }) => <button onClick={onClick}>{children}</button>,
 }));
+vi.mock("@shared/ui/Dividers", () => ({
+  Divider: () => null,
+  VerticalDivider: () => null,
+}));
+vi.mock("@shared/ui/Inputs", () => ({
+  TextInput: ({
+    label,
+    value,
+    onChange,
+    placeholder,
+  }: {
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+  }) => (
+    <input
+      data-testid={`textinput-${label}`}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+    />
+  ),
+  TextArea: ({
+    label,
+    value,
+    onChange,
+    placeholder,
+  }: {
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+  }) => (
+    <textarea
+      data-testid={`textarea-${label}`}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+    />
+  ),
+}));
 vi.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
   Logo: () => <div>Mocked Logo</div>,
