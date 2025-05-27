@@ -1,3 +1,4 @@
+export { useCreateTerm } from "./api/createTerm";
 export { useTerms } from "./api/listTerms";
 
 export { sampleTerms } from "./models/testdata";
