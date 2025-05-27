@@ -24,7 +24,7 @@ export const light: ThemeColorType = {
   text500: "#484F58",
   text700: "#24292F",
   text900: "#1A1E23",
-  onPrimary: "#FFFFFF",
+  onPrimary: "#E1E4E8",
   onSecondary: "#FFFFFF",
   onBackground: "#24292F",
   onSurface: "#6E7781",
