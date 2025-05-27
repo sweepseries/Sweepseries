@@ -64,25 +64,8 @@ vi.mock("@shared/ui/Buttons", () => ({
     onClick: () => void;
     children: React.ReactNode;
   }) => <button onClick={onClick}>{children}</button>,
-  TextButton: ({
-    text,
-    onClick,
-    backgroundColor,
-    color,
-  }: {
-    text: string;
-    onClick: () => void;
-    backgroundColor?: string;
-    color?: string;
-  }) => (
-    <button
-      onClick={onClick}
-      style={{
-        backgroundColor: backgroundColor || "blue",
-        color: color || "white",
-      }}
-      data-testid={`text-button-${text}`}
-    >
+  TextButton: ({ text, onClick }: { text: string; onClick: () => void }) => (
+    <button onClick={onClick} data-testid={`text-button-${text}`}>
       {text}
     </button>
   ),
@@ -110,18 +93,15 @@ vi.mock("@shared/ui/Inputs", () => ({
     label,
     value,
     onChange,
-    placeholder,
   }: {
     label: string;
     value: string;
     onChange: (value: string) => void;
-    placeholder?: string;
   }) => (
     <input
       data-testid={`textinput-${label}`}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
     />
   ),
   TextArea: ({
