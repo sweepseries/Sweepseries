@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { isAxiosError, type AxiosError, type AxiosResponse } from "axios";
@@ -22,41 +22,43 @@ export function CreateTermProvider({
   const [content, setContent] = useState<string>("");
   const [isRequired, setIsRequired] = useState<boolean>(false);
 
-  const toggleIsRequired = () => setIsRequired((prev) => !prev);
+  const toggleIsRequired = useCallback(
+    () => setIsRequired((prev) => !prev),
+    []
+  );
 
   const { mutate: createTerm } = useCreateTerm();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const onSubmitSuccess = (
-    response: AxiosResponse<AdminTermsAndConditionsType>
-  ) => {
-    setTitle("");
-    setContent("");
-    setIsRequired(false);
-    window.alert("약관이 성공적으로 생성되었습니다.");
-    queryClient.setQueryData<AdminTermsAndConditionsType[]>(
-      ["terms"],
-      (old) => {
-        if (!old) return [response.data];
-        return [...old, response.data].sort((a, b) => a.order - b.order);
-      }
-    );
+  const onSubmitSuccess = useCallback(
+    (response: AxiosResponse<AdminTermsAndConditionsType>) => {
+      setTitle("");
+      setContent("");
+      setIsRequired(false);
+      window.alert("약관이 성공적으로 생성되었습니다.");
+      queryClient.setQueryData<AdminTermsAndConditionsType[]>(
+        ["terms"],
+        (old) => {
+          if (!old) return [response.data];
+          return [...old, response.data].sort((a, b) => a.order - b.order);
+        }
+      );
 
-    const newTermId = response.data.id;
+      navigate(`/terms/${response.data.id}`);
+    },
+    [queryClient, navigate]
+  );
 
-    navigate(`/terms/${newTermId}`);
-  };
-
-  const onSubmitError = (error: AxiosError<APIErrorResponse>) => {
+  const onSubmitError = useCallback((error: AxiosError<APIErrorResponse>) => {
     if (isAxiosError(error) && error.response?.data?.error) {
       window.alert(`약관 생성에 실패했습니다: ${error.response.data.error}`);
     } else {
       window.alert("약관 생성에 실패했습니다. 다시 시도해주세요.");
     }
-  };
+  }, []);
 
-  const submitForm = () => {
+  const submitForm = useCallback(() => {
     createTerm(
       {
         title,
@@ -68,7 +70,7 @@ export function CreateTermProvider({
         onError: onSubmitError,
       }
     );
-  };
+  }, [createTerm, title, content, isRequired, onSubmitSuccess, onSubmitError]);
 
   const value = useMemo<CreateTermContextType>(
     () => ({
@@ -80,7 +82,7 @@ export function CreateTermProvider({
       toggleIsRequired,
       submit: submitForm,
     }),
-    [title, setTitle, content, setContent, isRequired, toggleIsRequired]
+    [title, content, isRequired, toggleIsRequired, submitForm]
   );
 
   return (
