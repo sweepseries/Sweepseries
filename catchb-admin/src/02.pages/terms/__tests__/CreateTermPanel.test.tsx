@@ -11,7 +11,7 @@ import {
 } from "@test-utils/renderer";
 
 vi.mock("axios", async () => {
-  const actual = await vi.importActual<any>("axios");
+  const actual = await vi.importActual("axios");
   return {
     ...actual,
     isAxiosError: vi.fn().mockReturnValue(true),
