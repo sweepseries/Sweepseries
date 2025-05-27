@@ -7,3 +7,9 @@ export type AdminTermsAndConditionsType = {
   created_at: string;
   updated_at: string;
 };
+
+export type NewTermsAndConditionsFormValues = {
+  title: string;
+  content: string;
+  is_required: boolean;
+};

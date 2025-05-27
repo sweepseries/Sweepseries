@@ -18,7 +18,7 @@ export function TermsListPage() {
 function Components() {
   return (
     <Container>
-      <PageTitle>약관 관리</PageTitle>
+      <PageTitle>회원가입 약관 관리</PageTitle>
       <TermTabs />
       <TermsTable />
     </Container>

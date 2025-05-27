@@ -15,7 +15,7 @@ describe("TermsListPage", () => {
       <TermsListPage />
     );
 
-    expect(getByText("약관 관리")).toBeInTheDocument();
+    expect(getByText("회원가입 약관 관리")).toBeInTheDocument();
 
     fireEvent.click(getByTestId("전체-tab"));
     await waitFor(() => {

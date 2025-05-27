@@ -78,5 +78,5 @@ const Footer = styled.div`
   flex-direction: column;
   padding: 8px 24px;
 
-  border-top: 1px solid ${({ theme }) => theme.colors.background700};
+  border-top: 1px solid ${({ theme }) => theme.colors.background300};
 `;

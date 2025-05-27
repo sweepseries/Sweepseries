@@ -64,6 +64,64 @@ vi.mock("@shared/ui/Buttons", () => ({
     onClick: () => void;
     children: React.ReactNode;
   }) => <button onClick={onClick}>{children}</button>,
+  TextButton: ({ text, onClick }: { text: string; onClick: () => void }) => (
+    <button onClick={onClick} data-testid={`text-button-${text}`}>
+      {text}
+    </button>
+  ),
+}));
+vi.mock("@shared/ui/Dividers", () => ({
+  Divider: () => null,
+  VerticalDivider: () => null,
+}));
+vi.mock("@shared/ui/Inputs", () => ({
+  Checkbox: ({
+    label,
+    checked,
+    onToggle,
+  }: {
+    label: string;
+    checked: boolean;
+    onToggle: () => void;
+  }) => (
+    <label data-testid={`checkbox-${label}`}>
+      <input type="checkbox" checked={checked} onChange={onToggle} />
+      {label}
+    </label>
+  ),
+  TextInput: ({
+    label,
+    value,
+    onChange,
+  }: {
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+  }) => (
+    <input
+      data-testid={`textinput-${label}`}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  ),
+  TextArea: ({
+    label,
+    value,
+    onChange,
+    placeholder,
+  }: {
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+  }) => (
+    <textarea
+      data-testid={`textarea-${label}`}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+    />
+  ),
 }));
 vi.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
