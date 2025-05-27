@@ -1,4 +1,7 @@
-from .admin_serializers import TermsAndConditionsSimpleSerializerForAdmin
+from .admin_serializers import (
+    TermsAndConditionsSimpleSerializerForAdmin,
+    TermsAndConditionsDetailSerializerForAdmin,
+)
 from .base_serializers import (
     TermsAndConditionsSerializer,
     TermsAndConditionsVersionSerializer,
@@ -6,6 +9,7 @@ from .base_serializers import (
 
 __all__ = [
     "TermsAndConditionsSimpleSerializerForAdmin",
+    "TermsAndConditionsDetailSerializerForAdmin",
     "TermsAndConditionsSerializer",
     "TermsAndConditionsVersionSerializer",
 ]

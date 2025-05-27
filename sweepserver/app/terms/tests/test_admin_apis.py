@@ -1,6 +1,7 @@
 from rest_framework import status
 
 from core.tests import AdminPageAPITestCase
+from ..models import TermsAndConditionsHistory
 
 
 class AdminTermsAPITestCase(AdminPageAPITestCase):
@@ -32,6 +33,19 @@ class AdminTermsAPITestCase(AdminPageAPITestCase):
 
         self.client.force_authenticate(user=None)
         response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_detail_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get(f"{self.url}1/", HTTP_ORIGIN=self.admin_page)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["id"], 1)
+
+    def test_detail_fail(self):
+        ## no version
+        TermsAndConditionsHistory.objects.filter(terms_id=1).delete()
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get(f"{self.url}1/", HTTP_ORIGIN=self.admin_page)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_create_success(self):

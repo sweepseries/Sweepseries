@@ -49,3 +49,52 @@ class TermsAndConditionsSimpleSerializerForAdmin(serializers.ModelSerializer):
         )
 
         return term
+
+
+class TermsAndConditionsDetailSerializerForAdmin(serializers.ModelSerializer):
+    """
+    약관 상세 조회용 Serializer (관리자용)
+    """
+
+    latest_version_id = serializers.SerializerMethodField()
+    versions = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TermsAndConditions
+        fields = [
+            "id",
+            "order",
+            "title",
+            "is_active",
+            "is_required",
+            "latest_version_id",
+            "versions",
+        ]
+
+    def get_latest_version_id(self, obj):
+        """
+        가장 최근 버전의 ID를 반환합니다.
+        """
+        latest_version = obj.history.order_by("-created_at").first()
+        if not latest_version:
+            raise serializers.ValidationError("오류가 발생했습니다.")
+
+        return latest_version.id
+
+    def get_versions(self, obj):
+        """
+        약관의 모든 버전을 반환합니다.
+        """
+        versions = {}
+
+        histories = obj.history.all()
+
+        for version in histories:
+            versions[version.id] = {
+                "id": version.id,
+                "content": version.content,
+                "created_at": version.created_at.strftime("%Y-%m-%d"),
+                "update_summary": version.update_summary,
+            }
+
+        return versions

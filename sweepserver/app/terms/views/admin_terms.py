@@ -5,7 +5,10 @@ from rest_framework.viewsets import ModelViewSet
 
 from core.permissions import AdminPageOnly
 from ..models import TermsAndConditions
-from ..serializers import TermsAndConditionsSimpleSerializerForAdmin
+from ..serializers import (
+    TermsAndConditionsSimpleSerializerForAdmin,
+    TermsAndConditionsDetailSerializerForAdmin,
+)
 
 
 class AdminTermsViewSet(ModelViewSet):
@@ -27,6 +30,16 @@ class AdminTermsViewSet(ModelViewSet):
         """
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(summary="회원가입 약관 상세 조회", tags=["약관 조회"])
+    def retrieve(self, request, *args, **kwargs):
+        """
+        회원가입 약관 상세 조회
+        """
+        instance = self.get_object()
+        serializer = TermsAndConditionsDetailSerializerForAdmin(instance)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
