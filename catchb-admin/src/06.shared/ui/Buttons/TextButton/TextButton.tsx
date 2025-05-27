@@ -21,8 +21,8 @@ export function TextButton({
     <Button
       onClick={onClick}
       style={{
-        backgroundColor: backgroundColor || colors.primary,
-        color: color || colors.background100,
+        backgroundColor: backgroundColor ?? colors.primary,
+        color: color ?? colors.background100,
       }}
       data-testid={`text-button-${text}`}
     >
