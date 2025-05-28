@@ -23,7 +23,7 @@ class TermsAndConditionsSerializer(serializers.ModelSerializer):
         """
         버전: 업데이트 날짜
         """
-        return obj.created_at.strftime("%Y-%m-%d")
+        return obj.updated_at.strftime("%Y-%m-%d")
 
 
 class TermsAndConditionsVersionSerializer(serializers.ModelSerializer):
