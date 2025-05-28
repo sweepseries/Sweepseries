@@ -70,6 +70,9 @@ vi.mock("@shared/ui/Buttons", () => ({
     </button>
   ),
 }));
+vi.mock("@shared/ui/Chips", () => ({
+  TextChip: ({ label }: { label: string }) => <span>{label}</span>,
+}));
 vi.mock("@shared/ui/Dividers", () => ({
   Divider: () => null,
   VerticalDivider: () => null,
