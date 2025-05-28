@@ -1,7 +1,7 @@
 from rest_framework import status
 
 from core.tests import AdminPageAPITestCase
-from ..models import TermsAndConditionsHistory
+from ..models import TermsAndConditions, TermsAndConditionsHistory
 
 
 class AdminTermsAPITestCase(AdminPageAPITestCase):
@@ -50,7 +50,9 @@ class AdminTermsAPITestCase(AdminPageAPITestCase):
 
     def test_create_success(self):
         self.client.force_authenticate(user=self.admin)
-        response = self.client.post(self.url, self.create_data, HTTP_ORIGIN=self.admin_page)
+        response = self.client.post(
+            self.url, self.create_data, HTTP_ORIGIN=self.admin_page
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data["title"], self.create_data["title"])
         self.assertTrue(response.data["is_active"])
@@ -68,5 +70,26 @@ class AdminTermsAPITestCase(AdminPageAPITestCase):
 
         ## missing required field
         self.create_data.pop("title")
-        response = self.client.post(self.url, self.create_data, HTTP_ORIGIN=self.admin_page)
+        response = self.client.post(
+            self.url, self.create_data, HTTP_ORIGIN=self.admin_page
+        )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_destroy_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.delete(f"{self.url}1/", HTTP_ORIGIN=self.admin_page)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        term = TermsAndConditions.objects.get(id=1)
+        self.assertFalse(term.is_active)
+
+    def test_reactivate_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            f"{self.url}1/reactivate/", HTTP_ORIGIN=self.admin_page
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        term = TermsAndConditions.objects.get(id=1)
+        self.assertTrue(term.is_active)
+        self.assertEqual(term.order, 5)
