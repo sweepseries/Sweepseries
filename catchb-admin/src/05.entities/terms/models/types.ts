@@ -4,6 +4,7 @@ export type AdminTermsAndConditionsType = {
   title: string;
   is_active: boolean;
   is_required: boolean;
+  has_content: boolean;
   created_at: string;
   updated_at: string;
 };
