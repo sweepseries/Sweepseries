@@ -29,6 +29,8 @@ class TermsAndConditionsHistory(TimeStampedModel):
     content = models.TextField(blank=True)
     update_summary = models.TextField()
 
+    is_admin_only = models.BooleanField(default=False)
+
     objects = models.Manager()
 
     def __str__(self) -> str:
