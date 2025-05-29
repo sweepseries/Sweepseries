@@ -15,10 +15,6 @@ export const termsDetailPageStyles = (colors: ThemeColorType) =>
       fontWeight: "bold",
       color: colors.highEmphasis,
     },
-    scrollView: {
-      flex: 1,
-      paddingVertical: 16,
-    },
     content: {
       flex: 1,
       lineHeight: 24,
