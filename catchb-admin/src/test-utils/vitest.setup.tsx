@@ -96,6 +96,7 @@ vi.mock("@shared/ui/Inputs", () => ({
       {label}
     </label>
   ),
+  EditorToolbar: () => <div>EditorToolbar</div>,
   TextInput: ({
     label,
     value,
