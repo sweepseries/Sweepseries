@@ -75,7 +75,7 @@ describe("TermsDetailPanel", () => {
     });
   });
 
-  it("renders optional term correctly", async () => {
+  it("renders optional term and handles edit correctly", async () => {
     vi.spyOn(axios, "get").mockResolvedValueOnce({
       data: {
         ...sampleTermDetails,
@@ -91,12 +91,39 @@ describe("TermsDetailPanel", () => {
       },
     });
 
-    const { getByText } = renderWithProviders(<TermsDetailPanel />);
+    const { getByTestId, getByText } = renderWithProviders(
+      <TermsDetailPanel />
+    );
 
     await waitFor(() => {
       expect(
         getByText("약관 내용 - (선택) Terms of Service")
       ).toBeInTheDocument();
+    });
+
+    fireEvent.click(getByTestId("edit-term-content-button"));
+    await waitFor(() => {
+      expect(getByText("EditorToolbar")).toBeInTheDocument();
+    });
+
+    // 1회 실패: api error
+    vi.spyOn(axios, "patch").mockRejectedValueOnce(new Error("API Error"));
+    fireEvent.click(getByTestId("text-button-저장"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관 내용 저장에 실패했습니다. 다시 시도해주세요."
+      );
+    });
+
+    // 2회 성공
+    vi.spyOn(axios, "patch").mockResolvedValueOnce({
+      data: sampleTermDetails,
+    });
+    fireEvent.click(getByTestId("text-button-저장"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관 내용이 성공적으로 저장되었습니다."
+      );
     });
   });
 

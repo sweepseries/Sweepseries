@@ -6,9 +6,11 @@ import {
 } from "@widgets/layouts/modals";
 import { ModalTitle } from "@widgets/layouts/title";
 import { DeleteTermButton } from "@features/terms/delete-term";
+import { TermContentEditor } from "@features/terms/edit-term-content";
 import { ReactivateTermButton } from "@features/terms/reactivate-term";
 import {
   TermContents,
+  TermContentsWrapper,
   TermDetailsProvider,
   TermVersions,
   useTermDetails,
@@ -24,9 +26,12 @@ export function TermsDetailPanel() {
 }
 
 function Components() {
-  const { termDetails } = useTermDetails();
+  const { termDetails, editMode, setEditMode, selectedVersionId } =
+    useTermDetails();
 
   if (!termDetails) return null;
+
+  const toggleEditMode = () => setEditMode(!editMode);
 
   return (
     <Container>
@@ -46,7 +51,18 @@ function Components() {
         <div>
           <VerticalDivider />
         </div>
-        <TermContents />
+        <TermContentsWrapper termDetails={termDetails}>
+          {editMode ? (
+            <TermContentEditor
+              termId={termDetails.id}
+              versionId={selectedVersionId}
+              content={termDetails.versions[selectedVersionId].content}
+              postSuccess={toggleEditMode}
+            />
+          ) : (
+            <TermContents />
+          )}
+        </TermContentsWrapper>
       </ModalContentWrapper>
     </Container>
   );
