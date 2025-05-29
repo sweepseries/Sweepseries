@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import type { AdminTermsAndConditionsType } from "../models/types";
+import { useColors } from "@shared/lib/colors";
+import { TextChip } from "@shared/ui/Chips";
 
 export function TermListHeaderRow() {
   return (
@@ -11,6 +13,7 @@ export function TermListHeaderRow() {
       <SmallColumn>필수</SmallColumn>
       <DateColumn>생성일</DateColumn>
       <DateColumn>수정일</DateColumn>
+      <DateColumn>비고</DateColumn>
     </HeaderRow>
   );
 }
@@ -20,14 +23,29 @@ interface Props {
 }
 
 export function TermListRow({ term }: Readonly<Props>) {
+  const { colors } = useColors();
+
   return (
     <TermRow>
       <SmallColumn>{term.order}</SmallColumn>
       <TitleColumn>{term.title}</TitleColumn>
-      <SmallColumn>{term.is_active ? "유효" : "무효"}</SmallColumn>
-      <SmallColumn>{term.is_required ? "필수" : "선택"}</SmallColumn>
+      <SmallColumn>
+        {term.is_active ? (
+          <TextChip label="유효" color={colors.success} />
+        ) : (
+          <TextChip label="무효" color={colors.gray900} />
+        )}
+      </SmallColumn>
+      <SmallColumn>
+        {term.is_required ? (
+          <TextChip label="필수" color={colors.primary} />
+        ) : (
+          <TextChip label="선택" color={colors.gray900} />
+        )}
+      </SmallColumn>
       <DateColumn>{new Date(term.created_at).toLocaleDateString()}</DateColumn>
       <DateColumn>{new Date(term.updated_at).toLocaleDateString()}</DateColumn>
+      <DateColumn>{term.has_content ? "" : "내용 없음"}</DateColumn>
     </TermRow>
   );
 }

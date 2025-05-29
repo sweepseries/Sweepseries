@@ -1,7 +1,12 @@
-from django.db import models
 from rest_framework import serializers
 
 from ..models import TermsAndConditions, TermsAndConditionsHistory
+from ..utils import (
+    get_latest_version_id,
+    get_max_order,
+    has_content,
+    has_content_version,
+)
 
 
 class TermsAndConditionsSimpleSerializerForAdmin(serializers.ModelSerializer):
@@ -14,6 +19,7 @@ class TermsAndConditionsSimpleSerializerForAdmin(serializers.ModelSerializer):
     is_active = serializers.BooleanField(read_only=True)
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
+    has_content = serializers.SerializerMethodField()
     content = serializers.CharField(write_only=True, allow_blank=True)
 
     class Meta:
@@ -24,18 +30,20 @@ class TermsAndConditionsSimpleSerializerForAdmin(serializers.ModelSerializer):
             "title",
             "is_active",
             "is_required",
+            "has_content",
             "created_at",
             "updated_at",
             "content",
         ]
 
+    def get_has_content(self, obj):
+        """
+        약관이 내용이 있는지 여부를 반환합니다.
+        """
+        return has_content(obj)
+
     def create(self, validated_data):
-        last_order = (
-            TermsAndConditions.objects.aggregate(max_order=models.Max("order"))[
-                "max_order"
-            ]
-            or 0
-        )
+        last_order = get_max_order()
 
         term = TermsAndConditions.objects.create(
             order=last_order + 1,
@@ -75,11 +83,11 @@ class TermsAndConditionsDetailSerializerForAdmin(serializers.ModelSerializer):
         """
         가장 최근 버전의 ID를 반환합니다.
         """
-        latest_version = obj.history.order_by("-created_at").first()
-        if not latest_version:
+        latest_version = get_latest_version_id(obj)
+        if latest_version is None:
             raise serializers.ValidationError("오류가 발생했습니다.")
 
-        return latest_version.id
+        return latest_version
 
     def get_versions(self, obj):
         """
@@ -95,6 +103,8 @@ class TermsAndConditionsDetailSerializerForAdmin(serializers.ModelSerializer):
                 "content": version.content,
                 "created_at": version.created_at.strftime("%Y-%m-%d"),
                 "update_summary": version.update_summary,
+                "is_admin_only": version.is_admin_only,
+                "has_content": has_content_version(version),
             }
 
         return versions

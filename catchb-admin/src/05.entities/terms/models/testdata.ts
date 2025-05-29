@@ -10,6 +10,7 @@ export const sampleTerms: AdminTermsAndConditionsType[] = [
     title: "Terms of Service",
     is_active: true,
     is_required: true,
+    has_content: true,
     created_at: "2023-01-01T00:00:00Z",
     updated_at: "2023-01-01T00:00:00Z",
   },
@@ -19,6 +20,7 @@ export const sampleTerms: AdminTermsAndConditionsType[] = [
     title: "Privacy Policy",
     is_active: true,
     is_required: true,
+    has_content: true,
     created_at: "2023-01-01T00:00:00Z",
     updated_at: "2023-01-01T00:00:00Z",
   },
@@ -28,6 +30,7 @@ export const sampleTerms: AdminTermsAndConditionsType[] = [
     title: "Term 3",
     is_active: false,
     is_required: false,
+    has_content: false,
     created_at: "2023-01-01T00:00:00Z",
     updated_at: "2023-01-01T00:00:00Z",
   },
@@ -39,19 +42,23 @@ export const sampleTermDetails: AdminTermsAndConditionsDetailType = {
   title: "Terms of Service",
   is_active: true,
   is_required: true,
-  latest_version_id: 1,
-  versions: [
-    {
+  latest_version_id: 2,
+  versions: {
+    1: {
       id: 1,
       content: "Initial version of the Terms of Service.",
       update_summary: "Initial version",
+      has_content: true,
+      is_admin_only: true,
       created_at: "2025-05-01",
     },
-    {
+    2: {
       id: 2,
       content: "Updated version of the Terms of Service with minor changes.",
       update_summary: "Minor updates",
+      has_content: true,
+      is_admin_only: false,
       created_at: "2025-06-01",
     },
-  ],
+  },
 };

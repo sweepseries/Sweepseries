@@ -8,15 +8,128 @@ import { sampleTermDetails } from "@entities/terms";
 import { renderWithProviders } from "@test-utils/renderer";
 
 describe("TermsDetailPanel", () => {
+  const navigateMock = vi.fn();
+
   beforeEach(() => {
     vi.clearAllMocks();
     vi.spyOn(window, "alert").mockImplementation(() => {});
     vi.spyOn(Router, "useParams").mockReturnValue({ id: "1" });
+    vi.spyOn(Router, "useNavigate").mockReturnValue(navigateMock);
   });
 
-  it("renders correctly", async () => {
-    vi.spyOn(axios, "get").mockResolvedValueOnce({
+  it("renders and handles delete correctly", async () => {
+    vi.spyOn(axios, "get").mockResolvedValue({
       data: sampleTermDetails,
+    });
+
+    const { getByTestId, getByText } = renderWithProviders(
+      <TermsDetailPanel />
+    );
+
+    await waitFor(() => {
+      expect(
+        getByText("약관 내용 - (필수) Terms of Service")
+      ).toBeInTheDocument();
+      expect(
+        getByText("Updated version of the Terms of Service with minor changes.")
+      ).toBeInTheDocument();
+    });
+
+    // test clicks
+    fireEvent.click(getByTestId("version-item-1"));
+    await waitFor(() => {
+      expect(
+        getByText("Initial version of the Terms of Service.")
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.click(getByTestId("version-item-2"));
+    await waitFor(() => {
+      expect(
+        getByText("Updated version of the Terms of Service with minor changes.")
+      ).toBeInTheDocument();
+    });
+
+    // test delete (1회 실패: cancel)
+    vi.spyOn(window, "confirm").mockImplementationOnce(() => false);
+    fireEvent.click(getByTestId("delete-term-button"));
+
+    // test delete (2회 실패: bad response)
+    vi.spyOn(window, "confirm").mockImplementation(() => true);
+    vi.spyOn(axios, "delete").mockRejectedValueOnce(new Error("Delete Error"));
+    fireEvent.click(getByTestId("delete-term-button"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관 삭제에 실패했습니다. 다시 시도해주세요."
+      );
+    });
+
+    // test delete (3회 성공)
+    vi.spyOn(axios, "delete").mockResolvedValueOnce({ data: {} });
+    fireEvent.click(getByTestId("delete-term-button"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관이 성공적으로 삭제되었습니다."
+      );
+      expect(navigateMock).toHaveBeenCalledWith("/terms");
+    });
+  });
+
+  it("renders optional term and handles edit correctly", async () => {
+    vi.spyOn(axios, "get").mockResolvedValueOnce({
+      data: {
+        ...sampleTermDetails,
+        is_required: false,
+        versions: {
+          2: {
+            id: 2,
+            content: "",
+            update_summary: "",
+            created_at: "2025-06-01",
+          },
+        },
+      },
+    });
+
+    const { getByTestId, getByText } = renderWithProviders(
+      <TermsDetailPanel />
+    );
+
+    await waitFor(() => {
+      expect(
+        getByText("약관 내용 - (선택) Terms of Service")
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.click(getByTestId("edit-term-content-button"));
+    await waitFor(() => {
+      expect(getByText("EditorToolbar")).toBeInTheDocument();
+    });
+
+    // 1회 실패: api error
+    vi.spyOn(axios, "patch").mockRejectedValueOnce(new Error("API Error"));
+    fireEvent.click(getByTestId("text-button-저장"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관 내용 저장에 실패했습니다. 다시 시도해주세요."
+      );
+    });
+
+    // 2회 성공
+    vi.spyOn(axios, "patch").mockResolvedValueOnce({
+      data: sampleTermDetails,
+    });
+    fireEvent.click(getByTestId("text-button-저장"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관 내용이 성공적으로 저장되었습니다."
+      );
+    });
+  });
+
+  it("renders inactive term and handles reactivate correctly", async () => {
+    vi.spyOn(axios, "get").mockResolvedValue({
+      data: { ...sampleTermDetails, is_active: false },
     });
 
     const { getByTestId, getByText } = renderWithProviders(
@@ -29,24 +142,30 @@ describe("TermsDetailPanel", () => {
       ).toBeInTheDocument();
     });
 
-    // test clicks
-    waitFor(() => {
-      fireEvent.click(getByTestId("version-item-2"));
-      fireEvent.click(getByTestId("version-item-1"));
-    });
-  });
+    // test reactivate (1회 실패: cancel)
+    vi.spyOn(window, "confirm").mockImplementationOnce(() => false);
+    fireEvent.click(getByTestId("reactivate-term-button"));
 
-  it("renders optional term correctly", async () => {
-    vi.spyOn(axios, "get").mockResolvedValueOnce({
-      data: { ...sampleTermDetails, is_required: false },
-    });
-
-    const { getByText } = renderWithProviders(<TermsDetailPanel />);
-
+    // test reactivate (2회 실패: bad response)
+    vi.spyOn(window, "confirm").mockImplementation(() => true);
+    vi.spyOn(axios, "post").mockRejectedValueOnce(
+      new Error("Reactivate Error")
+    );
+    fireEvent.click(getByTestId("reactivate-term-button"));
     await waitFor(() => {
-      expect(
-        getByText("약관 내용 - (선택) Terms of Service")
-      ).toBeInTheDocument();
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관 재활성화에 실패했습니다. 다시 시도해주세요."
+      );
+    });
+
+    // test reactivate (3회 성공)
+    vi.spyOn(axios, "post").mockResolvedValueOnce({ data: {} });
+    fireEvent.click(getByTestId("reactivate-term-button"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "약관이 성공적으로 재활성화되었습니다."
+      );
+      expect(navigateMock).toHaveBeenCalledWith("/terms");
     });
   });
 

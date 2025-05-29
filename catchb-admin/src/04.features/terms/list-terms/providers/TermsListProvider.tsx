@@ -9,7 +9,7 @@ export function TermsListProvider({
   children: React.ReactNode;
 }>) {
   const { data: terms, isLoading, isError } = useTerms();
-  const [mode, setMode] = useState<"전체" | "유효" | "무효">("전체");
+  const [mode, setMode] = useState<"전체" | "유효" | "무효">("유효");
 
   useEffect(() => {
     if (isError) {

@@ -14,29 +14,40 @@ export function TermVersions() {
   });
 
   return (
-    <List>
+    <Container>
       <ModalSubtitle>약관 업데이트 내역</ModalSubtitle>
-      {versionsArray.map((version) => (
-        <VersionItem
-          key={version.id}
-          $isSelected={selectedVersionId === version.id}
-          onClick={() => setSelectedVersionId(version.id)}
-          data-testid={`version-item-${version.id}`}
-        >
-          <span>{version.created_at}</span>
-          <span>{version.update_summary}</span>
-        </VersionItem>
-      ))}
-    </List>
+      <List>
+        {versionsArray.map((version) => (
+          <VersionItem
+            key={version.id}
+            $isSelected={selectedVersionId === version.id}
+            onClick={() => setSelectedVersionId(version.id)}
+            data-testid={`version-item-${version.id}`}
+          >
+            <span>{version.created_at}</span>
+            <span>{version.update_summary}</span>
+          </VersionItem>
+        ))}
+      </List>
+    </Container>
   );
 }
 
-const List = styled.div`
+const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
   padding: 0 1rem;
   gap: 0.5rem;
+`;
+
+const List = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  gap: 0.5rem;
+  overflow-y: auto;
 `;
 
 const VersionItem = styled.button<{ $isSelected: boolean }>`

@@ -13,4 +13,5 @@ export const ModalContentWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: row;
+  overflow: hidden;
 `;
