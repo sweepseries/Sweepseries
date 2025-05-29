@@ -88,7 +88,7 @@ const Container = styled.div<{ $isClosing?: boolean }>`
   top: 88px;
   right: 0;
   height: calc(100dvh - 108px);
-  width: calc(100vw - 360px);
+  width: calc(100vw - 280px);
   max-width: 1440px;
   border-radius: 16px 0 0 16px;
   background-color: ${({ theme }) => theme.colors.background500};
