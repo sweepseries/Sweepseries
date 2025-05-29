@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, expect, it, vi } from "vitest";
+import { describe, it, vi } from "vitest";
 import { fireEvent } from "@testing-library/react";
 import { Editor } from "@tiptap/react";
 
