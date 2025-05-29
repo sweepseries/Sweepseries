@@ -32,6 +32,7 @@ function InnerProvider({
   children: React.ReactNode;
 }>) {
   const [selectedVersionId, setSelectedVersionId] = useState<number>(-1);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   const { data: termDetails, isLoading, isError } = useRetrieveTerm(termId);
   const navigate = useNavigate();
@@ -55,8 +56,10 @@ function InnerProvider({
       isLoading,
       selectedVersionId,
       setSelectedVersionId,
+      editMode,
+      setEditMode,
     }),
-    [termDetails, isLoading, selectedVersionId]
+    [termDetails, isLoading, selectedVersionId, editMode]
   );
 
   return (

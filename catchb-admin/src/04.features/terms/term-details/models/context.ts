@@ -7,6 +7,8 @@ export type TermDetailsContextType = {
   isLoading: boolean;
   selectedVersionId: number;
   setSelectedVersionId: (versionId: number) => void;
+  editMode: boolean;
+  setEditMode: (editMode: boolean) => void;
 };
 
 export const TermDetailsContext = createContext<

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { useTermDetails } from "../hooks/useTermDetails";
-import { ModalSubtitle } from "@shared/ui/Texts";
 
 export function TermContents() {
   const { termDetails, selectedVersionId } = useTermDetails();
@@ -9,10 +8,9 @@ export function TermContents() {
   if (!termDetails || selectedVersionId === -1) return null;
 
   return (
-    <Contents>
-      <ModalSubtitle>약관 내용</ModalSubtitle>
-      {termDetails.versions[selectedVersionId].content ? (
-        <div
+    <>
+      {termDetails.versions[selectedVersionId].has_content ? (
+        <Wrapper
           dangerouslySetInnerHTML={{
             __html: termDetails.versions[selectedVersionId].content,
           }}
@@ -20,21 +18,15 @@ export function TermContents() {
       ) : (
         <span>내용 없음</span>
       )}
-    </Contents>
+    </>
   );
 }
 
-const Contents = styled.div`
-  display: flex;
-  flex: 1.5;
-  flex-direction: column;
-  padding: 0 1rem;
-  gap: 1rem;
-
+const Wrapper = styled.div`
   font-size: 1rem;
-  line-height: 1.25;
+  line-height: 1.5;
 
-  > span:last-child {
-    color: ${({ theme }) => theme.colors.gray900};
-  }
+  overflow-y: auto;
+  word-break: break-word;
+  white-space: pre-wrap;
 `;
