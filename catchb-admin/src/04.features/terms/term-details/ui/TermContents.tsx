@@ -11,11 +11,15 @@ export function TermContents() {
   return (
     <Contents>
       <ModalSubtitle>약관 내용</ModalSubtitle>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: termDetails.versions[selectedVersionId].content,
-        }}
-      />
+      {termDetails.versions[selectedVersionId].content ? (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: termDetails.versions[selectedVersionId].content,
+          }}
+        />
+      ) : (
+        <span>내용 없음</span>
+      )}
     </Contents>
   );
 }
@@ -25,8 +29,12 @@ const Contents = styled.div`
   flex: 1.5;
   flex-direction: column;
   padding: 0 1rem;
-  gap: 0.5rem;
+  gap: 1rem;
 
   font-size: 1rem;
   line-height: 1.25;
+
+  > span:last-child {
+    color: ${({ theme }) => theme.colors.gray900};
+  }
 `;

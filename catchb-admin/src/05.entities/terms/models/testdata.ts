@@ -42,19 +42,19 @@ export const sampleTermDetails: AdminTermsAndConditionsDetailType = {
   title: "Terms of Service",
   is_active: true,
   is_required: true,
-  latest_version_id: 1,
-  versions: [
-    {
+  latest_version_id: 2,
+  versions: {
+    1: {
       id: 1,
       content: "Initial version of the Terms of Service.",
       update_summary: "Initial version",
       created_at: "2025-05-01",
     },
-    {
+    2: {
       id: 2,
       content: "Updated version of the Terms of Service with minor changes.",
       update_summary: "Minor updates",
       created_at: "2025-06-01",
     },
-  ],
+  },
 };

@@ -10,7 +10,7 @@ async function deleteTerm(termId: number): Promise<void> {
 export function useDeleteTerm(termId: number) {
   const client = useQueryClient();
 
-  return useMutation<void, AxiosError<APIErrorResponse>, number>({
+  return useMutation<void, AxiosError<APIErrorResponse>>({
     mutationFn: () => deleteTerm(termId),
     onSuccess: () => {
       // Invalidate the terms list query to refresh the data

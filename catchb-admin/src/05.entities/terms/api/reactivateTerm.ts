@@ -10,7 +10,7 @@ async function reactivateTerm(termId: number): Promise<void> {
 export function useReactivateTerm(termId: number) {
   const client = useQueryClient();
 
-  return useMutation<void, AxiosError<APIErrorResponse>, number>({
+  return useMutation<void, AxiosError<APIErrorResponse>>({
     mutationFn: () => reactivateTerm(termId),
     onSuccess: () => {
       // Invalidate the terms list query to refresh the data
