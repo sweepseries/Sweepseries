@@ -73,6 +73,7 @@
     "react-native-screens": "~4.4.0",
     "react-native-skeleton-placeholder": "^5.2.4",
     "react-native-svg": "15.8.0",
+    "react-native-webview": "13.12.5",
     "styled-components": "^6.1.17"
   },
   "devDependencies": {

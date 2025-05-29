@@ -16,7 +16,7 @@ jest.mock("expo-router", () => {
         screenOptions: NativeStackNavigationOptions;
       }) => (
         <View>
-          {screenOptions.headerLeft && screenOptions.headerLeft({})}
+          {screenOptions.headerLeft?.({})}
           {/* if screen.options.headerTitle is a function, call it with an empty object */}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
@@ -28,7 +28,7 @@ jest.mock("expo-router", () => {
       {
         Screen: ({ options }: { options?: NativeStackNavigationOptions }) => (
           <View>
-            {options?.headerLeft && options.headerLeft({})}
+            {options?.headerLeft?.({})}
             {options?.headerTitle && typeof options.headerTitle === "function"
               ? options.headerTitle({ children: "" })
               : options?.headerTitle}
@@ -49,6 +49,9 @@ jest.mock("expo-router", () => {
 jest.mock("expo-application", () => ({
   ...jest.requireActual("expo-application"),
   nativeApplicationVersion: "1.0.0",
+}));
+jest.mock("react-native-webview", () => ({
+  WebView: () => null,
 }));
 jest.mock("react-native-skeleton-placeholder", () => {
   const { Text } = jest.requireActual("react-native");
@@ -77,25 +80,24 @@ jest.mock("@gorhom/bottom-sheet", () => {
         ref: React.Ref<any>
       ) => (
         <>
-          {backdropComponent &&
-            backdropComponent({
-              animatedIndex: {
-                value: 0,
-                get: jest.fn(),
-                set: jest.fn(),
-                modify: jest.fn(),
-                addListener: jest.fn(),
-                removeListener: jest.fn(),
-              },
-              animatedPosition: {
-                value: 0,
-                get: jest.fn(),
-                set: jest.fn(),
-                modify: jest.fn(),
-                addListener: jest.fn(),
-                removeListener: jest.fn(),
-              },
-            })}
+          {backdropComponent?.({
+            animatedIndex: {
+              value: 0,
+              get: jest.fn(),
+              set: jest.fn(),
+              modify: jest.fn(),
+              addListener: jest.fn(),
+              removeListener: jest.fn(),
+            },
+            animatedPosition: {
+              value: 0,
+              get: jest.fn(),
+              set: jest.fn(),
+              modify: jest.fn(),
+              addListener: jest.fn(),
+              removeListener: jest.fn(),
+            },
+          })}
           {children}
         </>
       )

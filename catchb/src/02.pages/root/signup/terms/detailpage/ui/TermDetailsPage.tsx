@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
+import { WebView } from "react-native-webview";
 
 import { LoadingTermDetails } from "./loading";
 import { termsDetailPageStyles } from "./styles";
@@ -63,9 +64,11 @@ function TermsContent({ id }: Readonly<Props>) {
       <View style={styles.divider}>
         <Divider />
       </View>
-      <ScrollView style={styles.scrollView}>
-        <Text style={styles.content}>{term.content}</Text>
-      </ScrollView>
+      <WebView
+        style={styles.content}
+        originWhitelist={["*"]}
+        source={{ html: term.content }}
+      />
       <TextButton text="닫기" onPress={handleClose} />
     </View>
   );
