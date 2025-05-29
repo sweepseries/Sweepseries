@@ -8,7 +8,7 @@ class TermsAndConditionsModelsTestCase(TestCase):
     약관 모델 테스트
     """
 
-    fixtures = ["data/test/terms.json"]
+    fixtures = ["data/dev/terms.json"]
 
     def test_terms_str(self):
         terms = TermsAndConditions.objects.get(id=1)

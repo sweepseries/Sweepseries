@@ -1,7 +1,12 @@
 from rest_framework import serializers
 
 from ..models import TermsAndConditions, TermsAndConditionsHistory
-from ..utils import get_max_order
+from ..utils import (
+    get_latest_version_id,
+    get_max_order,
+    has_content,
+    has_content_version,
+)
 
 
 class TermsAndConditionsSimpleSerializerForAdmin(serializers.ModelSerializer):
@@ -35,7 +40,7 @@ class TermsAndConditionsSimpleSerializerForAdmin(serializers.ModelSerializer):
         """
         약관이 내용이 있는지 여부를 반환합니다.
         """
-        return bool(obj.content)
+        return has_content(obj)
 
     def create(self, validated_data):
         last_order = get_max_order()
@@ -78,11 +83,11 @@ class TermsAndConditionsDetailSerializerForAdmin(serializers.ModelSerializer):
         """
         가장 최근 버전의 ID를 반환합니다.
         """
-        latest_version = obj.history.order_by("-created_at").first()
-        if not latest_version:
+        latest_version = get_latest_version_id(obj)
+        if latest_version is None:
             raise serializers.ValidationError("오류가 발생했습니다.")
 
-        return latest_version.id
+        return latest_version
 
     def get_versions(self, obj):
         """
@@ -99,6 +104,7 @@ class TermsAndConditionsDetailSerializerForAdmin(serializers.ModelSerializer):
                 "created_at": version.created_at.strftime("%Y-%m-%d"),
                 "update_summary": version.update_summary,
                 "is_admin_only": version.is_admin_only,
+                "has_content": has_content_version(version),
             }
 
         return versions

@@ -10,7 +10,7 @@ class TermsAndConditionsAPITestCase(APITestCase):
         - 비고: 테스트 데이터에 있는 모든 약관은 2025-04-17에 생성, 최종 수정되었다.
     """
 
-    fixtures = ["data/test/terms.json"]
+    fixtures = ["data/dev/terms.json"]
 
     def setUp(self):
         self.url = "/v1/terms/"
@@ -31,7 +31,7 @@ class TermsAndConditionsAPITestCase(APITestCase):
         ## 2. with version (valid)
         response = self.client.get("/v1/privacy_policy/?version=2025-04-17")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["content"], "Sample Content")
+        self.assertEqual(response.data["content"], "<p>Sample Content</p>")
 
     def test_privacy_policy_fail(self):
         ## 1. with version (DNE)
@@ -47,7 +47,7 @@ class TermsAndConditionsAPITestCase(APITestCase):
         ## 2. with version (valid)
         response = self.client.get("/v1/terms_of_service/?version=2025-04-17")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["content"], "서비스 이용약관 내용")
+        self.assertEqual(response.data["content"], "<p>서비스 이용약관 내용</p>")
 
     def test_terms_of_service_fail(self):
         ## 1. with version (DNE)

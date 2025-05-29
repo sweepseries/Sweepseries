@@ -1,4 +1,4 @@
-from .get_max_order import get_max_order
+from .get_order import get_max_order
 from ..models import TermsAndConditions, TermsAndConditionsHistory
 
 
