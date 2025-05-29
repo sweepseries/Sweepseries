@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { TermDetailsLoading } from "./_loading";
 import {
   ModalInnerContainer,
   ModalContentWrapper,
@@ -26,8 +27,12 @@ export function TermsDetailPanel() {
 }
 
 function Components() {
-  const { termDetails, editMode, setEditMode, selectedVersionId } =
+  const { termDetails, editMode, setEditMode, selectedVersionId, isLoading } =
     useTermDetails();
+
+  if (isLoading) {
+    return <TermDetailsLoading />;
+  }
 
   if (!termDetails) return null;
 

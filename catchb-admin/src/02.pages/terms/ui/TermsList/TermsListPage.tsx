@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
+import { TermsListLoading } from "./_loading";
 import { PageTitle } from "@widgets/layouts/title";
 import {
   TermsListProvider,
   TermsTable,
   TermTabs,
+  useTermsList,
 } from "@features/terms/list-terms";
 
 export function TermsListPage() {
@@ -16,11 +18,13 @@ export function TermsListPage() {
 }
 
 function Components() {
+  const { isLoading } = useTermsList();
+
   return (
     <Container>
       <PageTitle>회원가입 약관 관리</PageTitle>
       <TermTabs />
-      <TermsTable />
+      {isLoading ? <TermsListLoading /> : <TermsTable />}
     </Container>
   );
 }
