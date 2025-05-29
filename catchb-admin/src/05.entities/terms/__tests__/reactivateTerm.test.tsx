@@ -9,7 +9,7 @@ const MockReactivateComponent = () => {
   const { mutate: reactivateTerm, isSuccess } = useReactivateTerm(1);
 
   const handleReactivate = () => {
-    reactivateTerm(1);
+    reactivateTerm();
   };
 
   return (

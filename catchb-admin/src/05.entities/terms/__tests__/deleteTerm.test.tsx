@@ -9,7 +9,7 @@ const MockDeleteComponent = () => {
   const { mutate: deleteTerm, isSuccess } = useDeleteTerm(1);
 
   const handleDelete = () => {
-    deleteTerm(1);
+    deleteTerm();
   };
 
   return (
