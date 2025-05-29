@@ -10,23 +10,24 @@ vi.unmock("@shared/ui/Inputs");
 
 describe("EditorToolbar", () => {
   it("renders toolbar with buttons", () => {
-    const mockChain = vi.fn(() => ({
-      focus: vi.fn(() => ({
-        toggleBold: vi.fn(() => ({ run: vi.fn() })),
-        toggleItalic: vi.fn(() => ({ run: vi.fn() })),
-        toggleStrike: vi.fn(() => ({ run: vi.fn() })),
-        setParagraph: vi.fn(() => ({ run: vi.fn() })),
-        toggleHeading: vi.fn(() => ({ run: vi.fn() })),
-        toggleBulletList: vi.fn(() => ({ run: vi.fn() })),
-        toggleOrderedList: vi.fn(() => ({ run: vi.fn() })),
-        undo: vi.fn(() => ({ run: vi.fn() })),
-        redo: vi.fn(() => ({ run: vi.fn() })),
-      })),
+    const mockFn = vi.fn(() => ({ run: vi.fn() }));
+    const mockFocus = vi.fn(() => ({
+      toggleBold: mockFn,
+      toggleItalic: mockFn,
+      toggleStrike: mockFn,
+      setParagraph: mockFn,
+      toggleHeading: mockFn,
+      toggleBulletList: mockFn,
+      toggleOrderedList: mockFn,
+      undo: mockFn,
+      redo: mockFn,
     }));
 
     const mockEditor = {
       isActive: vi.fn().mockReturnValue(true),
-      chain: mockChain,
+      chain: vi.fn(() => ({
+        focus: mockFocus,
+      })),
     } as any as Editor;
 
     const { getByTestId } = renderWithProviders(
