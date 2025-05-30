@@ -10,6 +10,9 @@ vi.mock("../providers", () => ({
   ColorsProvider: ({ children }: { children: React.ReactNode }) => children,
   QueryProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
+vi.mock("@pages/announcements", () => ({
+  AnnouncementsContainer: () => <div>Announcements Container</div>,
+}));
 vi.mock("@pages/login", () => ({
   LoginPage: () => <div>Login Page</div>,
 }));
