@@ -5,12 +5,17 @@ from ..models import Announcement
 
 
 class AnnouncementSerializerForAdmin(serializers.ModelSerializer):
-    created_at = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
-    updated_at = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
-
     class Meta:
         model = Announcement
-        fields = ["id", "title", "content", "created_at", "updated_at", "is_deleted"]
+        fields = [
+            "id",
+            "title",
+            "content",
+            "created_at",
+            "updated_at",
+            "is_deleted",
+            "is_important",
+        ]
 
     def validate(self, attrs):
         if not attrs.get("content"):
