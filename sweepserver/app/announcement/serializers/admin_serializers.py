@@ -1,21 +1,16 @@
 from django.utils import timezone
 from rest_framework import serializers
 
-from .models import Announcement
+from ..models import Announcement
 
 
-class AnnouncementSerializer(serializers.ModelSerializer):
+class AnnouncementSerializerForAdmin(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
     updated_at = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
 
     class Meta:
         model = Announcement
-        fields = ["id", "title", "content", "created_at", "updated_at"]
-
-
-class AnnouncementSerializerForAdmin(AnnouncementSerializer):
-    class Meta(AnnouncementSerializer.Meta):
-        fields = AnnouncementSerializer.Meta.fields + ["is_deleted"]
+        fields = ["id", "title", "content", "created_at", "updated_at", "is_deleted"]
 
     def validate(self, attrs):
         if not attrs.get("content"):
