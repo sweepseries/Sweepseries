@@ -1,4 +1,6 @@
 import Announcement from "./files/announcement.svg?react";
+import ArrowDown from "./files/arrow-down.svg?react";
+import ArrowUp from "./files/arrow-up.svg?react";
 import Bold from "./files/bold.svg?react";
 import BulletList from "./files/bullet-list.svg?react";
 import Close from "./files/close.svg?react";
@@ -13,10 +15,12 @@ import NumberedList from "./files/numbered-list.svg?react";
 import Paragraph from "./files/paragraph.svg?react";
 import Pencil from "./files/pencil.svg?react";
 import People from "./files/people.svg?react";
+import Pin from "./files/pin.svg?react";
 import Question from "./files/question.svg?react";
 import Redo from "./files/redo.svg?react";
 import SidebarClose from "./files/sidebar-close.svg?react";
 import SidebarOpen from "./files/sidebar-open.svg?react";
+import Sort from "./files/sort.svg?react";
 import Strikethrough from "./files/strikethrough.svg?react";
 import Undo from "./files/undo.svg?react";
 
@@ -31,6 +35,8 @@ const iconMap: Record<
   React.FunctionComponent<React.SVGProps<SVGSVGElement>>
 > = {
   announcement: Announcement,
+  "arrow-down": ArrowDown,
+  "arrow-up": ArrowUp,
   bold: Bold,
   "bullet-list": BulletList,
   close: Close,
@@ -45,10 +51,12 @@ const iconMap: Record<
   paragraph: Paragraph,
   pencil: Pencil,
   people: People,
+  pin: Pin,
   question: Question,
   redo: Redo,
   "sidebar-close": SidebarClose,
   "sidebar-open": SidebarOpen,
+  sort: Sort,
   strikethrough: Strikethrough,
   undo: Undo,
 };
