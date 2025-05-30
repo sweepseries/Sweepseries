@@ -8,6 +8,7 @@ export const sampleAnnouncements: AdminCatchBAnnouncementsType[] = [
     created_at: "2025-01-01T00:00:00Z",
     updated_at: "2025-01-01T00:00:00Z",
     is_deleted: true,
+    is_important: false,
   },
   {
     id: 2,
@@ -16,5 +17,6 @@ export const sampleAnnouncements: AdminCatchBAnnouncementsType[] = [
     created_at: "2025-01-02T00:00:00Z",
     updated_at: "2025-01-02T00:00:00Z",
     is_deleted: false,
+    is_important: true,
   },
 ];
