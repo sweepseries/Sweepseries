@@ -10,7 +10,7 @@ from ..serializers import AnnouncementSerializerForAdmin
 class AnnouncementAdminViewSet(ModelViewSet):
     """
     공지사항 관리 API (관리자 전용)
-        - url: /admin/announcements/
+        - url: /api/admin/v1/announcements/
     """
 
     queryset = Announcement.objects.all()
