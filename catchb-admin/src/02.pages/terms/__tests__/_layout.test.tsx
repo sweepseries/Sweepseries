@@ -9,7 +9,7 @@ vi.mock("../ui/TermsList/TermsListPage", () => ({
   TermsListPage: vi.fn(() => <div>Terms List</div>),
 }));
 vi.mock("@widgets/layouts/modals", () => ({
-  LargeModal: ({
+  Modal: ({
     isOpen,
     onClose,
     children,
