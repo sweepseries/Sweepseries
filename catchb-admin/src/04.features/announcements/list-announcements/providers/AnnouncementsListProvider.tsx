@@ -38,17 +38,19 @@ export function AnnouncementsListProvider({
 
   const sortedAnnouncements = useMemo(() => {
     if (sort === "생성일") {
-      return filteredAnnouncements.sort((a, b) =>
+      return [...filteredAnnouncements].sort((a, b) =>
         sortByCreatedAt(a, b, sortMode)
       );
     }
     if (sort === "수정일") {
-      return filteredAnnouncements.sort((a, b) =>
+      return [...filteredAnnouncements].sort((a, b) =>
         sortByUpdatedAt(a, b, sortMode)
       );
     }
     if (sort === "ID") {
-      return filteredAnnouncements.sort((a, b) => sortByID(a, b, sortMode));
+      return [...filteredAnnouncements].sort((a, b) =>
+        sortByID(a, b, sortMode)
+      );
     }
     // 기본 정렬은 서버에서 제공하는 순서대로 유지
     return filteredAnnouncements;
