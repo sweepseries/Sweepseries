@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 
 import { AnnouncementsManagementLayout } from "./_layout";
+import { AnnouncementDetailsPanel } from "./AnnouncementDetails/AnnouncementDetailsPanel";
 import { CreateAnnouncementPanel } from "./CreateAnnouncement/CreateAnnouncementPanel";
 
 export function AnnouncementsContainer() {
@@ -9,6 +10,7 @@ export function AnnouncementsContainer() {
       <Route element={<AnnouncementsManagementLayout />}>
         <Route index element={null} />
         <Route path="create" element={<CreateAnnouncementPanel />} />
+        <Route path=":id" element={<AnnouncementDetailsPanel />} />
       </Route>
     </Routes>
   );
