@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
-import type { AdminCatchBAnnouncementsType } from "@entities/announcements";
+import type { AdminCatchBAnnouncementSimpleType } from "@entities/announcements";
 
 export type AnnouncementsListContextType = {
   mode: "전체" | "유효" | "삭제됨";
   setMode: (mode: "전체" | "유효" | "삭제됨") => void;
-  announcements: AdminCatchBAnnouncementsType[];
+  announcements: AdminCatchBAnnouncementSimpleType[];
   sort: "ID" | "생성일" | "수정일" | "기본";
   setSort: (sort: "ID" | "생성일" | "수정일" | "기본") => void;
   sortMode: "asc" | "desc";

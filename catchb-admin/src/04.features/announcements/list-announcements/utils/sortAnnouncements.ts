@@ -1,8 +1,8 @@
-import type { AdminCatchBAnnouncementsType } from "@entities/announcements";
+import type { AdminCatchBAnnouncementSimpleType } from "@entities/announcements";
 
 export function sortByCreatedAt(
-  a: AdminCatchBAnnouncementsType,
-  b: AdminCatchBAnnouncementsType,
+  a: AdminCatchBAnnouncementSimpleType,
+  b: AdminCatchBAnnouncementSimpleType,
   sortMode: "asc" | "desc" = "desc"
 ) {
   const dateA = new Date(a.created_at);
@@ -15,8 +15,8 @@ export function sortByCreatedAt(
 }
 
 export function sortByUpdatedAt(
-  a: AdminCatchBAnnouncementsType,
-  b: AdminCatchBAnnouncementsType,
+  a: AdminCatchBAnnouncementSimpleType,
+  b: AdminCatchBAnnouncementSimpleType,
   sortMode: "asc" | "desc" = "desc"
 ) {
   const dateA = new Date(a.updated_at);
@@ -29,8 +29,8 @@ export function sortByUpdatedAt(
 }
 
 export function sortByID(
-  a: AdminCatchBAnnouncementsType,
-  b: AdminCatchBAnnouncementsType,
+  a: AdminCatchBAnnouncementSimpleType,
+  b: AdminCatchBAnnouncementSimpleType,
   sortMode: "asc" | "desc" = "desc"
 ) {
   const idA = a.id;

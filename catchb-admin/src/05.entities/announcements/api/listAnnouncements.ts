@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import type { AdminCatchBAnnouncementsType } from "../models/types";
+import type { AdminCatchBAnnouncementSimpleType } from "../models/types";
 import type { APIErrorResponse } from "@shared/api";
 
 async function fetchAllAnnouncements(): Promise<
-  AdminCatchBAnnouncementsType[]
+  AdminCatchBAnnouncementSimpleType[]
 > {
-  const response = await axios.get<AdminCatchBAnnouncementsType[]>(
+  const response = await axios.get<AdminCatchBAnnouncementSimpleType[]>(
     "/api/admin/v1/announcements/"
   );
 
@@ -15,7 +15,7 @@ async function fetchAllAnnouncements(): Promise<
 }
 
 export function useAnnouncements() {
-  return useQuery<AdminCatchBAnnouncementsType[], APIErrorResponse>({
+  return useQuery<AdminCatchBAnnouncementSimpleType[], APIErrorResponse>({
     queryKey: ["announcements"],
     queryFn: fetchAllAnnouncements,
   });

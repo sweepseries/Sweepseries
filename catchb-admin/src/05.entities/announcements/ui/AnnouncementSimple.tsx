@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-import type { AdminCatchBAnnouncementsType } from "../models/types";
+import type { AdminCatchBAnnouncementSimpleType } from "../models/types";
 import { useColors } from "@shared/lib/colors";
 import { TextChip } from "@shared/ui/Chips";
 import { AppIcon } from "@shared/ui/Icons";
 
 interface Props {
-  announcement: AdminCatchBAnnouncementsType;
+  announcement: AdminCatchBAnnouncementSimpleType;
 }
 
 export function AnnouncementSimple({ announcement }: Readonly<Props>) {

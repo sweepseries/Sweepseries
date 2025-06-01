@@ -2,15 +2,15 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError, type AxiosResponse } from "axios";
 
 import type {
-  AdminCatchBAnnouncementsType,
+  AdminCatchBAnnouncementSimpleType,
   NewCatchBAnnouncementFormValues,
 } from "../models/types";
 import type { APIErrorResponse } from "@shared/api";
 
 async function createAnnouncement(
   data: NewCatchBAnnouncementFormValues
-): Promise<AxiosResponse<AdminCatchBAnnouncementsType>> {
-  return await axios.post<AdminCatchBAnnouncementsType>(
+): Promise<AxiosResponse<AdminCatchBAnnouncementSimpleType>> {
+  return await axios.post<AdminCatchBAnnouncementSimpleType>(
     "/api/admin/v1/announcements/",
     data
   );
@@ -18,7 +18,7 @@ async function createAnnouncement(
 
 export function useCreateAnnouncement() {
   return useMutation<
-    AxiosResponse<AdminCatchBAnnouncementsType>,
+    AxiosResponse<AdminCatchBAnnouncementSimpleType>,
     AxiosError<APIErrorResponse>,
     NewCatchBAnnouncementFormValues
   >({

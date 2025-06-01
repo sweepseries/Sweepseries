@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { useCreateAnnouncementForm } from "../hooks/useCreateAnnouncementForm";
 import {
-  type AdminCatchBAnnouncementsType,
+  type AdminCatchBAnnouncementSimpleType,
   useCreateAnnouncement,
 } from "@entities/announcements";
 import type { APIErrorResponse } from "@shared/api";
@@ -19,11 +19,11 @@ export function SubmitButton() {
   const queryClient = useQueryClient();
 
   const onSubmitSuccess = (
-    response: AxiosResponse<AdminCatchBAnnouncementsType>
+    response: AxiosResponse<AdminCatchBAnnouncementSimpleType>
   ) => {
     resetForm();
     window.alert("공지사항이 성공적으로 생성되었습니다.");
-    queryClient.setQueryData<AdminCatchBAnnouncementsType[]>(
+    queryClient.setQueryData<AdminCatchBAnnouncementSimpleType[]>(
       ["announcements"],
       (old) => {
         if (!old) return [response.data];
