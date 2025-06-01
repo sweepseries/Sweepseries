@@ -1,5 +1,6 @@
-import type { AdminCatchBAnnouncementDetailType } from "@entities/announcements";
 import styled from "styled-components";
+
+import type { AdminCatchBAnnouncementDetailType } from "@entities/announcements";
 
 interface Props {
   announcement: AdminCatchBAnnouncementDetailType;
