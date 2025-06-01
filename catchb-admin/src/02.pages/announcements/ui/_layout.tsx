@@ -2,7 +2,7 @@ import { Outlet, useMatch, useNavigate } from "react-router";
 import styled from "styled-components";
 
 import { AnnouncementsListPage } from "./AnnouncementsList/AnnouncementsListPage";
-import { LargeModal } from "@widgets/layouts/modals";
+import { Modal } from "@widgets/layouts/modals";
 
 export function AnnouncementsManagementLayout() {
   const matchCreate = useMatch("/announcements/create");
@@ -15,9 +15,9 @@ export function AnnouncementsManagementLayout() {
   return (
     <Container>
       <AnnouncementsListPage />
-      <LargeModal isOpen={isModalOpen} onClose={closeModal}>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
         <Outlet />
-      </LargeModal>
+      </Modal>
     </Container>
   );
 }
