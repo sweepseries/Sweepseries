@@ -1,8 +1,6 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from ..models import Announcement
-
 class AnnouncementAPITestCase(APITestCase):
     """
     공지사항 API 테스트
