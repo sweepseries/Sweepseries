@@ -19,7 +19,7 @@ export const sampleAnnouncements: AdminCatchBAnnouncementSimpleType[] = [
   },
 ];
 
-export const sampleAnnouncementDetail = {
+export const sampleAnnouncementDetails = {
   id: 2,
   title: "Announcement 2",
   content: "This is the content of Announcement 2.",

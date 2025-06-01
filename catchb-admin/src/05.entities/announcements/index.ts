@@ -1,9 +1,13 @@
 export { useCreateAnnouncement } from "./api/createAnnouncement";
 export { useAnnouncements } from "./api/listAnnouncements";
+export { useRetrieveAnnouncement } from "./api/retrieveAnnouncement";
 
-export { sampleAnnouncements } from "./models/testdata";
+export {
+  sampleAnnouncements,
+  sampleAnnouncementDetails,
+} from "./models/testdata";
 export type {
-  AdminCatchBAnnouncementsType,
+  AdminCatchBAnnouncementSimpleType,
   NewCatchBAnnouncementFormValues,
 } from "./models/types";
 
