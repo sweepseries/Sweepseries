@@ -3,6 +3,7 @@ from rest_framework import status
 from core.tests import AdminPageAPITestCase
 from ..models import Announcement
 
+
 class AdminAnnouncementAPITestCase(AdminPageAPITestCase):
     """
     공지사항 관리 API 테스트
@@ -28,13 +29,17 @@ class AdminAnnouncementAPITestCase(AdminPageAPITestCase):
     def test_retrieve_success(self):
         self.client.force_authenticate(user=self.admin)
         announcement = Announcement.objects.first()
-        response = self.client.get(f"{self.url}{announcement.id}/", HTTP_ORIGIN=self.admin_page)
+        response = self.client.get(
+            f"{self.url}{announcement.id}/", HTTP_ORIGIN=self.admin_page
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["id"], announcement.id)
 
     def test_create_success(self):
         self.client.force_authenticate(user=self.admin)
-        response = self.client.post(self.url, data=self.create_data, HTTP_ORIGIN=self.admin_page)
+        response = self.client.post(
+            self.url, data=self.create_data, HTTP_ORIGIN=self.admin_page
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data["title"], self.create_data["title"])
 
@@ -47,7 +52,9 @@ class AdminAnnouncementAPITestCase(AdminPageAPITestCase):
     def test_delete_success(self):
         self.client.force_authenticate(user=self.admin)
         announcement = Announcement.objects.first()
-        response = self.client.delete(f"{self.url}{announcement.id}/", HTTP_ORIGIN=self.admin_page)
+        response = self.client.delete(
+            f"{self.url}{announcement.id}/", HTTP_ORIGIN=self.admin_page
+        )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         announcement.refresh_from_db()
         self.assertTrue(announcement.is_deleted)
@@ -57,9 +64,11 @@ class AdminAnnouncementAPITestCase(AdminPageAPITestCase):
         announcement = Announcement.objects.first()
         announcement.is_deleted = True
         announcement.save()
-        
-        response = self.client.post(f"{self.url}{announcement.id}/reactivate/", HTTP_ORIGIN=self.admin_page)
+
+        response = self.client.post(
+            f"{self.url}{announcement.id}/reactivate/", HTTP_ORIGIN=self.admin_page
+        )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        
+
         announcement.refresh_from_db()
         self.assertFalse(announcement.is_deleted)
