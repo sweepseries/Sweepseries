@@ -22,7 +22,7 @@ export function CreateTermFormRight() {
 
 const Container = styled.div`
   display: flex;
-  flex: 1;
+  flex: 2;
   flex-direction: column;
   padding: 0 1rem;
   gap: 1rem;
