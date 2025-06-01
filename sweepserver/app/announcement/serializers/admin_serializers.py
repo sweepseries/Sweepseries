@@ -4,25 +4,36 @@ from rest_framework import serializers
 from ..models import Announcement
 
 
-class AnnouncementSerializerForAdmin(serializers.ModelSerializer):
+class AnnouncementSimpleSerializerForAdmin(serializers.ModelSerializer):
+    title = serializers.CharField(
+        error_messages={
+            "required": "제목을 입력해주세요.",
+        }
+    )
+
     class Meta:
         model = Announcement
         fields = [
             "id",
             "title",
-            "content",
             "created_at",
             "updated_at",
             "is_deleted",
             "is_important",
         ]
 
-    def validate(self, attrs):
-        if not attrs.get("content"):
-            raise serializers.ValidationError("Content is required.")
-        if not attrs.get("title"):
-            raise serializers.ValidationError("Title is required.")
-        return attrs
+
+class AnnouncementDetailSerializerForAdmin(AnnouncementSimpleSerializerForAdmin):
+    content = serializers.CharField(
+        error_messages={
+            "required": "내용을 입력해주세요.",
+        }
+    )
+
+    class Meta(AnnouncementSimpleSerializerForAdmin.Meta):
+        fields = AnnouncementSimpleSerializerForAdmin.Meta.fields + [
+            "content",
+        ]
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get("title", instance.title)
