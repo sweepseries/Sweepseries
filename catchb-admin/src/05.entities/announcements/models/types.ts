@@ -7,3 +7,10 @@ export type AdminCatchBAnnouncementsType = {
   is_deleted: boolean;
   is_important: boolean;
 };
+
+// Mutation을 위한 타입 //
+export type NewCatchBAnnouncementFormValues = {
+  title: string;
+  content: string;
+  is_important: boolean;
+};
