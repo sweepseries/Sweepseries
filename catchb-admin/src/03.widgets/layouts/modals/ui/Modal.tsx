@@ -1,14 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
+
+import { Backdrop, Container } from "./_components";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  large?: boolean;
 }
 
-export function LargeModal({ isOpen, onClose, children }: Readonly<Props>) {
+export function Modal({
+  isOpen,
+  onClose,
+  children,
+  large = false,
+}: Readonly<Props>) {
   const [shouldRender, setShouldRender] = useState<boolean>(isOpen);
   const [isClosing, setIsClosing] = useState<boolean>(false);
 
@@ -53,53 +61,35 @@ export function LargeModal({ isOpen, onClose, children }: Readonly<Props>) {
   return createPortal(
     <>
       <Backdrop onClick={onClose} data-testid="backdrop" />
-      <Container
-        aria-modal="true"
-        $isClosing={isClosing}
-        onAnimationEnd={handleAnimationEnd}
-        data-testid="modal-container"
-      >
-        {children}
-      </Container>
+      {large ? (
+        <LargeContainer
+          aria-modal="true"
+          $isClosing={isClosing}
+          onAnimationEnd={handleAnimationEnd}
+          data-testid="modal-container"
+        >
+          {children}
+        </LargeContainer>
+      ) : (
+        <SmallContainer
+          aria-modal="true"
+          $isClosing={isClosing}
+          onAnimationEnd={handleAnimationEnd}
+          data-testid="modal-container"
+        >
+          {children}
+        </SmallContainer>
+      )}
     </>,
     document.getElementById("modal-root")!
   );
 }
 
-const Backdrop = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 11;
-`;
-
-const slideIn = keyframes`
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-`;
-
-const slideOut = keyframes`
-  from { transform: translateX(0); }
-  to   { transform: translateX(100%); }
-`;
-
-const Container = styled.div<{ $isClosing?: boolean }>`
-  position: fixed;
-  top: 88px;
-  right: 0;
-  height: calc(100dvh - 108px);
+const LargeContainer = styled(Container)`
   width: calc(100vw - 280px);
   max-width: 1440px;
-  border-radius: 16px 0 0 16px;
-  background-color: ${({ theme }) => theme.colors.background500};
-  transform: translateX(100%);
-  animation: ${({ $isClosing }) =>
-    $isClosing
-      ? css`
-          ${slideOut} 0.3s ease-in forwards
-        `
-      : css`
-          ${slideIn} 0.3s ease-out forwards
-        `};
-  z-index: 12;
+`;
+
+const SmallContainer = styled(Container)`
+  width: 50vw;
 `;
