@@ -13,7 +13,6 @@ export {
 export type {
   AdminCatchBAnnouncementSimpleType,
   AdminCatchBAnnouncementDetailType,
-  NewCatchBAnnouncementFormValues,
 } from "./models/types";
 
 export { AnnouncementFormProvider } from "./providers/AnnouncementFormProvider";

@@ -12,7 +12,7 @@ export type AdminCatchBAnnouncementDetailType = {
 } & AdminCatchBAnnouncementSimpleType;
 
 // Mutation을 위한 타입 //
-export type NewCatchBAnnouncementFormValues = {
+export type CatchBAnnouncementFormValues = {
   title: string;
   content: string;
   is_important: boolean;
