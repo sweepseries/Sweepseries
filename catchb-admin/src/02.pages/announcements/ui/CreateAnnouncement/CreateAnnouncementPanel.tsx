@@ -5,13 +5,13 @@ import {
 import { ModalTitle } from "@widgets/layouts/title";
 import {
   CreateAnnouncementForm,
-  CreateAnnouncementFormProvider,
   SubmitButton,
 } from "@features/announcements/create-announcement";
+import { AnnouncementFormProvider } from "@entities/announcements";
 
 export function CreateAnnouncementPanel() {
   return (
-    <CreateAnnouncementFormProvider>
+    <AnnouncementFormProvider>
       <ModalInnerContainer>
         <ModalTitle>공지 생성</ModalTitle>
         <ModalContentVertical>
@@ -19,6 +19,6 @@ export function CreateAnnouncementPanel() {
           <SubmitButton />
         </ModalContentVertical>
       </ModalInnerContainer>
-    </CreateAnnouncementFormProvider>
+    </AnnouncementFormProvider>
   );
 }
