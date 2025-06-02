@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { TermDetailsLoading } from "./_loading";
 import {
   ModalInnerContainer,
-  ModalContentWrapper,
+  ModalContentHorizontal,
 } from "@widgets/layouts/modals";
 import { ModalTitle } from "@widgets/layouts/title";
 import { DeleteTermButton } from "@features/terms/delete-term";
@@ -51,7 +51,7 @@ function Components() {
           <ReactivateTermButton termId={termDetails.id} />
         )}
       </Header>
-      <ModalContentWrapper>
+      <ModalContentHorizontal>
         <TermVersions />
         <div>
           <VerticalDivider />
@@ -68,7 +68,7 @@ function Components() {
             <TermContents />
           )}
         </TermContentsWrapper>
-      </ModalContentWrapper>
+      </ModalContentHorizontal>
     </Container>
   );
 }

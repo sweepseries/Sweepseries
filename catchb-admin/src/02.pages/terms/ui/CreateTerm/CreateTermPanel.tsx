@@ -1,6 +1,6 @@
 import {
   ModalInnerContainer,
-  ModalContentWrapper,
+  ModalContentHorizontal,
 } from "@widgets/layouts/modals";
 import { ModalTitle } from "@widgets/layouts/title";
 import {
@@ -15,13 +15,13 @@ export function CreateTermPanel() {
     <CreateTermProvider>
       <ModalInnerContainer>
         <ModalTitle>약관 생성</ModalTitle>
-        <ModalContentWrapper>
+        <ModalContentHorizontal>
           <CreateTermFormLeft />
           <div>
             <VerticalDivider />
           </div>
           <CreateTermFormRight />
-        </ModalContentWrapper>
+        </ModalContentHorizontal>
       </ModalInnerContainer>
     </CreateTermProvider>
   );

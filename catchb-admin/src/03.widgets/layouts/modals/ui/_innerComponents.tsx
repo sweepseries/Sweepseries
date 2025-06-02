@@ -9,7 +9,7 @@ export const ModalInnerContainer = styled.div`
   gap: 1rem;
 `;
 
-export const ModalContentWrapper = styled.div`
+export const ModalContentHorizontal = styled.div`
   display: flex;
   flex: 1;
   flex-direction: row;
