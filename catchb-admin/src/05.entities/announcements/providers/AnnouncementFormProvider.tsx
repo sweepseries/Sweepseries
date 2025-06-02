@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
 
 import {
-  CreateAnnouncementContext,
-  type CreateAnnouncementContextType,
-} from "../models/context";
+  AnnouncementForm,
+  type AnnouncementFormType,
+} from "../models/contexts";
 
-export function CreateAnnouncementFormProvider({
+export function AnnouncementFormProvider({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export function CreateAnnouncementFormProvider({
     setIsImportant(false);
   }, []);
 
-  const value = useMemo<CreateAnnouncementContextType>(
+  const value = useMemo<AnnouncementFormType>(
     () => ({
       title,
       content,
@@ -39,8 +39,8 @@ export function CreateAnnouncementFormProvider({
   );
 
   return (
-    <CreateAnnouncementContext.Provider value={value}>
+    <AnnouncementForm.Provider value={value}>
       {children}
-    </CreateAnnouncementContext.Provider>
+    </AnnouncementForm.Provider>
   );
 }

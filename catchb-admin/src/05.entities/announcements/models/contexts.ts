@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export type CreateAnnouncementContextType = {
+export type AnnouncementFormType = {
   title: string;
   content: string;
   isImportant: boolean;
@@ -10,6 +10,6 @@ export type CreateAnnouncementContextType = {
   resetForm: () => void;
 };
 
-export const CreateAnnouncementContext = createContext<
-  CreateAnnouncementContextType | undefined
->(undefined);
+export const AnnouncementForm = createContext<AnnouncementFormType | undefined>(
+  undefined
+);

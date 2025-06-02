@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useCreateAnnouncementForm } from "../hooks/useCreateAnnouncementForm";
+import { useAnnouncementForm } from "@entities/announcements";
 import { Checkbox, TextArea, TextInput } from "@shared/ui/Inputs";
 
 export function CreateAnnouncementForm() {
@@ -11,7 +11,7 @@ export function CreateAnnouncementForm() {
     setContent,
     isImportant,
     toggleIsImportant,
-  } = useCreateAnnouncementForm();
+  } = useAnnouncementForm();
 
   return (
     <Container>

@@ -3,17 +3,16 @@ import { useNavigate } from "react-router";
 import { isAxiosError, type AxiosError, type AxiosResponse } from "axios";
 import styled from "styled-components";
 
-import { useCreateAnnouncementForm } from "../hooks/useCreateAnnouncementForm";
 import {
   type AdminCatchBAnnouncementSimpleType,
   useCreateAnnouncement,
+  useAnnouncementForm,
 } from "@entities/announcements";
 import type { APIErrorResponse } from "@shared/api";
 import { TextButton } from "@shared/ui/Buttons";
 
 export function SubmitButton() {
-  const { title, content, isImportant, resetForm } =
-    useCreateAnnouncementForm();
+  const { title, content, isImportant, resetForm } = useAnnouncementForm();
   const { mutate: createAnnouncement } = useCreateAnnouncement();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
