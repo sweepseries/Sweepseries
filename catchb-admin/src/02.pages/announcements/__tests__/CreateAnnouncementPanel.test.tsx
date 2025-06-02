@@ -10,14 +10,6 @@ import {
   renderWithProviders,
 } from "@test-utils/renderer";
 
-vi.mock("axios", async () => {
-  const actual = await vi.importActual("axios");
-  return {
-    ...actual,
-    isAxiosError: vi.fn().mockReturnValue(true),
-  };
-});
-
 describe("CreateAnnouncementPanel", () => {
   const navigateMock = vi.fn();
 
@@ -50,12 +42,14 @@ describe("CreateAnnouncementPanel", () => {
     // toggle important checkbox
     fireEvent.click(getByTestId("checkbox-중요 공지"));
 
-    // submit form (fail: unknown error)
-    vi.spyOn(axios, "post").mockRejectedValueOnce({});
+    // submit form (fail: known error)
+    vi.spyOn(axios, "post").mockRejectedValueOnce({
+      response: { data: { error: "제목을 입력해주세요." } },
+    });
     fireEvent.click(getByTestId("text-button-등록"));
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith(
-        "공지 생성에 실패했습니다. 다시 시도해주세요."
+        "공지 생성에 실패했습니다: 제목을 입력해주세요."
       );
     });
 
@@ -74,21 +68,16 @@ describe("CreateAnnouncementPanel", () => {
     testClient.setQueryData(["announcements"], [sampleAnnouncements[1]]);
     vi.spyOn(axios, "post").mockResolvedValue({ data: sampleAnnouncements[0] });
 
-    const { getByTestId } = renderWithProviders(
-      <CreateAnnouncementPanel />,
-      {
-        client: testClient,
-      }
-    );
-
-    // submit form (fail: known error)
-    vi.spyOn(axios, "post").mockRejectedValueOnce({
-      response: { data: { error: "제목을 입력해주세요." } },
+    const { getByTestId } = renderWithProviders(<CreateAnnouncementPanel />, {
+      client: testClient,
     });
+
+    // submit form (fail: unknown error)
+    vi.spyOn(axios, "post").mockRejectedValueOnce({});
     fireEvent.click(getByTestId("text-button-등록"));
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith(
-        "공지 생성에 실패했습니다: 제목을 입력해주세요."
+        "공지 생성에 실패했습니다. 다시 시도해주세요."
       );
     });
 

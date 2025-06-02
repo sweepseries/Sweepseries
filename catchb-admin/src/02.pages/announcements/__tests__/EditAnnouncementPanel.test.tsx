@@ -10,14 +10,6 @@ import {
   renderWithProviders,
 } from "@test-utils/renderer";
 
-vi.mock("axios", async () => {
-  const actual = await vi.importActual("axios");
-  return {
-    ...actual,
-    isAxiosError: vi.fn().mockReturnValue(true),
-  };
-});
-
 describe("EditAnnouncementPanel", () => {
   const navigateMock = vi.fn();
 

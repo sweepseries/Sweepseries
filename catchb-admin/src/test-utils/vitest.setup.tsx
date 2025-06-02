@@ -3,6 +3,13 @@ import { vi } from "vitest";
 
 import { type TabType } from "@shared/lib/navigation";
 
+vi.mock("axios", async () => {
+  const actual = await vi.importActual("axios");
+  return {
+    ...actual,
+    isAxiosError: vi.fn().mockReturnValue(true),
+  };
+});
 vi.mock("react-router", async () => {
   const actual = await vi.importActual("react-router");
 
