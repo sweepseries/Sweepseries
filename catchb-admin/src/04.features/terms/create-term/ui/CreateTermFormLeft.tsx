@@ -4,7 +4,9 @@ import { useCreateTermForm } from "../hooks/useCreateTermForm";
 import { Checkbox, TextInput } from "@shared/ui/Inputs";
 
 export function CreateTermFormLeft() {
-  const { title, setTitle, isRequired, toggleIsRequired } = useCreateTermForm();
+  const { title, setTitle, isRequired, setIsRequired } = useCreateTermForm();
+
+  const toggleIsRequired = () => setIsRequired(!isRequired);
 
   return (
     <Container>

@@ -36,9 +36,6 @@ describe("CreateTermPanel", () => {
     fireEvent.change(getByTestId("textinput-약관 제목"), {
       target: { value: "Test Term" },
     });
-    fireEvent.change(getByTestId("textarea-내용"), {
-      target: { value: "This is a test term content." },
-    });
     // toggle required checkbox
     fireEvent.click(getByTestId("checkbox-필수 약관"));
 
