@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 
 import { AnnouncementsContainer } from "@pages/announcements";
+import { FAQsContainer } from "@pages/faqs";
 import { LoginPage } from "@pages/login";
 import { TermsContainer } from "@pages/terms";
 import { NotFoundPage } from "@widgets/fallback/notfound";
@@ -14,6 +15,7 @@ export function AppRouter() {
         <Route element={<RootLayout />}>
           <Route index element={<Navigate to="home" replace />} />
           <Route path="announcements/*" element={<AnnouncementsContainer />} />
+          <Route path="faqs/*" element={<FAQsContainer />} />
           <Route path="terms/*" element={<TermsContainer />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

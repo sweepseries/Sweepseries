@@ -13,6 +13,9 @@ vi.mock("../providers", () => ({
 vi.mock("@pages/announcements", () => ({
   AnnouncementsContainer: () => <div>Announcements Container</div>,
 }));
+vi.mock("@pages/faqs", () => ({
+  FAQsContainer: () => <div>FAQs Container</div>,
+}));
 vi.mock("@pages/login", () => ({
   LoginPage: () => <div>Login Page</div>,
 }));
