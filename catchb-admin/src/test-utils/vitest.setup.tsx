@@ -117,61 +117,67 @@ vi.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
   Logo: () => <div>Mocked Logo</div>,
 }));
-vi.mock("@shared/ui/Inputs", () => ({
-  Checkbox: ({
-    label,
-    checked,
-    onToggle,
-  }: {
-    label: string;
-    checked: boolean;
-    onToggle: () => void;
-  }) => (
-    <label>
+vi.mock("@shared/ui/Inputs", async () => {
+  const { defaultExtensions } = await vi.importActual("@shared/ui/Inputs");
+
+  return {
+    Checkbox: ({
+      label,
+      checked,
+      onToggle,
+    }: {
+      label: string;
+      checked: boolean;
+      onToggle: () => void;
+    }) => (
+      <label>
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={onToggle}
+          data-testid={`checkbox-${label}`}
+        />
+        {label}
+      </label>
+    ),
+    EditorToolbar: () => <div>EditorToolbar</div>,
+    EditorWrapper: ({ children }: { children: React.ReactNode }) => children,
+    TextInput: ({
+      label,
+      value,
+      onChange,
+    }: {
+      label: string;
+      value: string;
+      onChange: (value: string) => void;
+    }) => (
       <input
-        type="checkbox"
-        checked={checked}
-        onChange={onToggle}
-        data-testid={`checkbox-${label}`}
+        data-testid={`textinput-${label}`}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
       />
-      {label}
-    </label>
-  ),
-  EditorToolbar: () => <div>EditorToolbar</div>,
-  TextInput: ({
-    label,
-    value,
-    onChange,
-  }: {
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-  }) => (
-    <input
-      data-testid={`textinput-${label}`}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  ),
-  TextArea: ({
-    label,
-    value,
-    onChange,
-    placeholder,
-  }: {
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-    placeholder?: string;
-  }) => (
-    <textarea
-      data-testid={`textarea-${label}`}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-    />
-  ),
-}));
+    ),
+    TextArea: ({
+      label,
+      value,
+      onChange,
+      placeholder,
+    }: {
+      label: string;
+      value: string;
+      onChange: (value: string) => void;
+      placeholder?: string;
+    }) => (
+      <textarea
+        data-testid={`textarea-${label}`}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+      />
+    ),
+    defaultExtensions,
+  };
+});
 vi.mock("@shared/ui/Texts", () => ({
   ModalSubtitle: ({ children }: { children: React.ReactNode }) => (
     <span>{children}</span>
