@@ -14,9 +14,13 @@ const TestComponent = () => {
     content,
     setContent,
     isImportant,
-    toggleIsImportant,
+    setIsImportant,
     resetForm,
   } = useAnnouncementForm();
+
+  const toggleIsImportant = () => {
+    setIsImportant(!isImportant);
+  };
 
   return (
     <div>

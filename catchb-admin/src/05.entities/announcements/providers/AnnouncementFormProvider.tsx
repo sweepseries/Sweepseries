@@ -15,10 +15,6 @@ export function AnnouncementFormProvider({
   const [content, setContent] = useState<string>("");
   const [isImportant, setIsImportant] = useState<boolean>(false);
 
-  const toggleIsImportant = useCallback(() => {
-    setIsImportant((prev) => !prev);
-  }, []);
-
   const resetForm = useCallback(() => {
     setTitle("");
     setContent("");
@@ -32,10 +28,10 @@ export function AnnouncementFormProvider({
       isImportant,
       setTitle,
       setContent,
-      toggleIsImportant,
+      setIsImportant,
       resetForm,
     }),
-    [title, content, isImportant, toggleIsImportant, resetForm]
+    [title, content, isImportant, resetForm]
   );
 
   return (

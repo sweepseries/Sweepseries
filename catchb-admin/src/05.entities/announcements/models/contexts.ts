@@ -6,7 +6,7 @@ export type AnnouncementFormType = {
   isImportant: boolean;
   setTitle: (title: string) => void;
   setContent: (content: string) => void;
-  toggleIsImportant: () => void;
+  setIsImportant: (isImportant: boolean) => void;
   resetForm: () => void;
 };
 

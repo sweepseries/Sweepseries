@@ -4,14 +4,10 @@ import { useAnnouncementForm } from "@entities/announcements";
 import { Checkbox, TextArea, TextInput } from "@shared/ui/Inputs";
 
 export function CreateAnnouncementForm() {
-  const {
-    title,
-    setTitle,
-    content,
-    setContent,
-    isImportant,
-    toggleIsImportant,
-  } = useAnnouncementForm();
+  const { title, setTitle, content, setContent, isImportant, setIsImportant } =
+    useAnnouncementForm();
+
+  const toggleIsImportant = () => setIsImportant(!isImportant);
 
   return (
     <Container>
@@ -19,7 +15,7 @@ export function CreateAnnouncementForm() {
         label="공지 제목"
         value={title}
         onChange={setTitle}
-        placeholder="약관 제목을 입력하세요"
+        placeholder="공지 제목을 입력하세요"
       />
       <TextArea
         label="공지 내용"
