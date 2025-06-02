@@ -3,7 +3,7 @@ import { describe, it, vi } from "vitest";
 import { fireEvent } from "@testing-library/react";
 import { Editor } from "@tiptap/react";
 
-import { EditorToolbar } from "@shared/ui/Inputs";
+import { EditorToolbar, EditorWrapper } from "@shared/ui/Inputs";
 import { renderWithProviders } from "@test-utils/renderer";
 
 vi.unmock("@shared/ui/Inputs");
@@ -31,7 +31,9 @@ describe("EditorToolbar", () => {
     } as any as Editor;
 
     const { getByTestId } = renderWithProviders(
-      <EditorToolbar editor={mockEditor} />
+      <EditorWrapper>
+        <EditorToolbar editor={mockEditor} />
+      </EditorWrapper>
     );
 
     fireEvent.click(getByTestId("toolbar-bold"));
