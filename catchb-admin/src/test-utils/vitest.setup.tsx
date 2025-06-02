@@ -91,8 +91,13 @@ vi.mock("@shared/ui/Inputs", () => ({
     checked: boolean;
     onToggle: () => void;
   }) => (
-    <label data-testid={`checkbox-${label}`}>
-      <input type="checkbox" checked={checked} onChange={onToggle} />
+    <label>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onToggle}
+        data-testid={`checkbox-${label}`}
+      />
       {label}
     </label>
   ),
