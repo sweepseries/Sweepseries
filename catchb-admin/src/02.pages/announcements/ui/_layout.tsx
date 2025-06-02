@@ -8,7 +8,7 @@ export function AnnouncementsManagementLayout() {
   const matchCreate = useMatch("/announcements/create");
   const matchDetail = useMatch("/announcements/:id");
   const matchEdit = useMatch("/announcements/:id/edit");
-  const isModalOpen = Boolean(matchCreate || matchDetail || matchEdit);
+  const isModalOpen = Boolean(matchCreate ?? matchDetail ?? matchEdit);
   const navigate = useNavigate();
 
   const closeModal = () => navigate("/announcements");
