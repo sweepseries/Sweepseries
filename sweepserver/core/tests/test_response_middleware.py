@@ -1,9 +1,7 @@
 import sys
-import traceback
-from io import StringIO
 from unittest.mock import patch
 
-from django.http import HttpRequest, HttpResponse, Http404
+from django.http import HttpResponse
 from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -17,16 +15,18 @@ class BadResponseMiddlewareTest(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.middleware = BadResponseMiddleware(get_response=lambda r: HttpResponse())
-        self.request = self.factory.get('/test')
+        self.request = self.factory.get("/test")
         self.request.user = AnonymousUser()
-        self.request.path = '/test'
-        self.request.method = 'GET'
+        self.request.path = "/test"
+        self.request.method = "GET"
 
     @override_settings(DEBUG=True)
     def test_process_exception_skip_logging(self):
         ## DEBUG 모드에서는 예외 로깅을 건너뛴다.
         with patch("core.middlewares.logger.error") as mock_logger:
-            result = self.middleware.process_exception(self.request, ValueError("Test error"))
+            result = self.middleware.process_exception(
+                self.request, ValueError("Test error")
+            )
 
             # Because DEBUG=True, it returns None and never logs
             self.assertIsNone(result)
