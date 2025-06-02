@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { useAnnouncementForm } from "@entities/announcements";
+import { useAnnouncementForm } from "../hooks/useAnnouncementForm";
 import { Checkbox, TextArea, TextInput } from "@shared/ui/Inputs";
 
-export function CreateAnnouncementForm() {
+export function AnnouncementForm() {
   const { title, setTitle, content, setContent, isImportant, setIsImportant } =
     useAnnouncementForm();
 

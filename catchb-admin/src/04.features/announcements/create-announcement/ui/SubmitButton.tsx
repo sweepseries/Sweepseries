@@ -26,7 +26,7 @@ export function SubmitButton() {
       ["announcements"],
       (old) => {
         if (!old) return [response.data];
-        return [...old, response.data].sort((a, b) => a.id - b.id);
+        return [...old, response.data].sort((a, b) => b.id - a.id);
       }
     );
 
