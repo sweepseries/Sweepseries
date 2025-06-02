@@ -15,14 +15,12 @@ export function CreateAnnouncementForm() {
 
   return (
     <Container>
-      <Header>
-        <TextInput
-          label="공지 제목"
-          value={title}
-          onChange={setTitle}
-          placeholder="약관 제목을 입력하세요"
-        />
-      </Header>
+      <TextInput
+        label="공지 제목"
+        value={title}
+        onChange={setTitle}
+        placeholder="약관 제목을 입력하세요"
+      />
       <TextArea
         label="공지 내용"
         value={content}
@@ -45,15 +43,4 @@ const Container = styled.div`
   flex-direction: column;
   padding: 0 1rem;
   gap: 1rem;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-
-  > div:last-child {
-    flex: 1;
-  }
 `;
