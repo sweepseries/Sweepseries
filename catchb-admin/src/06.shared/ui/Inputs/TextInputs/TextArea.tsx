@@ -41,6 +41,7 @@ const Input = styled.textarea`
   border: ${({ theme }) => `1px solid ${theme.colors.gray900}`};
   background-color: ${({ theme }) => theme.colors.background100};
   resize: none;
+  overflow-y: auto;
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary};
