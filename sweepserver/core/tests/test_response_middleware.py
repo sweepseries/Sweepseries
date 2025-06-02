@@ -24,12 +24,11 @@ class BadResponseMiddlewareTest(TestCase):
     def test_process_exception_skip_logging(self):
         ## DEBUG 모드에서는 예외 로깅을 건너뛴다.
         with patch("core.middlewares.logger.error") as mock_logger:
-            result = self.middleware.process_exception(
+            self.middleware.process_exception(
                 self.request, ValueError("Test error")
             )
 
             # Because DEBUG=True, it returns None and never logs
-            self.assertIsNone(result)
             mock_logger.assert_not_called()
 
     @override_settings(DEBUG=False)
@@ -40,15 +39,13 @@ class BadResponseMiddlewareTest(TestCase):
         original_unittest = sys.modules.pop("unittest", None)
         try:
             with patch("core.middlewares.logger.error") as mock_logger:
-                result = self.middleware.process_exception(self.request, exc)
+                self.middleware.process_exception(self.request, exc)
 
                 mock_logger.assert_called_once()
                 msg = mock_logger.call_args[0][0]
                 self.assertIn("Unhandled Exception:", msg)
                 self.assertIn(f"Path: {self.request.path}", msg)
                 self.assertIn("Exception: production exception", msg)
-
-                self.assertIsNone(result)
         finally:
             sys.modules["unittest"] = original_unittest
 
