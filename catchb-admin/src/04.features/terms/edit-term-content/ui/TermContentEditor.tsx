@@ -1,23 +1,13 @@
 import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import styled from "styled-components";
 
 import { useEditTermContents } from "@entities/terms";
 import { TextButton } from "@shared/ui/Buttons";
-import { EditorToolbar } from "@shared/ui/Inputs";
-
-const extensions = [
-  StarterKit.configure({
-    bulletList: {
-      keepMarks: true,
-      keepAttributes: false,
-    },
-    orderedList: {
-      keepMarks: true,
-      keepAttributes: false,
-    },
-  }),
-];
+import {
+  EditorToolbar,
+  EditorWrapper,
+  defaultExtensions,
+} from "@shared/ui/Inputs";
 
 interface Props {
   termId: number;
@@ -33,7 +23,7 @@ export function TermContentEditor({
   postSuccess,
 }: Readonly<Props>) {
   const editor = useEditor({
-    extensions,
+    extensions: defaultExtensions,
     content,
   });
   const { mutate: editContents } = useEditTermContents(termId);
@@ -62,10 +52,10 @@ export function TermContentEditor({
 
   return (
     <Container>
-      <Wrapper>
+      <EditorWrapper>
         <EditorToolbar editor={editor} />
         <EditorContent editor={editor} />
-      </Wrapper>
+      </EditorWrapper>
       <TextButton text="저장" onClick={saveContent} />
     </Container>
   );
@@ -76,21 +66,4 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 1rem;
-  overflow: hidden;
-
-  .ProseMirror {
-    height: calc(100dvh - 360px);
-    white-space: pre-wrap;
-    overflow-y: auto;
-    padding: 0.25rem 0.5rem;
-    border-radius: 8px;
-    border: 1px solid ${({ theme }) => theme.colors.gray900};
-  }
 `;
