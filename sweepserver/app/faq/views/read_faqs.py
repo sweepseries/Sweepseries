@@ -30,7 +30,7 @@ class FAQViewSet(ReadOnlyModelViewSet):
         queryset = self.get_queryset()
 
         for category in FAQCategory.objects.all():
-            faqs = queryset.filter(category=category)
+            faqs = queryset.filter(category=category, is_active=True)
             data = FAQReadSerializer(faqs, many=True).data
             categories.append(category.name)
             faqs_by_category[category.name] = data
