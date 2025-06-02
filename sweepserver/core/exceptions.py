@@ -39,7 +39,7 @@ def get_drf_validation_error_response(e: ValidationError) -> Response:
     """
     DRF ValidationError를 처리하는 함수
     """
-    if isinstance(e.detail, list):
+    if isinstance(e.detail, list) and isinstance(e.detail[0], str):
         return Response(data={"error": e.detail[0]}, status=status.HTTP_400_BAD_REQUEST)
     if isinstance(e.detail, dict):
         first_error = list(e.detail.values())[0]
