@@ -61,6 +61,25 @@ class AdminAnnouncementAPITestCase(AdminPageAPITestCase):
         announcement.refresh_from_db()
         self.assertTrue(announcement.is_deleted)
 
+    def test_update_success(self):
+        self.client.force_authenticate(user=self.admin)
+        announcement = Announcement.objects.first()
+        update_data = {
+            "title": "수정된 공지사항",
+            "content": "수정된 내용",
+            "is_important": False,
+        }
+
+        response = self.client.put(
+            f"{self.url}{announcement.id}/", data=update_data, HTTP_ORIGIN=self.admin_page
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        announcement.refresh_from_db()
+        self.assertEqual(announcement.title, update_data["title"])
+        self.assertEqual(announcement.content, update_data["content"])
+        self.assertFalse(announcement.is_important)
+
     def test_reactivate_success(self):
         self.client.force_authenticate(user=self.admin)
         announcement = Announcement.objects.first()

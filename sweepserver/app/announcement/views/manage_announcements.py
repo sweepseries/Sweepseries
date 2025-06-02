@@ -21,7 +21,7 @@ class AnnouncementAdminViewSet(ModelViewSet):
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSimpleSerializerForAdmin
     permission_classes = [AdminPageOnly]
-    http_method_names = ["get", "post", "delete"]
+    http_method_names = ["get", "post", "delete", "put"]
 
     @extend_schema(summary="공지사항 목록 조회", tags=["공지사항 관리"])
     def list(self, request, *args, **kwargs):
@@ -52,6 +52,15 @@ class AnnouncementAdminViewSet(ModelViewSet):
         instance.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @extend_schema(summary="공지사항 수정", tags=["공지사항 관리"])
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = AnnouncementDetailSerializerForAdmin(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(summary="공지사항 재활성화", tags=["공지사항 관리"])
     @action(detail=True, methods=["post"], url_path="reactivate")

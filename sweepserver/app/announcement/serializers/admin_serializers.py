@@ -34,11 +34,3 @@ class AnnouncementDetailSerializerForAdmin(AnnouncementSimpleSerializerForAdmin)
         fields = AnnouncementSimpleSerializerForAdmin.Meta.fields + [
             "content",
         ]
-
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get("title", instance.title)
-        instance.content = validated_data.get("content", instance.content)
-        instance.updated_at = timezone.now()
-        instance.save()
-
-        return instance
