@@ -41,7 +41,9 @@ class AdminAnnouncementAPITestCase(AdminPageAPITestCase):
             self.url, data=self.create_data, HTTP_ORIGIN=self.admin_page
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data["title"], self.create_data["title"])
+        announcement = Announcement.objects.get(id=response.data["id"])
+        self.assertEqual(announcement.title, self.create_data["title"])
+        self.assertEqual(announcement.content, self.create_data["content"])
 
     def test_create_failure(self):
         self.client.force_authenticate(user=self.admin)

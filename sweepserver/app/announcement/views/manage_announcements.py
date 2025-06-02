@@ -39,7 +39,7 @@ class AnnouncementAdminViewSet(ModelViewSet):
 
     @extend_schema(summary="공지사항 생성", tags=["공지사항 관리"])
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        serializer = AnnouncementDetailSerializerForAdmin(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
