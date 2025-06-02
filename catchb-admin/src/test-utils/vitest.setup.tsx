@@ -15,6 +15,35 @@ vi.mock("react-router", async () => {
   };
 });
 
+vi.mock("@widgets/layouts/modals", async () => {
+  const { ModalInnerContainer, ModalContentWrapper, ModalContentVertical } =
+    await vi.importActual("@widgets/layouts/modals/");
+
+  return {
+    Modal: ({
+      isOpen,
+      onClose,
+      children,
+    }: {
+      isOpen: boolean;
+      onClose: () => void;
+      children: React.ReactNode;
+    }) => (
+      <>
+        {isOpen && (
+          <div>
+            <button onClick={onClose}>Close</button>
+            {children}
+          </div>
+        )}
+      </>
+    ),
+    ModalInnerContainer,
+    ModalContentWrapper,
+    ModalContentVertical,
+  };
+});
+
 vi.mock("@shared/lib/auth", async () => {
   const { AuthContext } = await vi.importActual("@shared/lib/auth");
 

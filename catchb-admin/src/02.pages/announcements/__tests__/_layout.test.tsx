@@ -8,26 +8,6 @@ import { renderWithProviders } from "@test-utils/renderer";
 vi.mock("../ui/AnnouncementsList/AnnouncementsListPage", () => ({
   AnnouncementsListPage: vi.fn(() => <div>Announcements List</div>),
 }));
-vi.mock("@widgets/layouts/modals", () => ({
-  Modal: ({
-    isOpen,
-    onClose,
-    children,
-  }: {
-    isOpen: boolean;
-    onClose: () => void;
-    children: React.ReactNode;
-  }) => (
-    <>
-      {isOpen && (
-        <div>
-          <button onClick={onClose}>Close</button>
-          {children}
-        </div>
-      )}
-    </>
-  ),
-}));
 
 describe("AnnouncementsManagementLayout", () => {
   const navigateMock = vi.fn();

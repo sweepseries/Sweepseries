@@ -4,6 +4,8 @@ import { cleanup, fireEvent } from "@testing-library/react";
 import { Modal } from "@widgets/layouts/modals";
 import { renderWithProviders } from "@test-utils/renderer";
 
+vi.unmock("@widgets/layouts/modals");
+
 describe("Modal", () => {
   beforeEach(() => {
     const modalRoot = document.createElement("div");
@@ -60,7 +62,7 @@ describe("Modal", () => {
         <div>Test Content</div>
       </Modal>
     );
-    
+
     rerender(
       <Modal isOpen={false} onClose={onClose}>
         <div>Test Content</div>
