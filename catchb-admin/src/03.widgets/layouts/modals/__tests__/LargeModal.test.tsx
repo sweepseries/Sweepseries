@@ -1,10 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent } from "@testing-library/react";
 
-import { LargeModal } from "@widgets/layouts/modals";
+import { Modal } from "@widgets/layouts/modals";
 import { renderWithProviders } from "@test-utils/renderer";
 
-describe("LargeModal", () => {
+vi.unmock("@widgets/layouts/modals");
+
+describe("Modal", () => {
   beforeEach(() => {
     const modalRoot = document.createElement("div");
     modalRoot.setAttribute("id", "modal-root");
@@ -18,9 +20,9 @@ describe("LargeModal", () => {
 
   it("does not render when closed", () => {
     const { queryByText, queryByTestId } = renderWithProviders(
-      <LargeModal isOpen={false} onClose={vi.fn()}>
+      <Modal isOpen={false} onClose={vi.fn()}>
         <div>Test Content</div>
-      </LargeModal>
+      </Modal>
     );
 
     expect(queryByText("Test Content")).toBeNull();
@@ -32,9 +34,9 @@ describe("LargeModal", () => {
     const onClose = vi.fn();
 
     const { getByTestId, getByText } = renderWithProviders(
-      <LargeModal isOpen={true} onClose={onClose}>
+      <Modal isOpen={true} onClose={onClose}>
         <div>Test Content</div>
-      </LargeModal>
+      </Modal>
     );
 
     expect(getByText("Test Content")).toBeInTheDocument();
@@ -56,18 +58,26 @@ describe("LargeModal", () => {
     const onClose = vi.fn();
 
     const { rerender, getByTestId } = renderWithProviders(
-      <LargeModal isOpen={true} onClose={onClose}>
+      <Modal isOpen={true} onClose={onClose}>
         <div>Test Content</div>
-      </LargeModal>
+      </Modal>
     );
-    
+
     rerender(
-      <LargeModal isOpen={false} onClose={onClose}>
+      <Modal isOpen={false} onClose={onClose}>
         <div>Test Content</div>
-      </LargeModal>
+      </Modal>
     );
 
     // Simulate animation end
     fireEvent.animationEnd(getByTestId("modal-container"));
+  });
+
+  it("renders large modal", async () => {
+    renderWithProviders(
+      <Modal isOpen={true} onClose={vi.fn()} large>
+        <div>Test Content</div>
+      </Modal>
+    );
   });
 });

@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
+import { AppIcon } from "@shared/ui/Icons";
+
 interface Props {
   label: string;
   checked: boolean;
   onToggle: () => void;
+  icon?: string;
 }
 
-export function Checkbox({ label, checked, onToggle }: Readonly<Props>) {
+export function Checkbox({ label, checked, onToggle, icon }: Readonly<Props>) {
   return (
     <Container onClick={onToggle} data-testid={`checkbox-${label}`}>
-      <Label>{label}</Label>
+      <Label>
+        {icon && <AppIcon icon={icon} size={16} />}
+        {label}
+      </Label>
       <Input type="checkbox" checked={checked} readOnly />
     </Container>
   );
@@ -28,7 +34,10 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
+  display: flex;
+  align-items: center;
   padding: 0 0.25rem;
+  gap: 0.25rem;
   font-size: 1.2rem;
   font-weight: 500;
 `;

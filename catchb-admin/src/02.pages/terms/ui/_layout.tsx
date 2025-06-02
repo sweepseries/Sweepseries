@@ -2,7 +2,7 @@ import { Outlet, useMatch, useNavigate } from "react-router";
 import styled from "styled-components";
 
 import { TermsListPage } from "./TermsList/TermsListPage";
-import { LargeModal } from "@widgets/layouts/modals";
+import { Modal } from "@widgets/layouts/modals";
 
 export function TermsManagementLayout() {
   const matchCreate = useMatch("/terms/create");
@@ -15,9 +15,9 @@ export function TermsManagementLayout() {
   return (
     <Container>
       <TermsListPage />
-      <LargeModal isOpen={isModalOpen} onClose={closeModal}>
+      <Modal isOpen={isModalOpen} onClose={closeModal} large>
         <Outlet />
-      </LargeModal>
+      </Modal>
     </Container>
   );
 }

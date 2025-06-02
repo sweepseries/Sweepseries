@@ -50,7 +50,7 @@ describe("TermsListPage", () => {
   });
 
   it("handles API error", async () => {
-    vi.spyOn(axios, "get").mockRejectedValue({error: "API Error"});
+    vi.spyOn(axios, "get").mockRejectedValue({ error: "API Error" });
     vi.spyOn(window, "alert").mockImplementation(() => {});
 
     renderWithProviders(<TermsListPage />);

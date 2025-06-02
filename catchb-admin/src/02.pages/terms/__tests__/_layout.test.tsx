@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, waitFor } from "@testing-library/react";
 import * as Router from "react-router";
 
@@ -8,28 +8,15 @@ import { renderWithProviders } from "@test-utils/renderer";
 vi.mock("../ui/TermsList/TermsListPage", () => ({
   TermsListPage: vi.fn(() => <div>Terms List</div>),
 }));
-vi.mock("@widgets/layouts/modals", () => ({
-  LargeModal: ({
-    isOpen,
-    onClose,
-    children,
-  }: {
-    isOpen: boolean;
-    onClose: () => void;
-    children: React.ReactNode;
-  }) => (
-    <>
-      {isOpen && (
-        <div>
-          <button onClick={onClose}>Close</button>
-          {children}
-        </div>
-      )}
-    </>
-  ),
-}));
 
 describe("TermsManagementLayout", () => {
+  const navigateMock = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.spyOn(Router, "useNavigate").mockReturnValue(navigateMock);
+  });
+
   it("renders list page", () => {
     vi.spyOn(Router, "useMatch").mockReturnValue(null);
 
@@ -38,7 +25,7 @@ describe("TermsManagementLayout", () => {
     expect(getByText("Terms List")).toBeInTheDocument();
   });
 
-  it("opens modal for create term", () => {
+  it("opens modal for create term", async () => {
     vi.spyOn(Router, "useMatch").mockReturnValue({
       params: {},
       pathname: "/terms/create",
@@ -49,6 +36,6 @@ describe("TermsManagementLayout", () => {
     const { getByText } = renderWithProviders(<TermsManagementLayout />);
 
     fireEvent.click(getByText("Close"));
-    waitFor(() => expect(Router.useNavigate()).toHaveBeenCalledWith("/terms"));
+    await waitFor(() => expect(navigateMock).toHaveBeenCalledWith("/terms"));
   });
 });

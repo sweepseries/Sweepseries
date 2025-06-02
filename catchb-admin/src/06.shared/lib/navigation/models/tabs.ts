@@ -18,7 +18,7 @@ export const tabs: TabType[] = [
   },
   {
     title: "공지 관리",
-    pathName: "notices",
+    pathName: "announcements",
     icon: "announcement",
   },
   {

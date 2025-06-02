@@ -1,0 +1,42 @@
+import styled from "styled-components";
+
+import { useAnnouncementForm } from "../hooks/useAnnouncementForm";
+import { Checkbox, TextArea, TextInput } from "@shared/ui/Inputs";
+
+export function AnnouncementForm() {
+  const { title, setTitle, content, setContent, isImportant, setIsImportant } =
+    useAnnouncementForm();
+
+  const toggleIsImportant = () => setIsImportant(!isImportant);
+
+  return (
+    <Container>
+      <TextInput
+        label="공지 제목"
+        value={title}
+        onChange={setTitle}
+        placeholder="공지 제목을 입력하세요"
+      />
+      <TextArea
+        label="공지 내용"
+        value={content}
+        onChange={setContent}
+        placeholder="공지 내용을 입력하세요"
+      />
+      <Checkbox
+        label="중요 공지"
+        checked={isImportant}
+        onToggle={toggleIsImportant}
+        icon="pin"
+      />
+    </Container>
+  );
+}
+
+const Container = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 1rem;
+  gap: 1rem;
+`;

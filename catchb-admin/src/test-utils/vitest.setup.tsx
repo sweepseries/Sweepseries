@@ -3,6 +3,13 @@ import { vi } from "vitest";
 
 import { type TabType } from "@shared/lib/navigation";
 
+vi.mock("axios", async () => {
+  const actual = await vi.importActual("axios");
+  return {
+    ...actual,
+    isAxiosError: vi.fn().mockReturnValue(true),
+  };
+});
 vi.mock("react-router", async () => {
   const actual = await vi.importActual("react-router");
 
@@ -12,6 +19,35 @@ vi.mock("react-router", async () => {
     useNavigate: () => vi.fn(),
     useLocation: vi.fn(),
     useParams: vi.fn(),
+  };
+});
+
+vi.mock("@widgets/layouts/modals", async () => {
+  const { ModalInnerContainer, ModalContentWrapper, ModalContentVertical } =
+    await vi.importActual("@widgets/layouts/modals/");
+
+  return {
+    Modal: ({
+      isOpen,
+      onClose,
+      children,
+    }: {
+      isOpen: boolean;
+      onClose: () => void;
+      children: React.ReactNode;
+    }) => (
+      <>
+        {isOpen && (
+          <div>
+            <button onClick={onClose}>Close</button>
+            {children}
+          </div>
+        )}
+      </>
+    ),
+    ModalInnerContainer,
+    ModalContentWrapper,
+    ModalContentVertical,
   };
 });
 
@@ -91,8 +127,13 @@ vi.mock("@shared/ui/Inputs", () => ({
     checked: boolean;
     onToggle: () => void;
   }) => (
-    <label data-testid={`checkbox-${label}`}>
-      <input type="checkbox" checked={checked} onChange={onToggle} />
+    <label>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onToggle}
+        data-testid={`checkbox-${label}`}
+      />
       {label}
     </label>
   ),

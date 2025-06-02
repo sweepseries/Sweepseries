@@ -1,5 +1,6 @@
 export {
   ModalInnerContainer,
   ModalContentWrapper,
+  ModalContentVertical,
 } from "./ui/_innerComponents";
-export { LargeModal } from "./ui/LargeModal";
+export { Modal } from "./ui/Modal";
