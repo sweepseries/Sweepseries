@@ -35,4 +35,4 @@ class FAQ(models.Model):
         db_table = "faq"
         verbose_name = "자주 묻는 질문"
         verbose_name_plural = "자주 묻는 질문"
-        ordering = ["id"]
+        ordering = ["is_active", "id"]
