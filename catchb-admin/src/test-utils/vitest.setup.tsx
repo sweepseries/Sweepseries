@@ -23,7 +23,7 @@ vi.mock("react-router", async () => {
 });
 
 vi.mock("@widgets/layouts/modals", async () => {
-  const { ModalInnerContainer, ModalContentWrapper, ModalContentVertical } =
+  const { ModalInnerContainer, ModalContentHorizontal, ModalContentVertical } =
     await vi.importActual("@widgets/layouts/modals/");
 
   return {
@@ -46,7 +46,7 @@ vi.mock("@widgets/layouts/modals", async () => {
       </>
     ),
     ModalInnerContainer,
-    ModalContentWrapper,
+    ModalContentHorizontal,
     ModalContentVertical,
   };
 });
