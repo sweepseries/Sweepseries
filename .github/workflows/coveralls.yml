@@ -1,6 +1,9 @@
 name: Coverage and Code Quality
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
