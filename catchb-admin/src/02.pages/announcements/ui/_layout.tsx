@@ -7,7 +7,8 @@ import { Modal } from "@widgets/layouts/modals";
 export function AnnouncementsManagementLayout() {
   const matchCreate = useMatch("/announcements/create");
   const matchDetail = useMatch("/announcements/:id");
-  const isModalOpen = Boolean(matchCreate || matchDetail);
+  const matchEdit = useMatch("/announcements/:id/edit");
+  const isModalOpen = Boolean(matchCreate || matchDetail || matchEdit);
   const navigate = useNavigate();
 
   const closeModal = () => navigate("/announcements");
