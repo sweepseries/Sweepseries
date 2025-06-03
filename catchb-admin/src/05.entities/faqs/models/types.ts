@@ -21,3 +21,9 @@ export type FAQListResponseType = {
 export type AdminCatchBFAQDetailType = {
   answer: string;
 } & AdminCatchBFAQSimpleType;
+
+export type FAQFormValuesType = {
+  category_id: number;
+  question: string;
+  answer: string;
+};
