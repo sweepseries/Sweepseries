@@ -19,6 +19,7 @@ class FAQAdminSimpleSerializer(serializers.ModelSerializer):
     """
 
     category = FAQCategorySerializer(read_only=True)
+    is_active = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = FAQ
@@ -30,5 +31,9 @@ class FAQAdminSerializer(FAQAdminSimpleSerializer):
     FAQ 관리자용 serializer (상세 조회, 생성, 수정용)
     """
 
+    category_id = serializers.PrimaryKeyRelatedField(
+        source="category", queryset=FAQCategory.objects.all(), write_only=True
+    )
+
     class Meta(FAQAdminSimpleSerializer.Meta):
-        fields = FAQAdminSimpleSerializer.Meta.fields + ["answer"]
+        fields = FAQAdminSimpleSerializer.Meta.fields + ["answer", "category_id"]

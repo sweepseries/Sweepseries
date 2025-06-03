@@ -63,6 +63,17 @@ class FAQAdminViewSet(ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(summary="자주 묻는 질문 생성", tags=["관리자 자주 묻는 질문"])
+    def create(self, request, *args, **kwargs):
+        """
+        자주 묻는 질문 생성
+        """
+        serializer = FAQAdminSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
     @extend_schema(summary="자주 묻는 질문 삭제", tags=["관리자 자주 묻는 질문"])
     def destroy(self, request, *args, **kwargs):
         """

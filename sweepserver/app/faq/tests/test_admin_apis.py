@@ -15,7 +15,7 @@ class AdminFAQAPITestCase(AdminPageAPITestCase):
         super().setUp()
         self.url = "/api/admin/v1/faqs/"
         self.create_data = {
-            "category": 1,
+            "category_id": 1,
             "question": "새로운 FAQ 질문",
             "answer": "FAQ 답변 내용",
         }
@@ -32,6 +32,17 @@ class AdminFAQAPITestCase(AdminPageAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("question", response.data)
         self.assertIn("answer", response.data)
+
+    def test_create_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            self.url, data=self.create_data, HTTP_ORIGIN=self.admin_page
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["question"], self.create_data["question"])
+        self.assertEqual(response.data["answer"], self.create_data["answer"])
+        self.assertEqual(response.data["category"]["name"], "이벤트")
+        self.assertTrue(response.data["is_active"])
 
     def test_delete_and_reactivate_success(self):
         self.client.force_authenticate(user=self.admin)
