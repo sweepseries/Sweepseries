@@ -1,6 +1,6 @@
 export {
   ModalInnerContainer,
-  ModalContentWrapper,
+  ModalContentHorizontal,
   ModalContentVertical,
 } from "./ui/_innerComponents";
 export { Modal } from "./ui/Modal";

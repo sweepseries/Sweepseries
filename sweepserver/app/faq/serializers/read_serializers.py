@@ -4,8 +4,11 @@ from ..models import FAQ
 
 
 class FAQReadSerializer(serializers.ModelSerializer):
-    category = serializers.CharField(source="get_category_display")
+    category = serializers.SerializerMethodField()
 
     class Meta:
         model = FAQ
         fields = ["id", "category", "question", "answer"]
+
+    def get_category(self, obj):
+        return obj.category.name

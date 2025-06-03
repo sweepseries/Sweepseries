@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { AnnouncementDetailsLoading } from "./_loading";
+import { LoadingTitleAndContentModal } from "@widgets/fallback/loading";
 import {
   ModalInnerContainer,
   ModalContentVertical,
@@ -28,7 +28,7 @@ function Components() {
   const { announcementDetails, isLoading } = useAnnouncementDetails();
 
   if (isLoading) {
-    return <AnnouncementDetailsLoading />;
+    return <LoadingTitleAndContentModal />;
   }
 
   if (!announcementDetails) return null;

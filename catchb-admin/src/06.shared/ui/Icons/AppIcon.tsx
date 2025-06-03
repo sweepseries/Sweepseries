@@ -4,6 +4,10 @@ import ArrowUp from "./files/arrow-up.svg?react";
 import Bold from "./files/bold.svg?react";
 import BulletList from "./files/bullet-list.svg?react";
 import Close from "./files/close.svg?react";
+import ChevronDown from "./files/chevron-down.svg?react";
+import ChevronLeft from "./files/chevron-left.svg?react";
+import ChevronRight from "./files/chevron-right.svg?react";
+import ChevronUp from "./files/chevron-up.svg?react";
 import Dashboard from "./files/dashboard.svg?react";
 import Document from "./files/document.svg?react";
 import H1 from "./files/h1.svg?react";
@@ -40,6 +44,10 @@ const iconMap: Record<
   "arrow-up": ArrowUp,
   bold: Bold,
   "bullet-list": BulletList,
+  "chevron-down": ChevronDown,
+  "chevron-left": ChevronLeft,
+  "chevron-right": ChevronRight,
+  "chevron-up": ChevronUp,
   close: Close,
   dashboard: Dashboard,
   document: Document,

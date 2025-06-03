@@ -4,8 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from ..enums import FAQCategoryChoices
-from ..models import FAQ
+from ..models import FAQ, FAQCategory
 from ..serializers import FAQReadSerializer
 
 
@@ -30,11 +29,11 @@ class FAQViewSet(ReadOnlyModelViewSet):
         faqs_by_category = {}
         queryset = self.get_queryset()
 
-        for value, label in FAQCategoryChoices.choices:
-            faqs = queryset.filter(category=value)
+        for category in FAQCategory.objects.all():
+            faqs = queryset.filter(category=category, is_active=True)
             data = FAQReadSerializer(faqs, many=True).data
-            categories.append(label)
-            faqs_by_category[label] = data
+            categories.append(category.name)
+            faqs_by_category[category.name] = data
 
         all_faqs = FAQReadSerializer(queryset, many=True).data
         faqs_by_category["전체"] = all_faqs

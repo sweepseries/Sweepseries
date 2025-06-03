@@ -9,15 +9,14 @@ import {
 import { renderWithProviders } from "@test-utils/renderer";
 
 const TestResetComponent = () => {
-  const { resetForm } =
-    useAnnouncementForm();
+  const { resetForm } = useAnnouncementForm();
 
   return (
-      <button onClick={resetForm} data-testid="reset-button">
-        Reset Form
-      </button>
+    <button onClick={resetForm} data-testid="reset-button">
+      Reset Form
+    </button>
   );
-}
+};
 
 describe("AnnouncementFormProvider", () => {
   it("should provide initial values and allow updates", () => {

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export function AnnouncementDetailsLoading() {
+export function LoadingTitleAndContentModal() {
   return (
     <Wrapper>
       <Skeleton height={36} width={360} />
