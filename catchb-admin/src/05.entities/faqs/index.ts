@@ -1,5 +1,6 @@
 export { useCreateFAQ } from "./api/createFAQ";
 export { useDeleteFAQ } from "./api/deleteFAQ";
+export { useEditFAQ } from "./api/editFAQ";
 export { useFAQs } from "./api/listFAQs";
 export { useReactivateFAQ } from "./api/reactivateFAQ";
 export { useRetrieveFAQ } from "./api/retrieveFAQ";
