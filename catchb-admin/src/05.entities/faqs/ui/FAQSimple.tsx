@@ -9,7 +9,9 @@ interface Props {
 
 export function FAQSimple({ faq }: Readonly<Props>) {
   return (
-    <FAQRow>
+    <FAQRow
+      style={{ textDecoration: !faq.is_active ? "line-through" : "none" }}
+    >
       <IndexColumn>{faq.id}</IndexColumn>
       <TitleColumn>{faq.question}</TitleColumn>
       <CategoryColumn>

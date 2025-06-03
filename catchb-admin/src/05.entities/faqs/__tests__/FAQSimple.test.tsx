@@ -9,6 +9,7 @@ describe("FAQSimple", () => {
       <>
         <FAQSimple faq={sampleFAQs[0]} />
         <FAQSimple faq={sampleFAQs[1]} />
+        <FAQSimple faq={sampleFAQs[2]} />
       </>
     );
   });
