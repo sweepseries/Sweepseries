@@ -33,14 +33,16 @@ describe("FAQDetailsPanel", () => {
       ).toBeInTheDocument();
     });
 
+    const deleteButton = getByTestId("delete-faq-button");
+
     // test delete (1회 실패: cancel)
     vi.spyOn(window, "confirm").mockImplementationOnce(() => false);
-    fireEvent.click(getByTestId("delete-faq-button"));
+    fireEvent.click(deleteButton);
 
     // test delete (2회 실패: bad response)
     vi.spyOn(window, "confirm").mockImplementation(() => true);
     vi.spyOn(axios, "delete").mockRejectedValueOnce(new Error("Delete Error"));
-    fireEvent.click(getByTestId("delete-faq-button"));
+    fireEvent.click(deleteButton);
 
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith(
@@ -50,7 +52,7 @@ describe("FAQDetailsPanel", () => {
 
     // test delete (3회 성공)
     vi.spyOn(axios, "delete").mockResolvedValueOnce({});
-    fireEvent.click(getByTestId("delete-faq-button"));
+    fireEvent.click(deleteButton);
 
     await waitFor(() => {
       expect(navigateMock).toHaveBeenCalledWith("/faqs");
