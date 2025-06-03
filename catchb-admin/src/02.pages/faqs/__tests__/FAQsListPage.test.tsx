@@ -17,7 +17,7 @@ describe("FAQsListPage", () => {
     vi.spyOn(axios, "get").mockResolvedValue({ data: sampleFAQListResponse });
   });
 
-  it("renders correctly", async () => {
+  it("renders correctly and handles navigation", async () => {
     const { getByTestId, getByText, queryByText } = renderWithProviders(
       <FAQsListPage />
     );
@@ -38,6 +38,11 @@ describe("FAQsListPage", () => {
     await waitFor(() => {
       expect(getByText("How to reset my password?")).toBeInTheDocument();
       expect(queryByText("What is CatchB?")).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(getByTestId("faq-2"));
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith("/faqs/2");
     });
   });
 
