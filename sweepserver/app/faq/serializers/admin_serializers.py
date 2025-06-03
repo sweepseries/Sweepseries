@@ -23,3 +23,12 @@ class FAQAdminSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
         fields = ["id", "category", "question", "is_active"]
+
+
+class FAQAdminSerializer(FAQAdminSimpleSerializer):
+    """
+    FAQ 관리자용 serializer (상세 조회, 생성, 수정용)
+    """
+
+    class Meta(FAQAdminSimpleSerializer.Meta):
+        fields = FAQAdminSimpleSerializer.Meta.fields + ["answer"]

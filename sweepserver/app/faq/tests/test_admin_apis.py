@@ -25,3 +25,26 @@ class AdminFAQAPITestCase(AdminPageAPITestCase):
         response = self.client.get(self.url, HTTP_ORIGIN=self.admin_page)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreater(len(response.data), 0)
+
+    def test_retrieve_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get(f"{self.url}1/", HTTP_ORIGIN=self.admin_page)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("question", response.data)
+        self.assertIn("answer", response.data)
+
+    def test_delete_and_reactivate_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.delete(f"{self.url}1/", HTTP_ORIGIN=self.admin_page)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        faq = FAQ.objects.get(id=1)
+        self.assertFalse(faq.is_active)
+
+        response = self.client.post(
+            f"{self.url}1/reactivate/", HTTP_ORIGIN=self.admin_page
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        faq = FAQ.objects.get(id=1)
+        self.assertTrue(faq.is_active)
