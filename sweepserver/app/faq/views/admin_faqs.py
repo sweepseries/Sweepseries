@@ -23,7 +23,7 @@ class FAQAdminViewSet(ModelViewSet):
     queryset = FAQ.objects.all()
     serializer_class = FAQAdminSimpleSerializer
     permission_classes = [AdminPageOnly]
-    http_method_names = ["get", "delete", "post"]
+    http_method_names = ["get", "delete", "post", "put"]
 
     @extend_schema(summary="자주 묻는 질문 목록 조회", tags=["관리자 자주 묻는 질문"])
     def list(self, request, *args, **kwargs):
@@ -73,6 +73,18 @@ class FAQAdminViewSet(ModelViewSet):
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @extend_schema(summary="자주 묻는 질문 수정", tags=["관리자 자주 묻는 질문"])
+    def update(self, request, *args, **kwargs):
+        """
+        자주 묻는 질문 수정
+        """
+        instance = self.get_object()
+        serializer = FAQAdminSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(summary="자주 묻는 질문 삭제", tags=["관리자 자주 묻는 질문"])
     def destroy(self, request, *args, **kwargs):

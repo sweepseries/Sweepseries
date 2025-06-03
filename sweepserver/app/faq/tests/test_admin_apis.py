@@ -44,6 +44,22 @@ class AdminFAQAPITestCase(AdminPageAPITestCase):
         self.assertEqual(response.data["category"]["name"], "이벤트")
         self.assertTrue(response.data["is_active"])
 
+    def test_update_success(self):
+        self.client.force_authenticate(user=self.admin)
+        update_data = {
+            "category_id": 2,
+            "question": "수정된 FAQ 질문",
+            "answer": "수정된 FAQ 답변 내용",
+        }
+        response = self.client.put(
+            f"{self.url}1/", data=update_data, HTTP_ORIGIN=self.admin_page
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["question"], update_data["question"])
+        self.assertEqual(response.data["answer"], update_data["answer"])
+        self.assertEqual(response.data["category"]["name"], "아카데미")
+        self.assertTrue(response.data["is_active"])
+
     def test_delete_and_reactivate_success(self):
         self.client.force_authenticate(user=self.admin)
         response = self.client.delete(f"{self.url}1/", HTTP_ORIGIN=self.admin_page)
