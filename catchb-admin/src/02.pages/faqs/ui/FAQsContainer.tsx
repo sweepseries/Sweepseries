@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 
 import { FAQsManagementLayout } from "./_layout";
+import { CreateFAQPanel } from "./CreateFAQ/CreateFAQPanel";
 import { FAQDetailsPanel } from "./FAQDetails/FAQDetailsPanel";
 
 export function FAQsContainer() {
@@ -8,6 +9,7 @@ export function FAQsContainer() {
     <Routes>
       <Route element={<FAQsManagementLayout />}>
         <Route index element={null} />
+        <Route path="create" element={<CreateFAQPanel />} />
         <Route path=":id" element={<FAQDetailsPanel />} />
       </Route>
     </Routes>

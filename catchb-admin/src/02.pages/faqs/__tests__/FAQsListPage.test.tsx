@@ -25,7 +25,7 @@ describe("FAQsListPage", () => {
     expect(getByText("자주 묻는 질문 관리")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(getByText("General")).toBeInTheDocument();
+      expect(getByText("Billing")).toBeInTheDocument();
     });
 
     fireEvent.click(getByTestId("category-filter-General"));
@@ -43,6 +43,11 @@ describe("FAQsListPage", () => {
     fireEvent.click(getByTestId("faq-2"));
     await waitFor(() => {
       expect(navigateMock).toHaveBeenCalledWith("/faqs/2");
+    });
+
+    fireEvent.click(getByTestId("new-faq"));
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith("/faqs/create");
     });
   });
 
