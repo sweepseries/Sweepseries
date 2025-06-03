@@ -6,6 +6,7 @@ import {
   ModalContentVertical,
 } from "@widgets/layouts/modals";
 import { DeleteFAQButton } from "@features/faqs/delete-faq";
+import { NavigateToEditPageButton } from "@features/faqs/edit-faq";
 import {
   FAQAnswer,
   FAQDetailsProvider,
@@ -41,6 +42,7 @@ function Components() {
           <FAQQuestion faq={faqDetails} />
           {faqDetails.is_active ? (
             <div>
+              <NavigateToEditPageButton faqId={faqDetails.id} />
               <DeleteFAQButton faqId={faqDetails.id} />
             </div>
           ) : (

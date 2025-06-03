@@ -16,7 +16,7 @@ export function FAQQuestion({ faq }: Readonly<Props>) {
       {!faq.is_active ? (
         <TextChip label="삭제됨" color={colors.error} />
       ) : (
-        <FAQCategoryChip category={faq.category} />
+        <FAQCategoryChip category={faq.category} isActive />
       )}
       <Question>{faq.question}</Question>
     </div>

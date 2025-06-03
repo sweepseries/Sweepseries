@@ -58,6 +58,11 @@ describe("FAQDetailsPanel", () => {
         "FAQ가 성공적으로 삭제되었습니다."
       );
     });
+
+    fireEvent.click(getByTestId("edit-faq-button"));
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith("/faqs/1/edit");
+    });
   });
 
   it("renders deleted FAQ and handles reactivation", async () => {
