@@ -1,7 +1,7 @@
 from django.db.transaction import atomic
 from rest_framework import serializers
 
-from ..models import InquiryThread, InquiryMessage
+from ..models import InquiryThread, InquiryMessage, InquiryCategory
 
 
 class UserInquiryReadSerializer(serializers.ModelSerializer):
@@ -45,10 +45,12 @@ class UserInquiryWriteSerializer(serializers.ModelSerializer):
         error_messages={"blank": "내용을 입력해주세요."},
     )
     category = serializers.PrimaryKeyRelatedField(
-        queryset=InquiryThread.objects.all(),
-        source="category",
+        queryset=InquiryCategory.objects.all(),
         write_only=True,
-        error_messages={"required": "카테고리를 선택해주세요."},
+        error_messages={
+            "required": "카테고리를 선택해주세요.",
+            "does_not_exist": "카테고리를 선택해주세요.",
+        },
     )
     name = serializers.CharField(max_length=255, required=False)
     email = serializers.EmailField(required=False)
