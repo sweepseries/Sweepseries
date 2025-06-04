@@ -8,7 +8,7 @@
       "user": "123e4567-e89b-12d3-a456-426614174000",
       "name": "",
       "email": "",
-      "category": 0,
+      "category": 1,
       "title": "문의 제목 1",
       "status": 1
     }
@@ -22,7 +22,7 @@
       "user": "123e4567-e89b-12d3-a456-426614174000",
       "name": "",
       "email": "",
-      "category": 0,
+      "category": 1,
       "title": "문의 제목 2",
       "status": 1
     }
@@ -36,7 +36,7 @@
       "user": null,
       "name": "홍길동",
       "email": "test@email.com",
-      "category": 0,
+      "category": 1,
       "title": "문의 제목 3",
       "status": 1
     }
