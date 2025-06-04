@@ -26,6 +26,7 @@ import SidebarClose from "./files/sidebar-close.svg?react";
 import SidebarOpen from "./files/sidebar-open.svg?react";
 import Sort from "./files/sort.svg?react";
 import Strikethrough from "./files/strikethrough.svg?react";
+import Support from "./files/support.svg?react";
 import Trash from "./files/trash.svg?react";
 import Undo from "./files/undo.svg?react";
 
@@ -67,6 +68,7 @@ const iconMap: Record<
   "sidebar-open": SidebarOpen,
   sort: Sort,
   strikethrough: Strikethrough,
+  support: Support,
   trash: Trash,
   undo: Undo,
 };
