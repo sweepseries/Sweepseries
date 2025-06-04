@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 import { refresh } from "../api/refresh";
 import { LoadingSpinner } from "@widgets/fallback/loading";
@@ -66,8 +67,19 @@ export function AutoLoginProvider({
   }, [login, logout]);
 
   if (!isReady) {
-    return <LoadingSpinner />; // Show a loading spinner while checking the token
+    return (
+      <Wrapper>
+        <LoadingSpinner />
+      </Wrapper>
+    ); // Show a loading spinner while checking the token
   }
 
   return children;
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
