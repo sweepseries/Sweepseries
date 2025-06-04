@@ -26,17 +26,21 @@ function Components() {
   return (
     <Container>
       <PageTitle>자주 묻는 질문 관리</PageTitle>
-      {isLoading || selectedCategory === undefined ? (
+      {isLoading ? (
         <FAQCategoriesLoading />
       ) : (
-        <Horizontal>
-          <FAQCategoryTabs
-            options={categoryOptions}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
-          <NavigateToCreateFAQButton />
-        </Horizontal>
+        <>
+          {selectedCategory === undefined ? null : (
+            <Horizontal>
+              <FAQCategoryTabs
+                options={categoryOptions}
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+              />
+              <NavigateToCreateFAQButton />
+            </Horizontal>
+          )}
+        </>
       )}
       <FAQTableHeader />
       {isLoading ? <FAQsListLoading /> : <FAQTableContents />}
