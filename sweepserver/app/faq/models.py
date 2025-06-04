@@ -1,13 +1,12 @@
 from django.db import models
 
+from core.models import BaseChipModel
 
-class FAQCategory(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    color = models.CharField(max_length=7, default="#000000")
 
+class FAQCategory(BaseChipModel):
     objects = models.Manager()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     class Meta:
@@ -28,7 +27,7 @@ class FAQ(models.Model):
 
     objects = models.Manager()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.category.name} - {self.question}"
 
     class Meta:
