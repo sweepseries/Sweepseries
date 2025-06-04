@@ -26,4 +26,9 @@ export const tabs: TabType[] = [
     pathName: "faqs",
     icon: "question",
   },
+  {
+    title: "1:1 문의 관리",
+    pathName: "inquiries",
+    icon: "support",
+  },
 ];
