@@ -5,9 +5,8 @@ import { InquiriesListPage } from "./InquiriesList/InquiriesListPage";
 import { Modal } from "@widgets/layouts/modals";
 
 export function InquiriesManagementLayout() {
-  const matchCreate = useMatch("/inquiries/create");
   const matchDetail = useMatch("/inquiries/:id");
-  const isModalOpen = Boolean(matchCreate || matchDetail);
+  const isModalOpen = Boolean(matchDetail);
   const navigate = useNavigate();
 
   const closeModal = () => navigate("/inquiries");

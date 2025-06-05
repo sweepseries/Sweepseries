@@ -7,7 +7,6 @@ export function InquiriesContainer() {
     <Routes>
       <Route element={<InquiriesManagementLayout />}>
         <Route index element={null} />
-        <Route path="create" element={null} />
         <Route path=":id" element={null} />
       </Route>
     </Routes>
