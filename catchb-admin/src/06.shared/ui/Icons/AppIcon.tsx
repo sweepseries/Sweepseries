@@ -3,6 +3,7 @@ import ArrowDown from "./files/arrow-down.svg?react";
 import ArrowUp from "./files/arrow-up.svg?react";
 import Bold from "./files/bold.svg?react";
 import BulletList from "./files/bullet-list.svg?react";
+import Category from "./files/category.svg?react";
 import Close from "./files/close.svg?react";
 import ChevronDown from "./files/chevron-down.svg?react";
 import ChevronLeft from "./files/chevron-left.svg?react";
@@ -25,10 +26,12 @@ import Redo from "./files/redo.svg?react";
 import SidebarClose from "./files/sidebar-close.svg?react";
 import SidebarOpen from "./files/sidebar-open.svg?react";
 import Sort from "./files/sort.svg?react";
+import Status from "./files/status.svg?react";
 import Strikethrough from "./files/strikethrough.svg?react";
 import Support from "./files/support.svg?react";
 import Trash from "./files/trash.svg?react";
 import Undo from "./files/undo.svg?react";
+import User from "./files/user.svg?react";
 
 interface Props {
   icon: string;
@@ -45,6 +48,7 @@ const iconMap: Record<
   "arrow-up": ArrowUp,
   bold: Bold,
   "bullet-list": BulletList,
+  category: Category,
   "chevron-down": ChevronDown,
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
@@ -67,10 +71,12 @@ const iconMap: Record<
   "sidebar-close": SidebarClose,
   "sidebar-open": SidebarOpen,
   sort: Sort,
+  status: Status,
   strikethrough: Strikethrough,
   support: Support,
   trash: Trash,
   undo: Undo,
+  user: User,
 };
 
 export function AppIcon({ icon, size = 24, color = "black" }: Readonly<Props>) {
