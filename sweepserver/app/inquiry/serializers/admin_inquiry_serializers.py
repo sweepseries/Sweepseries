@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from auth.user.serializers import UserProfileSerializer
-from ..models import InquiryThread, InquiryMessage
+from ..models import InquiryThread
 from .other_serializers import InquiryCategorySerializer, InquiryStatusSerializer
 
 

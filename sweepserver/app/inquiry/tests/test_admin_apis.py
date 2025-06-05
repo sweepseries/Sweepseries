@@ -1,7 +1,6 @@
 from rest_framework import status
 
 from core.tests import AdminPageAPITestCase
-from ..models import InquiryThread
 
 
 class AdminInquiryThreadAPITestCase(AdminPageAPITestCase):
