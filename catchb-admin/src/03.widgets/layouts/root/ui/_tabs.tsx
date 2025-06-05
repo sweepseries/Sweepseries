@@ -43,7 +43,7 @@ const TabsWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 16px 24px;
+  padding: 8px 24px;
   gap: 8px;
   overflow-y: auto;
 `;
