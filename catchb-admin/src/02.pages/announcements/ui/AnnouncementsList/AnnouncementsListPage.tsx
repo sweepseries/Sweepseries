@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { AnnouncementsListLoading } from "./_loading";
+import { LoadingList } from "@widgets/fallback/loading";
 import { PageTitle } from "@widgets/layouts/title";
 import {
   AnnouncementsHeader,
@@ -27,11 +27,7 @@ function Components() {
       <AnnouncementsHeader />
       <TableWrapper>
         <AnnouncementsTableHeader />
-        {isLoading ? (
-          <AnnouncementsListLoading />
-        ) : (
-          <AnnouncementTableContents />
-        )}
+        {isLoading ? <LoadingList /> : <AnnouncementTableContents />}
       </TableWrapper>
     </Container>
   );
