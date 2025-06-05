@@ -9,7 +9,11 @@ class ReadInquiriesAPITestCase(APITestCase):
         - 비고: 테스트 데이터에 있는 모든 약관은 2025-05-17에 생성, 최종 수정되었다.
     """
 
-    fixtures = ["data/test/inquiries.json", "data/test/auth.json"]
+    fixtures = [
+        "data/test/inquiries.json",
+        "data/test/auth.json",
+        "data/initial/inquiry.json",
+    ]
 
     def setUp(self):
         self.url = "/v1/inquiries/"

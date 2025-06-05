@@ -3,13 +3,10 @@ import styled from "styled-components";
 
 import { Tabs } from "./_tabs";
 import { LogoutButton } from "@features/auth/logout";
-import { useColors } from "@shared/lib/colors";
-import { AppIcon, Logo } from "@shared/ui/Icons";
+import { Logo } from "@shared/ui/Icons";
 
 export function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
-
-  const { colors } = useColors();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -19,13 +16,8 @@ export function Sidebar() {
     <SidebarWrapper style={{ width: sidebarOpen ? "240px" : "80px" }}>
       <Container style={{ width: sidebarOpen ? "240px" : "80px" }}>
         <Header>
-          <Logo size={36} />
           <button onClick={toggleSidebar} data-testid="sidebar-toggle">
-            <AppIcon
-              icon={sidebarOpen ? "sidebar-close" : "sidebar-open"}
-              color={colors.gray100}
-              size={20}
-            />
+            <Logo size={sidebarOpen ? 24 : 36} horizontal={sidebarOpen} />
           </button>
         </Header>
         <Tabs isSidebarOpen={sidebarOpen} />
@@ -63,14 +55,8 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 0;
+  padding: 24px 0 8px 0;
   gap: 4px;
-
-  > button {
-    position: absolute;
-    top: 36px;
-    right: 16px;
-  }
 `;
 
 const Footer = styled.div`

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export function AnnouncementsListLoading() {
+export function LoadingList() {
   return (
     <Wrapper>
       <Skeleton height={36} />

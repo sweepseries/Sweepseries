@@ -1,0 +1,27 @@
+[
+  {
+    "model": "faq.faqcategory",
+    "pk": 1,
+    "fields": { "name": "이벤트", "color": "#FF9F43" }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 2,
+    "fields": { "name": "아카데미", "color": "#4E73DF" }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 3,
+    "fields": { "name": "레슨", "color": "#20C997" }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 4,
+    "fields": { "name": "프로모드", "color": "#E83E8C" }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 5,
+    "fields": { "name": "기타", "color": "#6C757D" }
+  }
+]

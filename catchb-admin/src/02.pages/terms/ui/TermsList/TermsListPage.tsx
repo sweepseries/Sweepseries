@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { TermsListLoading } from "./_loading";
+import { LoadingList } from "@widgets/fallback/loading";
 import { PageTitle } from "@widgets/layouts/title";
 import {
   TermsListProvider,
@@ -24,7 +24,7 @@ function Components() {
     <Container>
       <PageTitle>회원가입 약관 관리</PageTitle>
       <TermTabs />
-      {isLoading ? <TermsListLoading /> : <TermsTable />}
+      {isLoading ? <LoadingList /> : <TermsTable />}
     </Container>
   );
 }

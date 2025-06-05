@@ -9,7 +9,10 @@ class AdminFAQAPITestCase(AdminPageAPITestCase):
     FAQ 관리 API 테스트
     """
 
-    fixtures = AdminPageAPITestCase.fixtures + ["data/dev/faqs.json"]
+    fixtures = AdminPageAPITestCase.fixtures + [
+        "data/dev/faqs.json",
+        "data/initial/faq.json",
+    ]
 
     def setUp(self):
         super().setUp()

@@ -10,7 +10,7 @@ class CreateInquiryAPITestCase(APITestCase):
         - 비고: 테스트 데이터에 있는 모든 약관은 2025-05-17에 생성, 최종 수정되었다.
     """
 
-    fixtures = ["data/test/auth.json"]
+    fixtures = ["data/test/auth.json", "data/initial/inquiry.json"]
 
     def setUp(self):
         self.url = "/v1/inquiries/"
@@ -18,7 +18,7 @@ class CreateInquiryAPITestCase(APITestCase):
         self.data = {
             "title": "Test Inquiry",
             "content": "This is a test message.",
-            "category": 0,
+            "category": 1,
             "user": self.user.uuid,
         }
         self.invalid_uuid = "123e4567-e89b-12d3-a456-426614174999"
@@ -43,7 +43,7 @@ class CreateInquiryAPITestCase(APITestCase):
             "content": "This is a test message.",
             "name": "Anonymous User",
             "email": "test@email.com",
-            "category": 0,
+            "category": 1,
         }
         response = self.client.post(self.url, data=data)
         self.assertEqual(response.status_code, 201)
@@ -67,18 +67,29 @@ class CreateInquiryAPITestCase(APITestCase):
             "title": "Test Inquiry",
             "content": "This is a test message.",
             "user": self.invalid_uuid,
+            "category": 1,
         }
         response = self.client.post(self.url, data=data)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data["error"], "잘못된 요청입니다.")
 
-        ## 3. category가 존재하지 않음
+        ## 3. category가 비어있음
         data = {
             "title": "Test Inquiry",
             "content": "This is a test message.",
             "user": self.user.uuid,
-            "category": "invalid_category",
         }
         response = self.client.post(self.url, data=data)
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.data["error"], "잘못된 요청입니다.")
+        self.assertEqual(response.data["error"], "카테고리를 선택해주세요.")
+
+        ## 4. category가 존재하지 않음
+        data = {
+            "title": "Test Inquiry",
+            "content": "This is a test message.",
+            "user": self.user.uuid,
+            "category": 999,
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["error"], "카테고리를 선택해주세요.")

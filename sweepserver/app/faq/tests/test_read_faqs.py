@@ -9,7 +9,7 @@ class ReadFAQsAPITestCase(APITestCase):
         - 비고: 테스트 데이터에 있는 모든 약관은 2025-05-20에 생성, 최종 수정되었다.
     """
 
-    fixtures = ["data/dev/faqs.json", "data/test/auth.json"]
+    fixtures = ["data/dev/faqs.json", "data/test/auth.json", "data/initial/faq.json"]
 
     def setUp(self):
         self.url = "/v1/faqs/"

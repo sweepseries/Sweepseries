@@ -1,0 +1,22 @@
+[
+  {
+    "model": "inquiry.inquirycategory",
+    "pk": 1,
+    "fields": { "name": "기타", "color": "#BFBFBF", "order": 99 }
+  },
+  {
+    "model": "inquiry.inquirystatus",
+    "pk": 1,
+    "fields": { "name": "신규", "color": "#14863E" }
+  },
+  {
+    "model": "inquiry.inquirystatus",
+    "pk": 2,
+    "fields": { "name": "진행중", "color": "#6E7781" }
+  },
+  {
+    "model": "inquiry.inquirystatus",
+    "pk": 3,
+    "fields": { "name": "종료됨", "color": "#4D4D4D" }
+  }
+]

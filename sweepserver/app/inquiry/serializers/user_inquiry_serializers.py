@@ -1,8 +1,7 @@
 from django.db.transaction import atomic
 from rest_framework import serializers
 
-from ..enums import InquiryCategoryChoices, InquiryMessageTypeChoices
-from ..models import InquiryThread, InquiryMessage
+from ..models import InquiryThread, InquiryMessage, InquiryCategory
 
 
 class UserInquiryReadSerializer(serializers.ModelSerializer):
@@ -19,8 +18,8 @@ class UserInquiryReadSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation["category"] = instance.get_category_display()
-        representation["status"] = instance.get_status_display()
+        representation["category"] = instance.category.name
+        representation["status"] = instance.status.name
         return representation
 
     def get_is_updated(self, obj):
@@ -45,12 +44,12 @@ class UserInquiryWriteSerializer(serializers.ModelSerializer):
         write_only=True,
         error_messages={"blank": "내용을 입력해주세요."},
     )
-    category = serializers.ChoiceField(
-        choices=InquiryCategoryChoices.choices,
-        required=False,
+    category = serializers.PrimaryKeyRelatedField(
+        queryset=InquiryCategory.objects.all(),
+        write_only=True,
         error_messages={
-            "blank": "질문 구분을 선택해주세요.",
-            "invalid_choice": "잘못된 요청입니다.",
+            "required": "카테고리를 선택해주세요.",
+            "does_not_exist": "카테고리를 선택해주세요.",
         },
     )
     name = serializers.CharField(max_length=255, required=False)
@@ -97,7 +96,6 @@ class UserInquiryWriteSerializer(serializers.ModelSerializer):
             inquiry_thread = InquiryThread.objects.create(**validated_data)
             InquiryMessage.objects.create(
                 thread=inquiry_thread,
-                sender=InquiryMessageTypeChoices.USER,
                 content=content,
             )
 
