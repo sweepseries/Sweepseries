@@ -52,16 +52,26 @@ vi.mock("@widgets/layouts/modals", async () => {
 });
 
 vi.mock("@shared/lib/auth", async () => {
-  const { AuthContext } = await vi.importActual("@shared/lib/auth");
+  const {
+    AuthContext,
+    sampleUserProfile,
+    sampleAnonymousUserProfile,
+    isAnonymousUser,
+  } = await vi.importActual("@shared/lib/auth");
 
   return {
-    AuthProvider: ({ children }: { children: React.ReactNode }) => children,
     useAuth: vi.fn(() => ({
       login: vi.fn(),
       logout: vi.fn(),
       isAuthenticated: false,
     })),
     AuthContext: AuthContext,
+    sampleUserProfile: sampleUserProfile,
+    sampleAnonymousUserProfile: sampleAnonymousUserProfile,
+    AuthProvider: ({ children }: { children: React.ReactNode }) => children,
+    AnonymousUserProfile: () => null,
+    UserProfile: () => null,
+    isAnonymousUser: isAnonymousUser,
   };
 });
 vi.mock("@shared/lib/colors", async () => {
