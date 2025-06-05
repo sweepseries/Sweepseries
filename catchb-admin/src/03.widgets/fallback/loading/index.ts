@@ -1,3 +1,4 @@
+export { LoadingChat } from "./ui/LoadingChat";
 export { LoadingList } from "./ui/LoadingList";
 export { LoadingSpinner } from "./ui/LoadingSpinner";
 export { LoadingTabs } from "./ui/LoadingTabs";
