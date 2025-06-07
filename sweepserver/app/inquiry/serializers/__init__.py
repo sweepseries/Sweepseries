@@ -1,4 +1,5 @@
-from .admin_inquiry_serializers import AdminInquiryThreadListSerializer
+from .admin_inquiry_serializers import AdminInquiryThreadListSerializer, AdminInquiryThreadDetailSerializer
+from .message_serializers import InquiryMessageSerializer
 from .other_serializers import InquiryCategorySerializer, InquiryStatusSerializer
 from .user_inquiry_serializers import (
     UserInquiryReadSerializer,
@@ -7,6 +8,8 @@ from .user_inquiry_serializers import (
 
 __all__ = [
     "AdminInquiryThreadListSerializer",
+    "AdminInquiryThreadDetailSerializer",
+    "InquiryMessageSerializer",
     "InquiryCategorySerializer",
     "InquiryStatusSerializer",
     "UserInquiryReadSerializer",

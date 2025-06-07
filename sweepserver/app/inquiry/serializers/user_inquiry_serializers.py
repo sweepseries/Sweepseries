@@ -96,6 +96,7 @@ class UserInquiryWriteSerializer(serializers.ModelSerializer):
             inquiry_thread = InquiryThread.objects.create(**validated_data)
             InquiryMessage.objects.create(
                 thread=inquiry_thread,
+                user=user,
                 content=content,
             )
 
