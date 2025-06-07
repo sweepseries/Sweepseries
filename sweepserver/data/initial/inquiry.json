@@ -2,7 +2,12 @@
   {
     "model": "inquiry.inquirycategory",
     "pk": 1,
-    "fields": { "name": "기타", "color": "#BFBFBF", "order": 99 }
+    "fields": { "name": "기타", "color": "#A0522D", "order": 99 }
+  },
+  {
+    "model": "inquiry.inquirycategory",
+    "pk": 2,
+    "fields": { "name": "프로모드", "color": "#E83E8C", "order": 1 }
   },
   {
     "model": "inquiry.inquirystatus",
@@ -12,11 +17,11 @@
   {
     "model": "inquiry.inquirystatus",
     "pk": 2,
-    "fields": { "name": "진행중", "color": "#6E7781" }
+    "fields": { "name": "진행중", "color": "#4E73DF" }
   },
   {
     "model": "inquiry.inquirystatus",
     "pk": 3,
-    "fields": { "name": "종료됨", "color": "#4D4D4D" }
+    "fields": { "name": "종료됨", "color": "#DC3545" }
   }
 ]

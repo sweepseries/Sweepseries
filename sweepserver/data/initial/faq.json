@@ -22,6 +22,6 @@
   {
     "model": "faq.faqcategory",
     "pk": 5,
-    "fields": { "name": "기타", "color": "#6C757D" }
+    "fields": { "name": "기타", "color": "#A0522D" }
   }
 ]
