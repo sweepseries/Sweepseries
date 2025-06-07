@@ -70,6 +70,7 @@ vi.mock("@shared/lib/auth", async () => {
     sampleAnonymousUserProfile: sampleAnonymousUserProfile,
     AuthProvider: ({ children }: { children: React.ReactNode }) => children,
     AnonymousUserProfile: () => null,
+    ProfileImage: () => null,
     UserProfile: () => null,
     isAnonymousUser: isAnonymousUser,
   };
@@ -188,6 +189,9 @@ vi.mock("@shared/ui/Inputs", async () => {
     defaultExtensions,
   };
 });
+vi.mock("@shared/ui/Menus", () => ({
+  DropdownMenu: () => null,
+}));
 vi.mock("@shared/ui/Texts", () => ({
   ModalSubtitle: ({ children }: { children: React.ReactNode }) => (
     <span>{children}</span>
