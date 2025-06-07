@@ -11,12 +11,3 @@ export const ProfileName = styled.div`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.text500};
 `;
-
-export const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-`;

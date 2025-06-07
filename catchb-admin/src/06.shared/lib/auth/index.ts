@@ -10,6 +10,5 @@ export type { UserProfileType, AnonymousUserType } from "./models/types";
 export { AuthProvider } from "./providers/AuthProvider";
 
 export { AnonymousUserProfile } from "./ui/AnonymousUserProfile";
+export { ProfileImage } from "./ui/ProfileImage";
 export { UserProfile } from "./ui/UserProfile";
-
-export { isAnonymousUser } from "./utils/isAnonymousUser";
