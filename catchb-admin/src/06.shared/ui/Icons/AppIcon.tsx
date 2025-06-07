@@ -1,3 +1,4 @@
+import Admin from "./files/admin.svg?react";
 import Announcement from "./files/announcement.svg?react";
 import ArrowDown from "./files/arrow-down.svg?react";
 import ArrowUp from "./files/arrow-up.svg?react";
@@ -43,6 +44,7 @@ const iconMap: Record<
   string,
   React.FunctionComponent<React.SVGProps<SVGSVGElement>>
 > = {
+  admin: Admin,
   announcement: Announcement,
   "arrow-down": ArrowDown,
   "arrow-up": ArrowUp,
