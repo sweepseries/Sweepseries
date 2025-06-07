@@ -3,11 +3,7 @@ import styled from "styled-components";
 import type { InquiryThreadType } from "../models/types";
 import { InquiryCategoryChip } from "./InquiryCategoryChip";
 import { InquiryStatusChip } from "./InquiryStatusChip";
-import {
-  AnonymousUserProfile,
-  UserProfile,
-  isAnonymousUser,
-} from "@shared/lib/auth";
+import { AnonymousUserProfile, UserProfile } from "@shared/lib/auth";
 
 interface Props {
   inquiry: InquiryThreadType;
@@ -17,12 +13,15 @@ export function InquirySimple({ inquiry }: Readonly<Props>) {
   return (
     <InquiryRow>
       <IndexColumn>{inquiry.id}</IndexColumn>
-      <TitleColumn>{inquiry.title}</TitleColumn>
+      <TitleColumn>
+        {inquiry.title}
+        {inquiry.is_read ? null : <RedDot title="읽지 않음" />}
+      </TitleColumn>
       <UserColumn>
-        {isAnonymousUser(inquiry.user) ? (
-          <AnonymousUserProfile user={inquiry.user} />
-        ) : (
+        {"uuid" in inquiry.user ? (
           <UserProfile user={inquiry.user} />
+        ) : (
+          <AnonymousUserProfile user={inquiry.user} />
         )}
       </UserColumn>
       <ChipColumn>
@@ -78,4 +77,14 @@ const UserColumn = styled(TableData)`
 
 const ChipColumn = styled(TableData)`
   width: 5rem;
+`;
+
+const RedDot = styled.span`
+  display: inline-block;
+  margin-left: 0.25rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  position: absolute;
+  background-color: ${({ theme }) => theme.colors.error};
+  border-radius: 50%;
 `;
