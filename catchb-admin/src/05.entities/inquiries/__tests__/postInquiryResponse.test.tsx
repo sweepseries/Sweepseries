@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 
-import { usePostInquiryResponse } from "../api/postInquiryResponse";
+import { usePostInquiryResponse } from "@entities/inquiries";
 import { renderWithProviders } from "@test-utils/renderer";
 
 const MockPostInquiryResponseComponent = () => {

@@ -54,6 +54,7 @@ vi.mock("@widgets/layouts/modals", async () => {
 vi.mock("@shared/lib/auth", async () => {
   const {
     AuthContext,
+    sampleAdmin,
     sampleUserProfile,
     sampleAnonymousUserProfile,
     isAnonymousUser,
@@ -66,6 +67,7 @@ vi.mock("@shared/lib/auth", async () => {
       isAuthenticated: false,
     })),
     AuthContext: AuthContext,
+    sampleAdmin: sampleAdmin,
     sampleUserProfile: sampleUserProfile,
     sampleAnonymousUserProfile: sampleAnonymousUserProfile,
     AuthProvider: ({ children }: { children: React.ReactNode }) => children,
