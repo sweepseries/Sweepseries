@@ -1,24 +1,20 @@
 import styled from "styled-components";
 
 import type { InquiryMessageType } from "../models/types";
-import {
-  ProfileImage,
-  type AnonymousUserType,
-  type UserProfileType,
-} from "@shared/lib/auth";
+import { ProfileImage } from "@shared/lib/auth";
 import { formatTimeSince } from "@shared/lib/datetime";
+import { AppIcon } from "@shared/ui/Icons";
 
 interface Props {
-  user: AnonymousUserType | UserProfileType;
   message: InquiryMessageType;
 }
 
-export function InquiryMessage({ user, message }: Readonly<Props>) {
+export function InquiryMessage({ message }: Readonly<Props>) {
   if (message.sender === "사용자") {
     return (
       <Left>
-        <ProfileImage user={user} />
-        <div>{message.content}</div>
+        <ProfileImage user={message.user} />
+        <div dangerouslySetInnerHTML={{ __html: message.content }} />
         <span>{formatTimeSince(new Date(message.created_at))}</span>
       </Left>
     );
@@ -27,13 +23,20 @@ export function InquiryMessage({ user, message }: Readonly<Props>) {
   if (message.sender === "관리자") {
     return (
       <Right>
-        {message.content}
         <span>{formatTimeSince(new Date(message.created_at))}</span>
+        <div dangerouslySetInnerHTML={{ __html: message.content }} />
+        <IconWrapper>
+          <AppIcon icon="admin" size={14} />
+        </IconWrapper>
       </Right>
     );
   }
 
-  return <Center>{message.content}</Center>;
+  return (
+    <Center>
+      {message.content} ({message.user.name})
+    </Center>
+  );
 }
 
 const Wrapper = styled.div`
@@ -49,6 +52,7 @@ const Wrapper = styled.div`
 
   > div:nth-child(2) {
     display: flex;
+    flex-direction: column;
     padding: 0.5rem;
     max-width: 70%;
     position: relative;
@@ -62,17 +66,30 @@ const Wrapper = styled.div`
     white-space: pre-wrap;
 
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem 0.5rem 0.5rem 0;
     background-color: ${({ theme }) => theme.colors.background300};
+
+    > p {
+      margin: 0;
+    }
   }
 `;
 
 const Left = styled(Wrapper)`
   align-self: flex-start;
+  justify-content: flex-start;
+
+  > div:nth-child(2) {
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
+  }
 `;
 
 const Right = styled(Wrapper)`
   align-self: flex-end;
+  justify-content: flex-end;
+
+  > div:nth-child(2) {
+    border-radius: 0.5rem 0.5rem 0 0.5rem;
+  }
 `;
 
 const Center = styled(Wrapper)`
@@ -83,4 +100,13 @@ const Center = styled(Wrapper)`
   color: ${({ theme }) => theme.colors.text700};
   border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.gray500};
 `;
