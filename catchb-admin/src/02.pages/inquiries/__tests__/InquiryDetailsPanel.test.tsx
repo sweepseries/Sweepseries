@@ -248,10 +248,7 @@ describe("InquiriesDetailPanel", () => {
       ).toBeInTheDocument();
     });
 
-    // 1회: pass - 이미 선택된 상태
-    fireEvent.click(getByTestId("dropdown-item-Open"));
-
-    // 2회: 실패 - 알 수 없는 오류
+    // 1회: 실패 - 알 수 없는 오류
     vi.spyOn(axios, "patch").mockRejectedValueOnce(new Error("Update Error"));
     fireEvent.click(getByTestId("dropdown-item-In Progress"));
     await waitFor(() => {
@@ -259,6 +256,9 @@ describe("InquiriesDetailPanel", () => {
         "문의 상태를 변경하는 데 실패했습니다. 잠시 후 다시 시도해주세요."
       );
     });
+
+    // 2회: pass - 이미 선택된 상태
+    fireEvent.click(getByTestId("dropdown-item-Open"));
 
     // 3회: 성공
     vi.spyOn(axios, "patch").mockResolvedValueOnce({
