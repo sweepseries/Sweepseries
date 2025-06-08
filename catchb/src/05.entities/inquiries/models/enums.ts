@@ -2,7 +2,7 @@ import { InquiryCategoryType } from "./types";
 
 export const inquiryCategories: InquiryCategoryType[] = [
   {
-    id: 0,
+    id: 1,
     name: "기타",
   },
 ];
