@@ -31,8 +31,17 @@ export type InquiryThreadListResponseType = {
 export type InquiryMessageType = {
   id: number;
   sender: "사용자" | "관리자" | "시스템";
+  user: UserProfileType | AnonymousUserType;
   content: string;
   is_read: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type InquiryAdminNoteType = {
+  id: number;
+  admin: UserProfileType;
+  content: string;
   created_at: string;
   updated_at: string;
 };
@@ -47,4 +56,5 @@ export type InquiryThreadDetailType = {
   updated_at: string;
   is_read: boolean;
   messages: InquiryMessageType[];
+  notes: InquiryAdminNoteType[];
 };

@@ -6,6 +6,7 @@ import type {
   InquiryThreadType,
 } from "./types";
 import {
+  sampleAdmin,
   sampleAnonymousUserProfile,
   sampleUserProfile,
 } from "@shared/lib/auth";
@@ -56,6 +57,7 @@ export const sampleInquiryThreadDetail: InquiryThreadDetailType = {
       id: 1,
       content: "I forgot my password, how can I reset it?",
       sender: "사용자",
+      user: sampleUserProfile,
       created_at: "2023-10-01T12:05:00Z",
       updated_at: "2023-10-01T12:06:00Z",
       is_read: true,
@@ -65,6 +67,7 @@ export const sampleInquiryThreadDetail: InquiryThreadDetailType = {
       content:
         "You can reset your password by clicking on 'Forgot Password' at the login page.",
       sender: "관리자",
+      user: sampleAdmin,
       created_at: "2023-10-01T12:10:00Z",
       updated_at: "2023-10-01T12:11:00Z",
       is_read: false,
@@ -73,9 +76,19 @@ export const sampleInquiryThreadDetail: InquiryThreadDetailType = {
       id: 3,
       content: "상태를 '종료됨'(으)로 변경했습니다.",
       sender: "시스템",
+      user: sampleAdmin,
       created_at: "2023-10-01T12:10:00Z",
       updated_at: "2023-10-01T12:11:00Z",
       is_read: false,
+    },
+  ],
+  notes: [
+    {
+      id: 1,
+      content: "This is a note for internal use.",
+      admin: sampleAdmin,
+      created_at: "2023-10-01T12:12:00Z",
+      updated_at: "2023-10-01T12:13:00Z",
     },
   ],
   updated_at: "2023-10-01T12:15:00Z",
