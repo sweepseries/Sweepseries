@@ -105,19 +105,19 @@ describe("InquiriesDetailPanel", () => {
 
     fireEvent.click(getByTestId("text-button-답변 작성하기"));
 
-    // 1회: 실패 - 알 수 없는 오류
-    vi.spyOn(axios, "post").mockRejectedValueOnce(new Error("Post Error"));
-    fireEvent.click(getByTestId("text-button-답변 등록"));
-    await waitFor(() => {
-      expect(window.alert).toHaveBeenCalledWith(
-        "답변 등록에 실패했습니다: 알 수 없는 오류"
-      );
-    });
-
-    // 2회: 실패 - API 에러
+    // 1회: 실패 - API 에러
     vi.spyOn(axios, "post").mockRejectedValueOnce({
       response: { data: { error: "API Error" } },
     });
+    fireEvent.click(getByTestId("text-button-답변 등록"));
+    await waitFor(() => {
+      expect(window.alert).toHaveBeenCalledWith(
+        "답변 등록에 실패했습니다: API Error"
+      );
+    });
+
+    // 2회: 실패 - 알 수 없는 오류
+    vi.spyOn(axios, "post").mockRejectedValueOnce(new Error("Post Error"));
     fireEvent.click(getByTestId("text-button-답변 등록"));
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith(
