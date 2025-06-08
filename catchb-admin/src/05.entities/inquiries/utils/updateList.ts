@@ -18,7 +18,13 @@ export function updateList(
         ...prevData,
         inquiries: prevData.inquiries.map((inquiry) =>
           inquiry.id === inquiryId
-            ? { ...inquiry, status: data.status, category: data.category }
+            ? {
+                ...inquiry,
+                messages: data.messages,
+                status: data.status,
+                category: data.category,
+                notes: data.notes,
+              }
             : inquiry
         ),
       };
