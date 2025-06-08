@@ -13,3 +13,12 @@ export const sampleAnonymousUserProfile = {
   name: "Anonymous User",
   email: "anonymous@user.com",
 };
+
+export const sampleAdmin: UserProfileType = {
+  uuid: "123e4567-e89b-12d3-a456-426614174001",
+  name: "Admin User",
+  email: "admin@user.com",
+  profile_image: "https://example.com/admin-profile.jpg",
+  color: "#e74c3c",
+  mode: "pro",
+};

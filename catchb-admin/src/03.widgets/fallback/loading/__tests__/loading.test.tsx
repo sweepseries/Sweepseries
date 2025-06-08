@@ -1,12 +1,19 @@
 import { describe, it } from "vitest";
 
 import {
+  LoadingChat,
   LoadingList,
   LoadingSpinner,
   LoadingTabs,
   LoadingTitleAndContentModal,
 } from "@widgets/fallback/loading";
 import { renderWithProviders } from "@test-utils/renderer";
+
+describe("LoadingChat", () => {
+  it("renders correctly", () => {
+    renderWithProviders(<LoadingChat />);
+  });
+});
 
 describe("LoadingSpinner", () => {
   it("renders correctly", () => {

@@ -35,10 +35,10 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
-  padding: 8px;
+  margin-bottom: 0.25rem;
+  padding: 8px 0;
 
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 600;
 
   border-radius: 8px;

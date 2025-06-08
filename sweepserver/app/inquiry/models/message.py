@@ -1,5 +1,6 @@
 from django.db import models
 
+from auth.user.models import User
 from core.models import TimeStampedModel
 from .thread import InquiryThread
 
@@ -22,6 +23,17 @@ class InquiryMessage(TimeStampedModel):
         choices=InquiryMessageTypeChoices.choices,
         default=InquiryMessageTypeChoices.USER,
     )
+    user = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="inquiry_messages",
+    )
+    # 비로그인 대비
+    name = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(blank=True)
+
     content = models.TextField()
     is_read = models.BooleanField(default=False)
 
@@ -35,4 +47,4 @@ class InquiryMessage(TimeStampedModel):
         db_table = "inquiry_message"
         verbose_name = "1:1 문의 메시지"
         verbose_name_plural = "1:1 문의 메시지"
-        ordering = ["created_at"]
+        ordering = ["created_at"]  ## 최신 메시지가 위로 오도록 정렬

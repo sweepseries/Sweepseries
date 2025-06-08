@@ -27,6 +27,7 @@ export default defineConfig({
         "**/index.ts",
         "**/styles.ts",
         "**/types.ts",
+        "**/*.types.ts",
         "**/*.config.*",
         "**/*.d.ts",
         "**/main.tsx",

@@ -54,6 +54,7 @@ vi.mock("@widgets/layouts/modals", async () => {
 vi.mock("@shared/lib/auth", async () => {
   const {
     AuthContext,
+    sampleAdmin,
     sampleUserProfile,
     sampleAnonymousUserProfile,
     isAnonymousUser,
@@ -66,10 +67,12 @@ vi.mock("@shared/lib/auth", async () => {
       isAuthenticated: false,
     })),
     AuthContext: AuthContext,
+    sampleAdmin: sampleAdmin,
     sampleUserProfile: sampleUserProfile,
     sampleAnonymousUserProfile: sampleAnonymousUserProfile,
     AuthProvider: ({ children }: { children: React.ReactNode }) => children,
     AnonymousUserProfile: () => null,
+    ProfileImage: () => null,
     UserProfile: () => null,
     isAnonymousUser: isAnonymousUser,
   };
@@ -186,6 +189,36 @@ vi.mock("@shared/ui/Inputs", async () => {
       />
     ),
     defaultExtensions,
+  };
+});
+vi.mock("@shared/ui/Menus", () => {
+  function DropdownMenu<T>({
+    items,
+    keyExtractor,
+    renderItem,
+    onItemClick,
+  }: Readonly<{
+    items: T[];
+    keyExtractor: (item: T) => string;
+    renderItem: (item: T) => React.ReactNode;
+    onItemClick: (item: T) => void;
+  }>) {
+    return (
+      <div>
+        {items.map((item) => (
+          <button
+            key={keyExtractor(item)}
+            onClick={() => onItemClick(item)}
+            data-testid={`dropdown-item-${keyExtractor(item)}`}
+          >
+            {renderItem(item)}
+          </button>
+        ))}
+      </div>
+    );
+  }
+  return {
+    DropdownMenu: DropdownMenu,
   };
 });
 vi.mock("@shared/ui/Texts", () => ({
