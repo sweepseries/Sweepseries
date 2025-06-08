@@ -30,9 +30,12 @@ export function InquiriesListProvider({
   useEffect(() => {
     if (!data) return;
 
-    setSelectedCategory(data.categories[0]);
-    setSelectedStatus(data.status[0]);
-  }, [data]);
+    if (!selectedCategory && !selectedStatus) {
+      // If no category or status is selected, set defaults
+      setSelectedCategory(data.categories[0]);
+      setSelectedStatus(data.status[0]);
+    }
+  }, [data, selectedCategory, selectedStatus]);
 
   const inquiries = useMemo(() => {
     if (!data || !selectedCategory || !selectedStatus) return [];

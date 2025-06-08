@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { LoadingTabs } from "@widgets/fallback/loading";
+import { LoadingList, LoadingTabs } from "@widgets/fallback/loading";
 import { PageTitle } from "@widgets/layouts/title";
 import {
   InquiriesHeader,
@@ -27,7 +27,10 @@ function Components() {
       <PageTitle>고객 문의 관리</PageTitle>
       <InquiriesHeader />
       {isLoading ? (
-        <LoadingTabs />
+        <div>
+          <LoadingTabs />
+          <LoadingList />
+        </div>
       ) : (
         <div>
           <InquiriesTabs />
