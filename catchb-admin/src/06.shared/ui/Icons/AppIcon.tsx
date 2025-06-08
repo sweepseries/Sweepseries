@@ -24,6 +24,7 @@ import People from "./files/people.svg?react";
 import Pin from "./files/pin.svg?react";
 import Question from "./files/question.svg?react";
 import Redo from "./files/redo.svg?react";
+import Send from "./files/send.svg?react";
 import SidebarClose from "./files/sidebar-close.svg?react";
 import SidebarOpen from "./files/sidebar-open.svg?react";
 import Sort from "./files/sort.svg?react";
@@ -70,6 +71,7 @@ const iconMap: Record<
   pin: Pin,
   question: Question,
   redo: Redo,
+  send: Send,
   "sidebar-close": SidebarClose,
   "sidebar-open": SidebarOpen,
   sort: Sort,
