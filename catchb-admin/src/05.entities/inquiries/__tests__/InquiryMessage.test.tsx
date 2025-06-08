@@ -6,10 +6,7 @@ import { renderWithProviders } from "@test-utils/renderer";
 describe("InquiryMessage", () => {
   it("should render user message", () => {
     const { getByText } = renderWithProviders(
-      <InquiryMessage
-        message={sampleInquiryThreadDetail.messages[0]}
-        user={sampleInquiryThreadDetail.user}
-      />
+      <InquiryMessage message={sampleInquiryThreadDetail.messages[0]} />
     );
 
     expect(
@@ -19,10 +16,7 @@ describe("InquiryMessage", () => {
 
   it("should render admin message", () => {
     const { getByText } = renderWithProviders(
-      <InquiryMessage
-        message={sampleInquiryThreadDetail.messages[1]}
-        user={sampleInquiryThreadDetail.user}
-      />
+      <InquiryMessage message={sampleInquiryThreadDetail.messages[1]} />
     );
 
     expect(
@@ -34,14 +28,11 @@ describe("InquiryMessage", () => {
 
   it("should render system message", () => {
     const { getByText } = renderWithProviders(
-      <InquiryMessage
-        message={sampleInquiryThreadDetail.messages[2]}
-        user={sampleInquiryThreadDetail.user}
-      />
+      <InquiryMessage message={sampleInquiryThreadDetail.messages[2]} />
     );
 
     expect(
-      getByText("상태를 '종료됨'(으)로 변경했습니다.")
+      getByText("상태를 '종료됨'(으)로 변경했습니다. (Admin User)")
     ).toBeInTheDocument();
   });
 });

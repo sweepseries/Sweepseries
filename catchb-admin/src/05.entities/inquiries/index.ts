@@ -1,4 +1,6 @@
 export { useInquiries } from "./api/listInquiries";
+export { usePostInquiryNotes } from "./api/postInquiryNotes";
+export { usePostInquiryResponse } from "./api/postInquiryResponse";
 export { useInquiryDetails } from "./api/retrieveInquiries";
 export { useUpdateInquiryCategory } from "./api/updateInquiryCategory";
 export { useUpdateInquiryStatus } from "./api/updateInquiryStatus";
