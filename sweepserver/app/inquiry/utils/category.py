@@ -18,8 +18,8 @@ def update_category(
     """
     try:
         category = InquiryCategory.objects.get(id=int(category_id))
-    except (ObjectDoesNotExist, ValueError):
-        raise ValidationError("잘못된 요청입니다.")
+    except (ObjectDoesNotExist, ValueError) as e:
+        raise ValidationError("잘못된 요청입니다.") from e
 
     if category == inquiry.category:
         return inquiry

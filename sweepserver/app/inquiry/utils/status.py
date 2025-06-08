@@ -16,8 +16,8 @@ def update_status(inquiry: InquiryThread, status_id: int, admin: User) -> Inquir
     """
     try:
         status = InquiryStatus.objects.get(id=int(status_id))
-    except (ObjectDoesNotExist, ValueError):
-        raise ValidationError("잘못된 요청입니다.")
+    except (ObjectDoesNotExist, ValueError) as e:
+        raise ValidationError("잘못된 요청입니다.") from e
 
     if status == inquiry.status:
         return inquiry
