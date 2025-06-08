@@ -2,8 +2,9 @@ export { useAuth } from "./hooks/useAuth";
 
 export { AuthContext } from "./models/context";
 export {
-  sampleUserProfile,
+  sampleAdmin,
   sampleAnonymousUserProfile,
+  sampleUserProfile,
 } from "./models/testdata";
 export type { UserProfileType, AnonymousUserType } from "./models/types";
 
