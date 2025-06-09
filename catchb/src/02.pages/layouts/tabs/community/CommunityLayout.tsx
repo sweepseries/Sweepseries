@@ -1,17 +1,27 @@
 import { Stack } from "expo-router";
 
-import { HeaderLeftBackButton } from "@widgets/layouts";
+import { HeaderLeftLogo } from "@widgets/layouts";
+import {
+  ActiveProfile,
+  SwitchProfileProvider,
+} from "@features/community-profiles/switch-profile";
+import { CommunityProfilesProvider } from "@entities/community-profiles";
 
 export function CommunityLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerLeft: HeaderLeftBackButton,
-        headerShadowVisible: false,
-        headerTitle: "",
-      }}
-    >
-      <Stack.Screen name="index" />
-    </Stack>
+    <CommunityProfilesProvider>
+      <SwitchProfileProvider>
+        <Stack
+          screenOptions={{
+            headerLeft: HeaderLeftLogo,
+            headerRight: ActiveProfile,
+            headerShadowVisible: false,
+            headerTitle: "",
+          }}
+        >
+          <Stack.Screen name="index" />
+        </Stack>
+      </SwitchProfileProvider>
+    </CommunityProfilesProvider>
   );
 }

@@ -17,7 +17,7 @@ jest.mock("expo-router", () => {
       }) => (
         <View>
           {screenOptions.headerLeft?.({})}
-          {/* if screen.options.headerTitle is a function, call it with an empty object */}
+          {screenOptions.headerRight?.({})}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
             ? screenOptions.headerTitle({ children: "" })
@@ -189,6 +189,7 @@ jest.mock("@shared/ui/Dividers", () => ({
 }));
 jest.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
+  DefaultProfile: () => null,
 }));
 jest.mock("@shared/ui/Logo", () => ({
   CatchBMainLogo: jest.fn(() => null),
