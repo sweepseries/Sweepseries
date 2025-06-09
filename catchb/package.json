@@ -28,6 +28,7 @@
       "!src/**/*/context.ts",
       "!src/**/*/index.ts",
       "!src/**/*/styles.ts",
+      "!src/**/*/testdata.ts",
       "!src/**/*/types.ts",
       "!src/**/*.d.ts",
       "!src/test-utils/renderer.tsx",
