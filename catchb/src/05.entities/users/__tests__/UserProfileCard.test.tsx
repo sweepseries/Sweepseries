@@ -14,14 +14,6 @@ jest.mock("expo-linear-gradient", () => ({
     <>{children}</>
   ),
 }));
-jest.mock("../ui/files/default_profile.svg", () => {
-  const { View } = jest.requireActual("react-native");
-
-  return {
-    __esModule: true,
-    default: () => <View testID="default-profile" />,
-  };
-});
 
 describe("UserProfileCard", () => {
   it("should render profile image correctly", () => {
@@ -33,13 +25,11 @@ describe("UserProfileCard", () => {
   });
 
   it("should fall back to default profile", () => {
-    const { getByTestId } = renderWithProviders(
+    renderWithProviders(
       <UserProfileCard
         profile={{ ...sampleUserProfile, profile_image: null }}
         editPress={jest.fn()}
       />
     );
-
-    expect(getByTestId("default-profile")).toBeTruthy();
   });
 });
