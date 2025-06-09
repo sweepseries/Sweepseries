@@ -2,10 +2,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 
-import DefaultProfile from "./files/default_profile.svg";
 import { UserProfileType } from "@shared/lib/auth";
 import { useColors, ThemeColorType } from "@shared/lib/colors";
-import { AppIcon } from "@shared/ui/Icons";
+import { AppIcon, DefaultProfile } from "@shared/ui/Icons";
 
 interface Props {
   profile: UserProfileType;
