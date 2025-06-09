@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
-import { DefaultProfile } from "@shared/ui/Icons";
 
 jest.mock("expo-router", () => {
   const { View } = jest.requireActual("react-native");
