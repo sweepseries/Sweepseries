@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
+import { DefaultProfile } from "@shared/ui/Icons";
 
 jest.mock("expo-router", () => {
   const { View } = jest.requireActual("react-native");
@@ -189,6 +190,7 @@ jest.mock("@shared/ui/Dividers", () => ({
 }));
 jest.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
+  DefaultProfile: () => null,
 }));
 jest.mock("@shared/ui/Logo", () => ({
   CatchBMainLogo: jest.fn(() => null),
