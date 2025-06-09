@@ -40,6 +40,7 @@ export function PostListTabs() {
           key={forum.id}
           style={styles.tab}
           onPress={() => setActiveForum(forum)}
+          testID={`community-tab-${forum.name}`}
         >
           <Text
             style={[
