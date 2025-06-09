@@ -18,7 +18,7 @@ jest.mock("expo-router", () => {
       }) => (
         <View>
           {screenOptions.headerLeft?.({})}
-          {/* if screen.options.headerTitle is a function, call it with an empty object */}
+          {screenOptions.headerRight?.({})}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
             ? screenOptions.headerTitle({ children: "" })
