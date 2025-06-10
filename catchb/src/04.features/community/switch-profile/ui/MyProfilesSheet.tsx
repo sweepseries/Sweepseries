@@ -1,23 +1,26 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 
-import { useSwitchProfile } from "../hooks/useSwitchProfile";
 import {
   CommunityProfile,
   CommunityProfileType,
-  useCommunityProfiles,
-} from "@entities/community-profiles";
+  useCommunity,
+} from "@entities/community";
 import { ThemeColorType, useColors } from "@shared/lib/colors";
 
-export function SwitchProfileSheet() {
-  const { activeProfile, switchProfile, profiles } = useCommunityProfiles();
-  const { toggleSheet } = useSwitchProfile();
+interface Props {
+  closeSheet: () => void;
+}
+
+export function MyProfilesSheet({ closeSheet }: Readonly<Props>) {
+  const { profiles, activeProfile, switchProfile } =
+    useCommunity();
   const { colors } = useColors();
   const styles = sheetStyles(colors);
 
   const onProfilePress = (profile: CommunityProfileType) => {
     switchProfile(profile);
-    toggleSheet();
+    closeSheet();
   };
 
   return (

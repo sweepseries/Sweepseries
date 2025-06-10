@@ -5,20 +5,22 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 
 import {
-  SwitchProfileContext,
-  type SwitchProfileContextType,
+  SwitchCommunityProfileContext,
+  SwitchCommunityProfileContextType,
 } from "../models/contexts";
-import { SwitchProfileSheet } from "../ui/SwitchProfileSheet";
+import { MyProfilesSheet } from "../ui/MyProfilesSheet";
 
-export function SwitchProfileProvider({
+export function SwitchCommunityProfileProvider({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const ref = useRef<BottomSheet>(null);
 
-  const toggleSheet = () => {
+  const openSheet = useCallback(() => {
     ref.current?.expand();
+  }, []);
+
+  const closeSheet = () => {
+    ref.current?.close();
   };
 
   const renderBackdrop = useCallback(
@@ -33,19 +35,19 @@ export function SwitchProfileProvider({
     []
   );
 
-  const value = useMemo<SwitchProfileContextType>(
+  const value = useMemo<SwitchCommunityProfileContextType>(
     () => ({
-      toggleSheet,
+      openSheet,
     }),
-    []
+    [openSheet]
   );
 
   return (
-    <SwitchProfileContext.Provider value={value}>
+    <SwitchCommunityProfileContext.Provider value={value}>
       {children}
       <BottomSheet ref={ref} index={-1} backdropComponent={renderBackdrop}>
-        <SwitchProfileSheet />
+        <MyProfilesSheet closeSheet={closeSheet} />
       </BottomSheet>
-    </SwitchProfileContext.Provider>
+    </SwitchCommunityProfileContext.Provider>
   );
 }
