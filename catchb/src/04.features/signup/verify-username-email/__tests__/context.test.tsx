@@ -1,12 +1,12 @@
 import { Text } from "react-native";
 import { render } from "@testing-library/react-native";
 
-import { useUsernameEmail } from "../provider/UsernameEmailProvider";
+import { useUsernameEmail } from "../providers/UsernameEmailProvider";
 
 const TestComponent = () => {
-  const { isButtonActive } = useUsernameEmail();
+  const { usernameError } = useUsernameEmail();
 
-  return <Text>{isButtonActive ? "Active" : "Inactive"}</Text>;
+  return <Text>{usernameError ? "Active" : "Inactive"}</Text>;
 };
 
 describe("UsernameEmailProvider", () => {

@@ -1,6 +1,6 @@
 import { Text, TextInput, View } from "react-native";
 
-import { useInquiryForm } from "../provider/InquiryFormProvider";
+import { useInquiryForm } from "../providers/InquiryFormProvider";
 import { formStyles } from "./styles";
 import { useColors } from "@shared/lib/colors";
 

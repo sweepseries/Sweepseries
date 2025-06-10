@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { isAxiosError } from "axios";
 
 import { useUsernameEmailCheck } from "../api/verify";
-import { UsernameEmailContext, UsernameEmailContextType } from "./context";
+import { UsernameEmailContext, UsernameEmailContextType } from "./contexts";
 import { useSignup } from "@shared/lib/signup";
 
 export function UsernameEmailProvider({

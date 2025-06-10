@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError, isAxiosError } from "axios";
 
-import { InquiryFormContext, InquiryFormContextType } from "./context";
+import { InquiryFormContext, InquiryFormContextType } from "./contexts";
 import {
   InquiryCategoryType,
   InquiryThreadType,

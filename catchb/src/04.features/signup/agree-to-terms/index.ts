@@ -1,1 +1,1 @@
-export { TermsListProvider, useTermsList } from "./provider/TermsListProvider";
+export { TermsListProvider, useTermsList } from "./providers/TermsListProvider";

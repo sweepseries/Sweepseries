@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 
-import { FAQListContext, FAQListContextType } from "./context";
+import { FAQListContext, FAQListContextType } from "./contexts";
 import { useFAQs } from "@entities/faqs";
 import { useAlert } from "@shared/lib/alert";
 

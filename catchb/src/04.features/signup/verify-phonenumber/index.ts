@@ -1,7 +1,7 @@
 export {
   PhoneVerificationProvider,
   usePhoneVerification,
-} from "./provider/PhoneVerificationProvider";
+} from "./providers/PhoneVerificationProvider";
 
 export { NameForm } from "./ui/NameForm";
 export { PhonenumberForm } from "./ui/PhonenumberForm";

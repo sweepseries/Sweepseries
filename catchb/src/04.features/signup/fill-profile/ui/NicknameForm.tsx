@@ -1,4 +1,4 @@
-import { useProfileForm } from "../provider/ProfileFormProvider";
+import { useProfileForm } from "../providers/ProfileFormProvider";
 import { InputField } from "@shared/lib/signup";
 
 export function NicknameForm() {

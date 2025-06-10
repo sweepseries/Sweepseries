@@ -6,7 +6,7 @@ import { useVerifyCode } from "../api/verify";
 import {
   PhoneVerificationContext,
   PhoneVerificationContextType,
-} from "./context";
+} from "./contexts";
 import { useAlert } from "@shared/lib/alert";
 import { useSignup } from "@shared/lib/signup";
 

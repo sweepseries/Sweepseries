@@ -4,7 +4,7 @@ import BottomSheet, {
   BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 
-import { WithdrawSheetContext, WithdrawSheetContextType } from "./context";
+import { WithdrawSheetContext, WithdrawSheetContextType } from "./contexts";
 import { DeleteConfirmSheet } from "../ui/DeleteConfirmSheet";
 
 interface Props {

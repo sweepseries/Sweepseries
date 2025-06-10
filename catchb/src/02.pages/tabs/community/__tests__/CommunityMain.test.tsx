@@ -12,7 +12,7 @@ describe("커뮤니티 게시글 목록 페이지", () => {
       </CommunityProvider>
     );
     
-    await waitFor(() => {
+    waitFor(() => {
       fireEvent.press(getByTestId("community-tab-덕아웃"));
       fireEvent.press(getByTestId("community-tab-드래프트"));
       fireEvent.press(getByTestId("community-tab-마켓"));

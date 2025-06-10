@@ -1,7 +1,7 @@
 export {
   InquiryFormProvider,
   useInquiryForm,
-} from "./provider/InquiryFormProvider";
+} from "./providers/InquiryFormProvider";
 
 export { InquiryForm } from "./ui/InquiryForm";
 export { InquiryGuide } from "./ui/InquiryGuide";

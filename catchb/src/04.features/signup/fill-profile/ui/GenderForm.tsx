@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-import { useProfileForm } from "../provider/ProfileFormProvider";
+import { useProfileForm } from "../providers/ProfileFormProvider";
 import { AuthInputTitle } from "@shared/lib/signup";
 import { ChipSelector } from "@shared/ui/Selectors";
 

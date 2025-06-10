@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { render } from "@testing-library/react-native";
 
-import { useProfileForm } from "../provider/ProfileFormProvider";
+import { useProfileForm } from "../providers/ProfileFormProvider";
 
 const TestComponent = () => {
   const { nickname } = useProfileForm();

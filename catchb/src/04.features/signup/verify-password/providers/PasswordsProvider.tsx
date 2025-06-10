@@ -6,7 +6,7 @@ import { usePasswordCheck } from "../api/verify";
 import {
   PasswordVerificationContext,
   PasswordVerificationContextType,
-} from "./context";
+} from "./contexts";
 import { useSignup } from "@shared/lib/signup";
 
 export function PasswordsProvider({

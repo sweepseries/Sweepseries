@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { isAxiosError } from "axios";
 
-import { ProfileFormContext, ProfileFormContextType } from "./context";
+import { ProfileFormContext, ProfileFormContextType } from "./contexts";
 import { useAlert } from "@shared/lib/alert";
 import { useRegister, useSignup } from "@shared/lib/signup";
 
