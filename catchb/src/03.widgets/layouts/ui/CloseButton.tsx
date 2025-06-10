@@ -12,7 +12,7 @@ export function HeaderLeftCloseButton() {
   };
 
   return (
-    <TouchableOpacity onPress={goBack}>
+    <TouchableOpacity onPress={goBack} testID="header-close-button">
       <AppIcon icon="close" color={colors.mediumEmphasis} />
     </TouchableOpacity>
   );

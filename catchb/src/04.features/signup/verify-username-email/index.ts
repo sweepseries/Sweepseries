@@ -1,6 +1,6 @@
 export {
   UsernameEmailProvider,
   useUsernameEmail,
-} from "./provider/UsernameEmailProvider";
+} from "./providers/UsernameEmailProvider";
 export { EmailForm } from "./ui/EmailForm";
 export { UsernameForm } from "./ui/UsernameForm";

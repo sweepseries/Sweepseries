@@ -1,3 +1,3 @@
-export default function HomePage() {
-  return null;
-}
+import { CommunityMain } from "@pages/tabs/community";
+
+export default CommunityMain;

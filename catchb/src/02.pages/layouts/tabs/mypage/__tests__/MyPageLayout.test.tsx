@@ -1,4 +1,5 @@
 import { Platform } from "react-native";
+import { fireEvent } from "@testing-library/react-native";
 
 import { MyPageLayout } from "@pages/layouts";
 import { renderWithProviders } from "@test-utils/renderer";
@@ -14,7 +15,10 @@ describe("MyPageLayout", () => {
   it("renders correctly in ios", () => {
     Object.defineProperty(Platform, "OS", { value: "ios" });
 
-    renderWithProviders(<MyPageLayout />);
+    const { getByTestId } = renderWithProviders(<MyPageLayout />);
+
+    // test close button
+    fireEvent.press(getByTestId("header-close-button"));
   });
 
   it("renders correctly in android", () => {

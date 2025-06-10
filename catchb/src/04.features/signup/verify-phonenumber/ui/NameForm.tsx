@@ -1,4 +1,4 @@
-import { usePhoneVerification } from "../provider/PhoneVerificationProvider";
+import { usePhoneVerification } from "../providers/PhoneVerificationProvider";
 import { InputField } from "@shared/lib/signup";
 
 export function NameForm() {

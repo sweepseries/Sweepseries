@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { render } from "@testing-library/react-native";
 
-import { useWithdrawSheet } from "../provider/WithdrawSheetProvider";
+import { useWithdrawSheet } from "../providers/WithdrawSheetProvider";
 
 const TestComponent = () => {
   const { openSheet } = useWithdrawSheet();

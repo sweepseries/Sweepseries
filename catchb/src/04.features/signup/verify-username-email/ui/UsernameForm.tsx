@@ -1,4 +1,4 @@
-import { useUsernameEmail } from "../provider/UsernameEmailProvider";
+import { useUsernameEmail } from "../providers/UsernameEmailProvider";
 import { InputField } from "@shared/lib/signup";
 
 export function UsernameForm() {

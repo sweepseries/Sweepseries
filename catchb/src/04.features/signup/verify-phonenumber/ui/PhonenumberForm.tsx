@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { usePhoneVerification } from "../provider/PhoneVerificationProvider";
+import { usePhoneVerification } from "../providers/PhoneVerificationProvider";
 import { PhoneNumberInputs } from "./_phonenumberinputs";
 import { formStyles as styles } from "./styles";
 import { formatTimer } from "@shared/lib/datetime";

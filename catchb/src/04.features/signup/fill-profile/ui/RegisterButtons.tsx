@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-import { useProfileForm } from "../provider/ProfileFormProvider";
+import { useProfileForm } from "../providers/ProfileFormProvider";
 import { useColors } from "@shared/lib/colors";
 import { TextButton } from "@shared/ui/Buttons";
 

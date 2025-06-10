@@ -1,4 +1,4 @@
-import { useFAQList } from "../provider/FAQListProvider";
+import { useFAQList } from "../providers/FAQListProvider";
 import { FAQSimple } from "@entities/faqs";
 
 export function CategoryList() {

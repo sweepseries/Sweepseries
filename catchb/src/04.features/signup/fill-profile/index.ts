@@ -1,4 +1,4 @@
-export { ProfileFormProvider } from "./provider/ProfileFormProvider";
+export { ProfileFormProvider } from "./providers/ProfileFormProvider";
 
 export { BirthdateForm } from "./ui/BirthdateForm";
 export { GenderForm } from "./ui/GenderForm";

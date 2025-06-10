@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { usePhoneVerification } from "../provider/PhoneVerificationProvider";
+import { usePhoneVerification } from "../providers/PhoneVerificationProvider";
 import { formStyles as styles } from "./styles";
 import { AuthInputTitle, InputField } from "@shared/lib/signup";
 import { TextButton } from "@shared/ui/Buttons";

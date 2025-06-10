@@ -1,6 +1,6 @@
 export { useDeleteAccount } from "./api/delete-account";
 
-export { WithdrawSheetProvider } from "./provider/WithdrawSheetProvider";
+export { WithdrawSheetProvider } from "./providers/WithdrawSheetProvider";
 
 export { withdrawReasons } from "./models/enums";
 export { WithdrawReasonType } from "./models/types";

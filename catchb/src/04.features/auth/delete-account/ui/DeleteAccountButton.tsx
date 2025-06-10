@@ -1,4 +1,4 @@
-import { useWithdrawSheet } from "../provider/WithdrawSheetProvider";
+import { useWithdrawSheet } from "../providers/WithdrawSheetProvider";
 import { useColors } from "@shared/lib/colors";
 import { NavigateButton } from "@shared/ui/Buttons";
 

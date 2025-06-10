@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { render } from "@testing-library/react-native";
 
-import { usePasswordVerification } from "../provider/PasswordsProvider";
+import { usePasswordVerification } from "../providers/PasswordsProvider";
 
 const TestComponent = () => {
   const { password } = usePasswordVerification();

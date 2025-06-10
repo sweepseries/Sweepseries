@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { render } from "@testing-library/react-native";
 
-import { usePhoneVerification } from "../provider/PhoneVerificationProvider";
+import { usePhoneVerification } from "../providers/PhoneVerificationProvider";
 
 const TestComponent = () => {
   const { sent } = usePhoneVerification();

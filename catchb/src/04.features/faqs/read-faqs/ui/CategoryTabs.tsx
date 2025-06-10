@@ -1,6 +1,6 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
-import { useFAQList } from "../provider/FAQListProvider";
+import { useFAQList } from "../providers/FAQListProvider";
 import { FAQCategoryButton } from "@entities/faqs";
 
 export function CategoryTabs() {

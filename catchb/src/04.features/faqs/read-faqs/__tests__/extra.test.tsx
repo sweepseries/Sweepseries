@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { render } from "@testing-library/react-native";
 
-import { useFAQList } from "../provider/FAQListProvider";
+import { useFAQList } from "../providers/FAQListProvider";
 
 const TestComponent = () => {
   const { isLoading } = useFAQList();

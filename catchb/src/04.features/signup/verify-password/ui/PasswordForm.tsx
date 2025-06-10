@@ -1,4 +1,4 @@
-import { usePasswordVerification } from "../provider/PasswordsProvider";
+import { usePasswordVerification } from "../providers/PasswordsProvider";
 import { InputField } from "@shared/lib/signup";
 
 export function PasswordForm() {
