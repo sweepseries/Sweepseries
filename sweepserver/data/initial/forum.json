@@ -1,0 +1,9 @@
+[
+  { "model": "forum.forum", "pk": 1, "fields": { "name": "덕아웃" } },
+  {
+    "model": "forum.forum",
+    "pk": 2,
+    "fields": { "name": "드래프트" }
+  },
+  { "model": "forum.forum", "pk": 3, "fields": { "name": "마켓" } }
+]
