@@ -12,7 +12,7 @@ export function HeaderLeftBackButton() {
   };
 
   return (
-    <TouchableOpacity onPress={goBack}>
+    <TouchableOpacity onPress={goBack} testID="header-back-button">
       <AppIcon icon="chevron-left" color={colors.mediumEmphasis} />
     </TouchableOpacity>
   );
