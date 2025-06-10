@@ -57,6 +57,10 @@ INSTALLED_APPS = [
     "auth.phoneverification.apps.PhoneVerificationConfig",
     "auth.user.apps.UserConfig",
     "auth.withdrawal.apps.WithdrawalConfig",
+    "community.forum.apps.ForumConfig",
+    "community.post.apps.PostConfig",
+    "community.profiles.apps.CommunityProfileConfig",
+    "community.report.apps.ReportConfig",
 ]
 
 MIDDLEWARE = [
