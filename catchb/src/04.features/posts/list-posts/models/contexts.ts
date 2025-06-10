@@ -1,15 +1,11 @@
 import { createContext } from "react";
 
-import { CommunityForumType } from "@entities/posts";
+import { PostType } from "@entities/posts";
 
-export interface PostListContextType {
-  posts: string[];
-  isLoading: boolean;
-  forums: CommunityForumType[];
-  activeForum: CommunityForumType | null;
-  setActiveForum: (forum: CommunityForumType) => void;
+export interface PostsListContextType {
+  posts: PostType[];
 }
 
-export const PostListContext = createContext<PostListContextType | undefined>(
+export const PostsListContext = createContext<PostsListContextType | undefined>(
   undefined
 );

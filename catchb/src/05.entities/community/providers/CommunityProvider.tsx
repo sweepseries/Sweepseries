@@ -28,6 +28,7 @@ export function CommunityProvider({
     // TODO: Fetch profiles from API or local storage
     setProfiles(sampleCommunityProfiles);
     setForums(sampleCommunityForums);
+    setActiveForum(sampleCommunityForums[0]);
   }, []);
 
   const value = useMemo<CommunityContextType>(

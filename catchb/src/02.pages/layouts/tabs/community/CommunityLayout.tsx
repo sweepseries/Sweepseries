@@ -3,25 +3,24 @@ import { Stack } from "expo-router";
 import { HeaderLeftLogo } from "@widgets/layouts";
 import {
   ActiveProfile,
-  SwitchProfileProvider,
-} from "@features/community-profiles/switch-profile";
-import { CommunityProfilesProvider } from "@entities/community-profiles";
+  SwitchCommunityProfileProvider,
+} from "@features/community/switch-profile";
+import { CommunityProvider } from "@entities/community";
 
 export function CommunityLayout() {
   return (
-    <CommunityProfilesProvider>
-      <SwitchProfileProvider>
+    <CommunityProvider>
+      <SwitchCommunityProfileProvider>
         <Stack
           screenOptions={{
             headerLeft: HeaderLeftLogo,
-            headerRight: ActiveProfile,
             headerShadowVisible: false,
             headerTitle: "",
           }}
         >
-          <Stack.Screen name="index" />
+          <Stack.Screen name="index" options={{ headerRight: ActiveProfile }} />
         </Stack>
-      </SwitchProfileProvider>
-    </CommunityProfilesProvider>
+      </SwitchCommunityProfileProvider>
+    </CommunityProvider>
   );
 }

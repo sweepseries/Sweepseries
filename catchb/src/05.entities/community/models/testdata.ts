@@ -18,20 +18,25 @@ export const sampleCommunityProfiles: CommunityProfileType[] = [
 export const sampleCommunityForums: CommunityForumType[] = [
   {
     id: 1,
-    name: "General Discussion",
-    tags: [],
-  },
-  {
-    id: 2,
-    name: "Announcements",
+    name: "덕아웃",
     tags: [
       {
         id: 1,
-        name: "Updates",
-        icon: "📢",
-        color: "#FFCC00",
-        background_color: "#FFF3CD",
+        name: "KBO",
+        color: "#FF5733",
+        background_color: "#FFE5D9",
+        icon: "kbo",
       },
     ],
+  },
+  {
+    id: 2,
+    name: "드래프트",
+    tags: [],
+  },
+  {
+    id: 3,
+    name: "마켓",
+    tags: [],
   },
 ];

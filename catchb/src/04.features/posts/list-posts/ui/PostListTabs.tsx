@@ -8,19 +8,23 @@ import {
   View,
 } from "react-native";
 
-import { usePostLists } from "../hooks/usePostLists";
+import { CommunityForumType, useCommunity } from "@entities/community";
 import { ThemeColorType, useColors } from "@shared/lib/colors";
 
 const { width: screenWidth } = Dimensions.get("window");
 
 export function PostListTabs() {
-  const { forums, activeForum, setActiveForum } = usePostLists();
+  const { forums, activeForum, setActiveForum } = useCommunity();
   const { colors } = useColors();
   const styles = tabsStyles(colors);
 
   const tabWidth = screenWidth / forums.length;
 
   const translateX = useRef(new Animated.Value(0)).current;
+
+  const handleTabPress = (forum: CommunityForumType) => {
+    setActiveForum(forum);
+  };
 
   useEffect(() => {
     if (!activeForum) return;
@@ -39,7 +43,7 @@ export function PostListTabs() {
         <TouchableOpacity
           key={forum.id}
           style={styles.tab}
-          onPress={() => setActiveForum(forum)}
+          onPress={() => handleTabPress(forum)}
           testID={`community-tab-${forum.name}`}
         >
           <Text

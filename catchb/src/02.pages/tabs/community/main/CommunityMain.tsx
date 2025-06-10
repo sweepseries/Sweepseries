@@ -1,9 +1,5 @@
-import { PostListProvider, PostListTabs } from "@features/posts/list-posts";
+import { PostListTabs } from "@features/posts/list-posts";
 
 export function CommunityMain() {
-  return (
-    <PostListProvider>
-      <PostListTabs />
-    </PostListProvider>
-  );
+  return <PostListTabs />;
 }
