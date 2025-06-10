@@ -17,7 +17,6 @@ jest.mock("expo-router", () => {
       }) => (
         <View>
           {screenOptions.headerLeft?.({})}
-          {screenOptions.headerRight?.({})}
           {screenOptions.headerTitle &&
           typeof screenOptions.headerTitle === "function"
             ? screenOptions.headerTitle({ children: "" })
@@ -29,6 +28,7 @@ jest.mock("expo-router", () => {
         Screen: ({ options }: { options?: NativeStackNavigationOptions }) => (
           <View>
             {options?.headerLeft?.({})}
+            {options?.headerRight?.({})}
             {options?.headerTitle && typeof options.headerTitle === "function"
               ? options.headerTitle({ children: "" })
               : options?.headerTitle}
