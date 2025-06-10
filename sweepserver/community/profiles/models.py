@@ -15,7 +15,7 @@ class CommunityProfile(TimeStampedModel):
         max_length=7, default="#FFFFFF"
     )  # Default to white
     profile_image = models.URLField(null=True)
-    bio = models.TextField(blank=True, null=True)
+    bio = models.TextField(blank=True)
 
     is_default = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)

@@ -19,7 +19,7 @@ class Tag(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name="tags")
     name = models.CharField(max_length=100)
 
-    icon = models.CharField(max_length=50, blank=True, null=True)
+    icon = models.CharField(max_length=50, blank=True)
     color = models.CharField(max_length=7, default="#FFFFFF")
     background_color = models.CharField(max_length=7, default="#F0F0F0")
 

@@ -48,7 +48,7 @@ class BaseReport(TimeStampedModel):
         ReportStatus, on_delete=models.PROTECT, related_name="reports"
     )
 
-    admin_note = models.TextField(blank=True, null=True)
+    admin_note = models.TextField(blank=True)
 
     class Meta:
         abstract = True
