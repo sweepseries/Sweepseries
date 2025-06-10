@@ -51,7 +51,7 @@ class Post(TimeStampedModel):
             today = timezone.localdate()
 
             with transaction.atomic():
-                seq, created = DailySequence.objects.select_for_update().get_or_create(
+                seq, _ = DailySequence.objects.select_for_update().get_or_create(
                     date=today
                 )
                 seq.last += 1
