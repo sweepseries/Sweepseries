@@ -1,7 +1,4 @@
-import {
-  CommunityProfile,
-  sampleCommunityProfiles,
-} from "@entities/community-profiles";
+import { CommunityProfile, sampleCommunityProfiles } from "@entities/community";
 import { renderWithProviders } from "@test-utils/renderer";
 
 describe("CommunityProfile", () => {

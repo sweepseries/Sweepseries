@@ -1,1 +1,1 @@
-export type { CommunityForumType } from "./models/types";
+export type { PostType } from "./models/types";
