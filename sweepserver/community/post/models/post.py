@@ -21,7 +21,7 @@ class DailySequence(models.Model):
         verbose_name_plural = "일일 시퀀스"
 
     def __str__(self):
-        return f"{self.date} - {self.sequence_number}"
+        return f"{self.date} - {self.last}"
 
 
 class Post(TimeStampedModel):
