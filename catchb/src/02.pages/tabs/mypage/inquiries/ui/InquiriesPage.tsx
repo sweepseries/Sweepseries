@@ -1,44 +1,32 @@
-import styled, { DefaultTheme } from "styled-components/native";
-
-import { InquiriesList } from "./_list";
 import {
   InquiryForm,
   InquiryFormProvider,
   InquiryGuide,
   useInquiryForm,
 } from "@features/inquiries/create-new-inquiry";
+import {
+  InquiriesList,
+  InquiriesListProvider,
+} from "@features/inquiries/list-inquiries";
+import { ScrollViewOnOverflow } from "@shared/ui/ScrollView";
 
 export function InquiriesPage() {
   return (
-    <InquiryFormProvider>
-      <InquiryPageComponent />
-    </InquiryFormProvider>
+    <InquiriesListProvider>
+      <InquiryFormProvider>
+        <InquiryPageComponent />
+      </InquiryFormProvider>
+    </InquiriesListProvider>
   );
 }
 
 function InquiryPageComponent() {
-  const { isOpen } = useInquiryForm();
+  const { isOpen, scrollRef } = useInquiryForm();
 
   return (
-    <Container>
+    <ScrollViewOnOverflow ref={scrollRef}>
       <InquiryGuide />
-      {isOpen ? (
-        <InquiryForm />
-      ) : (
-        <ListWrapper>
-          <InquiriesList />
-        </ListWrapper>
-      )}
-    </Container>
+      {isOpen ? <InquiryForm /> : <InquiriesList />}
+    </ScrollViewOnOverflow>
   );
 }
-
-const Container = styled.ScrollView`
-  gap: 16px;
-`;
-
-const ListWrapper = styled.View`
-  min-height: 70%;
-  background-color: ${({ theme }: { theme: DefaultTheme }) =>
-    theme.colors.background};
-`;
