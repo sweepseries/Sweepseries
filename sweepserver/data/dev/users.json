@@ -72,5 +72,37 @@
       "notification_agreed": false,
       "notification_agreed_at": null
     }
+  },
+  {
+    "model": "community_profile.communityprofile",
+    "pk": "0a1a65f4-a8e4-48bc-b94a-168ca6bf8bf3",
+    "fields": {
+      "created_at": "2025-06-11T12:04:29.103Z",
+      "updated_at": "2025-06-11T12:04:29.103Z",
+      "user": "5cbe2242-5543-4cc2-a4b5-ea1478600bf1",
+      "profile_name": "야구하는 홍길동",
+      "profile_color": "#55D8E4",
+      "profile_image": null,
+      "bio": "",
+      "is_default": true,
+      "is_blocked": false,
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "community_profile.communityprofile",
+    "pk": "c31c4e84-d73b-4d4f-b3b5-439b0f774f02",
+    "fields": {
+      "created_at": "2025-06-11T12:04:39.648Z",
+      "updated_at": "2025-06-11T12:04:39.648Z",
+      "user": "3bf71f3c-0f63-4b21-99db-c362b0c02be3",
+      "profile_name": "새침한 티아나",
+      "profile_color": "#63A9DF",
+      "profile_image": null,
+      "bio": "",
+      "is_default": true,
+      "is_blocked": false,
+      "is_deleted": false
+    }
   }
 ]
