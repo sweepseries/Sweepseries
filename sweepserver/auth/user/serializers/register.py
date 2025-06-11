@@ -10,6 +10,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from auth.person.models import Person, GenderChoices
+from community.profiles.utils import create_community_profile_register
 from ..enums import RegisterRouteChoices
 from ..models import User
 from ..validators import UsernameValidator, EmailValidator
@@ -203,6 +204,9 @@ class BaseRegisterSerializer(serializers.ModelSerializer):
                 user.profile_image = image
 
             user.save()
+
+            # 커뮤니티 프로필 생성
+            create_community_profile_register(user)
 
         return user
 
