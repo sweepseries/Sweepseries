@@ -107,6 +107,10 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
+SILENCED_SYSTEM_CHECKS = [
+    "auth.W004",  # User.username non-unique 경고
+]
+
 SIMPLE_JWT = {
     ## 토큰 만료 시간 설정
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
