@@ -1,3 +1,4 @@
+import { Text } from "react-native";
 import { fireEvent } from "@testing-library/react-native";
 
 import { MenuSelector } from "@shared/ui/Selectors";
@@ -13,8 +14,10 @@ describe("MenuSelector", () => {
         options={["Option 1", "Option 2"]}
         selected="Option 1"
         onSelect={mockOnSelect}
-        renderLabel={(option) => option}
-      />
+        keyExtractor={(option) => option}
+      >
+        <Text>Select an option</Text>
+      </MenuSelector>
     );
 
     fireEvent.press(getByTestId("selector"));
