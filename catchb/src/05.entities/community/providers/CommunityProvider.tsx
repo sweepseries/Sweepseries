@@ -39,7 +39,7 @@ export function CommunityProvider({
         const initialProfile =
           res.profiles.find(
             (profile) => profile.id === storedActiveProfileId
-          ) || res.profiles[0];
+          ) ?? res.profiles[0];
         setActiveProfile(initialProfile);
       } else {
         showAlert({
