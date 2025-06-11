@@ -1,9 +1,9 @@
 import { router } from "expo-router";
 import styled from "styled-components/native";
 
-import { LoginNeeded } from "@widgets/fallbacks";
 import { UserProfileCard } from "@entities/users";
 import { useAuth } from "@shared/lib/auth";
+import { LoginNeeded } from "@shared/ui/Fallbacks";
 
 export function MyActivities() {
   const { user, isAuthenticated } = useAuth();

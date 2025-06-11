@@ -1,13 +1,14 @@
 import { useEffect } from "react";
+import styled, { DefaultTheme } from "styled-components/native";
 
-import { LoadingInquiries } from "./loading";
-import { ErrorGuide } from "@widgets/fallbacks";
+import { LoadingInquiries } from "./_loading";
 import { InquirySimple, useInquiries } from "@entities/inquiries";
 import { useAlert } from "@shared/lib/alert";
+import { ErrorGuide } from "@shared/ui/Fallbacks";
 
 export function InquiriesList() {
-  const { showAlert } = useAlert();
   const { data: inquiries, isLoading, isError } = useInquiries();
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     if (isError) {
@@ -25,10 +26,16 @@ export function InquiriesList() {
   }
 
   return (
-    <>
+    <ListWrapper>
       {inquiries.map((inquiry) => (
         <InquirySimple key={inquiry.id} inquiry={inquiry} />
       ))}
-    </>
+    </ListWrapper>
   );
 }
+
+const ListWrapper = styled.View`
+  min-height: 70%;
+  background-color: ${({ theme }: { theme: DefaultTheme }) =>
+    theme.colors.background};
+`;

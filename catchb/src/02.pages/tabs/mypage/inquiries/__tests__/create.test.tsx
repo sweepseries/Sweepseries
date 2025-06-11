@@ -1,5 +1,5 @@
 import axios from "axios";
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import { act, fireEvent, waitFor } from "@testing-library/react-native";
 
 import { InquiriesPage } from "@pages/tabs/mypage";
 import { sampleInquiries } from "@entities/inquiries";
@@ -157,10 +157,14 @@ describe("1:1 문의 페이지", () => {
     expect(getByTestId("email-input")).toHaveProp("editable", true);
 
     // 필드를 채운다.
+    const contentInput = getByTestId("content-input");
     fireEvent.changeText(getByTestId("name-input"), "샘플 이름");
     fireEvent.changeText(getByTestId("email-input"), "test@email.com");
     fireEvent.changeText(getByTestId("title-input"), "샘플 제목");
-    fireEvent.changeText(getByTestId("content-input"), "샘플 내용");
+    act(() => {
+      contentInput.props.onFocus();
+    });
+    fireEvent.changeText(contentInput, "샘플 내용");
     fireEvent.press(getByTestId("term-accept-checkbox"));
 
     // 실패 사례 테스트 2: 알 수 없는 에러

@@ -1,8 +1,12 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ScrollView } from "react-native-gesture-handler";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError, isAxiosError } from "axios";
 
-import { InquiryFormContext, InquiryFormContextType } from "./contexts";
+import {
+  InquiryFormContext,
+  InquiryFormContextType,
+} from "../contexts/useInquiryForm";
 import {
   InquiryCategoryType,
   InquiryThreadType,
@@ -33,6 +37,7 @@ export function InquiryFormProvider({
   const { user } = useAuth();
   const { mutate: createInquiry } = useCreateInquiry();
   const queryClient = useQueryClient();
+  const scrollRef = useRef<ScrollView>(null);
 
   const openForm = () => {
     setIsOpen(true);
@@ -148,6 +153,7 @@ export function InquiryFormProvider({
       openForm,
       closeForm,
       submitForm,
+      scrollRef,
     }),
     [name, email, category, title, content, isOpen, isGuestMode]
   );
@@ -157,12 +163,4 @@ export function InquiryFormProvider({
       {children}
     </InquiryFormContext.Provider>
   );
-}
-
-export function useInquiryForm() {
-  const context = useContext(InquiryFormContext);
-  if (!context) {
-    throw new Error("useInquiryForm must be used within a InquiryFormProvider");
-  }
-  return context;
 }

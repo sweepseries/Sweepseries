@@ -9,11 +9,11 @@ import {
 
 const defaultCommunityContext: CommunityContextType = {
   activeProfile: sampleCommunityProfiles[0],
-  switchProfile: jest.fn(),
+  switchProfile: () => {},
   profiles: sampleCommunityProfiles,
   forums: sampleCommunityForums,
   activeForum: sampleCommunityForums[0],
-  setActiveForum: jest.fn(),
+  setActiveForum: () => {},
 };
 
 interface Props {

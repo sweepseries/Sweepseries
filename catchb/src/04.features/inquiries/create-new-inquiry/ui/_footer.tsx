@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
-import { useInquiryForm } from "../providers/InquiryFormProvider";
+import { useInquiryForm } from "../contexts/useInquiryForm";
 import { formStyles } from "./styles";
 import { useColors } from "@shared/lib/colors";
 import { TextButton } from "@shared/ui/Buttons";

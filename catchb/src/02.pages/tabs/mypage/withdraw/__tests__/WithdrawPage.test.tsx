@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from "@testing-library/react-native";
+import { act, fireEvent, waitFor } from "@testing-library/react-native";
 import * as Router from "expo-router";
 import axios from "axios";
 
@@ -43,11 +43,13 @@ describe("회원탈퇴 페이지", () => {
     // 직접 작성
     fireEvent.press(getByText("직접 작성"));
     expect(getByTestId("탈퇴하기")).toBeDisabled();
-    expect(queryByTestId("custom-reason-input")).toBeTruthy();
-    fireEvent.changeText(
-      queryByTestId("custom-reason-input"),
-      "사유를 입력합니다..."
-    );
+    const textInput = getByTestId("custom-reason-input");
+    expect(textInput).toBeTruthy();
+    act(() => {
+      textInput.props.onFocus();
+      jest.advanceTimersByTime(1000);
+    });
+    fireEvent.changeText(textInput, "사유를 입력합니다...");
     expect(getByTestId("탈퇴하기")).toBeEnabled();
 
     // 탈퇴하기 버튼 클릭
@@ -59,9 +61,7 @@ describe("회원탈퇴 페이지", () => {
   });
 
   it("탈퇴 실패 (서버 오류)", async () => {
-    const { getByTestId } = renderWithProviders(
-      <WithdrawPage />
-    );
+    const { getByTestId } = renderWithProviders(<WithdrawPage />);
 
     // 탈퇴하기 버튼 클릭
     jest.spyOn(axios, "post").mockRejectedValue({});

@@ -193,6 +193,14 @@ jest.mock("@shared/ui/Dividers", () => ({
   Divider: () => null,
   VerticalDivider: () => null,
 }));
+jest.mock("@shared/ui/Fallbacks", () => {
+  const { Text } = jest.requireActual("react-native");
+
+  return {
+    ErrorGuide: ({ message }: { message: string }) => <Text>{message}</Text>,
+    LoginNeeded: () => <Text>Login Needed</Text>,
+  };
+});
 jest.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
   DefaultProfile: () => null,
