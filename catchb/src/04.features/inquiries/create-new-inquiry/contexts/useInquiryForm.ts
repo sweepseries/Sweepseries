@@ -1,4 +1,5 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
+import { ScrollView } from "react-native-gesture-handler";
 
 import { InquiryCategoryType } from "@entities/inquiries";
 
@@ -18,8 +19,17 @@ export interface InquiryFormContextType {
   openForm: () => void;
   closeForm: () => void;
   submitForm: () => Promise<void>;
+  scrollRef: React.RefObject<ScrollView>;
 }
 
 export const InquiryFormContext = createContext<
   InquiryFormContextType | undefined
 >(undefined);
+
+export function useInquiryForm() {
+  const context = useContext(InquiryFormContext);
+  if (!context) {
+    throw new Error("useInquiryForm must be used within a InquiryFormProvider");
+  }
+  return context;
+}

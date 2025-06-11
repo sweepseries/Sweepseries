@@ -4,19 +4,14 @@ import {
   InquiryGuide,
   useInquiryForm,
 } from "@features/inquiries/create-new-inquiry";
-import {
-  InquiriesList,
-  InquiriesListProvider,
-} from "@features/inquiries/list-inquiries";
+import { InquiriesList } from "@features/inquiries/list-inquiries";
 import { ScrollViewOnOverflow } from "@shared/ui/ScrollView";
 
 export function InquiriesPage() {
   return (
-    <InquiriesListProvider>
-      <InquiryFormProvider>
-        <InquiryPageComponent />
-      </InquiryFormProvider>
-    </InquiriesListProvider>
+    <InquiryFormProvider>
+      <InquiryPageComponent />
+    </InquiryFormProvider>
   );
 }
 

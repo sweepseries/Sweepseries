@@ -1,6 +1,6 @@
 import { Text, TextInput, View } from "react-native";
 
-import { useInquiryForm } from "../providers/InquiryFormProvider";
+import { useInquiryForm } from "../contexts/useInquiryForm";
 import { formStyles } from "./styles";
 import { InquiryCategoryType, inquiryCategories } from "@entities/inquiries";
 import { useColors } from "@shared/lib/colors";
@@ -8,13 +8,26 @@ import { AppIcon } from "@shared/ui/Icons";
 import { MenuSelector } from "@shared/ui/Selectors";
 
 export function InquirySegment() {
-  const { category, setCategory, title, setTitle, content, setContent } =
-    useInquiryForm();
+  const {
+    category,
+    setCategory,
+    title,
+    setTitle,
+    content,
+    setContent,
+    scrollRef,
+  } = useInquiryForm();
   const { colors } = useColors();
   const styles = formStyles(colors);
 
   const renderInquiryCategory = (category: InquiryCategoryType) => {
     return category.name;
+  };
+
+  const scrollOnFocus = () => {
+    scrollRef.current?.scrollToEnd({
+      animated: true,
+    });
   };
 
   return (
@@ -45,6 +58,7 @@ export function InquirySegment() {
           placeholderTextColor={colors.lowEmphasis}
           value={title}
           onChangeText={setTitle}
+          onFocus={scrollOnFocus}
           testID="title-input"
         />
         <TextInput
@@ -54,6 +68,7 @@ export function InquirySegment() {
           value={content}
           onChangeText={setContent}
           multiline
+          onFocus={scrollOnFocus}
           testID="content-input"
         />
       </View>

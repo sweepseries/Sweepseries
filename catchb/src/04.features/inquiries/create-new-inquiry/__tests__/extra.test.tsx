@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { render } from "@testing-library/react-native";
 
-import { useInquiryForm } from "../providers/InquiryFormProvider";
+import { useInquiryForm } from "../contexts/useInquiryForm";
 
 const TestComponent = () => {
   const { isOpen } = useInquiryForm();

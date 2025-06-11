@@ -2,7 +2,7 @@ import { Linking, TouchableOpacity } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import styled, { DefaultTheme } from "styled-components/native";
 
-import { useInquiryForm } from "../providers/InquiryFormProvider";
+import { useInquiryForm } from "../contexts/useInquiryForm";
 import { useAlert } from "@shared/lib/alert";
 import { useColors } from "@shared/lib/colors";
 import { TextButton } from "@shared/ui/Buttons";
