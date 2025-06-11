@@ -1,5 +1,3 @@
-export { renderWithCommunity } from "./utils/testWrapper";
-
 export { useCommunity } from "./hooks/useCommunity";
 
 export {
