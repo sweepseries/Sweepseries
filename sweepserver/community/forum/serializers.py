@@ -6,7 +6,7 @@ from .models import Forum, Tag
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ["id", "name", "icon", "color", "background_color"]
+        fields = ["id", "name", "icon"]
 
 
 class ForumSerializer(serializers.ModelSerializer):
