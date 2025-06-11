@@ -22,6 +22,9 @@ from auth.user.views import (
 from auth.withdrawal.views import WithdrawalView
 
 
+## Community Apps
+from community.views import CommunityInitializerView
+
 router = DefaultRouter()
 
 router.register(r"announcements", AnnouncementViewSet, basename="announcements")
@@ -49,6 +52,11 @@ urlpatterns = [
     ),
     path("phone/code/verify/", VerifyCodeView.as_view(), name="verify_code"),
     path("tokens/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path(
+        "community/initialize/",
+        CommunityInitializerView.as_view(),
+        name="community_initialize",
+    ),
 ]
 
 urlpatterns += router.urls

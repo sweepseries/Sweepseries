@@ -1,4 +1,8 @@
-import { CommunityForumType, CommunityProfileType } from "./types";
+import {
+  CommunityForumType,
+  CommunityProfileType,
+  CommunityInitializerResponseType,
+} from "./types";
 
 export const sampleCommunityProfiles: CommunityProfileType[] = [
   {
@@ -40,3 +44,9 @@ export const sampleCommunityForums: CommunityForumType[] = [
     tags: [],
   },
 ];
+
+export const sampleCommunityInitializerResponse: CommunityInitializerResponseType =
+  {
+    forums: sampleCommunityForums,
+    profiles: sampleCommunityProfiles,
+  };

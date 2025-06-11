@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
+from django.db.models.functions import Lower
 
 from auth.person.models import Person
 from .enums import RegisterRouteChoices
@@ -50,7 +51,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    username = models.CharField(max_length=150, unique=True)
+    username = models.CharField(max_length=150)
     email = models.EmailField(unique=True)
     person = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="user")
 
@@ -97,3 +98,6 @@ class User(AbstractBaseUser):
         db_table = "user"
         verbose_name = "회원"
         verbose_name_plural = "회원"
+        constraints = [
+            models.UniqueConstraint(Lower("username"), name="unique_username")
+        ]

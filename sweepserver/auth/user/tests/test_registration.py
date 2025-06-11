@@ -3,6 +3,7 @@ import requests
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from community.profiles.models import CommunityProfile
 from ..models import User
 
 
@@ -54,6 +55,7 @@ class RegisterAPITestCase(APITestCase):
         self.assertEqual(user.person.phone_number, "+821012345678")
         self.assertEqual(user.notification_agreed, True)
         self.assertIsNotNone(user.notification_agreed_at)
+        self.assertGreater(CommunityProfile.objects.count(), 0)
 
     def test_catchb_register_fail(self):
         ## 1. no passwords
@@ -99,6 +101,7 @@ class RegisterAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         user = User.objects.get(username=self.kakao_data["username"])
         self.assertEqual(user.notification_agreed, True)
+        self.assertGreater(CommunityProfile.objects.count(), 0)
 
     @patch("auth.user.serializers.register.default_storage")
     @patch("auth.user.serializers.register.requests.get")
@@ -131,6 +134,7 @@ class RegisterAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         user = User.objects.get(username=self.naver_data["username"])
         self.assertEqual(user.notification_agreed, False)
+        self.assertGreater(CommunityProfile.objects.count(), 0)
 
     @patch("auth.user.serializers.register.requests.get")
     def test_profile_image_request_fail(self, mock_get):
