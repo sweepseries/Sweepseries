@@ -6,6 +6,7 @@ import PagerView, {
 } from "react-native-pager-view";
 
 import { communityMainStyles } from "./_styles";
+import { CreatePostButton } from "@features/posts/create-post";
 import { PostListTabs } from "@features/posts/list-posts";
 import { useCommunity } from "@entities/community";
 
@@ -27,15 +28,11 @@ export function CommunityMain() {
   };
 
   useEffect(() => {
-    if (!activeForum) return;
-
     const activeIndex = forums.findIndex(
       (forum) => forum.id === activeForum.id
     );
     ref.current?.setPage(activeIndex);
   }, [activeForum, forums]);
-
-  if (!activeForum) return null;
 
   return (
     <View style={communityMainStyles.flex}>
@@ -59,6 +56,7 @@ export function CommunityMain() {
           </View>
         ))}
       </PagerView>
+      <CreatePostButton />
     </View>
   );
 }

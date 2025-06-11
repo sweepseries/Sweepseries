@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { View } from "react-native";
+import { ReactNode, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { useColors } from "@shared/lib/colors";
@@ -10,14 +10,16 @@ interface Props<T> {
   options: T[];
   selected: T;
   onSelect: (option: T) => void;
-  renderLabel: (option: T) => string;
+  keyExtractor: (option: T) => string;
+  children: ReactNode; // 기본적으로 렌더링할 컴포넌트 (메뉴를 open하는 버튼)
 }
 
 export function MenuSelector<T>({
   options,
   selected,
   onSelect,
-  renderLabel,
+  keyExtractor,
+  children,
 }: Readonly<Props<T>>) {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -34,16 +36,18 @@ export function MenuSelector<T>({
 
   return (
     <Container>
-      <Selector onPress={toggleSelector} testID="selector">
-        <Label>{renderLabel(selected)}</Label>
-        <AppIcon icon="chevron-down" size={18} color={colors.mediumEmphasis} />
-      </Selector>
+      <TouchableOpacity onPress={toggleSelector} testID="selector">
+        {children}
+      </TouchableOpacity>
       {open && (
         <OptionsContainer>
           {options.map((option, i) => (
-            <View key={renderLabel(option)}>
+            <View key={keyExtractor(option)}>
               {i !== 0 && <Divider color={colors.border} />}
-              <Option onPress={() => handleOptionSelect(option)} testID={renderLabel(option)}>
+              <Option
+                onPress={() => handleOptionSelect(option)}
+                testID={keyExtractor(option)}
+              >
                 <OptionText
                   style={{
                     color:
@@ -52,10 +56,10 @@ export function MenuSelector<T>({
                         : colors.mediumEmphasis,
                   }}
                 >
-                  {renderLabel(option)}
+                  {keyExtractor(option)}
                 </OptionText>
                 {option === selected && (
-                  <AppIcon icon="check" size={18} color={colors.primary} />
+                  <AppIcon icon="check" size={16} color={colors.primary} />
                 )}
               </Option>
             </View>
@@ -68,21 +72,6 @@ export function MenuSelector<T>({
 
 const Container = styled.View`
   position: relative;
-`;
-
-const Selector = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid
-    ${({ theme }: { theme: DefaultTheme }) => theme.colors.border};
-`;
-
-const Label = styled.Text`
-  font-size: 14px;
-  color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.highEmphasis};
 `;
 
 const OptionsContainer = styled.View`
@@ -102,7 +91,8 @@ const Option = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: 8px 8px 8px 12px;
+  gap: 4px;
 `;
 
 const OptionText = styled.Text`

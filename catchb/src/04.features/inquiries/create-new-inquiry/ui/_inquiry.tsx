@@ -4,6 +4,7 @@ import { useInquiryForm } from "../providers/InquiryFormProvider";
 import { formStyles } from "./styles";
 import { InquiryCategoryType, inquiryCategories } from "@entities/inquiries";
 import { useColors } from "@shared/lib/colors";
+import { AppIcon } from "@shared/ui/Icons";
 import { MenuSelector } from "@shared/ui/Selectors";
 
 export function InquirySegment() {
@@ -24,8 +25,17 @@ export function InquirySegment() {
           options={inquiryCategories}
           selected={category}
           onSelect={setCategory}
-          renderLabel={renderInquiryCategory}
-        />
+          keyExtractor={renderInquiryCategory}
+        >
+          <View style={styles.menuComponent}>
+            <Text style={styles.menuText}>{category.name}</Text>
+            <AppIcon
+              icon="chevron-down"
+              size={18}
+              color={colors.mediumEmphasis}
+            />
+          </View>
+        </MenuSelector>
       </View>
       <View style={styles.segment}>
         <Text style={styles.subtitle}>문의하기</Text>

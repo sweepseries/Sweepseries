@@ -20,6 +20,20 @@ export const formStyles = (colors: ThemeColorType) =>
       fontWeight: "bold",
       color: colors.highEmphasis,
     },
+    menuComponent: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      borderRadius: 4,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    menuText: {
+      fontSize: 14,
+      color: colors.highEmphasis,
+    },
     input: {
       textAlignVertical: "top",
       paddingVertical: 8,

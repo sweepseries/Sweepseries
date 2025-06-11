@@ -29,15 +29,11 @@ export function PostListTabs({ translateX }: Readonly<Props>) {
   };
 
   useEffect(() => {
-    if (!activeForum) return;
-
     Animated.spring(translateX, {
       toValue: (activeForum.id - 1) * tabWidth,
       useNativeDriver: true,
     }).start();
   }, [activeForum, tabWidth]);
-
-  if (!activeForum) return null;
 
   return (
     <View style={styles.container}>
