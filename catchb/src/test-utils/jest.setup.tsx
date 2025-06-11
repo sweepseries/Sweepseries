@@ -110,18 +110,6 @@ jest.mock("@gorhom/bottom-sheet", () => {
   };
 });
 
-jest.mock("@entities/community/api/initialize", () => {
-  const { sampleCommunityInitializerResponse } = jest.requireActual(
-    "@entities/community/models/testdata"
-  );
-
-  return {
-    initializeCommunity: jest
-      .fn()
-      .mockResolvedValue(sampleCommunityInitializerResponse),
-  };
-});
-
 jest.mock("@shared/lib/alert", () => ({
   AlertProvider: ({ children }: { children: React.ReactNode }) => children,
   useAlert: jest.fn(() => ({
@@ -157,6 +145,9 @@ jest.mock("@shared/lib/colors", () => {
     sampleColors,
   };
 });
+jest.mock("@shared/lib/keyboard", () => ({
+  KeyboardWrapper: ({ children }: { children: React.ReactNode }) => children,
+}));
 jest.mock("@shared/lib/storage", () => ({
   getSecure: jest.fn().mockResolvedValue("asdf"),
   removeSecure: jest.fn().mockResolvedValue({}),
@@ -210,22 +201,33 @@ jest.mock("@shared/ui/Logo", () => ({
   CatchBMainLogo: jest.fn(() => null),
 }));
 jest.mock("@shared/ui/Selectors", () => {
-  const { Text } = jest.requireActual("react-native");
+  const { Text, TouchableOpacity } = jest.requireActual("react-native");
 
   return {
     ChipSelector: () => null,
     MenuSelector: ({
+      options,
       selected,
+      onSelect,
       keyExtractor,
       children,
     }: {
+      options: any[];
       selected: any;
+      onSelect: (option: any) => void;
       keyExtractor: (option: any) => string;
       children: React.ReactNode;
     }) => (
       <Text>
         {keyExtractor(selected)}
         {children}
+        {options.map((option: any) => (
+          <TouchableOpacity
+            key={keyExtractor(option)}
+            onPress={() => onSelect(option)}
+            testID={`select-${keyExtractor(option)}`}
+          />
+        ))}
       </Text>
     ),
   };

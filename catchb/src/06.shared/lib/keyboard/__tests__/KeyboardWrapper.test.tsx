@@ -16,6 +16,8 @@ jest.mock("react-native-safe-area-context", () => ({
   })),
 }));
 
+jest.unmock("@shared/lib/keyboard");
+
 describe("KeyboardWrapper", () => {
   it("renders children correctly", () => {
     const { getByText } = renderWithProviders(
