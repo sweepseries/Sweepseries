@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { initializeCommunity } from "../api/initialize";
-import { CommunityContextType, CommunityContext } from "../models/contexts";
+import { CommunityContextType, CommunityContext } from "./useCommunity";
 import { CommunityForumType, CommunityProfileType } from "@entities/community";
 import { useAlert } from "@shared/lib/alert";
 import { getStorage, saveStorage } from "@shared/lib/storage";

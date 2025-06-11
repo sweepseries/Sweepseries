@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 import { CommunityForumType, CommunityProfileType } from "@entities/community";
 
@@ -16,3 +16,11 @@ export interface CommunityContextType {
 export const CommunityContext = createContext<CommunityContextType | undefined>(
   undefined
 );
+
+export function useCommunity() {
+  const context = useContext(CommunityContext);
+  if (!context) {
+    throw new Error("useCommunity must be used within a CommunityProvider");
+  }
+  return context;
+}

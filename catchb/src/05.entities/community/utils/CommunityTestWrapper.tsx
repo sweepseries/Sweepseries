@@ -1,4 +1,7 @@
-import { CommunityContext, CommunityContextType } from "../models/contexts";
+import {
+  CommunityContext,
+  CommunityContextType,
+} from "../contexts/useCommunity";
 import {
   sampleCommunityProfiles,
   sampleCommunityForums,
