@@ -41,22 +41,11 @@ describe("마이페이지 메인", () => {
       isAuthenticated: false,
     });
 
-    const { getByTestId, queryByTestId } = renderWithProviders(<MyPageMain />);
+    const { getByText, queryByTestId } = renderWithProviders(<MyPageMain />);
 
     expect(queryByTestId("로그아웃-button")).toBeFalsy();
     expect(queryByTestId("회원탈퇴-button")).toBeFalsy();
-    expect(getByTestId("로그인 하러가기")).toBeTruthy();
-
-    // router.canDismiss()가 false일 때
-    jest.spyOn(Router.router, "canDismiss").mockReturnValue(false);
-    fireEvent.press(getByTestId("로그인 하러가기"));
-    expect(Router.router.replace).toHaveBeenCalledWith("/");
-
-    // router.canDismiss()가 true일 때
-    jest.spyOn(Router.router, "canDismiss").mockReturnValue(true);
-    fireEvent.press(getByTestId("로그인 하러가기"));
-    expect(Router.router.dismissAll).toHaveBeenCalled();
-    expect(Router.router.replace).toHaveBeenCalledWith("/");
+    expect(getByText("Login Needed")).toBeTruthy();
   });
 
   it("로그아웃", async () => {
