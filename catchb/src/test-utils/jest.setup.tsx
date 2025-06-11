@@ -216,11 +216,18 @@ jest.mock("@shared/ui/Selectors", () => {
     ChipSelector: () => null,
     MenuSelector: ({
       selected,
-      renderLabel,
+      keyExtractor,
+      children,
     }: {
       selected: any;
-      renderLabel: (option: any) => string;
-    }) => <Text>{renderLabel(selected)}</Text>,
+      keyExtractor: (option: any) => string;
+      children: React.ReactNode;
+    }) => (
+      <Text>
+        {keyExtractor(selected)}
+        {children}
+      </Text>
+    ),
   };
 });
 jest.mock("@shared/ui/TextInput", () => {
