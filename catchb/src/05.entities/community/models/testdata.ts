@@ -2,6 +2,7 @@ import {
   CommunityForumType,
   CommunityProfileType,
   CommunityInitializerResponseType,
+  CommunityTagType,
 } from "./types";
 
 export const sampleCommunityProfiles: CommunityProfileType[] = [
@@ -19,19 +20,26 @@ export const sampleCommunityProfiles: CommunityProfileType[] = [
   },
 ];
 
+const sampleDugoutTags: CommunityTagType[] = [
+  {
+    id: 1,
+    name: "KBO",
+    icon: true,
+  },
+  {
+    id: 2,
+    name: "MLB",
+    icon: true,
+  },
+];
+
+export const sampleCommunityTags: CommunityTagType[] = sampleDugoutTags;
+
 export const sampleCommunityForums: CommunityForumType[] = [
   {
     id: 1,
     name: "덕아웃",
-    tags: [
-      {
-        id: 1,
-        name: "KBO",
-        color: "#FF5733",
-        background_color: "#FFE5D9",
-        icon: "kbo",
-      },
-    ],
+    tags: sampleDugoutTags,
   },
   {
     id: 2,

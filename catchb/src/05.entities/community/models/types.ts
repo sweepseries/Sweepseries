@@ -1,9 +1,7 @@
 export type CommunityTagType = {
   id: number;
   name: string;
-  icon: string;
-  color: string;
-  background_color: string;
+  icon: boolean;
 };
 
 export type CommunityForumType = {
