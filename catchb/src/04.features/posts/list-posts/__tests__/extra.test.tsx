@@ -1,6 +1,6 @@
 import { Text } from "react-native";
 
-import { usePostList } from "../hooks/usePostList";
+import { usePostList } from "../contexts/usePostList";
 import { renderWithProviders } from "@test-utils/renderer";
 
 const TestComponent = () => {
