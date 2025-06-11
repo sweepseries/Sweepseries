@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { CommunityInitializerResponseType } from "../models/types";
 
 export async function initializeCommunity(): Promise<CommunityInitializerResponseType | null> {

@@ -110,6 +110,18 @@ jest.mock("@gorhom/bottom-sheet", () => {
   };
 });
 
+jest.mock("@entities/community/api/initialize", () => {
+  const { sampleCommunityInitializerResponse } = jest.requireActual(
+    "@entities/community/models/testdata"
+  );
+
+  return {
+    initializeCommunity: jest
+      .fn()
+      .mockResolvedValue(sampleCommunityInitializerResponse),
+  };
+});
+
 jest.mock("@shared/lib/alert", () => ({
   AlertProvider: ({ children }: { children: React.ReactNode }) => children,
   useAlert: jest.fn(() => ({

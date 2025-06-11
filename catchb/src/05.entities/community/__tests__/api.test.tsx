@@ -3,6 +3,8 @@ import axios from "axios";
 import { initializeCommunity } from "../api/initialize";
 import { sampleCommunityInitializerResponse } from "../models/testdata";
 
+jest.unmock("@entities/community/api/initialize");
+
 describe("Community API Initialization", () => {
   it("should initialize community data", async () => {
     jest

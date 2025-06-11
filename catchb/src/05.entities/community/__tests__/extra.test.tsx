@@ -11,6 +11,8 @@ import {
 import * as AlertAPI from "@shared/lib/alert";
 import * as StorageAPI from "@shared/lib/storage";
 
+jest.unmock("@entities/community/api/initialize");
+
 const MockComponent = () => {
   const { activeProfile, switchProfile } = useCommunity();
 

@@ -1,6 +1,11 @@
+export { renderWithCommunity } from "./utils/testWrapper";
+
 export { useCommunity } from "./hooks/useCommunity";
 
-export { sampleCommunityProfiles, sampleCommunityInitializerResponse } from "./models/testdata";
+export {
+  sampleCommunityProfiles,
+  sampleCommunityInitializerResponse,
+} from "./models/testdata";
 export {
   CommunityForumType,
   CommunityProfileType,
