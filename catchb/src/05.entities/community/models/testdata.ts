@@ -33,6 +33,22 @@ const sampleDugoutTags: CommunityTagType[] = [
   },
 ];
 
+const sampleDraftTags: CommunityTagType[] = [
+  {
+    id: 3,
+    name: "드래프트 태그1",
+    icon: true,
+  },
+];
+
+const sampleMarketTags: CommunityTagType[] = [
+  {
+    id: 4,
+    name: "거래 태그1",
+    icon: true,
+  },
+];
+
 export const sampleCommunityTags: CommunityTagType[] = sampleDugoutTags;
 
 export const sampleCommunityForums: CommunityForumType[] = [
@@ -44,12 +60,12 @@ export const sampleCommunityForums: CommunityForumType[] = [
   {
     id: 2,
     name: "드래프트",
-    tags: [],
+    tags: sampleDraftTags,
   },
   {
     id: 3,
     name: "마켓",
-    tags: [],
+    tags: sampleMarketTags,
   },
 ];
 

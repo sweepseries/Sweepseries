@@ -16,3 +16,5 @@ export { CommunityProvider } from "./providers/CommunityProvider";
 
 export { CommunityProfile } from "./ui/CommunityProfile";
 export { ForumSelect, TagSelect } from "./ui/Selectors";
+
+export { CommunityTestWrapper } from "./utils/CommunityTestWrapper";

@@ -15,9 +15,8 @@ export function CommunityProvider({
     useState<CommunityProfileType | null>(null);
   const [profiles, setProfiles] = useState<CommunityProfileType[]>([]);
   const [forums, setForums] = useState<CommunityForumType[]>([]);
-  const [activeForum, setActiveForum] = useState<CommunityForumType | null>(
-    null
-  );
+  const [activeForum, setActiveForum] = useState<CommunityForumType>();
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
   const { showAlert } = useAlert();
 
@@ -41,6 +40,8 @@ export function CommunityProvider({
             (profile) => profile.id === storedActiveProfileId
           ) ?? res.profiles[0];
         setActiveProfile(initialProfile);
+
+        setIsInitialized(true);
       } else {
         showAlert({
           title: "커뮤니티 데이터 로드 실패",
@@ -65,11 +66,15 @@ export function CommunityProvider({
       switchProfile,
       profiles,
       forums: forums,
-      activeForum: activeForum,
+      activeForum: activeForum!,
       setActiveForum: setActiveForum,
     }),
     [activeProfile, profiles, forums, activeForum]
   );
+
+  if (!isInitialized || !activeProfile) {
+    return null;
+  }
 
   return (
     <CommunityContext.Provider value={value}>
