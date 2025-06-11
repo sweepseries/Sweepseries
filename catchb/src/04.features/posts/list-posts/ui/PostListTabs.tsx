@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import {
   Animated,
   Dimensions,
@@ -13,14 +13,16 @@ import { ThemeColorType, useColors } from "@shared/lib/colors";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export function PostListTabs() {
+interface Props {
+  translateX: Animated.Value;
+}
+
+export function PostListTabs({ translateX }: Readonly<Props>) {
   const { forums, activeForum, setActiveForum } = useCommunity();
   const { colors } = useColors();
   const styles = tabsStyles(colors);
 
   const tabWidth = screenWidth / forums.length;
-
-  const translateX = useRef(new Animated.Value(0)).current;
 
   const handleTabPress = (forum: CommunityForumType) => {
     setActiveForum(forum);
@@ -51,6 +53,7 @@ export function PostListTabs() {
               styles.tabText,
               activeForum.id === forum.id && styles.activeTabText,
             ]}
+            testID={`community-tab-text-${forum.name}`}
           >
             {forum.name}
           </Text>
