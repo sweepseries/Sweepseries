@@ -18,3 +18,8 @@ export type CommunityProfileType = {
   profile_image: string;
   color: string;
 };
+
+export type CommunityInitializerResponseType = {
+  forums: CommunityForumType[];
+  profiles: CommunityProfileType[];
+};

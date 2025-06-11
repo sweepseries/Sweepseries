@@ -149,6 +149,9 @@ jest.mock("@shared/lib/storage", () => ({
   getSecure: jest.fn().mockResolvedValue("asdf"),
   removeSecure: jest.fn().mockResolvedValue({}),
   saveSecure: jest.fn().mockResolvedValue({}),
+  getStorage: jest.fn().mockResolvedValue("asdf"),
+  removeStorage: jest.fn().mockResolvedValue({}),
+  saveStorage: jest.fn().mockResolvedValue({}),
 }));
 
 jest.mock("@shared/ui/Buttons", () => {

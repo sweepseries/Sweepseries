@@ -1,6 +1,6 @@
 export { useCommunity } from "./hooks/useCommunity";
 
-export { sampleCommunityProfiles } from "./models/testdata";
+export { sampleCommunityProfiles, sampleCommunityInitializerResponse } from "./models/testdata";
 export {
   CommunityForumType,
   CommunityProfileType,
