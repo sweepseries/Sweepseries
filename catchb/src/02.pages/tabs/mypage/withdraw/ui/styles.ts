@@ -8,11 +8,11 @@ export const withdrawPageStyles = (colors: ThemeColorType) =>
       flex: 1,
       paddingHorizontal: 16,
       paddingVertical: 8,
+      gap: 12,
       backgroundColor: colors.background,
     },
     wrapper: {
       flex: 1,
-      gap: 12,
     },
     title: {
       fontSize: 20,
@@ -28,6 +28,7 @@ export const withdrawPageStyles = (colors: ThemeColorType) =>
     },
     input: {
       height: 100,
+      marginTop: 12,
       paddingVertical: 8,
       paddingHorizontal: 12,
       borderRadius: 8,
