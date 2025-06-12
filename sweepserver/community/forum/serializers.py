@@ -9,9 +9,14 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "icon"]
 
 
-class ForumSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(many=True, read_only=True)
-
+class ForumSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Forum
-        fields = ["id", "name", "tags"]
+        fields = ["id", "name"]
+
+
+class ForumSerializer(ForumSimpleSerializer):
+    tags = TagSerializer(many=True, read_only=True)
+
+    class Meta(ForumSimpleSerializer.Meta):
+        fields = ForumSimpleSerializer.Meta.fields + ["tags"]
