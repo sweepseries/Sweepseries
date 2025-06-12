@@ -13,7 +13,7 @@ describe("Community API Initialization", () => {
 
     const response = await initializeCommunity();
     expect(response).toEqual(sampleCommunityInitializerResponse);
-    expect(axios.get).toHaveBeenCalledWith("/v1/community/initialize/");
+    expect(axios.get).toHaveBeenCalledWith("/api/v1/community/initialize/");
   });
 
   it("should handle errors gracefully", async () => {
@@ -21,6 +21,6 @@ describe("Community API Initialization", () => {
     const response = await initializeCommunity();
 
     expect(response).toEqual(null);
-    expect(axios.get).toHaveBeenCalledWith("/v1/community/initialize/");
+    expect(axios.get).toHaveBeenCalledWith("/api/v1/community/initialize/");
   });
 });
