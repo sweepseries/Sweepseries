@@ -10,4 +10,5 @@ export const sampleColors: ThemeColorType = {
   highEmphasis: "blue",
   mediumEmphasis: "purple",
   lowEmphasis: "pink",
+  error: "gray",
 };

@@ -8,4 +8,5 @@ export type ThemeColorType = {
   highEmphasis: string;
   mediumEmphasis: string;
   lowEmphasis: string;
+  error: string;
 };
