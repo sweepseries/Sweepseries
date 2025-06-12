@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import {
   CommunityContext,
   CommunityContextType,
@@ -25,10 +27,16 @@ export function CommunityTestWrapper({
   children,
   override = {},
 }: Readonly<Props>) {
+  const value = useMemo(
+    () => ({
+      ...defaultCommunityContext,
+      ...override,
+    }),
+    [override]
+  );
+
   return (
-    <CommunityContext.Provider
-      value={{ ...defaultCommunityContext, ...override }}
-    >
+    <CommunityContext.Provider value={value}>
       {children}
     </CommunityContext.Provider>
   );
