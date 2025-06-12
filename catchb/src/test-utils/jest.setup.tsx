@@ -63,6 +63,14 @@ jest.mock("react-native-skeleton-placeholder", () => {
 
   return SkeletonPlaceholder;
 });
+jest.mock("form-data", () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      append: jest.fn(),
+    };
+  });
+});
+
 jest.mock("@gorhom/bottom-sheet", () => {
   const { forwardRef } = jest.requireActual("react");
 
@@ -205,6 +213,21 @@ jest.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
   DefaultProfile: () => null,
 }));
+jest.mock("@shared/ui/Images", () => {
+  const { TouchableOpacity } = jest.requireActual("react-native");
+
+  return {
+    ImagePreview: ({
+      imageUrl,
+      onRemove,
+    }: {
+      imageUrl: string;
+      onRemove: () => void;
+    }) => (
+      <TouchableOpacity onPress={onRemove} testID={`${imageUrl}-remove`} />
+    ),
+  };
+});
 jest.mock("@shared/ui/Logo", () => ({
   CatchBMainLogo: jest.fn(() => null),
 }));
