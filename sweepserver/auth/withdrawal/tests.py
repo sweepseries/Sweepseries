@@ -9,7 +9,7 @@ class WithdrawalAPITestCase(APITestCase):
     fixtures = ["data/test/auth.json"]
 
     def setUp(self):
-        self.url = "/v1/withdraw/"
+        self.url = "/api/v1/withdraw/"
         self.user = User.objects.get(username="testuser")
         self.data = {
             "reason": 1,

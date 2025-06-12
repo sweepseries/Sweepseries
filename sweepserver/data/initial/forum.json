@@ -1,9 +1,95 @@
 [
   { "model": "forum.forum", "pk": 1, "fields": { "name": "덕아웃" } },
+  { "model": "forum.forum", "pk": 2, "fields": { "name": "드래프트" } },
+  { "model": "forum.forum", "pk": 3, "fields": { "name": "마켓" } },
   {
-    "model": "forum.forum",
-    "pk": 2,
-    "fields": { "name": "드래프트" }
+    "model": "forum.tag",
+    "pk": 1,
+    "fields": { "forum": 1, "name": "KBO", "icon": true }
   },
-  { "model": "forum.forum", "pk": 3, "fields": { "name": "마켓" } }
+  {
+    "model": "forum.tag",
+    "pk": 2,
+    "fields": { "forum": 1, "name": "MLB", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 3,
+    "fields": { "forum": 1, "name": "LG", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 4,
+    "fields": { "forum": 1, "name": "HANWHA", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 5,
+    "fields": { "forum": 1, "name": "LOTTE", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 6,
+    "fields": { "forum": 1, "name": "DOOSAN", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 7,
+    "fields": { "forum": 1, "name": "KIWOOM", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 8,
+    "fields": { "forum": 1, "name": "KT", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 9,
+    "fields": { "forum": 1, "name": "KIA", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 10,
+    "fields": { "forum": 1, "name": "SAMSUNG", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 11,
+    "fields": { "forum": 1, "name": "NC", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 12,
+    "fields": { "forum": 1, "name": "SSG", "icon": true }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 13,
+    "fields": { "forum": 2, "name": "용병 모집", "icon": false }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 14,
+    "fields": { "forum": 2, "name": "경기 모집", "icon": false }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 15,
+    "fields": { "forum": 2, "name": "팀원 모집", "icon": false }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 16,
+    "fields": { "forum": 3, "name": "판매해요", "icon": false }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 17,
+    "fields": { "forum": 3, "name": "구매해요", "icon": false }
+  },
+  {
+    "model": "forum.tag",
+    "pk": 18,
+    "fields": { "forum": 3, "name": "궁금해요", "icon": false }
+  }
 ]

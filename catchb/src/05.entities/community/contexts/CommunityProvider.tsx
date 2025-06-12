@@ -31,6 +31,15 @@ export function CommunityProvider({
       const storedActiveProfileId = await getStorage("activeProfileId");
 
       if (res) {
+        if (res.forums.length === 0 || res.profiles.length === 0) {
+          showAlert({
+            title: "데이터 로드 실패",
+            message:
+              "오류가 발생했습니다. 관리자에게 문의해주세요.",
+          });
+          return;
+        }
+
         setForums(res.forums);
         setActiveForum(res.forums[0] || null);
 

@@ -4,14 +4,17 @@ export type CommunityTagType = {
   icon: boolean;
 };
 
-export type CommunityForumType = {
+export type CommunityForumSimpleType = {
   id: number;
   name: string;
-  tags: CommunityTagType[];
 };
 
+export type CommunityForumType = {
+  tags: CommunityTagType[];
+} & CommunityForumSimpleType;
+
 export type CommunityProfileType = {
-  id: string;
+  id: string; // UUID 형식의 문자열
   name: string;
   profile_image: string;
   color: string;

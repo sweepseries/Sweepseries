@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 import axios from "axios";
+import { fireEvent, waitFor } from "@testing-library/react-native";
 
 import { sampleInquiries, useCreateInquiry } from "@entities/inquiries";
 import { renderWithProviders } from "@test-utils/renderer";
-import { fireEvent, waitFor } from "@testing-library/react-native";
 
 const MockCreateComponent = () => {
   const { mutate, isSuccess } = useCreateInquiry();

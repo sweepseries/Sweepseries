@@ -9,7 +9,7 @@ from ..models import User
 
 class RegisterAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "/v1/register/"
+        self.url = "/api/v1/register/"
         self.common_data = {
             "username": "testuser",
             "email": "test@email.com",

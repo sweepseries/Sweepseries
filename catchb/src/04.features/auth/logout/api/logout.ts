@@ -6,7 +6,7 @@ export async function logout() {
   try {
     const refreshToken = await getSecure("refreshToken");
 
-    await axios.post("/v1/logout/", {
+    await axios.post("/api/v1/logout/", {
       refresh: refreshToken,
     });
 

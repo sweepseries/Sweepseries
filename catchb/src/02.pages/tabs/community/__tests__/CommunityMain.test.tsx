@@ -42,6 +42,33 @@ describe("커뮤니티 게시글 목록 페이지", () => {
     });
   });
 
+  it("api 오류: 데이터 없음", async () => {
+    const showAlertMock = jest.fn();
+    jest.spyOn(AlertAPI, "useAlert").mockReturnValue({
+      showAlert: showAlertMock,
+    });
+    jest
+      .spyOn(axios, "get")
+      .mockResolvedValue({ data: { forums: [], profiles: [] } });
+
+    waitFor(() =>
+      renderWithProviders(
+        <CommunityProvider>
+          <CommunityMain />
+        </CommunityProvider>
+      )
+    );
+
+    await waitFor(() => {
+      expect(showAlertMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: "데이터 로드 실패",
+          message: "오류가 발생했습니다. 관리자에게 문의해주세요.",
+        })
+      );
+    });
+  });
+
   it("Top Tabs: 누르거나 스크롤 하면, 해당 탭 게시글 목록 표기", async () => {
     jest
       .spyOn(axios, "get")

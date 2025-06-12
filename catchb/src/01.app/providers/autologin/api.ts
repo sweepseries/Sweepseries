@@ -7,7 +7,7 @@ export async function refreshToken(refreshToken: string | null) {
 
   try {
     const response = await axios.post(
-      "/v1/tokens/refresh/",
+      "/api/v1/tokens/refresh/",
       {
         refresh: refreshToken,
       },

@@ -12,7 +12,7 @@ async function checkPassword(
   password: string,
   password2: string
 ): Promise<AxiosResponse<null>> {
-  return axios.post("/v1/check-password/", {
+  return axios.post("/api/v1/check-password/", {
     password,
     password2,
   });

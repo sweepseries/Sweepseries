@@ -9,7 +9,7 @@ class AnnouncementAPITestCase(APITestCase):
     fixtures = ["data/dev/announcement.json"]
 
     def setUp(self):
-        self.url = "/v1/announcements/"
+        self.url = "/api/v1/announcements/"
 
     def test_list(self):
         response = self.client.get(self.url)

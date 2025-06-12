@@ -10,6 +10,7 @@ export const lightColors: ThemeColorType = {
   highEmphasis: "#262626",
   mediumEmphasis: "#555555",
   lowEmphasis: "#9D9D9D",
+  error: "#FF3B30", // Red color for error messages
 };
 
 export const darkColors: ThemeColorType = {
@@ -22,4 +23,5 @@ export const darkColors: ThemeColorType = {
   highEmphasis: "#262626",
   mediumEmphasis: "#555555",
   lowEmphasis: "#9D9D9D",
+  error: "#FF3B30", // Red color for error messages
 };

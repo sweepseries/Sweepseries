@@ -44,12 +44,6 @@
         }
       ],
       [
-        "@mj-studio/react-native-naver-map",
-        {
-          "client_id": "le133wrcek"
-        }
-      ],
-      [
         "expo-build-properties",
         {
           "ios": {

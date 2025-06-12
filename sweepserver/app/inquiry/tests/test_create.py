@@ -13,7 +13,7 @@ class CreateInquiryAPITestCase(APITestCase):
     fixtures = ["data/test/auth.json", "data/initial/inquiry.json"]
 
     def setUp(self):
-        self.url = "/v1/inquiries/"
+        self.url = "/api/v1/inquiries/"
         self.user = User.objects.get(username="testuser")
         self.data = {
             "title": "Test Inquiry",
