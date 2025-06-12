@@ -7,6 +7,7 @@ import {
   TagSelect,
   useCommunity,
 } from "@entities/community";
+import { useColors } from "@shared/lib/colors";
 
 export function CreatePostForm() {
   const { forums } = useCommunity();
@@ -20,6 +21,7 @@ export function CreatePostForm() {
     content,
     setContent,
   } = useCreatePostForm();
+  const { colors } = useColors();
 
   const selectForum = (forum: CommunityForumType) => {
     if (selectedForum.id === forum.id) return; // 이미 선택된 포럼이면 아무 작업도 하지 않음
@@ -42,17 +44,31 @@ export function CreatePostForm() {
           onSelect={setSelectedTag}
         />
       </Selectors>
-      <TitleInput
-        value={title}
-        onChangeText={setTitle}
-        placeholder="제목을 입력해주세요. (최대 40자)"
-      />
+      <HorizontalWrapper>
+        <TitleInput
+          value={title}
+          onChangeText={setTitle}
+          placeholder="제목을 입력해주세요. (최대 40자)"
+          testID="title-input"
+        />
+        <TitleLength>
+          <TitleLength
+            style={{
+              color: title.length > 40 ? colors.error : colors.mediumEmphasis,
+            }}
+          >
+            {title.length}
+          </TitleLength>
+          /40
+        </TitleLength>
+      </HorizontalWrapper>
       <ContentInput
         value={content}
         onChangeText={setContent}
         placeholder="내용을 입력해주세요."
         multiline
         textAlignVertical="top"
+        testID="content-input"
       />
     </Container>
   );
@@ -70,7 +86,20 @@ const Selectors = styled.View`
   gap: 8px;
 `;
 
+const HorizontalWrapper = styled.View`
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 4px;
+`;
+
+const TitleLength = styled.Text`
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.mediumEmphasis};
+`;
+
 const TitleInput = styled.TextInput`
+  flex: 1;
   width: 100%;
   padding: 8px 4px;
   font-size: 18px;

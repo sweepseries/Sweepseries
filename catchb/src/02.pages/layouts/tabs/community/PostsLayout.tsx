@@ -19,6 +19,10 @@ export function PostsLayout() {
         name="create"
         options={{ headerLeft: HeaderLeftBackButton, headerTitle: "글쓰기" }}
       />
+      <Stack.Screen
+        name="[id]"
+        options={{ headerLeft: HeaderLeftBackButton, headerTitle: "" }}
+      />
     </Stack>
   );
 }

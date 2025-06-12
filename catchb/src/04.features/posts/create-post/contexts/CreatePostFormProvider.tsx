@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { ImagePickerAsset } from "expo-image-picker";
 
 import { CreatePostContext, CreatePostContextType } from "./useCreatePostForm";
 import {
@@ -6,6 +7,7 @@ import {
   CommunityTagType,
   useCommunity,
 } from "@entities/community";
+import { ImagePickerProvider } from "@shared/lib/image-picker";
 import { KeyboardWrapper } from "@shared/lib/keyboard";
 
 export function CreatePostFormProvider({
@@ -17,6 +19,7 @@ export function CreatePostFormProvider({
   const [selectedTag, setSelectedTag] = useState<CommunityTagType>();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [imageFiles, setImageFiles] = useState<ImagePickerAsset[]>([]); // 이미지 파일 목록
   const [initialized, setInitialized] = useState<boolean>(false);
 
   const { activeForum } = useCommunity();
@@ -37,15 +40,19 @@ export function CreatePostFormProvider({
       setTitle,
       content,
       setContent,
+      imageFiles,
+      setImageFiles,
     }),
-    [selectedForum, selectedTag, title, content]
+    [selectedForum, selectedTag, title, content, imageFiles]
   );
 
   if (!initialized || !selectedForum || !selectedTag) return null;
 
   return (
-    <CreatePostContext.Provider value={value}>
-      <KeyboardWrapper padding={16}>{children}</KeyboardWrapper>
-    </CreatePostContext.Provider>
+    <ImagePickerProvider>
+      <CreatePostContext.Provider value={value}>
+        <KeyboardWrapper padding={16}>{children}</KeyboardWrapper>
+      </CreatePostContext.Provider>
+    </ImagePickerProvider>
   );
 }
