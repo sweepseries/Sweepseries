@@ -26,7 +26,7 @@ from drf_spectacular.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/admin/", include("core.admin_urls")),
-    path("v1/", include("core.api_urls")),
+    path("api/", include("core.api_urls")),
     ## API schema generation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/schema/swagger-ui/", SSV.as_view(url_name="schema"), name="swagger-ui"),
