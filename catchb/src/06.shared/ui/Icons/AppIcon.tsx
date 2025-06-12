@@ -1,6 +1,7 @@
 import { SvgProps } from "react-native-svg";
 
 import CalendarNumber from "./files/calendar-number.svg";
+import CameraOutline from "./files/camera-outline.svg";
 import Chat from "./files/chat.svg";
 import CheckCircle from "./files/check-circle.svg";
 import Check from "./files/check.svg";
@@ -16,6 +17,7 @@ import Error from "./files/error.svg";
 import Home from "./files/home.svg";
 import LightBulb from "./files/lightbulb.svg";
 import Logout from "./files/logout.svg";
+import Minus from "./files/minus.svg";
 import Pencil from "./files/pencil.svg";
 import People from "./files/people.svg";
 import PersonCircle from "./files/person-circle.svg";
@@ -31,6 +33,7 @@ interface Props {
 
 const iconMap: Record<string, React.FC<SvgProps>> = {
   "calendar-number": CalendarNumber,
+  "camera-outline": CameraOutline,
   chat: Chat,
   "check-circle": CheckCircle,
   check: Check,
@@ -46,6 +49,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   home: Home,
   lightbulb: LightBulb,
   logout: Logout,
+  minus: Minus,
   pencil: Pencil,
   people: People,
   "person-circle": PersonCircle,
@@ -62,6 +66,6 @@ export const AppIcon = ({ icon, size = 24, color = "#000" }: Props) => {
   }
 
   return (
-    <IconComponent width={size} height={size} fill={color} color={color} />
+    <IconComponent width={size} height={size} color={color} />
   );
 };
