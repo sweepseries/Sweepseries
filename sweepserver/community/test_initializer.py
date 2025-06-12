@@ -6,7 +6,7 @@ class CommunityInitializerAPITestCase(CatchBAPITestCase):
 
     def setUp(self):
         super().setUp()
-        self.url = "/v1/community/initialize/"
+        self.url = "/api/v1/community/initialize/"
 
     def test_community_initializer_no_auth(self):
         response = self.client.get(self.url)
