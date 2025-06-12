@@ -24,36 +24,39 @@ from auth.withdrawal.views import WithdrawalView
 
 ## Community Apps
 from community.views import CommunityInitializerView
+from community.post.views import PostViewSet
 
 router = DefaultRouter()
 
-router.register(r"announcements", AnnouncementViewSet, basename="announcements")
-router.register(r"faqs", FAQViewSet, basename="faqs")
-router.register(r"inquiries", InquiryViewSet, basename="inquiries")
-router.register(r"terms", ReadTermsView, basename="terms")
+router.register(r"v1/announcements", AnnouncementViewSet, basename="announcements")
+router.register(r"v1/faqs", FAQViewSet, basename="faqs")
+router.register(r"v1/inquiries", InquiryViewSet, basename="inquiries")
+router.register(r"v1/terms", ReadTermsView, basename="terms")
+
+router.register(r"v1/posts", PostViewSet, basename="posts")
 
 urlpatterns = [
-    path("initialize/", InitializerView.as_view(), name="initializer"),
-    path("register/", RegisterView.as_view(), name="register"),
-    path("login/social/", SocialLoginView.as_view(), name="kakao-login"),
-    path("login/", UserLoginView.as_view(), name="login"),
-    path("logout/", LogoutView.as_view(), name="logout"),
-    path("withdraw/", WithdrawalView.as_view(), name="withdrawal"),
-    path("terms_of_service/", TermsOfServiceView.as_view(), name="terms_of_service"),
-    path("privacy_policy/", PrivacyPolicyView.as_view(), name="privacy_policy"),
+    path("v1/initialize/", InitializerView.as_view(), name="initializer"),
+    path("v1/register/", RegisterView.as_view(), name="register"),
+    path("v1/login/social/", SocialLoginView.as_view(), name="kakao-login"),
+    path("v1/login/", UserLoginView.as_view(), name="login"),
+    path("v1/logout/", LogoutView.as_view(), name="logout"),
+    path("v1/withdraw/", WithdrawalView.as_view(), name="withdrawal"),
+    path("v1/terms_of_service/", TermsOfServiceView.as_view(), name="terms_of_service"),
+    path("v1/privacy_policy/", PrivacyPolicyView.as_view(), name="privacy_policy"),
     path(
-        "check-username-email/", CheckUsernameEmailView.as_view(), name="check_username"
+        "v1/check-username-email/", CheckUsernameEmailView.as_view(), name="check_username"
     ),
-    path("check-password/", CheckPasswordView.as_view(), name="check_password"),
+    path("v1/check-password/", CheckPasswordView.as_view(), name="check_password"),
     path(
-        "phone/code/",
+        "v1/phone/code/",
         RequestVerificationCodeView.as_view(),
         name="verification_code",
     ),
-    path("phone/code/verify/", VerifyCodeView.as_view(), name="verify_code"),
-    path("tokens/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("v1/phone/code/verify/", VerifyCodeView.as_view(), name="verify_code"),
+    path("v1/tokens/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path(
-        "community/initialize/",
+        "v1/community/initialize/",
         CommunityInitializerView.as_view(),
         name="community_initialize",
     ),
