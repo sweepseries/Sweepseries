@@ -7,7 +7,7 @@ from ..models import User
 
 class CheckUsernameEmailAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "/v1/check-username-email/"
+        self.url = "/api/v1/check-username-email/"
         person = Person.objects.create(
             name="Existing User", phone_number="+821012345678"
         )
@@ -73,7 +73,7 @@ class CheckUsernameEmailAPITestCase(APITestCase):
 
 class CheckPasswordAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "/v1/check-password/"
+        self.url = "/api/v1/check-password/"
         self.valid_password = "ValidPassword123!"
         self.invalid_password = "short"
         self.invalid_password2 = "differentpassword"

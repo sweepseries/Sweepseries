@@ -12,7 +12,7 @@ class ReadFAQsAPITestCase(APITestCase):
     fixtures = ["data/dev/faqs.json", "data/test/auth.json", "data/initial/faq.json"]
 
     def setUp(self):
-        self.url = "/v1/faqs/"
+        self.url = "/api/v1/faqs/"
         self.user = User.objects.get(username="testuser")
 
     def test_list(self):

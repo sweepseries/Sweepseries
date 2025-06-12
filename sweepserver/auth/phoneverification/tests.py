@@ -11,7 +11,7 @@ from .models import PhoneVerification
 
 class PhoneNumberCodeRequestAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "/v1/phone/code/"
+        self.url = "/api/v1/phone/code/"
         self.phone_number = "010-1234-1234"
 
     @requests_mock.Mocker()
@@ -76,7 +76,7 @@ class PhoneNumberCodeRequestAPITestCase(APITestCase):
 
 class PhoneNumberVerificationAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "/v1/phone/code/verify/"
+        self.url = "/api/v1/phone/code/verify/"
         self.phone_number = "010-1234-1234"
         self.verification_code = "123456"
         self.verification_code_obj = PhoneVerification.objects.create(

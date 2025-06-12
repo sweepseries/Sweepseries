@@ -11,7 +11,7 @@ class LoginAPITestCase(APITestCase):
     fixtures = ["data/test/auth.json"]
 
     def setUp(self):
-        self.url = "/v1/login/"
+        self.url = "/api/v1/login/"
         user_person = Person.objects.create(
             name="Test User", phone_number="010-1234-5678"
         )
@@ -67,36 +67,38 @@ class LoginAPITestCase(APITestCase):
     def test_social_login(self):
         ## 1. naver
         response = self.client.post(
-            "/v1/login/social/", {"username": "naver_id", "mode": "naver"}
+            "/api/v1/login/social/", {"username": "naver_id", "mode": "naver"}
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         ## 2. kakao
         response = self.client.post(
-            "/v1/login/social/", {"username": "kakao_id", "mode": "kakao"}
+            "/api/v1/login/social/", {"username": "kakao_id", "mode": "kakao"}
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_social_login_fail(self):
         ## 1. invalid mode
         response = self.client.post(
-            "/v1/login/social/", {"username": "kakao_id", "mode": "invalid"}
+            "/api/v1/login/social/", {"username": "kakao_id", "mode": "invalid"}
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         ## 2. no data
-        response = self.client.post("/v1/login/social/", {})
+        response = self.client.post("/api/v1/login/social/", {})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data["error"], "잘못된 요청입니다.")
 
         ## 3. empty data
-        response = self.client.post("/v1/login/social/", {"username": "", "mode": ""})
+        response = self.client.post(
+            "/api/v1/login/social/", {"username": "", "mode": ""}
+        )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data["error"], "잘못된 요청입니다.")
 
         ## 4. no username in database
         response = self.client.post(
-            "/v1/login/social/", {"username": "username", "mode": "naver"}
+            "/api/v1/login/social/", {"username": "username", "mode": "naver"}
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["result"], "NOT_REGISTERED")
@@ -106,7 +108,7 @@ class TokenRefreshAPITestCase(APITestCase):
     fixtures = ["data/test/auth.json"]
 
     def setUp(self):
-        self.url = "/v1/tokens/refresh/"
+        self.url = "/api/v1/tokens/refresh/"
         self.user = User.objects.get(username="testuser")
 
     def test_token_refresh(self):

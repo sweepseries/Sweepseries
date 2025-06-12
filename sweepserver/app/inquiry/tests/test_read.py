@@ -16,7 +16,7 @@ class ReadInquiriesAPITestCase(APITestCase):
     ]
 
     def setUp(self):
-        self.url = "/v1/inquiries/"
+        self.url = "/api/v1/inquiries/"
         self.user = User.objects.get(username="testuser")
 
     def test_list(self):
