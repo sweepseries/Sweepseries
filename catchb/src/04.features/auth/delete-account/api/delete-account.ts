@@ -7,7 +7,7 @@ import { ErrorResponse } from "@shared/api";
 async function deleteAccount(
   data: WithdrawRequestData
 ): Promise<AxiosResponse<null>> {
-  return await axios.post("/v1/withdraw/", data);
+  return await axios.post("/api/v1/withdraw/", data);
 }
 
 export function useDeleteAccount() {

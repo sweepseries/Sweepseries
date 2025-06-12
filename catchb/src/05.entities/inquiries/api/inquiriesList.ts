@@ -4,7 +4,7 @@ import axios from "axios";
 import { InquiryThreadType } from "../models/types";
 
 async function fetchInquiries(): Promise<InquiryThreadType[]> {
-  const response = await axios.get("/v1/inquiries/");
+  const response = await axios.get("/api/v1/inquiries/");
 
   return response.data;
 }

@@ -8,7 +8,7 @@ interface RequestCodeVariables {
 }
 
 async function requestCode(phone: string): Promise<AxiosResponse<null>> {
-  return axios.post("/v1/phone/code/", {
+  return axios.post("/api/v1/phone/code/", {
     phone,
   });
 }

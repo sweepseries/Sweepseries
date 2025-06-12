@@ -3,7 +3,7 @@ import axios from "axios";
 export async function kakaoLogin(profileId: number) {
   try {
     const response = await axios.post(
-      "/v1/login/social/",
+      "/api/v1/login/social/",
       {
         username: profileId,
         mode: "kakao",

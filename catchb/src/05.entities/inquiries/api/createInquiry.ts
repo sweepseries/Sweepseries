@@ -11,7 +11,7 @@ import { ErrorResponse } from "@shared/api";
 async function createInquiry(
   data: MemberInquiryCreatePostType | GuestInquiryCreatePostType
 ): Promise<AxiosResponse<InquiryThreadType>> {
-  return await axios.post<InquiryThreadType>("/v1/inquiries/", data);
+  return await axios.post<InquiryThreadType>("/api/v1/inquiries/", data);
 }
 
 export function useCreateInquiry() {

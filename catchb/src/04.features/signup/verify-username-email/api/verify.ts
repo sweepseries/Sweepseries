@@ -12,7 +12,7 @@ async function checkUsernameEmail(
   username: string,
   email: string
 ): Promise<AxiosResponse<null>> {
-  return axios.post("/v1/check-username-email/", {
+  return axios.post("/api/v1/check-username-email/", {
     username,
     email,
   });
