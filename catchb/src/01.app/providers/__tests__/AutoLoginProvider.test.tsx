@@ -54,7 +54,7 @@ describe("AutoLoginProvider", () => {
       showAlert: showAlertMock,
     });
     mockAxios.reset();
-    mockAxios.onPost("/v1/tokens/refresh/").reply(200, sampleLoginData);
+    mockAxios.onPost("/api/v1/tokens/refresh/").reply(200, sampleLoginData);
   });
 
   it("handles auto login correctly", () => {
@@ -87,7 +87,7 @@ describe("AutoLoginProvider", () => {
     mockAxios
       .onGet("/test")
       .replyOnce(401, { error: "Access Token이 만료되었습니다." });
-    mockAxios.onPost("/v1/tokens/refresh/").reply(400, {});
+    mockAxios.onPost("/api/v1/tokens/refresh/").reply(400, {});
     await waitFor(() => {
       fireEvent.press(getByTestId("test-request"));
     });
