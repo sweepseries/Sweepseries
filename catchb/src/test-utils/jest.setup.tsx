@@ -211,6 +211,7 @@ jest.mock("@shared/ui/Fallbacks", () => {
 });
 jest.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
+  CommunityIcon: () => null,
   DefaultProfile: () => null,
 }));
 jest.mock("@shared/ui/Images", () => {
@@ -223,13 +224,14 @@ jest.mock("@shared/ui/Images", () => {
     }: {
       imageUrl: string;
       onRemove: () => void;
-    }) => (
-      <TouchableOpacity onPress={onRemove} testID={`${imageUrl}-remove`} />
-    ),
+    }) => <TouchableOpacity onPress={onRemove} testID={`${imageUrl}-remove`} />,
   };
 });
 jest.mock("@shared/ui/Logo", () => ({
   CatchBMainLogo: jest.fn(() => null),
+}));
+jest.mock("@shared/ui/Searchbars", () => ({
+  Searchbar: () => null,
 }));
 jest.mock("@shared/ui/Selectors", () => {
   const { Text, TouchableOpacity } = jest.requireActual("react-native");
