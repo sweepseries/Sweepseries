@@ -1,15 +1,18 @@
 import { createContext, useContext } from "react";
 
 import { CommunityTagType } from "@entities/community";
-import { PostType } from "@entities/posts";
+import { PostSimpleType } from "@entities/posts";
 
 export interface PostsListContextType {
-  posts: PostType[];
+  posts: PostSimpleType[];
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  tagOptions: CommunityTagType[];
   selectedTag: CommunityTagType | null;
-  setSelectedTag: (tag: CommunityTagType | null) => void;
+  setSelectedTag: (tag: CommunityTagType) => void;
   isLoading: boolean;
+  isRefetching: boolean;
+  refetch: () => void;
 }
 
 export const PostsListContext = createContext<PostsListContextType | undefined>(
