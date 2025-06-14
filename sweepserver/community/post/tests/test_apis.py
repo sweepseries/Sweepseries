@@ -97,14 +97,12 @@ class PostAPITestCase(CatchBAPITestCase):
         self.assertEqual(response.data["error"], "게시판을 선택해주세요.")
 
     @patch("community.post.serializers.simple_serializer.get_presigned_url")
-    @patch(
-        "community.post.views.post_viewset.PostViewSet.paginate_queryset",
-        return_value=None,
-    )
+    @patch("community.post.views.post_viewset.PostViewSet.paginate_queryset")
     def test_post_list_fail_no_paginator(self, mock_paginate, mock_get_presigned_url):
         """
         게시글 목록 조회 시 페이징 처리 실패 테스트.
         """
+        mock_paginate.return_value = None
         mock_get_presigned_url.return_value = "http://example.com/test.png"
 
         response = self.client.get(self.url, {"forum": "덕아웃"})
