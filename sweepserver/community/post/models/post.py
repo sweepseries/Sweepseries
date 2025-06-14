@@ -66,7 +66,7 @@ class Post(TimeStampedModel):
         db_table = "community_post"
         verbose_name = "커뮤니티 게시글"
         verbose_name_plural = "커뮤니티 게시글"
-        ordering = ["-created_at"]
+        ordering = ["-id"]
         unique_together = ("forum", "author", "title")
 
 

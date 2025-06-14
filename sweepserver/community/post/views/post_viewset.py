@@ -1,4 +1,5 @@
 from drf_spectacular.utils import extend_schema
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -6,6 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from community.permissions import IsAuthor
 from ..models import Post
+from ..paginator import PostPaginator
 from ..serializers import PostDetailSerializer, PostSimpleSerializer
 
 
@@ -18,8 +20,9 @@ class PostViewSet(ModelViewSet):
 
     queryset = Post.objects.filter(is_deleted=False)
     serializer_class = PostSimpleSerializer
+    pagination_class = PostPaginator
     permission_classes = [AllowAny]
-    http_method_names = ["post"]
+    http_method_names = ["post", "get"]
 
     def get_serializer_class(self):
         if self.action in ["list"]:
@@ -32,6 +35,37 @@ class PostViewSet(ModelViewSet):
         if self.action in ["create"]:
             return [IsAuthenticated]
         return [IsAuthor]
+
+    @extend_schema(summary="게시글 목록 조회", tags=["게시글"])
+    def list(self, request, *args, **kwargs):
+        """
+        게시글 목록 조회
+            - 게시글 목록을 조회할 때는 간단한 정보만 반환됨.
+        """
+        forum = request.query_params.get("forum", None)
+        if not forum:
+            return Response(
+                {"error": "게시판을 선택해주세요."}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        tag = request.query_params.get("tag", None)
+        search = request.query_params.get("search", None)
+
+        q = Q(forum__name=forum, is_deleted=False)
+        if tag:
+            q &= Q(tag__name=tag)
+        if search:
+            q &= Q(title__icontains=search) | Q(content__icontains=search)
+
+        self.queryset = self.queryset.filter(q).distinct()
+        page = self.paginate_queryset(self.queryset)
+
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(self.queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(summary="게시글 생성", tags=["게시글"])
     def create(self, request, *args, **kwargs):
