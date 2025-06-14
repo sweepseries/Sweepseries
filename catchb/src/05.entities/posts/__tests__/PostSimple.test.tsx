@@ -17,6 +17,7 @@ describe("PostSimple", () => {
       <PostSimple
         post={{
           ...samplePostSimple,
+          tag: { id: 1, name: "Test Tag", icon: false },
           image: null,
         }}
       />

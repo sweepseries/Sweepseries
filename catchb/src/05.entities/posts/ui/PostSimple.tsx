@@ -3,11 +3,9 @@ import { Image } from "expo-image";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { PostSimpleType } from "../models/types";
-import {
-  CommunityProfile,
-  CommunityStat,
-  CommunityTag,
-} from "@entities/community/@x/post";
+import { CommunityStat } from "./_stat";
+import { CommunityTag } from "./_tag";
+import { CommunityProfile } from "@entities/community/@x/post";
 import { ThemeColorType, useColors } from "@shared/lib/colors";
 import { formatTimeSince } from "@shared/lib/datetime";
 import { TruncatedText } from "@shared/ui/Texts";
@@ -15,6 +13,14 @@ import { TruncatedText } from "@shared/ui/Texts";
 interface Props {
   post: PostSimpleType;
 }
+
+/**
+ * 게시글 목록에서 보여지는 게시글 컴포넌트.
+ * 태그, 제목, 내용, 작성자 프로필, 작성 시간, 조회수, 좋아요 수, 댓글 수를 표시.
+ * 내용은 최대 3줄로 잘림.
+ * 이미지가 있는 경우 우측에 표시.
+ * 작성 이후 업데이트가 있다면 * 표시.
+ */
 
 export function PostSimple({ post }: Readonly<Props>) {
   const { colors } = useColors();
