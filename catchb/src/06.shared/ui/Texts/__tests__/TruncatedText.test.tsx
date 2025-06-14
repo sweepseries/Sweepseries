@@ -1,5 +1,7 @@
-import { TruncatedText } from "@shared/ui/Text";
+import { TruncatedText } from "@shared/ui/Texts";
 import { renderWithProviders } from "@test-utils/renderer";
+
+jest.unmock("@shared/ui/Texts");
 
 describe("TruncatedText", () => {
   it("renders text with default number of lines", () => {
@@ -13,7 +15,10 @@ describe("TruncatedText", () => {
 
   it("truncates text to specified number of lines", () => {
     const { getByText } = renderWithProviders(
-      <TruncatedText text={"Line 1\nLine 2\nLine 3\nLine 4"} numberOfLines={2} />
+      <TruncatedText
+        text={"Line 1\nLine 2\nLine 3\nLine 4"}
+        numberOfLines={2}
+      />
     );
     expect(getByText("Line 1\nLine 2 \u22EF")).toBeTruthy();
   });
