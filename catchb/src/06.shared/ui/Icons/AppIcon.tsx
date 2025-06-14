@@ -26,6 +26,7 @@ import People from "./files/people.svg";
 import PersonCircle from "./files/person-circle.svg";
 import PersonMinus from "./files/person-minus.svg";
 import QuestionmarkCircle from "./files/questionmark-circle.svg";
+import Search from "./files/search.svg";
 import WarningCircle from "./files/warning-circle.svg";
 
 interface Props {
@@ -61,6 +62,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   "person-circle": PersonCircle,
   "person-minus": PersonMinus,
   "questionmark-circle": QuestionmarkCircle,
+  search: Search,
   "warning-circle": WarningCircle,
 };
 

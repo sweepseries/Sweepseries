@@ -16,9 +16,14 @@ import SSG from "./files/SSG.svg";
 interface Props {
   icon: string;
   height?: number;
+  width?: number;
 }
 
-export function CommunityIcon({ icon, height = 24 }: Readonly<Props>) {
+export function CommunityIcon({
+  icon,
+  height = 24,
+  width = 40,
+}: Readonly<Props>) {
   const iconMap: Record<string, React.FC<SvgProps>> = {
     KBO,
     MLB,
@@ -40,5 +45,11 @@ export function CommunityIcon({ icon, height = 24 }: Readonly<Props>) {
     return null;
   }
 
-  return <IconComponent height={height} preserveAspectRatio="xMinYMid meet" />;
+  return (
+    <IconComponent
+      height={height}
+      width={width}
+      preserveAspectRatio="xMinYMid meet"
+    />
+  );
 }
