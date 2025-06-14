@@ -49,7 +49,7 @@ export const samplePostListResponse: PostListResponseType = {
   count: 1,
   next: null,
   previous: null,
-  results: [samplePostSimple],
+  results: [samplePostSimple, { ...samplePostSimple, id: 2 }],
   num_pages: 1,
   current_page: 1,
 };
