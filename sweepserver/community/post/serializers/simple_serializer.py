@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from community.forum.serializers import TagSerializer
 from community.profiles.serializers import CommunityProfileSerializer
-from core.utils import get_presigned_url
+from core.storage import get_presigned_url
 from ..models import Post
 
 
