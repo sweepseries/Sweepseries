@@ -65,17 +65,17 @@
   {
     "model": "forum.tag",
     "pk": 13,
-    "fields": { "forum": 2, "name": "용병 모집", "icon": false }
+    "fields": { "forum": 2, "name": "용병모집", "icon": false }
   },
   {
     "model": "forum.tag",
     "pk": 14,
-    "fields": { "forum": 2, "name": "경기 모집", "icon": false }
+    "fields": { "forum": 2, "name": "경기모집", "icon": false }
   },
   {
     "model": "forum.tag",
     "pk": 15,
-    "fields": { "forum": 2, "name": "팀원 모집", "icon": false }
+    "fields": { "forum": 2, "name": "팀원모집", "icon": false }
   },
   {
     "model": "forum.tag",

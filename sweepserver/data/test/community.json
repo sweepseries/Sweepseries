@@ -1,0 +1,48 @@
+[
+  {
+    "model": "post.dailysequence",
+    "pk": "2025-01-01",
+    "fields": { "last": 2 }
+  },
+  {
+    "model": "post.post",
+    "pk": 20250101000001,
+    "fields": {
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "updated_at": "2025-01-01T00:00:00.000Z",
+      "forum": 1,
+      "author": "123e4567-e89b-12d3-a456-426614174002",
+      "tag": 1,
+      "title": "테스트 게시글",
+      "content": "테스트 게시글 내용..!",
+      "num_views": 0,
+      "is_deleted": false,
+      "deleted_at": null
+    }
+  },
+  {
+    "model": "post.post",
+    "pk": 20250101000002,
+    "fields": {
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "updated_at": "2025-01-01T00:00:00.000Z",
+      "forum": 1,
+      "author": "123e4567-e89b-12d3-a456-426614174002",
+      "tag": 2,
+      "title": "테스트 게시글 with 이미지",
+      "content": "테스트 게시글 2 내용 with 이미지..!",
+      "num_views": 5,
+      "is_deleted": false,
+      "deleted_at": null
+    }
+  },
+  {
+    "model": "post.postimageattachment",
+    "pk": 1,
+    "fields": {
+      "post": 20250101000002,
+      "image": "IMG_0002.jpg",
+      "is_deleted": false
+    }
+  }
+]

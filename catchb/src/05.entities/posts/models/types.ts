@@ -6,8 +6,27 @@ import type {
   CommunityTagType,
 } from "@entities/community/@x/post";
 
-export type PostType = {
+export type PostSimpleType = {
   id: number;
+  author: CommunityProfileType;
+  tag: CommunityTagType;
+  title: string;
+  content: string;
+  image: string | null;
+  num_views: number;
+  num_comments: number;
+  num_likes: number;
+  created_at: string;
+  is_updated: boolean;
+};
+
+export type PostListResponseType = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: PostSimpleType[];
+  num_pages: number;
+  current_page: number;
 };
 
 export type PostDetailType = {

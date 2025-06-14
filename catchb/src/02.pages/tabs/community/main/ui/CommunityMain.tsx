@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Animated, Dimensions, Text, View } from "react-native";
+import { Animated, Dimensions, View } from "react-native";
 import PagerView, {
   PagerViewOnPageScrollEvent,
   PagerViewOnPageSelectedEvent,
@@ -7,8 +7,15 @@ import PagerView, {
 
 import { communityMainStyles } from "./_styles";
 import { CreatePostButton } from "@features/posts/create-post";
-import { PostListTabs } from "@features/posts/list-posts";
+import {
+  PostListProvider,
+  PostListTabs,
+  PostsList,
+  SearchPosts,
+  TagFilter,
+} from "@features/posts/list-posts";
 import { useCommunity } from "@entities/community";
+import { Divider } from "@shared/ui/Dividers";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -46,14 +53,12 @@ export function CommunityMain() {
         testID="community-pager-view"
       >
         {forums.map((forum) => (
-          <View
-            key={forum.id}
-            style={communityMainStyles.flex}
-            testID={`community-forum-${forum.name}`}
-          >
-            <Text style={{ fontSize: 24 }}>{forum.name}</Text>
-            {/* Here you can render the posts for the forum */}
-          </View>
+          <PostListProvider forum={forum} key={forum.id}>
+            <SearchPosts />
+            <TagFilter />
+            <Divider />
+            <PostsList />
+          </PostListProvider>
         ))}
       </PagerView>
       <CreatePostButton />

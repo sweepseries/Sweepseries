@@ -17,6 +17,13 @@ interface Props {
   translateX: Animated.Value;
 }
 
+/**
+ *  커뮤니티 게시판 탭 컴포넌트.
+ *  커뮤니티의 게시판 목록을 탭 형태로 표시하며,
+ *  현재 활성화된 게시판에 따라 탭의 스타일을 변경한다.
+ *  탭을 누르면 해당 게시판으로 전환된다.
+ */
+
 export function PostListTabs({ translateX }: Readonly<Props>) {
   const { forums, activeForum, setActiveForum } = useCommunity();
   const { colors } = useColors();
