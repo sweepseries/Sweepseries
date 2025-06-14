@@ -213,6 +213,7 @@ jest.mock("@shared/ui/Icons", () => ({
   AppIcon: () => null,
   CommunityIcon: () => null,
   DefaultProfile: () => null,
+  HotForum: () => null,
 }));
 jest.mock("@shared/ui/Images", () => {
   const { TouchableOpacity } = jest.requireActual("react-native");
@@ -265,6 +266,13 @@ jest.mock("@shared/ui/Selectors", () => {
     ),
   };
 });
+jest.mock("@shared/ui/Texts", () => {
+  const { Text } = jest.requireActual("react-native");
+
+  return {
+    TruncatedText: ({ text }: { text: string }) => <Text>{text}</Text>,
+  };
+});
 jest.mock("@shared/ui/TextInput", () => {
   const { TextInput } = jest.requireActual("react-native");
 
@@ -275,48 +283,3 @@ jest.mock("@shared/ui/TextInput", () => {
 
 jest.mock("@widgets/layouts/ui/horizontallogo.svg", () => () => null);
 jest.mock("@shared/ui/Logo/mainlogo.svg", () => () => null);
-
-/*
-jest.mock("expo-router", () => {
-  const { TouchableOpacity, View } = jest.requireActual("react-native");
-
-  const MockTopTabs = ({ children }: { children: React.ReactNode }) => children;
-  const MockTopTabsScreen = ({
-    name,
-    listeners,
-  }: {
-    name: string;
-    listeners: any;
-  }) => (
-    <TouchableOpacity onPress={listeners.tabPress} testID={`tab-${name}`} />
-  );
-
-  MockTopTabs.Screen = MockTopTabsScreen;
-
-  return {
-    Slot: () => <div data-testid="Slot" />,
-    SplashScreen: {
-      preventAutoHideAsync: jest.fn(),
-      hideAsync: jest.fn(),
-    },
-    Redirect: jest.fn(),
-    router: {
-      canGoBack: jest.fn().mockReturnValue(true),
-      canDismiss: jest.fn().mockReturnValue(true),
-      dismissAll: jest.fn(),
-      push: jest.fn(),
-      back: jest.fn(),
-      replace: jest.fn(),
-      navigate: jest.fn(),
-      setParams: jest.fn(),
-    },
-    useLocalSearchParams: jest.fn().mockReturnValue({ id: "1" }),
-    usePathname: jest.fn(),
-    useFocusEffect: jest.fn(),
-    withLayoutContext: jest.fn().mockReturnValue(MockTopTabs),
-  };
-});
-jest.mock("react-native-svg/css", () => ({
-  SvgCssUri: "SvgCssUri",
-}));
-*/
