@@ -1,0 +1,98 @@
+[
+  {
+    "model": "post.dailysequence",
+    "pk": "2025-06-13",
+    "fields": { "last": 4 }
+  },
+  {
+    "model": "post.post",
+    "pk": 20250613000001,
+    "fields": {
+      "created_at": "2025-06-12T15:55:45.569Z",
+      "updated_at": "2025-06-12T15:55:45.569Z",
+      "forum": 1,
+      "author": "0a1a65f4-a8e4-48bc-b94a-168ca6bf8bf3",
+      "tag": 1,
+      "title": "테스트 게시글",
+      "content": "테스트 게시글 내용..!",
+      "num_views": 0,
+      "is_deleted": false,
+      "deleted_at": null
+    }
+  },
+  {
+    "model": "post.post",
+    "pk": 20250613000002,
+    "fields": {
+      "created_at": "2025-06-12T15:56:22.192Z",
+      "updated_at": "2025-06-12T15:56:22.192Z",
+      "forum": 1,
+      "author": "0a1a65f4-a8e4-48bc-b94a-168ca6bf8bf3",
+      "tag": 4,
+      "title": "올해 한화 왜케 잘함..?!?!?",
+      "content": "??????????",
+      "num_views": 0,
+      "is_deleted": false,
+      "deleted_at": null
+    }
+  },
+  {
+    "model": "post.post",
+    "pk": 20250613000003,
+    "fields": {
+      "created_at": "2025-06-12T16:03:17.535Z",
+      "updated_at": "2025-06-12T16:03:17.535Z",
+      "forum": 1,
+      "author": "0a1a65f4-a8e4-48bc-b94a-168ca6bf8bf3",
+      "tag": 2,
+      "title": "MLB 중계는 어디서 보나요?",
+      "content": "ㅎㅎㅎ",
+      "num_views": 0,
+      "is_deleted": false,
+      "deleted_at": null
+    }
+  },
+  {
+    "model": "post.post",
+    "pk": 20250613000004,
+    "fields": {
+      "created_at": "2025-06-12T17:25:58.719Z",
+      "updated_at": "2025-06-12T17:25:58.719Z",
+      "forum": 1,
+      "author": "0a1a65f4-a8e4-48bc-b94a-168ca6bf8bf3",
+      "tag": 1,
+      "title": "게시글 with 이미지",
+      "content": "게시글 with 이미지",
+      "num_views": 0,
+      "is_deleted": false,
+      "deleted_at": null
+    }
+  },
+  {
+    "model": "post.postimageattachment",
+    "pk": 1,
+    "fields": {
+      "post": 20250613000004,
+      "image": "IMG_0005.jpg",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "post.postimageattachment",
+    "pk": 2,
+    "fields": {
+      "post": 20250613000004,
+      "image": "IMG_0111.jpg",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "post.postimageattachment",
+    "pk": 3,
+    "fields": {
+      "post": 20250613000004,
+      "image": "IMG_0004.jpg",
+      "is_deleted": false
+    }
+  }
+]
