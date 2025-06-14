@@ -14,6 +14,7 @@ export { useCommunity } from "./contexts/useCommunity";
 export { CommunityProvider } from "./contexts/CommunityProvider";
 
 export { CommunityProfile } from "./ui/CommunityProfile";
+export { CommunityChipTag } from "./ui/CommunityTag";
 export { ForumSelect, TagSelect } from "./ui/Selectors";
 
 export { CommunityTestWrapper } from "./utils/CommunityTestWrapper";
