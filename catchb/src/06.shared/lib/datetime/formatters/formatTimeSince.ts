@@ -26,19 +26,19 @@ export function formatTimeSince(
   if (mode === "simple") {
     if (diffSeconds < MINUTE) {
       const s = Math.floor(diffSeconds);
-      return `${s}초전`;
+      return `${s}초 전`;
     }
     if (diffSeconds < HOUR) {
       const m = Math.floor(diffSeconds / MINUTE);
-      return `${m}분전`;
+      return `${m}분 전`;
     }
     if (diffSeconds < DAY) {
       const h = Math.floor(diffSeconds / HOUR);
-      return `${h}시간전`;
+      return `${h}시간 전`;
     }
     if (diffSeconds < WEEK) {
       const d = Math.floor(diffSeconds / DAY);
-      return `${d}일전`;
+      return `${d}일 전`;
     }
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -49,24 +49,24 @@ export function formatTimeSince(
   // Full mode
   if (diffSeconds < MINUTE) {
     const s = Math.floor(diffSeconds);
-    return `${s}초전`;
+    return `${s}초 전`;
   }
   if (diffSeconds < HOUR) {
     const m = Math.floor(diffSeconds / MINUTE);
-    return `${m}분전`;
+    return `${m}분 전`;
   }
   if (diffSeconds < DAY) {
     const h = Math.floor(diffSeconds / HOUR);
-    return `${h}시간전`;
+    return `${h}시간 전`;
   }
   if (diffSeconds < MONTH) {
     const d = Math.floor(diffSeconds / DAY);
-    return `${d}일전`;
+    return `${d}일 전`;
   }
   if (diffSeconds < YEAR) {
     const mo = Math.floor(diffSeconds / MONTH);
-    return `${mo}개월전`;
+    return `${mo}개월 전`;
   }
   const y = Math.floor(diffSeconds / YEAR);
-  return `${y}년전`;
+  return `${y}년 전`;
 }
