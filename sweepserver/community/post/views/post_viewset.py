@@ -9,6 +9,7 @@ from community.permissions import IsAuthor
 from ..models import Post
 from ..paginator import PostPaginator
 from ..serializers import PostDetailSerializer, PostSimpleSerializer
+from ._utils import create_post_read
 
 
 class PostViewSet(ModelViewSet):
@@ -65,6 +66,25 @@ class PostViewSet(ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(self.queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(summary="게시글 상세 조회", tags=["게시글"])
+    def retrieve(self, request, *args, **kwargs):
+        """
+        게시글 상세 조회
+            - 게시글의 상세 정보를 조회할 때 사용됨.
+        """
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+
+        # 게시글 조회 수 증가
+        instance.num_views += 1
+        instance.save(update_fields=["num_views"])
+
+        # 게시글 읽음 기록 생성
+        if request.user.is_authenticated:
+            create_post_read(request, instance)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(summary="게시글 생성", tags=["게시글"])

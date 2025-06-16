@@ -109,3 +109,34 @@ class PostAPITestCase(CatchBAPITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotIn("results", response.data)
         self.assertEqual(len(response.data), 2)
+
+    def test_post_details_success(self):
+        """
+        게시글 상세 조회 성공 테스트.
+        """
+        ## 1. 로그인 한 유저 + 프로필 정보 제공
+        self.client.force_authenticate(user=self.normal_user)
+        response = self.client.get(
+            f"{self.url}20250101000001/", {"profile": self.author_profile.id}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("id", response.data)
+        self.assertEqual(response.data["id"], 20250101000001)
+
+        ## 1-1. 다시 조회
+        response = self.client.get(
+            f"{self.url}20250101000001/", {"profile": self.author_profile.id}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("id", response.data)
+
+        ## 2. 로그인 한 유저 + 프로필 정보 제공하지 않음
+        response = self.client.get(f"{self.url}20250101000001/")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("id", response.data)
+
+        ## 3. 로그인 하지 않은 유저
+        self.client.logout()
+        response = self.client.get(f"{self.url}20250101000001/")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("id", response.data)

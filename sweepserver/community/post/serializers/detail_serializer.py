@@ -73,6 +73,11 @@ class PostDetailSerializer(serializers.ModelSerializer):
     ### 이미지 조회용 read-only 필드
     images = PostImageAttachmentSerializer(many=True, read_only=True)
 
+    ### 통계 필드
+    num_views = serializers.IntegerField(read_only=True)
+    num_likes = serializers.SerializerMethodField()
+    num_comments = serializers.SerializerMethodField()
+
     class Meta:
         model = Post
         fields = [
@@ -87,10 +92,21 @@ class PostDetailSerializer(serializers.ModelSerializer):
             "content",
             "images",
             "image_files",
+            "num_views",
+            "num_likes",
+            "num_comments",
             "created_at",
             "updated_at",
         ]
         read_only_fields = ["id", "images", "created_at", "updated_at"]
+
+    def get_num_likes(self, obj):
+        print(obj)
+        return 0
+
+    def get_num_comments(self, obj):
+        print(obj.title)
+        return 0
 
     def validate(self, attrs):
         """

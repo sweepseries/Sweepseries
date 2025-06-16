@@ -13,7 +13,7 @@ class PostSimpleSerializer(serializers.ModelSerializer):
 
     author = CommunityProfileSerializer(read_only=True)
     tag = TagSerializer(read_only=True)
-    num_views = serializers.SerializerMethodField()
+    num_views = serializers.IntegerField(read_only=True)
     num_likes = serializers.SerializerMethodField()
     num_comments = serializers.SerializerMethodField()
     image = serializers.SerializerMethodField()
@@ -41,9 +41,6 @@ class PostSimpleSerializer(serializers.ModelSerializer):
             return get_presigned_url(obj.images.first().image)
 
         return None
-
-    def get_num_views(self, obj):
-        return obj.num_views
 
     def get_num_likes(self, obj):
         print(obj)
