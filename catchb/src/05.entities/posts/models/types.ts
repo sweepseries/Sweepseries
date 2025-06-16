@@ -37,6 +37,10 @@ export type PostDetailType = {
   title: string;
   content: string;
   images: PostImageType[];
+  num_views: number;
+  num_comments: number;
+  num_likes: number;
+  created_at: string;
 };
 
 export type PostImageType = {

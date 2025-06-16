@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from community.forum.models import Forum, Tag
 from community.profiles.models import CommunityProfile
-from ..models import DailySequence, Post, PostImageAttachment
+from ..models import DailySequence, Post, PostImageAttachment, PostRead
 
 
 class PostModelsTest(TestCase):
@@ -38,3 +38,11 @@ class PostModelsTest(TestCase):
             image="test_image.jpg",
         )
         self.assertEqual(str(attachment), "게시글 1 이미지 첨부")
+
+        post_read = PostRead(
+            id=1,
+            post=post,
+            user_profile=profile,
+            last_read_at=timezone.now(),
+        )
+        self.assertEqual(str(post_read), "홍길동 read (1) [덕아웃] - Test Post")

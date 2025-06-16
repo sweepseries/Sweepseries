@@ -12,7 +12,7 @@ interface Props {
  * 게시글 목록에서, 게시글의 태그를 표시하는 컴포넌트.
  */
 
-export function CommunityTag({ tag }: Readonly<Props>) {
+export function PostTag({ tag }: Readonly<Props>) {
   const { colors } = useColors();
   const styles = tagStyles(colors);
 

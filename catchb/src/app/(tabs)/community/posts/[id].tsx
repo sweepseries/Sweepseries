@@ -1,3 +1,3 @@
-export default function PostDetailPage() {
-  return null;
-}
+import { PostDetailsPage } from "@pages/tabs/community";
+
+export default PostDetailsPage;
