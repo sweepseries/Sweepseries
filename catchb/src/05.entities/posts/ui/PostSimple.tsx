@@ -3,8 +3,8 @@ import { Image } from "expo-image";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { PostSimpleType } from "../models/types";
-import { CommunityStat } from "./_stat";
-import { CommunityTag } from "./_tag";
+import { CommunityStat } from "./CommunityStat";
+import { PostTag } from "./PostTag";
 import { CommunityProfile } from "@entities/community/@x/post";
 import { ThemeColorType, useColors } from "@shared/lib/colors";
 import { formatTimeSince } from "@shared/lib/datetime";
@@ -28,7 +28,7 @@ export function PostSimple({ post }: Readonly<Props>) {
 
   return (
     <Container>
-      <CommunityTag tag={post.tag} />
+      <PostTag tag={post.tag} />
       <HorizontalWrapper>
         <VerticalWrapper>
           <TruncatedText text={post.title} style={styles.title} />
