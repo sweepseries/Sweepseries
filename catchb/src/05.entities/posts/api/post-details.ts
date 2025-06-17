@@ -7,10 +7,10 @@ async function fetchPostDetail(
   id: number,
   profileId?: string
 ): Promise<PostDetailType> {
-  const params = profileId ? { profile: profileId } : undefined;
+  const headers = profileId ? { "X-Profile-ID": profileId } : {};
 
   const response = await axios.get(`/api/v1/posts/${id}/`, {
-    params,
+    headers,
   });
 
   return response.data;

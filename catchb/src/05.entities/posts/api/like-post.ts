@@ -4,8 +4,10 @@ import axios from "axios";
 import { PostDetailType } from "../models/types";
 
 async function likePost(id: number, profileId: string): Promise<void> {
-  await axios.post(`/api/v1/posts/${id}/like/`, {
-    profile: profileId,
+  await axios.post(`/api/v1/posts/${id}/like/`, null, {
+    headers: {
+      "X-Profile-ID": profileId,
+    },
   });
 }
 
