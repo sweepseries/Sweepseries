@@ -13,6 +13,7 @@ import Close from "./files/close.svg";
 import Comment from "./files/comment.svg";
 import Copy from "./files/copy.svg";
 import Desk from "./files/desk.svg";
+import Dots from "./files/dots.svg";
 import Envelope from "./files/envelope.svg";
 import Error from "./files/error.svg";
 import Eye from "./files/eye.svg";
@@ -50,6 +51,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   comment: Comment,
   copy: Copy,
   desk: Desk,
+  dots: Dots,
   envelope: Envelope,
   error: Error,
   eye: Eye,
