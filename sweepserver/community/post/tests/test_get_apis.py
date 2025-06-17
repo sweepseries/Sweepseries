@@ -65,7 +65,7 @@ class GetAPITestCase(PostsAPITestCase):
         ## 1. 로그인 한 유저 + 프로필 정보 제공
         self.client.force_authenticate(user=self.normal_user)
         response = self.client.get(
-            f"{self.url}20250101000001/", {"profile": self.author_profile.id}
+            f"{self.url}20250101000001/", headers=self.post_headers
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn("id", response.data)
@@ -73,7 +73,7 @@ class GetAPITestCase(PostsAPITestCase):
 
         ## 1-1. 다시 조회
         response = self.client.get(
-            f"{self.url}20250101000001/", {"profile": self.author_profile.id}
+            f"{self.url}20250101000001/", headers=self.post_headers
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn("id", response.data)
@@ -88,3 +88,10 @@ class GetAPITestCase(PostsAPITestCase):
         response = self.client.get(f"{self.url}20250101000001/")
         self.assertEqual(response.status_code, 200)
         self.assertIn("id", response.data)
+
+        ## 4. invalid profile (should just pass)
+        self.post_headers["X-Profile-ID"] = "invalid-profile-id"
+        response = self.client.get(
+            f"{self.url}20250101000001/", headers=self.post_headers
+        )
+        self.assertEqual(response.status_code, 200)

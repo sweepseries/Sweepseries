@@ -18,7 +18,7 @@ class PostAPITestCase(PostsAPITestCase):
         mock_get_presigned_url.return_value = "http://example.com/test.png"
         mock_save.return_value = "test.png"
         self.client.force_authenticate(user=self.normal_user)
-        response = self.client.post(self.url, data=self.data)
+        response = self.client.post(self.url, data=self.data, headers=self.post_headers)
         self.assertEqual(response.status_code, 201)
 
     @patch("community.post.serializers.image_serializer.get_presigned_url")
@@ -36,7 +36,9 @@ class PostAPITestCase(PostsAPITestCase):
                 self.uploaded_image_png,
             ],
         }
-        response = self.client.post(self.url, data=data, format="multipart")
+        response = self.client.post(
+            self.url, data=data, format="multipart", headers=self.post_headers
+        )
         self.assertEqual(response.status_code, 201)
 
     def test_create_post_fail_unauthenticated(self):
@@ -46,7 +48,7 @@ class PostAPITestCase(PostsAPITestCase):
         self.client.force_authenticate(user=self.admin)
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.data["error"], "잘못된 요청입니다.")
+        self.assertEqual(response.data["error"], "프로필이 지정되지 않았습니다.")
 
     def test_like_post_success(self):
         """
@@ -56,14 +58,14 @@ class PostAPITestCase(PostsAPITestCase):
         ## 1. like
         self.client.force_authenticate(user=self.normal_user)
         response = self.client.post(
-            f"{self.url}{post.id}/like/", {"profile": self.author_profile.id}
+            f"{self.url}{post.id}/like/", headers=self.post_headers
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(post.likes.count(), 1)
 
         ## 2. unlike
         response = self.client.post(
-            f"{self.url}{post.id}/like/", {"profile": self.author_profile.id}
+            f"{self.url}{post.id}/like/", headers=self.post_headers
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(post.likes.count(), 0)
@@ -80,6 +82,8 @@ class PostAPITestCase(PostsAPITestCase):
         self.assertEqual(response.data["error"], "프로필이 지정되지 않았습니다.")
 
         ## 2. 프로필 정보가 잘못됨
-        response = self.client.post(f"{self.url}{post.id}/like/", {"profile": 9999})
+        response = self.client.post(
+            f"{self.url}{post.id}/like/", headers={"X-Profile-ID": "invalid"}
+        )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data["error"], "프로필이 존재하지 않습니다.")

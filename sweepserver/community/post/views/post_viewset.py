@@ -6,6 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from community.mixins import ProfileContextMixin
 from community.permissions import IsAuthor
 from ..models import Post
 from ..paginator import PostPaginator
@@ -13,7 +14,7 @@ from ..serializers import PostDetailSerializer, PostSimpleSerializer
 from ._utils import create_post_read, like_or_unlike_post
 
 
-class PostViewSet(ModelViewSet):
+class PostViewSet(ModelViewSet, ProfileContextMixin):
     """
     게시글 API
         - url: /v1/posts/
@@ -74,8 +75,10 @@ class PostViewSet(ModelViewSet):
         게시글 상세 조회
             - 게시글의 상세 정보를 조회할 때 사용됨.
         """
+        self.attach_profile(request)  # 프로필 정보 설정
         instance = self.get_object()
-        serializer = self.get_serializer(instance)
+        profile = request.profile
+        serializer = self.get_serializer(instance, context={"profile": profile})
 
         # 게시글 조회 수 증가
         instance.num_views += 1
@@ -93,7 +96,10 @@ class PostViewSet(ModelViewSet):
         게시글 생성
             - 게시글 작성 시, 이미지 업로드도 함께 처리됨.
         """
-        serializer = self.get_serializer(data=request.data)
+        self.attach_profile(request)  # 프로필 정보 설정
+        serializer = self.get_serializer(
+            data=request.data, context={"profile": request.profile}
+        )
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
 
@@ -106,6 +112,7 @@ class PostViewSet(ModelViewSet):
         게시글에 좋아요를 누르거나 취소합니다.
             - 이미 좋아요를 누른 상태라면 취소하고, 그렇지 않다면 좋아요를 누릅니다.
         """
+        self.attach_profile(request)  # 프로필 정보 설정
         post = self.get_object()
         result = like_or_unlike_post(request, post)
 

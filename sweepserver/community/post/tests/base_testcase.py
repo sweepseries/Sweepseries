@@ -20,8 +20,10 @@ class PostsAPITestCase(CatchBAPITestCase):
         self.url = "/api/v1/posts/"
         self.data = {
             "forum_id": 1,
-            "author_id": self.author_profile.id,
             "tag_id": 1,
             "title": "Test Post",
             "content": "This is a test post content.",
+        }
+        self.post_headers = {
+            "X-Profile-ID": str(self.author_profile.id),
         }
