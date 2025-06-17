@@ -17,6 +17,7 @@ import Envelope from "./files/envelope.svg";
 import Error from "./files/error.svg";
 import Eye from "./files/eye.svg";
 import Heart from "./files/heart.svg";
+import HeartOutline from "./files/heart-outline.svg";
 import Home from "./files/home.svg";
 import LightBulb from "./files/lightbulb.svg";
 import Logout from "./files/logout.svg";
@@ -53,6 +54,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   error: Error,
   eye: Eye,
   heart: Heart,
+  "heart-outline": HeartOutline,
   home: Home,
   lightbulb: LightBulb,
   logout: Logout,
