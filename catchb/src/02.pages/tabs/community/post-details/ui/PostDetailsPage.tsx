@@ -9,6 +9,7 @@ import {
 } from "@features/posts/post-details";
 import { useCommunity } from "@entities/community";
 import { CommunityStat } from "@entities/posts";
+import { MenuOptionType } from "@shared/ui/Menus";
 
 export function PostDetailsPage() {
   return (
@@ -20,7 +21,7 @@ export function PostDetailsPage() {
 
 function Components() {
   const { activeProfile } = useCommunity();
-  const { postDetails, isLoading } = usePostDetails();
+  const { postDetails, isLoading, isAuthor } = usePostDetails();
 
   if (isLoading) {
     return (
@@ -32,9 +33,31 @@ function Components() {
 
   if (!postDetails) return null;
 
+  const menuOptions: MenuOptionType[] = isAuthor
+    ? [
+        {
+          label: "수정하기",
+          onPress: () => {},
+        },
+        {
+          label: "삭제하기",
+          onPress: () => {},
+        },
+      ]
+    : [
+        {
+          label: "신고하기",
+          onPress: () => {},
+        },
+        {
+          label: "차단하기",
+          onPress: () => {},
+        },
+      ];
+
   return (
     <Container>
-      <PostDetails postDetails={postDetails} />
+      <PostDetails postDetails={postDetails} menuOptions={menuOptions} />
       <Footer>
         <CommunityStat icon="eye" value={postDetails.num_views} />
         <PostLikeButton
