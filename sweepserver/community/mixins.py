@@ -26,8 +26,8 @@ class ProfileContextMixin:
                 id=profile_id, user=request.user, is_blocked=False, is_deleted=False
             )
             request.profile = profile
-        except (ObjectDoesNotExist, ValidationError):
+        except (ObjectDoesNotExist, ValidationError) as e:
             if request.method == "GET":
                 # GET 요청 시에는 프로필이 없어도 예외를 발생시키지 않음
                 return
-            raise PermissionDenied("프로필이 존재하지 않습니다.")
+            raise PermissionDenied("프로필이 존재하지 않습니다.") from e

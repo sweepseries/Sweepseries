@@ -2,7 +2,6 @@ from rest_framework import serializers
 
 from community.forum.models import Forum, Tag
 from community.forum.serializers import ForumSimpleSerializer, TagSerializer
-from community.profiles.models import CommunityProfile
 from community.profiles.serializers import CommunityProfileSerializer
 from ..models import Post, PostImageAttachment
 from .image_serializer import PostImageAttachmentSerializer
