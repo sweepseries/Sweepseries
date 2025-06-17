@@ -1,6 +1,7 @@
 from drf_spectacular.utils import extend_schema
 from django.db.models import Q
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -9,7 +10,7 @@ from community.permissions import IsAuthor
 from ..models import Post
 from ..paginator import PostPaginator
 from ..serializers import PostDetailSerializer, PostSimpleSerializer
-from ._utils import create_post_read
+from ._utils import create_post_read, like_or_unlike_post
 
 
 class PostViewSet(ModelViewSet):
@@ -22,7 +23,6 @@ class PostViewSet(ModelViewSet):
     queryset = Post.objects.filter(is_deleted=False)
     serializer_class = PostSimpleSerializer
     pagination_class = PostPaginator
-    permission_classes = [AllowAny]
     http_method_names = ["post", "get"]
 
     def get_serializer_class(self):
@@ -30,12 +30,12 @@ class PostViewSet(ModelViewSet):
             return PostSimpleSerializer
         return PostDetailSerializer
 
-    def get_permission_classes(self):
+    def get_permissions(self):
         if self.action in ["list", "retrieve"]:
-            return [AllowAny]
-        if self.action in ["create"]:
-            return [IsAuthenticated]
-        return [IsAuthor]
+            return [AllowAny()]
+        if self.action in ["create", "like"]:
+            return [IsAuthenticated()]
+        return [IsAuthor()]
 
     @extend_schema(summary="게시글 목록 조회", tags=["게시글"])
     def list(self, request, *args, **kwargs):
@@ -98,3 +98,24 @@ class PostViewSet(ModelViewSet):
         self.perform_create(serializer)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @extend_schema(summary="게시글 좋아요/취소", tags=["게시글"])
+    @action(detail=True, methods=["post"], permission_classes=[IsAuthenticated])
+    def like(self, request, *args, **kwargs):
+        """
+        게시글에 좋아요를 누르거나 취소합니다.
+            - 이미 좋아요를 누른 상태라면 취소하고, 그렇지 않다면 좋아요를 누릅니다.
+        """
+        post = self.get_object()
+        result = like_or_unlike_post(request, post)
+
+        return Response(
+            {
+                "message": (
+                    "좋아요가 취소되었습니다."
+                    if not result
+                    else "좋아요가 등록되었습니다."
+                )
+            },
+            status=status.HTTP_200_OK,
+        )

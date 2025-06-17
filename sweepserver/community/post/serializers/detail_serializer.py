@@ -101,8 +101,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "images", "created_at", "updated_at"]
 
     def get_num_likes(self, obj):
-        print(obj)
-        return 0
+        return obj.likes.count()
 
     def get_num_comments(self, obj):
         print(obj.title)
