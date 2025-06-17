@@ -40,6 +40,7 @@ export type PostDetailType = {
   num_views: number;
   num_comments: number;
   num_likes: number;
+  is_liked: boolean;
   created_at: string;
 };
 

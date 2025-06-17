@@ -23,6 +23,7 @@ export const samplePostDetail: PostDetailType = {
   num_views: 100,
   num_comments: 10,
   num_likes: 5,
+  is_liked: false,
   created_at: "2023-10-01T12:00:00Z",
 };
 
