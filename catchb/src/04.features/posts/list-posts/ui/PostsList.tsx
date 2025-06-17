@@ -42,15 +42,15 @@ export function PostsList() {
         testID="posts-list-scrollview"
       >
         <List>
-          {posts.map((post, idx) => (
+          {posts.map((post) => (
             <View key={post.id}>
-              {idx !== 0 && <Divider />}
               <TouchableOpacity
                 onPress={() => goToDetailPage(post.id)}
                 testID={`post-${post.id}`}
               >
                 <PostSimple post={post} />
               </TouchableOpacity>
+              <Divider />
             </View>
           ))}
         </List>

@@ -205,6 +205,7 @@ jest.mock("@shared/ui/Fallbacks", () => {
   const { Text } = jest.requireActual("react-native");
 
   return {
+    ComingSoonBanner: () => null,
     ErrorGuide: ({ message }: { message: string }) => <Text>{message}</Text>,
     LoginNeeded: () => <Text>Login Needed</Text>,
   };

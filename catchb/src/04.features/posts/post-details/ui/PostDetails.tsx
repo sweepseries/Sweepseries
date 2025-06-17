@@ -1,9 +1,8 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
-import { usePostDetails } from "../contexts/usePostDetails";
 import { PostImages } from "./_images";
 import { CommunityProfile } from "@entities/community";
-import { PostTag } from "@entities/posts";
+import { PostDetailType, PostTag } from "@entities/posts";
 import { formatTimeSince } from "@shared/lib/datetime";
 
 /**
@@ -11,11 +10,11 @@ import { formatTimeSince } from "@shared/lib/datetime";
  * - 태그, 작성자 프로실, 작성 시간, 제목, 내용
  */
 
-export function PostDetails() {
-  const { postDetails } = usePostDetails();
+interface Props {
+  postDetails: PostDetailType;
+}
 
-  if (!postDetails) return null;
-
+export function PostDetails({ postDetails }: Readonly<Props>) {
   return (
     <Container>
       <PostTag tag={postDetails.tag} />

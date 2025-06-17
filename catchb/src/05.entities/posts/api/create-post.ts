@@ -19,7 +19,6 @@ async function createPost(data: PostCreateType): Promise<PostDetailType> {
   }
 
   formData.append("forum_id", data.forum_id.toString());
-  formData.append("author_id", data.author_id);
   formData.append("tag_id", data.tag_id.toString());
   formData.append("title", data.title);
   formData.append("content", data.content);
@@ -27,6 +26,7 @@ async function createPost(data: PostCreateType): Promise<PostDetailType> {
   const res = await axios.post<PostDetailType>("/api/v1/posts/", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
+      "X-Profile-ID": data.author_id,
     },
   });
 

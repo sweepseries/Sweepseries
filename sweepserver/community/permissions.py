@@ -8,4 +8,4 @@ class IsAuthor(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         # Check if the user is the author of the object
-        return obj.author.user == request.user
+        return hasattr(request, "profile") and request.profile == obj.author

@@ -1,12 +1,14 @@
-import styled from "styled-components/native";
+import styled, { DefaultTheme } from "styled-components/native";
 
+import { PostLikeButton } from "@features/posts/like-post";
 import {
   LoadingPostDetails,
-  PostDetailFooter,
   PostDetails,
   PostDetailsProvider,
   usePostDetails,
 } from "@features/posts/post-details";
+import { useCommunity } from "@entities/community";
+import { CommunityStat } from "@entities/posts";
 
 export function PostDetailsPage() {
   return (
@@ -17,7 +19,8 @@ export function PostDetailsPage() {
 }
 
 function Components() {
-  const { isLoading } = usePostDetails();
+  const { activeProfile } = useCommunity();
+  const { postDetails, isLoading } = usePostDetails();
 
   if (isLoading) {
     return (
@@ -27,14 +30,32 @@ function Components() {
     );
   }
 
+  if (!postDetails) return null;
+
   return (
     <Container>
-      <PostDetails />
-      <PostDetailFooter />
+      <PostDetails postDetails={postDetails} />
+      <Footer>
+        <CommunityStat icon="eye" value={postDetails.num_views} />
+        <PostLikeButton
+          postDetails={postDetails}
+          profileId={activeProfile?.id}
+        />
+        <CommunityStat icon="comment" value={postDetails.num_comments} />
+      </Footer>
     </Container>
   );
 }
 
 const Container = styled.View`
   flex: 1;
+`;
+
+const Footer = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 8px 16px;
+  gap: 12px;
+  background-color: ${({ theme }: { theme: DefaultTheme }) =>
+    theme.colors.background};
 `;

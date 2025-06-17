@@ -2,7 +2,6 @@ from rest_framework import serializers
 
 from community.forum.models import Forum, Tag
 from community.forum.serializers import ForumSimpleSerializer, TagSerializer
-from community.profiles.models import CommunityProfile
 from community.profiles.serializers import CommunityProfileSerializer
 from ..models import Post, PostImageAttachment
 from .image_serializer import PostImageAttachmentSerializer
@@ -45,15 +44,6 @@ class PostDetailSerializer(serializers.ModelSerializer):
             "required": "게시판을 선택해주세요.",
         },
     )
-    author_id = serializers.PrimaryKeyRelatedField(
-        source="author",
-        queryset=CommunityProfile.objects.all(),
-        write_only=True,
-        error_messages={
-            "does_not_exist": BAD_REQUEST_ERROR_TEXT,
-            "required": BAD_REQUEST_ERROR_TEXT,
-        },
-    )
     tag_id = serializers.PrimaryKeyRelatedField(
         source="tag",
         queryset=Tag.objects.all(),
@@ -77,6 +67,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
     num_views = serializers.IntegerField(read_only=True)
     num_likes = serializers.SerializerMethodField()
     num_comments = serializers.SerializerMethodField()
+    is_liked = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -85,7 +76,6 @@ class PostDetailSerializer(serializers.ModelSerializer):
             "forum",
             "forum_id",
             "author",
-            "author_id",
             "tag",
             "tag_id",
             "title",
@@ -95,38 +85,32 @@ class PostDetailSerializer(serializers.ModelSerializer):
             "num_views",
             "num_likes",
             "num_comments",
+            "is_liked",
             "created_at",
             "updated_at",
         ]
         read_only_fields = ["id", "images", "created_at", "updated_at"]
 
     def get_num_likes(self, obj):
-        print(obj)
-        return 0
+        return obj.likes.count()
 
     def get_num_comments(self, obj):
         print(obj.title)
         return 0
 
-    def validate(self, attrs):
+    def get_is_liked(self, obj):
         """
-        유효성 검사
-        - 작성자 유효성 검사: 현재 로그인한 사용자의 프로필과 일치하는지 확인
+        현재 사용자가 게시글에 좋아요를 눌렀는지 여부를 반환합니다.
         """
-        user = self.context["request"].user
-        author = attrs.get("author")
-
-        if author.user != user:
-            raise serializers.ValidationError(BAD_REQUEST_ERROR_TEXT)
-
-        return attrs
+        profile = self.context["profile"]
+        return obj.likes.filter(user_profile=profile).exists()
 
     def create(self, validated_data):
         """
         게시글 생성 시 이미지 파일 처리
         """
         image_files = validated_data.pop("image_files", [])
-        post = Post.objects.create(**validated_data)
+        post = Post.objects.create(**validated_data, author=self.context["profile"])
 
         for image_file in image_files:
             PostImageAttachment.objects.create(post=post, image=image_file)
