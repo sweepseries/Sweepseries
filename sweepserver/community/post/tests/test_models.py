@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from community.forum.models import Forum, Tag
 from community.profiles.models import CommunityProfile
-from ..models import DailySequence, Post, PostImageAttachment, PostRead
+from ..models import DailySequence, Post, PostImageAttachment, PostRead, PostLike
 
 
 class PostModelsTest(TestCase):
@@ -46,3 +46,10 @@ class PostModelsTest(TestCase):
             last_read_at=timezone.now(),
         )
         self.assertEqual(str(post_read), "홍길동 read (1) [덕아웃] - Test Post")
+
+        post_like = PostLike(
+            id=1,
+            post=post,
+            user_profile=profile,
+        )
+        self.assertEqual(str(post_like), "홍길동 liked (1) [덕아웃] - Test Post")
