@@ -1,4 +1,5 @@
 export { useCreatePost } from "./api/create-post";
+export { useDeletePost } from "./api/delete-post";
 export { useLikePost } from "./api/like-post";
 export { usePosts } from "./api/list-posts";
 export { usePostDetail } from "./api/post-details";
