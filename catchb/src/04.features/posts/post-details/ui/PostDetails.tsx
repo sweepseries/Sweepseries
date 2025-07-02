@@ -1,12 +1,15 @@
+import { TouchableOpacity } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
 
+import { usePostDetails } from "../contexts/usePostDetails";
+import { MenuItemType } from "../models/types";
 import { PostImages } from "./_images";
+import { Menu } from "./_menu";
 import { CommunityProfile } from "@entities/community";
 import { PostDetailType, PostTag } from "@entities/posts";
+import { useColors } from "@shared/lib/colors";
 import { formatTimeSince } from "@shared/lib/datetime";
 import { AppIcon } from "@shared/ui/Icons";
-import { DropdownMenu, MenuOptionType } from "@shared/ui/Menus";
-import { useColors } from "@shared/lib/colors";
 
 /**
  * 게시글 내용
@@ -15,14 +18,16 @@ import { useColors } from "@shared/lib/colors";
 
 interface Props {
   postDetails: PostDetailType;
-  menuOptions: MenuOptionType[];
+  menuItems: MenuItemType[];
 }
 
-export function PostDetails({ postDetails, menuOptions }: Readonly<Props>) {
+export function PostDetails({ postDetails, menuItems }: Readonly<Props>) {
+  const { openMenu, closeMenu } = usePostDetails();
+
   const { colors } = useColors();
 
   return (
-    <Container>
+    <Container onPress={closeMenu} testID="outside">
       <PostTag tag={postDetails.tag} />
       <Header>
         <ProfileWrapper>
@@ -32,9 +37,11 @@ export function PostDetails({ postDetails, menuOptions }: Readonly<Props>) {
             {formatTimeSince(new Date(postDetails.created_at))}
           </TimeSinceText>
         </ProfileWrapper>
-        <DropdownMenu options={menuOptions}>
-          <AppIcon icon="dots" size={16} color={colors.lowEmphasis} />
-        </DropdownMenu>
+        <Menu items={menuItems}>
+          <TouchableOpacity onPress={openMenu} testID="menu">
+            <AppIcon icon="dots" size={16} color={colors.lowEmphasis} />
+          </TouchableOpacity>
+        </Menu>
       </Header>
       <Title>{postDetails.title}</Title>
       <Content>{postDetails.content}</Content>
@@ -45,7 +52,7 @@ export function PostDetails({ postDetails, menuOptions }: Readonly<Props>) {
   );
 }
 
-const Container = styled.View`
+const Container = styled.Pressable`
   padding: 8px 16px;
   gap: 8px;
   background-color: ${({ theme }: { theme: DefaultTheme }) =>

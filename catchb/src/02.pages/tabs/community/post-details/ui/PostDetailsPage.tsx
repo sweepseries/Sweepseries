@@ -1,15 +1,16 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
+import { DeletePostButton } from "@features/posts/delete-post";
 import { PostLikeButton } from "@features/posts/like-post";
 import {
   LoadingPostDetails,
+  MenuItemType,
   PostDetails,
   PostDetailsProvider,
   usePostDetails,
 } from "@features/posts/post-details";
 import { useCommunity } from "@entities/community";
 import { CommunityStat } from "@entities/posts";
-import { MenuOptionType } from "@shared/ui/Menus";
 
 export function PostDetailsPage() {
   return (
@@ -21,7 +22,7 @@ export function PostDetailsPage() {
 
 function Components() {
   const { activeProfile } = useCommunity();
-  const { postDetails, isLoading, isAuthor } = usePostDetails();
+  const { postDetails, isLoading, isAuthor, closeMenu } = usePostDetails();
 
   if (isLoading) {
     return (
@@ -33,31 +34,28 @@ function Components() {
 
   if (!postDetails) return null;
 
-  const menuOptions: MenuOptionType[] = isAuthor
+  const menuOptions: MenuItemType[] = isAuthor
     ? [
+        //수정하기 버튼
         {
-          label: "수정하기",
-          onPress: () => {},
-        },
-        {
-          label: "삭제하기",
-          onPress: () => {},
+          key: "delete-post",
+          component: (
+            <DeletePostButton
+              postId={postDetails.id}
+              profileId={activeProfile!.id}
+              closeMenu={closeMenu}
+            />
+          ),
         },
       ]
     : [
-        {
-          label: "신고하기",
-          onPress: () => {},
-        },
-        {
-          label: "차단하기",
-          onPress: () => {},
-        },
+        //신고하기 버튼,
+        //차단하기 버튼,
       ];
 
   return (
     <Container>
-      <PostDetails postDetails={postDetails} menuOptions={menuOptions} />
+      <PostDetails postDetails={postDetails} menuItems={menuOptions} />
       <Footer>
         <CommunityStat icon="eye" value={postDetails.num_views} />
         <PostLikeButton
