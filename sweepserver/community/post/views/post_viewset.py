@@ -1,5 +1,6 @@
 from drf_spectacular.utils import extend_schema
 from django.db.models import Q
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -24,7 +25,7 @@ class PostViewSet(ModelViewSet, ProfileContextMixin):
     queryset = Post.objects.filter(is_deleted=False)
     serializer_class = PostSimpleSerializer
     pagination_class = PostPaginator
-    http_method_names = ["post", "get"]
+    http_method_names = ["post", "get", "delete"]
 
     def get_serializer_class(self):
         if self.action in ["list"]:
@@ -104,6 +105,20 @@ class PostViewSet(ModelViewSet, ProfileContextMixin):
         self.perform_create(serializer)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @extend_schema(summary="게시글 삭제", tags=["게시글"])
+    def destroy(self, request, *args, **kwargs):
+        """
+        게시글 삭제
+            - 게시글을 삭제할 때는 실제로 삭제하지 않고, is_deleted 필드를 True로 설정하여 논리적으로 삭제함.
+        """
+        self.attach_profile(request)
+        instance = self.get_object()
+        instance.is_deleted = True
+        instance.deleted_at = timezone.now()
+        instance.save(update_fields=["is_deleted", "deleted_at"])
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @extend_schema(summary="게시글 좋아요/취소", tags=["게시글"])
     @action(detail=True, methods=["post"], permission_classes=[IsAuthenticated])

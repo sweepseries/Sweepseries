@@ -4,6 +4,9 @@ import { PostDetailType } from "@entities/posts";
 
 export type PostDetailsContextType = {
   postDetails: PostDetailType | null;
+  isMenuOpen: boolean;
+  openMenu: () => void;
+  closeMenu: () => void;
   isLoading: boolean;
   isAuthor: boolean;
 };

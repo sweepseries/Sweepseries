@@ -13,6 +13,7 @@ import Close from "./files/close.svg";
 import Comment from "./files/comment.svg";
 import Copy from "./files/copy.svg";
 import Desk from "./files/desk.svg";
+import Dots from "./files/dots.svg";
 import Envelope from "./files/envelope.svg";
 import Error from "./files/error.svg";
 import Eye from "./files/eye.svg";
@@ -28,6 +29,7 @@ import PersonCircle from "./files/person-circle.svg";
 import PersonMinus from "./files/person-minus.svg";
 import QuestionmarkCircle from "./files/questionmark-circle.svg";
 import Search from "./files/search.svg";
+import Trash from "./files/trash.svg";
 import WarningCircle from "./files/warning-circle.svg";
 
 interface Props {
@@ -50,6 +52,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   comment: Comment,
   copy: Copy,
   desk: Desk,
+  dots: Dots,
   envelope: Envelope,
   error: Error,
   eye: Eye,
@@ -65,6 +68,7 @@ const iconMap: Record<string, React.FC<SvgProps>> = {
   "person-minus": PersonMinus,
   "questionmark-circle": QuestionmarkCircle,
   search: Search,
+  trash: Trash,
   "warning-circle": WarningCircle,
 };
 

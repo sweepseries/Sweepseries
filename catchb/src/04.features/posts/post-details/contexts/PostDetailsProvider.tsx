@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 
 import { PostDetailsContext, PostDetailsContextType } from "./usePostDetails";
@@ -33,6 +33,8 @@ function InnerProvider({
   id: number;
   children: React.ReactNode;
 }>) {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
   const { activeProfile } = useCommunity();
   const {
     data: postDetails,
@@ -40,6 +42,14 @@ function InnerProvider({
     isError,
   } = usePostDetail(id, activeProfile?.id);
   const { showAlert } = useAlert();
+
+  const openMenu = useCallback(() => {
+    setMenuOpen(true);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+  }, []);
 
   const isAuthor = useMemo(() => {
     if (!postDetails || !activeProfile) return false;
@@ -59,10 +69,13 @@ function InnerProvider({
   const value = useMemo<PostDetailsContextType>(
     () => ({
       postDetails: postDetails ?? null,
+      isMenuOpen: menuOpen,
+      openMenu,
+      closeMenu,
       isLoading,
       isAuthor,
     }),
-    [postDetails, isLoading, isAuthor]
+    [postDetails, menuOpen, isLoading, isAuthor, openMenu, closeMenu]
   );
 
   return (

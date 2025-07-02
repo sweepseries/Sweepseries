@@ -1,9 +1,15 @@
+import { TouchableOpacity } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
 
+import { usePostDetails } from "../contexts/usePostDetails";
+import { MenuItemType } from "../models/types";
 import { PostImages } from "./_images";
+import { Menu } from "./_menu";
 import { CommunityProfile } from "@entities/community";
 import { PostDetailType, PostTag } from "@entities/posts";
+import { useColors } from "@shared/lib/colors";
 import { formatTimeSince } from "@shared/lib/datetime";
+import { AppIcon } from "@shared/ui/Icons";
 
 /**
  * 게시글 내용
@@ -12,19 +18,31 @@ import { formatTimeSince } from "@shared/lib/datetime";
 
 interface Props {
   postDetails: PostDetailType;
+  menuItems: MenuItemType[];
 }
 
-export function PostDetails({ postDetails }: Readonly<Props>) {
+export function PostDetails({ postDetails, menuItems }: Readonly<Props>) {
+  const { openMenu, closeMenu } = usePostDetails();
+
+  const { colors } = useColors();
+
   return (
-    <Container>
+    <Container onPress={closeMenu} testID="outside">
       <PostTag tag={postDetails.tag} />
-      <ProfileWrapper>
-        <CommunityProfile profile={postDetails.author} size={24} />
-        <ProfileNameText>{postDetails.author.name}</ProfileNameText>
-        <TimeSinceText>
-          {formatTimeSince(new Date(postDetails.created_at))}
-        </TimeSinceText>
-      </ProfileWrapper>
+      <Header>
+        <ProfileWrapper>
+          <CommunityProfile profile={postDetails.author} size={24} />
+          <ProfileNameText>{postDetails.author.name}</ProfileNameText>
+          <TimeSinceText>
+            {formatTimeSince(new Date(postDetails.created_at))}
+          </TimeSinceText>
+        </ProfileWrapper>
+        <Menu items={menuItems}>
+          <TouchableOpacity onPress={openMenu} testID="menu">
+            <AppIcon icon="dots" size={16} color={colors.lowEmphasis} />
+          </TouchableOpacity>
+        </Menu>
+      </Header>
       <Title>{postDetails.title}</Title>
       <Content>{postDetails.content}</Content>
       {postDetails.images.length > 0 && (
@@ -34,7 +52,7 @@ export function PostDetails({ postDetails }: Readonly<Props>) {
   );
 }
 
-const Container = styled.View`
+const Container = styled.Pressable`
   padding: 8px 16px;
   gap: 8px;
   background-color: ${({ theme }: { theme: DefaultTheme }) =>
@@ -44,6 +62,10 @@ const Container = styled.View`
 const Horizontal = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+const Header = styled(Horizontal)`
+  justify-content: space-between;
 `;
 
 const ProfileWrapper = styled(Horizontal)`

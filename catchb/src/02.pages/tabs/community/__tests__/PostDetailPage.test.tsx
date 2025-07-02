@@ -79,6 +79,44 @@ describe("PostDetailsPage", () => {
     });
   });
 
+  it("handles delete correctly", async () => {
+    const { getByTestId } = renderWithProviders(
+      <CommunityTestWrapper>
+        <PostDetailsPage />
+      </CommunityTestWrapper>
+    );
+
+    await waitFor(() => {
+      expect(getByTestId("menu")).toBeTruthy();
+    });
+
+    // 1회 실패: API 오류
+    jest
+      .spyOn(axios, "delete")
+      .mockRejectedValueOnce({ response: { data: { error: "API Error" } } });
+    fireEvent.press(getByTestId("menu"));
+    fireEvent.press(getByTestId("delete-post-button"));
+
+    await waitFor(() => {
+      expect(showAlertMock).toHaveBeenCalledWith({
+        title: "오류 발생",
+        message: "게시글 삭제에 실패했습니다. 다시 시도해주세요.",
+      });
+    });
+
+    // 2회 성공
+    jest.spyOn(axios, "delete").mockResolvedValue({});
+    fireEvent.press(getByTestId("menu"));
+    fireEvent.press(getByTestId("delete-post-button"));
+
+    await waitFor(() => {
+      expect(showAlertMock).toHaveBeenCalledWith({
+        title: "성공",
+        message: "게시글이 삭제되었습니다.",
+      });
+    });
+  });
+
   it("renders post details for unauthenticated user", async () => {
     const { getByText } = renderWithProviders(
       <CommunityTestWrapper override={{ activeProfile: null }}>
